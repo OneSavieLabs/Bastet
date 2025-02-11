@@ -1,4 +1,4 @@
-![](cattt.jpg)
+<img src="cattt.jpg"  width="70%">
 
 ## Bastet
 Bastet is a comprehensive dataset of common smart contract vulnerabilities in DeFi along with an AI-driven automated detection process to enhance vulnerability detection accuracy and optimize security lifecycle management.
@@ -9,34 +9,34 @@ Bastet covers common vulnerabilities in DeFi, including medium- to high-risk vul
 In addition, Bastet integrates an AI-driven automated vulnerability detection process. By designing tailored detection workflows, Bastet enhances AI's accuracy in identifying vulnerabilities, with the goal of optimizing security lifecycle management—from development and auditing to ongoing monitoring.
 
 We strive to improve overall security coverage and warmly welcome contributions of additional vulnerability types, datasets, or improved AI detection methodologies.
-Please refer to our Contributing Guidelines.
+Please refer to our [Contributing Guidelines](CONTRIBUTING.md).
 Together, we can drive the industry's security development forward.
+
 ```
 Bastet/
-│── vulnerabilities/                  
-│   ├── slippage-minAmountOut/                    
-│   │   ├── on-chain/                   
-│   │   ├── audit-competitions/         
-│   │   ├── secure-implementations/     
-│   │   ├── prompts/                     
-│   │   │   ├── detection-prompt.txt      
-│   │   │   ├── README.md
-│   │   │   
-│   │   ├── README.md  
-│   
+│── categories/                  
+│   ├── (Type)/                  
+│   │   ├── (Scenario)/                    
+│   │   │   ├── on-chain-vulnerabilities/                   
+│   │   │   ├── audit-competitions-findings/         
+│   │   │   ├── secure-implementations/     
+│   │   │   ├── README.md          
+├── workflow/ 
+│   ├── README.md    
+├── README.md
 
 ```
 
 ## How to install
 
-## Local n8n Setup
+### Local n8n Setup
 
-### Prerequisites
+**Prerequisites**
 
 - Docker installed on your machine
 - Docker Compose installed on your machine
 
-### Installation Steps
+**Installation Steps**
 
 1. Start n8n:
 
@@ -53,3 +53,12 @@ docker compose up -d
 5. Click the Save button to save the workflow.
 
 6. Click the Run button to run the workflow.
+
+
+## Disclaimer
+Bastet is for research and educational purposes only. Anyone who discovers a vulnerability should adhere to the principles of Responsible Disclosure and ensure compliance with applicable laws and regulations. We do not encourage or support any unauthorized testing, attacks, or abusive behavior, and users assume all associated risks.
+
+
+## License
+Apache License 2.0
+
