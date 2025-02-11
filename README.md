@@ -29,6 +29,31 @@ Bastet/
 
 ## How to install
 
+### Local n8n Setup
+
+**Prerequisites**
+
+- Docker installed on your machine
+- Docker Compose installed on your machine
+
+**Installation Steps**
+
+1. Start n8n:
+
+```bash
+docker compose up -d
+```
+
+2. Access the n8n dashboard, Open your browser and navigate to `http://localhost:5678`
+
+3. Create a new workflow, import the workflow from the `n8n/workflows` directory.
+
+4. Click the OpenAI node, and add your OpenAI API key.
+
+5. Click the Save button to save the workflow.
+
+6. Click the Run button to run the workflow.
+
 
 ## Disclaimer
 Bastet is for research and educational purposes only. Anyone who discovers a vulnerability should adhere to the principles of Responsible Disclosure and ensure compliance with applicable laws and regulations. We do not encourage or support any unauthorized testing, attacks, or abusive behavior, and users assume all associated risks.
@@ -36,3 +61,4 @@ Bastet is for research and educational purposes only. Anyone who discovers a vul
 
 ## License
 Apache License 2.0
+
