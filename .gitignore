@@ -1,1 +1,7 @@
 .DS_Store
+
+# Environment Variables
+.env
+.env.local
+.env.*
+!.env.example
