@@ -74,8 +74,6 @@ def scan_contract(file_path):
             headers={'Content-Type': 'application/json', 'X-API-Key': '1234567890'}
         )
 
-        print(response.json())
-
         if response.status_code != 200:
             error_details = response.json()
             raise Exception(f"Failed to scan contract: {error_details.get('message')}")
