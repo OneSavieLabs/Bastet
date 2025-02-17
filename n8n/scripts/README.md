@@ -31,6 +31,12 @@ N8N_WEBHOOK_URL=your_n8n_webhook_url
 
 ### Scan Contracts
 
+Navigate to the scripts directory containing the scanning scripts:
+
+```bash
+cd n8n/scripts
+```
+
 The main script `scan.py` will recursively scan all `.sol` files in the specified directory:
 
 ```bash
