@@ -1,0 +1,22 @@
+[project]
+name = "bastet"
+version = "0.1.0"
+description = ""
+authors = [
+    {name = "OneSavie Lab"}
+]
+license = {text = "Apache 2.0"}
+readme = "README.md"
+requires-python = ">=3.10"
+dependencies = [
+    "psycopg2-binary (>=2.9.10,<3.0.0)",
+    "requests (>=2.32.3,<3.0.0)",
+    "python-dotenv (>=1.0.1,<2.0.0)"
+]
+
+[build-system]
+requires = ["poetry-core>=2.0.0,<3.0.0"]
+build-backend = "poetry.core.masonry.api"
+
+[tool.poetry]
+package-mode = false
