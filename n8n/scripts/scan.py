@@ -4,6 +4,7 @@ import requests
 import psycopg2
 import json
 from dotenv import load_dotenv
+from tqdm import tqdm
 
 load_dotenv()
 
@@ -134,10 +135,13 @@ def main(folder_path):
     success_count = 0
     error_count = 0
 
-    for file_path in contract_files:
+    for file_path in tqdm(contract_files, 
+                         desc="Processing contracts", 
+                         unit="file",
+                         ncols=100,
+                         colour='blue',
+                         bar_format='{desc}: {percentage:3.0f}%|{bar}| {n_fmt}/{total_fmt} files [Time: {elapsed}]'):
         try:
-            print(f"Processing: {file_path}")
-            
             relative_path = os.path.relpath(file_path, folder_path)
             
             # scan the contract
@@ -147,17 +151,19 @@ def main(folder_path):
             insert_analysis_result(relative_path, result)
             success_count += 1
             
-            print(f"Successfully processed: {relative_path}")
+            tqdm.write("\033[92m✅ Successfully processed: {}\033[0m".format(relative_path))
             
         except Exception as e:
             error_count += 1
-            print(f"Error processing {file_path}: {str(e)}")
+            tqdm.write("\033[91m❌ Error processing {}: {}\033[0m".format(file_path, str(e)))
 
-    print('-' * 100)
-    print("\nProcessing Summary:")
-    print(f"Total files: {total_files}")
-    print(f"Successfully processed: {success_count}")
-    print(f"Errors: {error_count}")
+    print('\n' + '=' * 50)
+    print("📊 Processing Summary".center(50))
+    print('=' * 50)
+    print(f"📁 Total files processed: {total_files}")
+    print(f"✅ Successfully processed: {success_count}")
+    print(f"❌ Errors encountered: {error_count}")
+    print('=' * 50 + '\n')
 
 if __name__ == "__main__":
     import sys
