@@ -42,5 +42,5 @@ Please place the submitted contract in the correct folder based on its type and 
 - audit-competitions-findings/ : 
 [yyyy-mm-contest_name-contract_name]
 - on-chain-vulnerabilities/ : [chain-address-contract_name].sol
-- audit-competitions-findings/: 
+- secure-implementations/: 
 [chain-address-contract_name].sol
