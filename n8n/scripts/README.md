@@ -11,13 +11,20 @@ A collection of Python scripts for batch scanning and analyzing smart contracts.
 
 ## Installation
 
-1. Install dependencies using Poetry:
+1. Follow the n8n installation steps in the [main README](../../README.md#local-n8n-setup)
+
+2. Setup environment:
 
 ```bash
+# Initialize virtual environment and install dependencies
+poetry shell
 poetry install
+
+# Create and configure your .env file
+cp .env.example .env
 ```
 
-2. Configure environment variables in `.env`:
+3. Configure environment variables in `.env`:
 
 ```env
 POSTGRES_HOST=localhost
@@ -27,7 +34,10 @@ POSTGRES_PORT=5432
 N8N_WEBHOOK_URL=your_n8n_webhook_url
 ```
 
-3. Remove the example.sol, and add your smart contracts to the `n8n/examples` folder.
+4. Add your smart contracts:
+
+- Remove `example.sol`
+- Place your `.sol` files in `n8n/examples/`
 
 ## Usage
 
