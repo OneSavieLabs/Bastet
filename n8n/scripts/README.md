@@ -27,6 +27,8 @@ POSTGRES_PORT=5432
 N8N_WEBHOOK_URL=your_n8n_webhook_url
 ```
 
+3. Remove the example.sol, and add your smart contracts to the `n8n/examples` folder.
+
 ## Usage
 
 ### Scan Contracts
