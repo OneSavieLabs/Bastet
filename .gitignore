@@ -5,3 +5,13 @@
 .env.local
 .env.*
 !.env.example
+
+.idea/*
+.python-version
+.vscode/*
+
+/docs/site/*
+.mypy_cache
+
+.venv
+/poetry.toml
