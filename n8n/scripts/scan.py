@@ -102,6 +102,7 @@ def insert_analysis_result(cur, file_path, result):
 
 def main(folder_path):
     print('Scanning contracts...')
+    # TODO: move create_database, create_table to migration script
     try:
         create_database()
         create_table()
