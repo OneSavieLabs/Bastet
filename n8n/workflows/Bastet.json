@@ -1,0 +1,488 @@
+{
+  "name": "Bastet",
+  "nodes": [
+    {
+      "parameters": {
+        "options": {}
+      },
+      "id": "222adba1-3bff-4c7e-a002-bde9d53f4cb7",
+      "name": "When chat message received",
+      "type": "@n8n/n8n-nodes-langchain.chatTrigger",
+      "typeVersion": 1.1,
+      "position": [
+        -1260,
+        1720
+      ],
+      "webhookId": "1fd9eba9-f00b-4c9a-b48f-3695c1e6941b"
+    },
+    {
+      "parameters": {
+        "modelId": {
+          "__rl": true,
+          "value": "gpt-4o-mini",
+          "mode": "list",
+          "cachedResultName": "GPT-4O-MINI"
+        },
+        "messages": {
+          "values": [
+            {
+              "content": "=You are a smart contract auditor. After reading the following vulnerability knowledge and understanding correct and incorrect examples, detect the problem in the contract code.\n\n### Vulnerability Knowledge\n\n**Not Checking For Stale Prices**\nWhen a smart contract calls Chainlink’s price feed (e.g., latestRoundData()), it fails to verify whether the returned data is outdated. Without checking the latest update time, the contract may use stale data for calculations, resulting in financial losses for users or protocols.\n\n### Examples\n\n#### Example 1: Incorrect Example (No check on updatedAt parameter)\n\n  ```solidity\n  // @audit no check for stale price data\n  (, int256 price, , , ) = priceFeedDAIETH.latestRoundData();\n\n  return\n      (wethPriceUSD * 1e18) /\n      ((DAIWethPrice + uint256(price) * 1e10) / 2);\n  ```\n\n#### Example 2: Correct Example (Verifying update time)\n\n  ```solidity\n  // @audit fixed to check for stale price data\n  (, int256 price, , uint256 updatedAt, ) = priceFeedDAIETH.latestRoundData();\n\n  if (updatedAt < block.timestamp - 60 * 60 /* 1 hour */) {\n     revert(\"stale price feed\");\n  }\n\n  return\n      (wethPriceUSD * 1e18) /\n      ((DAIWethPrice + uint256(price) * 1e10) / 2);\n  ```\n\n**Suggestion**\n\nSet a reasonable stale threshold based on the \"Heartbeat\" interval of the price feed being used. This value can be found by selecting the \"Show More Details\" option in Chainlink’s official list.\n\n### Task to Perform\nFollow the examples above to examine each contract and check if it contains this issue. If you find any potential issues, record them using the format below.\n\n### Output Format\n\nIf NO concrete vulnerability found, output exactly: **\"There’s no such issue.\"**\n\nOtherwise, follow the format below:\n\n```\n### Summary\nNot Checking For Stale Prices\n\n### Vulnerability Details\n1. **File Name:** [Insert File Name\u001d, if input is not a file and cannot justify file name, leave blank]\n2. **Function Name(s):** [The functions where the issue occur]\n3. **Description:**\n[Describe vulnerability details]\n\n### Code Snippet\n[The lines where the vulnerability occurs]\n\n### Recommendation\n[Provide brief recommendations, do not need to mention Audit and Testing, do not need Code Snippet.]\n```",
+              "role": "system"
+            },
+            {
+              "content": "={{ $json.chatInput }}"
+            }
+          ]
+        },
+        "jsonOutput": true,
+        "options": {}
+      },
+      "type": "@n8n/n8n-nodes-langchain.openAi",
+      "typeVersion": 1.7,
+      "position": [
+        -20,
+        620
+      ],
+      "id": "1b8ade0d-642b-46f1-b027-2cde8f511efc",
+      "name": "Chainlink-Not Checking For Stale Prices",
+      "credentials": {
+        "openAiApi": {
+          "id": "FoBpFXcmVQSivgx6",
+          "name": "OpenAi account"
+        }
+      }
+    },
+    {
+      "parameters": {
+        "content": "## Knowledge:\nChainlink\nhttps://medium.com/cyfrin/chainlink-oracle-defi-attacks-93b6cb6541bf#99af",
+        "height": 120,
+        "width": 540
+      },
+      "type": "n8n-nodes-base.stickyNote",
+      "typeVersion": 1,
+      "position": [
+        -1900,
+        1720
+      ],
+      "id": "77592959-20ef-4fe6-a381-a5a67520c572",
+      "name": "Sticky Note"
+    },
+    {
+      "parameters": {
+        "content": "### Not Checking For Stale Prices\nhttps://github.com/sherlock-audit/2023-05-USSD/blob/main/ussd-contracts/contracts/oracles/StableOracleDAI.sol#L48",
+        "width": 380
+      },
+      "type": "n8n-nodes-base.stickyNote",
+      "typeVersion": 1,
+      "position": [
+        400,
+        580
+      ],
+      "id": "2f299a09-0b03-4493-8cb5-1d01e0f9158b",
+      "name": "Sticky Note1"
+    },
+    {
+      "parameters": {
+        "modelId": {
+          "__rl": true,
+          "value": "gpt-4o-mini",
+          "mode": "list",
+          "cachedResultName": "GPT-4O-MINI"
+        },
+        "messages": {
+          "values": [
+            {
+              "content": "=You are a smart contract auditor. After reading the following vulnerability knowledge and understanding correct and incorrect examples, detect the problem in the contract code.\n\n### Vulnerability Knowledge\n\n**Not Checking For Down L2 Sequencer**\nWhen using Chainlink data on L2 chains like Arbitrum, if the L2 Sequencer is down, the feed may return seemingly “fresh” data that is actually unreliable.\n\n### Examples\n\n#### Example 1: Incorrect Example (_validateAndGetPrice() doesn't check If Arbitrum sequencer is down in Chainlink feeds)\n\n  ```solidity\nsolidity function _validateAndGetPrice(AggregatorV2V3Interface feed_, uint48 updateThreshold_)\n        internal\n        view\n        returns (uint256)\n    {\n        // Get latest round data from feed\n        (uint80 roundId, int256 priceInt, , uint256 updatedAt, uint80 answeredInRound) = feed_\n            .latestRoundData();\n        // @audit check if Arbitrum L2 sequencer is down in Chainlink feeds: medium\n        // Validate chainlink price feed data\n        // 1. Answer should be greater than zero\n        // 2. Updated at timestamp should be within the update threshold\n        // 3. Answered in round ID should be the same as the round ID\n        if (\n            priceInt <= 0 ||\n            updatedAt < block.timestamp - uint256(updateThreshold_) ||\n            answeredInRound != roundId\n        ) revert BondOracle_BadFeed(address(feed_));\n        return uint256(priceInt);\n    }\n  ```\n\n#### Example 2: Correct Example (check sequencer is active)\n\n  ```solidity\nfunction getPrice(address token) external view override returns (uint) {\n    if (!isSequencerActive()) revert Errors.L2SequencerUnavailable();\n    ...\n}\n\nfunction isSequencerActive() internal view returns (bool) {\n    (, int256 answer, uint256 startedAt,,) = sequencer.latestRoundData();\n    if (block.timestamp - startedAt <= GRACE_PERIOD_TIME || answer == 1)\n        return false;\n    return true;\n}\n  ```\n\n**Suggestion**\n\nFollow Chainlink’s official documentation and check the status of the Sequencer before calling price data to ensure its validity.\n\n### Task to Perform\nFollow the examples above to examine each contract and check if it contains this issue. If you find any potential issues, record them using the format below.\n\n### Output Format\n\nIf NO concrete vulnerability found, output exactly: **\"There’s no such issue.\"**\n\nOtherwise, follow the format below:\n\n```\n### Summary\nNot Checking For Down L2 Sequencer\n\n### Vulnerability Details\n1. **File Name:** [Insert File Name\u001d, if input is not a file and cannot justify file name, leave blank]\n2. **Function Name(s):** [The functions where the issue occur]\n3. **Description:**\n[Describe vulnerability details]\n\n### Code Snippet\n[The lines where the vulnerability occurs]\n\n### Recommendation\n[Provide brief recommendations, do not need to mention Audit and Testing, do not need Code Snippet.]\n```",
+              "role": "system"
+            },
+            {
+              "content": "={{ $json.chatInput }}"
+            }
+          ]
+        },
+        "jsonOutput": true,
+        "options": {}
+      },
+      "type": "@n8n/n8n-nodes-langchain.openAi",
+      "typeVersion": 1.7,
+      "position": [
+        -20,
+        880
+      ],
+      "id": "9690d1b9-4a4c-4925-a1a1-10255fe19ea2",
+      "name": "Chainlink-Not Checking For Down L2 Sequencer",
+      "credentials": {
+        "openAiApi": {
+          "id": "FoBpFXcmVQSivgx6",
+          "name": "OpenAi account"
+        }
+      }
+    },
+    {
+      "parameters": {
+        "content": "### Not Checking For Down L2 Sequencer\nhttps://github.com/sherlock-audit/2023-02-gmx/blob/main/gmx-synthetics/contracts/oracle/Oracle.sol#L569-L579",
+        "width": 380
+      },
+      "type": "n8n-nodes-base.stickyNote",
+      "typeVersion": 1,
+      "position": [
+        400,
+        860
+      ],
+      "id": "0f55b7c8-1f0b-41e0-8ecf-eb474af5179b",
+      "name": "Sticky Note2"
+    },
+    {
+      "parameters": {
+        "modelId": {
+          "__rl": true,
+          "value": "gpt-4o-mini",
+          "mode": "list",
+          "cachedResultName": "GPT-4O-MINI"
+        },
+        "messages": {
+          "values": [
+            {
+              "content": "=You are a smart contract auditor. After reading the following vulnerability knowledge and understanding correct and incorrect examples, detect the problem in the contract code.\n\n### Vulnerability Knowledge\n\n**Same Heartbeat Used For Multiple Price Feeds**\nWhen a smart contract uses multiple price feeds, it should not assume that all feeds have the same heartbeat interval.\n\n### Examples\n\n#### Example 1: Incorrect Example\n\nSmart contracts often use multiple oracle price feeds to track prices for multiple assets. It is an error to assume that the same time interval heartbeat can be used as a staleness check for every feed, as different feeds can have different heartbeats\n\n  ```solidity\nfunction getMarkPrice() external view returns (uint256 price) {\n  int256 rawPrice;\n  uint256 updatedAt;\n  // @audit first feed\n  (, rawPrice, , updatedAt, ) = IChainlink(chainlink).latestRoundData();\n\n  // @audit second feed\n  (, int256 USDCPrice,, uint256 USDCUpdatedAt,) = IChainlink(USDCSource).latestRoundData();\n  \n  require( // @audit feed #1 stale check using same heartbeatInterval\n  block.timestamp - updatedAt <= heartbeatInterval,\n  \"ORACLE_HEARTBEAT_FAILED\"\n  );       \n           // @audit feed #2 stale check using same heartbeatInterval\n  require(block.timestamp - USDCUpdatedAt <= heartbeatInterval, \"USDC_ORACLE_HEARTBEAT_FAILED\");\n  uint256 tokenPrice = (SafeCast.toUint256(rawPrice) * 1e8) / SafeCast.toUint256(USDCPrice);\n  return tokenPrice * 1e18 / decimalsCorrection;\n}\n  ```\n\nIn this example, the first price feed has a heartbeat of 1 hour while the second has a heartbeat of 24 hours, so they require different heartbeats to be used in their staleness checks. \n\n\n**Suggestion**\n\nUse the heartbeat value displayed in the Chainlink list for each price feed individually to validate data freshness.\n\n### Task to Perform\nFollow the examples above to examine each contract and check if it contains this issue. If you find any potential issues, record them using the format below.\n\n### Output Format\n\nIf NO concrete vulnerability found, output exactly: **\"There’s no such issue.\"**\n\nOtherwise, follow the format below:\n\n```\n### Summary\nSame Heartbeat Used For Multiple Price Feeds\n\n### Vulnerability Details\n1. **File Name:** [Insert File Name\u001d, if input is not a file and cannot justify file name, leave blank]\n2. **Function Name(s):** [The functions where the issue occur]\n3. **Description:**\n[Describe vulnerability details]\n\n### Code Snippet\n[The lines where the vulnerability occurs]\n\n### Recommendation\n[Provide brief recommendations, do not need to mention Audit and Testing, do not need Code Snippet.]\n```",
+              "role": "system"
+            },
+            {
+              "content": "={{ $json.chatInput }}"
+            }
+          ]
+        },
+        "jsonOutput": true,
+        "options": {}
+      },
+      "type": "@n8n/n8n-nodes-langchain.openAi",
+      "typeVersion": 1.7,
+      "position": [
+        -40,
+        1160
+      ],
+      "id": "c60052ae-6941-4add-9836-d11d78485fd9",
+      "name": "Chainlink-Same Heartbeat Used For Multiple Price Feeds",
+      "credentials": {
+        "openAiApi": {
+          "id": "FoBpFXcmVQSivgx6",
+          "name": "OpenAi account"
+        }
+      }
+    },
+    {
+      "parameters": {
+        "content": "### Same Heartbeat Used For Multiple Price Feeds\nhttps://github.com/sherlock-audit/2023-04-jojo/blob/main/smart-contract-EVM/contracts/adaptor/chainlinkAdaptor.sol#L43-L55",
+        "width": 380
+      },
+      "type": "n8n-nodes-base.stickyNote",
+      "typeVersion": 1,
+      "position": [
+        400,
+        1120
+      ],
+      "id": "65d69952-fa28-484b-9592-d23bb6cb451c",
+      "name": "Sticky Note3"
+    },
+    {
+      "parameters": {
+        "content": "### Oracle Price Feeds Not Updated Frequently\nhttps://github.com/balancer/balancer-v2-monorepo/blob/80e1a5db7439069e2cb53e228bce0a8a51f5b23e/pkg/pool-weighted/contracts/oracle/OracleWeightedPool.sol#L156-L161",
+        "width": 380
+      },
+      "type": "n8n-nodes-base.stickyNote",
+      "typeVersion": 1,
+      "position": [
+        400,
+        1440
+      ],
+      "id": "0380999f-c315-420e-94bb-9e78cf77eff6",
+      "name": "Sticky Note4"
+    },
+    {
+      "parameters": {
+        "modelId": {
+          "__rl": true,
+          "value": "gpt-4o-mini",
+          "mode": "list",
+          "cachedResultName": "GPT-4O-MINI"
+        },
+        "messages": {
+          "values": [
+            {
+              "content": "=You are a smart contract auditor. After reading the following vulnerability knowledge and understanding correct and incorrect examples, detect the problem in the contract code.\n\n### Vulnerability Knowledge\n\n**Oracle Price Feeds Not Updated Frequently**\nIf the selected price feed is not updated frequently enough, the contract may use outdated prices that deviate from the actual market prices.\n\n### Examples\n\n#### Example 1: Incorrect Example\n\noracle is using the HEARTBEAT_TIME as 24 hours. Since the price of oracle could vary in the time gap of 3 hours, using 24 hours could be still dangerous.\n\n```solidity\nuint256 private constant HEARTBEAT_TIME = 24 hours; //Check heartbeat frequency when adding new feeds\n```\n\nIn this example, the first price feed has a heartbeat of 1 hour while the second has a heartbeat of 24 hours, so they require different heartbeats to be used in their staleness checks. \n\n#### Example 2: Incorrect Example\n\nThe _isPoolSafe() function checks if the balancer pool spot price is within the boundaries defined by THRESHOLD respect to the last fetched chainlink price.\n\nSince in _valueCollateral() the updateThreshold should be 24 hours (as in the tests), then the OHM derived oracle price could stay at up to 2% from the on-chain trusted price. The value is 2% because in WstethLiquidityVault.sol#L223:\n\n```solidity\nreturn (amount_ * stethPerWsteth * stethUsd * decimalAdjustment) / (ohmEth * ethUsd * 1e18);\n```\n\nstethPerWsteth is mostly stable and changes in stethUsd and ethUsd will cancel out, so the return value changes will be close to changes in ohmEth, so up to 2% from the on-chain trusted price.\n\nIf THRESHOLD < 2%, say 1% as in the tests, then the Chainlink price can deviate by more than 1% from the pool spot price and less than 2% from the on-chain trusted price fro up to 24 h. During this period withdrawals and deposits will revert.\n\n\n**Suggestion**\n\nSmart contracts developers should use & auditors should check that price feeds with the lowest heartbeat & deviation thresholds are being used to ensure the oracle’s reported price is as close as possible to the true, current price.\n\n### Task to Perform\nFollow the examples above to examine each contract and check if it contains this issue. If you find any potential issues, record them using the format below.\n\n### Output Format\n\nIf NO concrete vulnerability found, output exactly: **\"There’s no such issue.\"**\n\nOtherwise, follow the format below:\n\n```\n### Summary\nOracle Price Feeds Not Updated Frequently\n\n### Vulnerability Details\n1. **File Name:** [Insert File Name\u001d, if input is not a file and cannot justify file name, leave blank]\n2. **Function Name(s):** [The functions where the issue occur]\n3. **Description:**\n[Describe vulnerability details]\n\n### Code Snippet\n[The lines where the vulnerability occurs]\n\n### Recommendation\n[Provide brief recommendations, do not need to mention Audit and Testing, do not need Code Snippet.]\n```",
+              "role": "system"
+            },
+            {
+              "content": "={{ $json.chatInput }}"
+            }
+          ]
+        },
+        "jsonOutput": true,
+        "options": {}
+      },
+      "type": "@n8n/n8n-nodes-langchain.openAi",
+      "typeVersion": 1.7,
+      "position": [
+        -40,
+        1460
+      ],
+      "id": "88fe1def-328c-43a3-bb1c-741f51b1c7ca",
+      "name": "Chainlink-Oracle Price Feeds Not Updated Frequently",
+      "credentials": {
+        "openAiApi": {
+          "id": "FoBpFXcmVQSivgx6",
+          "name": "OpenAi account"
+        }
+      }
+    },
+    {
+      "parameters": {
+        "modelId": {
+          "__rl": true,
+          "value": "gpt-4o-mini",
+          "mode": "list",
+          "cachedResultName": "GPT-4O-MINI"
+        },
+        "messages": {
+          "values": [
+            {
+              "content": "=You are a smart contract auditor. After reading the following vulnerability knowledge and understanding correct and incorrect examples, detect the problem in the contract code.\n\n### Vulnerability Knowledge\n\n**Request Confirmation < Depth of Chain Re-Orgs**\nWhen requesting randomness, the REQUEST_CONFIRMATION parameter must be greater than the depth of common chain re-organizations on the target chain(s) the contract is to be deployed on, as chain re-organizations re-order blocks & transactions, which can affect the returned randomness.\n\nThis could result in a winner becoming a loser or vice-versa due to the chain re-organization re-ordering the randomness request, resulting in a different randomness result.\n\n### Examples\n\n#### Example 1: Incorrect Example\n\nThis parameter is found in the contract that inherits from VRFConsumerBaseV2:\n\n```solidity\ncontract VRFv2Consumer is VRFConsumerBaseV2 {\n    // @audit REQUEST_CONFIRMATIONS = how many blocks confirmed\n    // before receiving randomness. Must be greater than depth\n    // of common chain reorganisations that occur on target chain.\n    //\n    // eg polygon has 5+ block re-orgs per day with depth > 3 blocks\n    // and frequently has re-orgs with depth < 30 blocks\n    //\n    // when your transaction for requesting randomness from VRF is moved\n    // to a different block then the returned randonmness can change\n    // meaning the winner as determined by the returned randonmness\n    // can also change!\n    uint16 internal constant REQUEST_CONFIRMATIONS = 3;\n```\n\nThis parameter will often have the value of 3 because this is the default value in the official Chainlink tutorial, so is simply copied without much thought by developers. Smart contract developers & auditors should confirm whether the value of REQUEST_CONFIRMATIONS is suitable for the targeted chain(s) the smart contract will be deployed on. If the smart contract is to be deployed upon multiple chains, a different value for REQUEST_CONFIRMATIONS may be required for each deployment.\n\n**Suggestion**\n\nIn principle, miners/validators of your underlying blockchain could rewrite the chain's history to put a randomness request from your contract into a different block, which would result in a different VRF output. Note that this does not enable a miner to determine the random value in advance. It only enables them to get a fresh random value that might or might not be to their advantage. By way of analogy, they can only re-roll the dice, not predetermine or predict which side it will land on.\n\nYou must choose an appropriate confirmation time for the randomness requests you make. Confirmation time is how many blocks the VRF service waits before writing a fulfillment to the chain to make potential rewrite attacks unprofitable in the context of your application and its value-at-risk.\n\n### Task to Perform\nFollow the examples above to examine each contract and check if it contains this issue. If you find any potential issues, record them using the format below.\n\n### Output Format\n\nIf NO concrete vulnerability found, output exactly: **\"There’s no such issue.\"**\n\nOtherwise, follow the format below:\n\n```\n### Summary\nRequest Confirmation < Depth of Chain Re-Orgs\n\n### Vulnerability Details\n1. **File Name:** [Insert File Name\u001d, if input is not a file and cannot justify file name, leave blank]\n2. **Function Name(s):** [The functions where the issue occur]\n3. **Description:**\n[Describe vulnerability details]\n\n### Code Snippet\n[The lines where the vulnerability occurs]\n\n### Recommendation\n[Provide brief recommendations, do not need to mention Audit and Testing, do not need Code Snippet.]\n```",
+              "role": "system"
+            },
+            {
+              "content": "={{ $json.chatInput }}"
+            }
+          ]
+        },
+        "jsonOutput": true,
+        "options": {}
+      },
+      "type": "@n8n/n8n-nodes-langchain.openAi",
+      "typeVersion": 1.7,
+      "position": [
+        -40,
+        1760
+      ],
+      "id": "820585cb-570d-4788-be50-ad86a9253a02",
+      "name": "Chainlink-Request Confirmation < Depth of Chain Re-Orgs",
+      "credentials": {
+        "openAiApi": {
+          "id": "FoBpFXcmVQSivgx6",
+          "name": "OpenAi account"
+        }
+      }
+    },
+    {
+      "parameters": {
+        "modelId": {
+          "__rl": true,
+          "value": "gpt-4o-mini",
+          "mode": "list",
+          "cachedResultName": "GPT-4O-MINI"
+        },
+        "messages": {
+          "values": [
+            {
+              "content": "=You are a smart contract auditor. After reading the following vulnerability knowledge and understanding correct and incorrect examples, detect the problem in the contract code.\n\n### Vulnerability Knowledge\n\n**Assuming Oracle Price Precision**\nWhen working with Oracle price feeds, developers must account for different price feeds having different decimal precision; it is an error to assume that every price feed will report prices using the same precision. Generally, non-ETH pairs report using 8 decimals, while ETH pairs report using 18 decimals.\n\nIf precision is assumed, there is plenty of room for developer mistakes to be made since, for example, ETH/USD reports using 8 decimals, as it is considered a non-ETH pair since the price of ETH is being reported in USD. There are also price feeds such as AMPL/USD that report using 18 decimals which breaks the general rule that USD price feeds report in 8 decimals.\n\n**Suggestion**\n\nSmart contracts can call AggregatorV3Interface.decimals() to get the exact number of decimals for the price feed being called.\n\n### Task to Perform\nFollow the examples above to examine each contract and check if it contains this issue. If you find any potential issues, record them using the format below.\n\n### Output Format\n\nIf NO concrete vulnerability found, output exactly: **\"There’s no such issue.\"**\n\nOtherwise, follow the format below:\n\n```\n### Summary\nAssuming Oracle Price Precision\n\n### Vulnerability Details\n1. **File Name:** [Insert File Name\u001d, if input is not a file and cannot justify file name, leave blank]\n2. **Function Name(s):** [The functions where the issue occur]\n3. **Description:**\n[Describe vulnerability details]\n\n### Code Snippet\n[The lines where the vulnerability occurs]\n\n### Recommendation\n[Provide brief recommendations, do not need to mention Audit and Testing, do not need Code Snippet.]\n```",
+              "role": "system"
+            },
+            {
+              "content": "={{ $json.chatInput }}"
+            }
+          ]
+        },
+        "jsonOutput": true,
+        "options": {}
+      },
+      "type": "@n8n/n8n-nodes-langchain.openAi",
+      "typeVersion": 1.7,
+      "position": [
+        -40,
+        2060
+      ],
+      "id": "f4e6dec2-0ecf-42d1-8138-edbe16a2831f",
+      "name": "Chainlink-Assuming Oracle Price Precision",
+      "credentials": {
+        "openAiApi": {
+          "id": "FoBpFXcmVQSivgx6",
+          "name": "OpenAi account"
+        }
+      }
+    },
+    {
+      "parameters": {
+        "content": "### Assuming Oracle Price Precision\nhttps://github.com/code-423n4/2021-12-vader/blob/00ed84015d4116da2f9db0c68db6742c89e73f65/contracts/lbt/LiquidityBasedTWAP.sol#L393-L409",
+        "width": 380
+      },
+      "type": "n8n-nodes-base.stickyNote",
+      "typeVersion": 1,
+      "position": [
+        400,
+        2040
+      ],
+      "id": "6e0537b0-e7bb-44f3-87cc-2b415ec76f83",
+      "name": "Sticky Note5"
+    },
+    {
+      "parameters": {
+        "modelId": {
+          "__rl": true,
+          "value": "gpt-4o-mini",
+          "mode": "list",
+          "cachedResultName": "GPT-4O-MINI"
+        },
+        "messages": {
+          "values": [
+            {
+              "content": "=You are a smart contract auditor. After reading the following vulnerability knowledge and understanding correct and incorrect examples, detect the problem in the contract code.\n\n### Vulnerability Knowledge\n\n**Incorrect Oracle Price Feed Address**\nSome projects will hard-code oracle price feed addresses. Others will have addresses in deploy scripts to be set during contract deployment. Wherever the addresses are located, auditors should check that they point to the correct oracle price feed.\n\n### Examples\n\n#### Example 1: Incorrect Example\n\n```solidity\n// @audit correct address here, but wrong address in constructor\n// chainlink btc/usd priceFeed 0xf4030086522a5beea4988f8ca5b36dbc97bee88c;\ncontract StableOracleWBTC is IStableOracle {\n    AggregatorV3Interface priceFeed;\n\n    constructor() {\n        priceFeed = AggregatorV3Interface(\n            // @audit wrong address; this is ETH/USD not BTC/USD !\n            0x5f4eC3Df9cbd43714FE2740f5E3616155c5b8419\n        );\n    }\n```\n\nHere the correct address for the BTC/USD price feed appears in the comment, but in the constructor, the address of the ETH/USD price feed incorrectly appears. \n\n**Suggestion**\n\nAuditors should verify that price feed addresses are correct by referring to Chainlink’s list of Ethereum mainnet price feeds. For projects being deployed on L2s or alternate L1s, auditors should verify that correct price feed addresses are being used for those networks.\n\n### Task to Perform\nFollow the examples above to examine each contract and check if it contains this issue. If you find any potential issues, record them using the format below.\n\n### Output Format\n\nIf NO concrete vulnerability found, output exactly: **\"There’s no such issue.\"**\n\nOtherwise, follow the format below:\n\n```\n### Summary\nIncorrect Oracle Price Feed Address\n\n### Vulnerability Details\n1. **File Name:** [Insert File Name\u001d, if input is not a file and cannot justify file name, leave blank]\n2. **Function Name(s):** [The functions where the issue occur]\n3. **Description:**\n[Describe vulnerability details]\n\n### Code Snippet\n[The lines where the vulnerability occurs]\n\n### Recommendation\n[Provide brief recommendations, do not need to mention Audit and Testing, do not need Code Snippet.]\n```",
+              "role": "system"
+            },
+            {
+              "content": "={{ $json.chatInput }}"
+            }
+          ]
+        },
+        "jsonOutput": true,
+        "options": {}
+      },
+      "type": "@n8n/n8n-nodes-langchain.openAi",
+      "typeVersion": 1.7,
+      "position": [
+        -40,
+        2400
+      ],
+      "id": "f99c1d2d-382d-4156-8c98-2664444b27d6",
+      "name": "Chainlink-Incorrect Oracle Price Feed Address",
+      "credentials": {
+        "openAiApi": {
+          "id": "FoBpFXcmVQSivgx6",
+          "name": "OpenAi account"
+        }
+      }
+    },
+    {
+      "parameters": {
+        "content": "### Incorrect Oracle Price Feed Address\nhttps://github.com/code-423n4/2021-12-yetifinance/blob/1da782328ce4067f9654c3594a34014b0329130a/packages/contracts/contracts/PriceFeed.sol#L578",
+        "width": 380
+      },
+      "type": "n8n-nodes-base.stickyNote",
+      "typeVersion": 1,
+      "position": [
+        400,
+        2380
+      ],
+      "id": "662536fc-f7e7-4389-a415-81949d41a67f",
+      "name": "Sticky Note6"
+    },
+    {
+      "parameters": {
+        "modelId": {
+          "__rl": true,
+          "value": "gpt-4o-mini",
+          "mode": "list",
+          "cachedResultName": "GPT-4O-MINI"
+        },
+        "messages": {
+          "values": [
+            {
+              "content": "=You are a smart contract auditor. After reading the following vulnerability knowledge and understanding correct and incorrect examples, detect the problem in the contract code.\n\n### Vulnerability Knowledge\n\n**Oracle Price Updates Can Be Front-Run**\nSome stablecoin protocols that allow users to deposit collateral and mint/burn stablecoin tokens based upon prices of collateral assets can be subject to having value extracted from the protocol by having their oracle updates sandwich attacked.\n\nOracle price updates may be too slow behind real-world prices due to only updating after a set deviation % of price change, plus attackers may see oracle updates in the mempool & front-run them. \n\n**Suggestion**\n\nThis is a complicated problem to solve; potential solutions involve:\n\n1.adding a small fee to mint/burn operations to make the frequent minting/burning which occurs in sandwich attacks less profitable\n2.when a user makes a deposit, enforce a delay that prevents them from withdrawing in a short amount of time to prevent sandwich attacks\n\n### Task to Perform\nFollow the examples above to examine each contract and check if it contains this issue. If you find any potential issues, record them using the format below.\n\n### Output Format\n\nIf NO concrete vulnerability found, output exactly: **\"There’s no such issue.\"**\n\nOtherwise, follow the format below:\n\n```\n### Summary\nOracle Price Updates Can Be Front-Run\n\n### Vulnerability Details\n1. **File Name:** [Insert File Name\u001d, if input is not a file and cannot justify file name, leave blank]\n2. **Function Name(s):** [The functions where the issue occur]\n3. **Description:**\n[Describe vulnerability details]\n\n### Code Snippet\n[The lines where the vulnerability occurs]\n\n### Recommendation\n[Provide brief recommendations, do not need to mention Audit and Testing, do not need Code Snippet.]\n```",
+              "role": "system"
+            },
+            {
+              "content": "={{ $json.chatInput }}"
+            }
+          ]
+        },
+        "jsonOutput": true,
+        "options": {}
+      },
+      "type": "@n8n/n8n-nodes-langchain.openAi",
+      "typeVersion": 1.7,
+      "position": [
+        -40,
+        2720
+      ],
+      "id": "cc0ef2a7-b369-4ed2-a27e-643d312b7bba",
+      "name": "Chainlink-Oracle Price Updates Can Be Front-Run",
+      "credentials": {
+        "openAiApi": {
+          "id": "FoBpFXcmVQSivgx6",
+          "name": "OpenAi account"
+        }
+      }
+    },
+    {
+      "parameters": {
+        "content": "### Oracle Price Updates Can Be Front-Run\nhttps://github.com/sherlock-audit/2023-05-USSD/blob/main/ussd-contracts/contracts/USSD.sol#L150-L173",
+        "width": 380
+      },
+      "type": "n8n-nodes-base.stickyNote",
+      "typeVersion": 1,
+      "position": [
+        400,
+        2700
+      ],
+      "id": "44ac39a2-3591-4bac-bd7f-ef3da91b0932",
+      "name": "Sticky Note7"
+    }
+  ],
+  "pinData": {},
+  "connections": {
+    "When chat message received": {
+      "main": [
+        [
+          {
+            "node": "Chainlink-Not Checking For Stale Prices",
+            "type": "main",
+            "index": 0
+          },
+          {
+            "node": "Chainlink-Not Checking For Down L2 Sequencer",
+            "type": "main",
+            "index": 0
+          },
+          {
+            "node": "Chainlink-Same Heartbeat Used For Multiple Price Feeds",
+            "type": "main",
+            "index": 0
+          },
+          {
+            "node": "Chainlink-Oracle Price Feeds Not Updated Frequently",
+            "type": "main",
+            "index": 0
+          },
+          {
+            "node": "Chainlink-Request Confirmation < Depth of Chain Re-Orgs",
+            "type": "main",
+            "index": 0
+          },
+          {
+            "node": "Chainlink-Assuming Oracle Price Precision",
+            "type": "main",
+            "index": 0
+          },
+          {
+            "node": "Chainlink-Incorrect Oracle Price Feed Address",
+            "type": "main",
+            "index": 0
+          },
+          {
+            "node": "Chainlink-Oracle Price Updates Can Be Front-Run",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    }
+  },
+  "active": false,
+  "settings": {
+    "executionOrder": "v1"
+  },
+  "versionId": "35224345-9e3e-46d2-b356-93d351aa7a61",
+  "meta": {
+    "templateCredsSetupCompleted": true,
+    "instanceId": "6b00ef11cec26a47977bd0b02eca112c312cc7db1a82f551ff9d08d2af38b1d9"
+  },
+  "id": "Ln5LqZGAq6b0A6lp",
+  "tags": []
+}
