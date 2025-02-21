@@ -26,18 +26,24 @@ Update the environment variables in `.env` file if needed.
 2. Start n8n:
 
 ```bash
-docker compose up -d
+docker-compose -f ./n8n/docker-compose.yml up -d
 ```
 
 3. Access the n8n dashboard, Open your browser and navigate to `http://localhost:5678`
 
-4. Create a new workflow, import the workflow from the `n8n/workflows` directory.
+4. (Frist time only) Setup owner account, activiate free n8n pro features
 
-5. Click the OpenAI node, and add your OpenAI API key.
+5. Create OpenAi credentials, create a new credential with your OpenAi Key
 
-6. Click the Save button to save the workflow.
+6. Create a new workflow, or import the workflow from the `n8n/workflows` directory.
 
-7. Click the Run button to run the workflow.
+7. Click all the OpenAI nodes and connect them to your OpenAi credential.
+
+8. Click the Save button to save the workflow.
+
+9. Click the Run button to run the workflow.
+
+10. Click "Chat" and get start
 
 ## Overview
 
