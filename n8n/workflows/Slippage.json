@@ -1,0 +1,544 @@
+{
+  "name": "Slippage",
+  "nodes": [
+    {
+      "parameters": {
+        "options": {}
+      },
+      "id": "1d3483ae-e2df-48f3-a3a5-d53fc11341ed",
+      "name": "When chat message received",
+      "type": "@n8n/n8n-nodes-langchain.chatTrigger",
+      "typeVersion": 1.1,
+      "position": [
+        -2500,
+        3660
+      ],
+      "webhookId": "26f9b05d-755e-4e1f-a0a9-b2eec6e1e0b2"
+    },
+    {
+      "parameters": {
+        "content": "## Knowledge:\nSlippage\nhttps://defihacklabs.substack.com/p/solidity-security-lesson-6-defi-slippage",
+        "height": 120,
+        "width": 540
+      },
+      "type": "n8n-nodes-base.stickyNote",
+      "typeVersion": 1,
+      "position": [
+        -2780,
+        3440
+      ],
+      "id": "caa06ce4-31fa-4938-98d3-836fa20ac7bf",
+      "name": "Sticky Note"
+    },
+    {
+      "parameters": {
+        "content": "### No Slippage Parameter\nhttps://github.com/sherlock-audit/2023-04-blueberry/blob/main/blueberry-core/contracts/spell/ConvexSpell.sol#L204-L208",
+        "width": 380
+      },
+      "type": "n8n-nodes-base.stickyNote",
+      "typeVersion": 1,
+      "position": [
+        -920,
+        2320
+      ],
+      "id": "05593281-f31a-4388-9813-96f387af1986",
+      "name": "Sticky Note1"
+    },
+    {
+      "parameters": {
+        "modelId": {
+          "__rl": true,
+          "value": "gpt-4o-mini",
+          "mode": "list",
+          "cachedResultName": "GPT-4O-MINI"
+        },
+        "messages": {
+          "values": [
+            {
+              "content": "=You are a smart contract auditor. After reading the following vulnerability knowledge and understanding correct and incorrect examples, detect the problem in the contract code.\n\n### Vulnerability Knowledge\n\n**No Slippage Parameter**\nWhen submitting a token swap request, users should specify the minTokensOut parameter, which defines the minimum expected output amount. Setting this parameter to 0 means the user accepts any output amount, making them highly vulnerable to front-running or sandwich attacks, especially in high-volatility or low-liquidity scenarios, potentially leading to significant losses.\n\n### Examples\n\n#### Example 1: Incorrect Example\n\nThis code tells the swap that the user will accept a minimum amount of 0 output tokens from the swap, opening up the user to a catastrophic loss of funds via MEV bot sandwich attacks\n\n```solidity\nIUniswapRouterV2(SUSHI_ROUTER).swapExactTokensForTokens(\n    toSwap,\n    0, // @audit min return 0 tokens; no slippage => user loss of funds\n    path,\n    address(this),\n    now\n);\n```\n\n**Suggestion**\n\nPlatforms must allow users to specify a slippage parameter and set a reasonable minimum acceptable return amount.\nIf the user does not specify a value, a safe and reasonable default should be provided, but users must have the option to override the default.\n\n### Task to Perform\nFollow the examples above to examine each contract and check if it contains this issue. If you find any potential issues, record them using the format below.\n\n### Output Format\n\nIf NO concrete vulnerability found, output exactly: **\"There’s no such issue.\"**\n\nOtherwise, follow the format below:\n\n```\n### Summary\nNo Slippage Parameter\n\n### Vulnerability Details\n1. **File Name:** [Insert File Name\u001d, if input is not a file and cannot justify file name, leave blank]\n2. **Function Name(s):** [The functions where the issue occur]\n3. **Description:**\n[Describe vulnerability details]\n\n### Code Snippet\n[The lines where the vulnerability occurs]\n\n### Recommendation\n[Provide brief recommendations, do not need to mention Audit and Testing, do not need Code Snippet.]\n```",
+              "role": "system"
+            },
+            {
+              "content": "={{ $json.chatInput }}"
+            }
+          ]
+        },
+        "jsonOutput": true,
+        "options": {}
+      },
+      "type": "@n8n/n8n-nodes-langchain.openAi",
+      "typeVersion": 1.7,
+      "position": [
+        -1320,
+        2340
+      ],
+      "id": "1c80ae57-4b94-4fda-a5e2-bfb04fdfbe97",
+      "name": "Slippage-No Slippage Parameter",
+      "credentials": {
+        "openAiApi": {
+          "id": "FoBpFXcmVQSivgx6",
+          "name": "OpenAi account"
+        }
+      }
+    },
+    {
+      "parameters": {
+        "modelId": {
+          "__rl": true,
+          "value": "gpt-4o-mini",
+          "mode": "list",
+          "cachedResultName": "GPT-4O-MINI"
+        },
+        "messages": {
+          "values": [
+            {
+              "content": "=You are a smart contract auditor. After reading the following vulnerability knowledge and understanding correct and incorrect examples, detect the problem in the contract code.\n\n### Vulnerability Knowledge\n\n**No Expiration Deadline**\nAdvanced protocols like Automated Market Makers (AMMs) can allow users to specify a deadline parameter that enforces a time limit by which the transaction must be executed. Without a deadline parameter, the transaction may sit in the mempool and be executed at a much later time potentially resulting in a worse price for the user.\n\n### Examples\n\n#### Example 1: Incorrect Example\n\nHere \"minTokensOut\" is hard-coded to 0 so the swap can potentially return 0 output tokens, and the deadline parameter is hard-coded to the max value of utint256, so the transaction can be held & executed at a much later & more unfavorable time to the user. This combination of No Slippage & No Deadline exposes the user to the potential loss of all their input tokens!\n\n```solidity\n// Swap rewards tokens to debt token\nuint256 rewards = _doCutRewardsFee(CRV);\n_ensureApprove(CRV, address(swapRouter), rewards);\nswapRouter.swapExactTokensForTokens(\n    rewards,\n    0, // @audit no slippage, can receive 0 output tokens\n    swapPath,\n    address(this),\n    type(uint256).max // @audit no deadline, transaction can \n    // be executed later at a more unfavorable time\n);\n```\n\n**Suggestion**\n\nProtocols shouldn't set the deadline to `block.timestamp` as a validator can hold the transaction and the block it is eventually put into will be `block.timestamp`, so this offers no protection.\n\nProtocols should allow users interacting with AMMs to set expiration deadlines; no expiration deadline may create a potential critical loss of funds vulnerability for any user initiating a swap, especially if there is also no slippage parameter.\n\n### Task to Perform\nFollow the examples above to examine each contract and check if it contains this issue. If you find any potential issues, record them using the format below.\n\n### Output Format\n\nIf NO concrete vulnerability found, output exactly: **\"There’s no such issue.\"**\n\nOtherwise, follow the format below:\n\n```\n### Summary\nNo Expiration Deadline\n\n### Vulnerability Details\n1. **File Name:** [Insert File Name\u001d, if input is not a file and cannot justify file name, leave blank]\n2. **Function Name(s):** [The functions where the issue occur]\n3. **Description:**\n[Describe vulnerability details]\n\n### Code Snippet\n[The lines where the vulnerability occurs]\n\n### Recommendation\n[Provide brief recommendations, do not need to mention Audit and Testing, do not need Code Snippet.]\n```",
+              "role": "system"
+            },
+            {
+              "content": "={{ $json.chatInput }}"
+            }
+          ]
+        },
+        "jsonOutput": true,
+        "options": {}
+      },
+      "type": "@n8n/n8n-nodes-langchain.openAi",
+      "typeVersion": 1.7,
+      "position": [
+        -1320,
+        2640
+      ],
+      "id": "c41d52d1-0c38-4bd6-9677-f542b95b2d2f",
+      "name": "Slippage-No Expiration Deadline",
+      "credentials": {
+        "openAiApi": {
+          "id": "FoBpFXcmVQSivgx6",
+          "name": "OpenAi account"
+        }
+      }
+    },
+    {
+      "parameters": {
+        "content": "### No Expiration Deadline\nhttps://github.com/sherlock-audit/2023-04-blueberry/blob/main/blueberry-core/contracts/spell/AuraSpell.sol#L193-L203\n",
+        "width": 380
+      },
+      "type": "n8n-nodes-base.stickyNote",
+      "typeVersion": 1,
+      "position": [
+        -920,
+        2640
+      ],
+      "id": "d9e41675-0eb7-421e-b4e1-75cb6f865c75",
+      "name": "Sticky Note2"
+    },
+    {
+      "parameters": {
+        "modelId": {
+          "__rl": true,
+          "value": "gpt-4o-mini",
+          "mode": "list",
+          "cachedResultName": "GPT-4O-MINI"
+        },
+        "messages": {
+          "values": [
+            {
+              "content": "=You are a smart contract auditor. After reading the following vulnerability knowledge and understanding correct and incorrect examples, detect the problem in the contract code.\n\n### Vulnerability Knowledge\n\n**Incorrect Slippage Calculation**\nThe slippage parameter should be something like \"minTokensOut\" - the minimum amount of tokens the user will accept for the swap. Anything else is a red flag to watch out for as it will likely constitute an incorrect slippage parameter.\n\n### Examples\n\n#### Example 1\n\n```solidity\nfunction withdraw(address _recipient, address _asset, uint256 _amount\n) external onlyVault nonReentrant {\n    // ...\n\n    // Calculate how much of the pool token we need to withdraw\n    (uint256 contractPTokens, , uint256 totalPTokens) = _getTotalPTokens();\n\n    uint256 poolCoinIndex = _getPoolCoinIndex(_asset);\n    // Calculate the max amount of the asset we'd get if we withdrew all the\n    // platform tokens\n    ICurvePool curvePool = ICurvePool(platformAddress);\n    uint256 maxAmount = curvePool.calc_withdraw_one_coin(\n        totalPTokens,\n        int128(poolCoinIndex)\n    );\n\n    // Calculate how many platform tokens we need to withdraw the asset amount\n    uint256 withdrawPTokens = totalPTokens.mul(_amount).div(maxAmount);\n\n    // Calculate a minimum withdrawal amount\n    uint256 assetDecimals = Helpers.getDecimals(_asset);\n    // 3crv is 1e18, subtract slippage percentage and scale to asset\n    // decimals\n    // @audit not using user-provided _amount, but calculating a non-sensical\n    // value based on the LP tokens\n    uint256 minWithdrawAmount = withdrawPTokens\n        .mulTruncate(uint256(1e18).sub(maxSlippage))\n        .scaleBy(int8(assetDecimals - 18));\n\n    curvePool.remove_liquidity_one_coin(\n        withdrawPTokens,\n        int128(poolCoinIndex),\n        minWithdrawAmount\n    );\n\n    // ...\n}\n```\n\nAnd the fixed version after the audit:\n\n```solidity\ncurvePool.remove_liquidity_one_coin(\n    withdrawPTokens,\n    int128(poolCoinIndex),\n    _amount\n);\n```\n\n\n**Suggestion**\n\nAuditors should keep an eye out for any out-of-the-ordinary modifications that protocols make to user-specified slippage parameters.\n\n### Task to Perform\nFollow the examples above to examine each contract and check if it contains this issue. If you find any potential issues, record them using the format below.\n\n### Output Format\n\nIf NO concrete vulnerability found, output exactly: **\"There’s no such issue.\"**\n\nOtherwise, follow the format below:\n\n```\n### Summary\nIncorrect Slippage Calculation\n\n### Vulnerability Details\n1. **File Name:** [Insert File Name\u001d, if input is not a file and cannot justify file name, leave blank]\n2. **Function Name(s):** [The functions where the issue occur]\n3. **Description:**\n[Describe vulnerability details]\n\n### Code Snippet\n[The lines where the vulnerability occurs]\n\n### Recommendation\n[Provide brief recommendations, do not need to mention Audit and Testing, do not need Code Snippet.]\n```",
+              "role": "system"
+            },
+            {
+              "content": "={{ $json.chatInput }}"
+            }
+          ]
+        },
+        "jsonOutput": true,
+        "options": {}
+      },
+      "type": "@n8n/n8n-nodes-langchain.openAi",
+      "typeVersion": 1.7,
+      "position": [
+        -1320,
+        2940
+      ],
+      "id": "89ed9a6a-1f73-416b-a260-61c17446dd13",
+      "name": "Slippage-Incorrect Slippage Calculation",
+      "credentials": {
+        "openAiApi": {
+          "id": "FoBpFXcmVQSivgx6",
+          "name": "OpenAi account"
+        }
+      }
+    },
+    {
+      "parameters": {
+        "content": "### Incorrect Slippage Calculation\nhttps://github.com/sherlock-audit/2023-02-notional/blob/main/leveraged-vaults/contracts/vaults/curve/external/Curve2TokenConvexHelper.sol#L112\n",
+        "width": 380
+      },
+      "type": "n8n-nodes-base.stickyNote",
+      "typeVersion": 1,
+      "position": [
+        -920,
+        2940
+      ],
+      "id": "b679a7ee-c1b0-4052-8e03-74bc5ddb9d53",
+      "name": "Sticky Note3"
+    },
+    {
+      "parameters": {
+        "modelId": {
+          "__rl": true,
+          "value": "gpt-4o-mini",
+          "mode": "list",
+          "cachedResultName": "GPT-4O-MINI"
+        },
+        "messages": {
+          "values": [
+            {
+              "content": "=You are a smart contract auditor. After reading the following vulnerability knowledge and understanding correct and incorrect examples, detect the problem in the contract code.\n\n### Vulnerability Knowledge\n\n**Mismatched Slippage Precision**\nSome platforms allow a user to redeem or withdraw from a set of output tokens with a wide range of different precision values. These platforms must ensure that the slippage parameter \"minTokensOut\" is scaled to match the precision of the selected output token, else the slippage parameter may be ineffective and lead to precision loss errors.\n\n### Examples\n\n#### Example 1\n\n```solidity\nfunction _convertToToken(address token, address receiver) internal returns (uint256 amountOut) {\n    // this value should be whatever glp is received by calling withdraw/redeem to junior vault\n    uint256 outputGlp = fsGlp.balanceOf(address(this));\n\n    // using min price of glp because giving in glp\n    uint256 glpPrice = _getGlpPrice(false);\n\n    // using max price of token because taking token out of gmx\n    uint256 tokenPrice = gmxVault.getMaxPrice(token);\n\n    // @audit always returns 6 decimals, won't work for many tokens\n    // apply slippage threshold on top of estimated output amount\n    uint256 minTokenOut = outputGlp.mulDiv(glpPrice * (MAX_BPS - slippageThreshold), tokenPrice * MAX_BPS);\n    // @audit need to adjust slippage precision to match output\n    // token decimals like so:\n    // minTokenOut = minTokenOut * 10 ** (token.decimals() - 6);\n\n    // will revert if atleast minTokenOut is not received\n    amountOut = rewardRouter.unstakeAndRedeemGlp(address(token), outputGlp, minTokenOut, receiver);\n}\n```\n\nAnd the fixed version after the audit:\n\n```solidity\ncurvePool.remove_liquidity_one_coin(\n    withdrawPTokens,\n    int128(poolCoinIndex),\n    _amount\n);\n```\n\n\n**Suggestion**\n\n\"minTokenOut\" always returns 6 decimals but the user can specify an output token from a set with a wide range of different precisions, hence the slippage must be scaled to match the output token's precision.\n\n### Task to Perform\nFollow the examples above to examine each contract and check if it contains this issue. If you find any potential issues, record them using the format below.\n\n### Output Format\n\nIf NO concrete vulnerability found, output exactly: **\"There’s no such issue.\"**\n\nOtherwise, follow the format below:\n\n```\n### Summary\nMismatched Slippage Precision\n\n### Vulnerability Details\n1. **File Name:** [Insert File Name\u001d, if input is not a file and cannot justify file name, leave blank]\n2. **Function Name(s):** [The functions where the issue occur]\n3. **Description:**\n[Describe vulnerability details]\n\n### Code Snippet\n[The lines where the vulnerability occurs]\n\n### Recommendation\n[Provide brief recommendations, do not need to mention Audit and Testing, do not need Code Snippet.]\n```",
+              "role": "system"
+            },
+            {
+              "content": "={{ $json.chatInput }}"
+            }
+          ]
+        },
+        "jsonOutput": true,
+        "options": {}
+      },
+      "type": "@n8n/n8n-nodes-langchain.openAi",
+      "typeVersion": 1.7,
+      "position": [
+        -1320,
+        3240
+      ],
+      "id": "7025f0f6-a7e1-436d-8727-7cffa9663f79",
+      "name": "Slippage-Mismatched Slippage Precision",
+      "credentials": {
+        "openAiApi": {
+          "id": "FoBpFXcmVQSivgx6",
+          "name": "OpenAi account"
+        }
+      }
+    },
+    {
+      "parameters": {
+        "content": "### Mismatched Slippage Precision\nhttps://github.com/connext/monorepo/blob/16ee2f8b441e80c82cf53358e9534c6cd4080bec/packages/deployments/contracts/contracts/core/connext/libraries/AssetLogic.sol#L273\n",
+        "width": 380
+      },
+      "type": "n8n-nodes-base.stickyNote",
+      "typeVersion": 1,
+      "position": [
+        -920,
+        3220
+      ],
+      "id": "d2224e12-a9ff-446f-b107-84db3119d1ff",
+      "name": "Sticky Note4"
+    },
+    {
+      "parameters": {
+        "modelId": {
+          "__rl": true,
+          "value": "gpt-4o-mini",
+          "mode": "list",
+          "cachedResultName": "GPT-4O-MINI"
+        },
+        "messages": {
+          "values": [
+            {
+              "content": "=You are a smart contract auditor. After reading the following vulnerability knowledge and understanding correct and incorrect examples, detect the problem in the contract code.\n\n### Vulnerability Knowledge\n\n**Minting Exposes Users To Unlimited Slippage**\nDeFi protocols allow users to transfer foreign tokens to mint the protocol's native token - this is functionally the same as a swap where users are swapping foreign tokens for the protocol's native token. Since this is packaged and presented as a \"mint\", a slippage parameter may be omitted exposing the user to unlimited slippage.\n\n### Examples\n\n#### Example 1\n\n```solidity\nfunction mintSynth(IERC20 foreignAsset, uint256 nativeDeposit,\n                   address from, address to) returns (uint256 amountSynth) {\n    // @audit transfers in foreign token\n    nativeAsset.safeTransferFrom(from, address(this), nativeDeposit);\n\n    ISynth synth = synthFactory.synths(foreignAsset);\n\n    if (synth == ISynth(_ZERO_ADDRESS))\n        synth = synthFactory.createSynth(\n            IERC20Extended(address(foreignAsset))\n        );\n\n    // @audit frontrunner could manipulate these reserves to influence\n    // amount of minted tokens\n    (uint112 reserveNative, uint112 reserveForeign, ) = getReserves(\n        foreignAsset\n    ); // gas savings\n\n    // @audit mints protocol's tokens based upon above reserves\n    // this is effectively a swap without allowing the user to\n    // specify a slippage parameter, exposing user to unlimited slippage\n    amountSynth = VaderMath.calculateSwap(\n        nativeDeposit,\n        reserveNative,\n        reserveForeign\n    );\n\n    _update(\n        foreignAsset,\n        reserveNative + nativeDeposit,\n        reserveForeign,\n        reserveNative,\n        reserveForeign\n    );\n\n    synth.mint(to, amountSynth);\n}\n```\n\nAnd the fixed version after the audit:\n\n```solidity\ncurvePool.remove_liquidity_one_coin(\n    withdrawPTokens,\n    int128(poolCoinIndex),\n    _amount\n);\n```\n\n\n**Suggestion**\n\nWhen implementing minting functions based upon pool reserves or other on-chain data that can be manipulated in real-time, developers should provide & auditors should verify that users can specify slippage parameters, as such mints are effectively swaps by another name.\n\n### Task to Perform\nFollow the examples above to examine each contract and check if it contains this issue. If you find any potential issues, record them using the format below.\n\n### Output Format\n\nIf NO concrete vulnerability found, output exactly: **\"There’s no such issue.\"**\n\nOtherwise, follow the format below:\n\n```\n### Summary\nMinting Exposes Users To Unlimited Slippage\n\n### Vulnerability Details\n1. **File Name:** [Insert File Name\u001d, if input is not a file and cannot justify file name, leave blank]\n2. **Function Name(s):** [The functions where the issue occur]\n3. **Description:**\n[Describe vulnerability details]\n\n### Code Snippet\n[The lines where the vulnerability occurs]\n\n### Recommendation\n[Provide brief recommendations, do not need to mention Audit and Testing, do not need Code Snippet.]\n```",
+              "role": "system"
+            },
+            {
+              "content": "={{ $json.chatInput }}"
+            }
+          ]
+        },
+        "jsonOutput": true,
+        "options": {}
+      },
+      "type": "@n8n/n8n-nodes-langchain.openAi",
+      "typeVersion": 1.7,
+      "position": [
+        -1320,
+        3520
+      ],
+      "id": "4d60999b-1626-4d49-9a94-fe8ea9037a35",
+      "name": "Slippage-Minting Exposes Users To Unlimited Slippage",
+      "credentials": {
+        "openAiApi": {
+          "id": "FoBpFXcmVQSivgx6",
+          "name": "OpenAi account"
+        }
+      }
+    },
+    {
+      "parameters": {
+        "content": "### Minting Exposes Users To Unlimited Slippage\nhttps://github.com/code-423n4/2021-11-vader/blob/429970427b4dc65e37808d7116b9de27e395ce0c/contracts/dex-v2/pool/VaderPoolV2.sol#L126-L155\n",
+        "width": 380
+      },
+      "type": "n8n-nodes-base.stickyNote",
+      "typeVersion": 1,
+      "position": [
+        -920,
+        3520
+      ],
+      "id": "89aa80e9-7cbb-48a6-8bdf-b23b988136ca",
+      "name": "Sticky Note5"
+    },
+    {
+      "parameters": {
+        "content": "### MinTokensOut For Intermediate, Not Final Amount\nhttps://github.com/sherlock-audit/2022-10-illuminate-judging/issues/30",
+        "width": 380
+      },
+      "type": "n8n-nodes-base.stickyNote",
+      "typeVersion": 1,
+      "position": [
+        -920,
+        3860
+      ],
+      "id": "e7d41c79-e277-4050-861b-48f97881a1d9",
+      "name": "Sticky Note6"
+    },
+    {
+      "parameters": {
+        "modelId": {
+          "__rl": true,
+          "value": "gpt-4o-mini",
+          "mode": "list",
+          "cachedResultName": "GPT-4O-MINI"
+        },
+        "messages": {
+          "values": [
+            {
+              "content": "=You are a smart contract auditor. After reading the following vulnerability knowledge and understanding correct and incorrect examples, detect the problem in the contract code.\n\n### Vulnerability Knowledge\n\n**MinTokensOut For Intermediate, Not Final Amount**\nDue to the composable nature of DeFi, a swap can execute multiple operations before returning the final amount of tokens to the user. If the \"minTokensOut\" parameter is used for an intermediate operation but not to check the final amount, this can result in a loss of funds vulnerability for the user since they may receive fewer tokens than specified.\n\n### Examples\n\n#### Example 1\n\nConsider this simplified code from Sherlock's Olympus Update contest\n\n```solidity\nfunction withdraw(\n    uint256            lpAmount_,\n    uint256[] calldata minTokenAmounts_, // @audit slippage param\n    bool               claim_\n) external override onlyWhileActive onlyOwner nonReentrant returns (uint256, uint256) {\n    // ...\n\n    // @audit minTokenAmounts_ enforced here, but this is only\n    // an intermediate operation not the final amount received by the user\n    // Exit Balancer pool\n    _exitBalancerPool(lpAmount_, minTokenAmounts_);\n\n    // Calculate OHM and wstETH amounts received\n    uint256 ohmAmountOut = ohm.balanceOf(address(this)) - ohmBefore;\n    uint256 wstethAmountOut = wsteth.balanceOf(address(this)) - wstethBefore;\n\n    // Calculate oracle expected wstETH received amount\n    // getTknOhmPrice returns the amount of wstETH per 1 OHM based on the oracle price\n    uint256 wstethOhmPrice = manager.getTknOhmPrice();\n    uint256 expectedWstethAmountOut = (ohmAmountOut * wstethOhmPrice) / _OHM_DECIMALS;\n\n    // @audit this is the final operation but minTokenAmounts_ is no longer\n    // enforced, so the amount returned to the user may be less than the\n    // minTokenAmounts_ specified, resulting in a loss of funds for the user\n    //\n    // Take any arbs relative to the oracle price for the Treasury and return the rest to the owner\n    uint256 wstethToReturn = wstethAmountOut > expectedWstethAmountOut\n        ? expectedWstethAmountOut\n        : wstethAmountOut;\n    if (wstethAmountOut > wstethToReturn)\n        wsteth.safeTransfer(TRSRY(), wstethAmountOut - wstethToReturn);\n\n    // ...\n}\n```\n\nHere, the user-specified slippage parameter \"minTokenAmounts_\" is only enforced for the intermediate operation _exitBalancerPool(), after which the output amount of tokens can be further reduced by the treasury skimming the difference between the balancer & oracle expected return amount.\n\n\n**Suggestion**\n\nDevelopers & auditors should test & verify that the user-specified \"minTokensOut\" is always enforced at the final step of a swap before returning the tokens to the user.\n\n### Task to Perform\nFollow the examples above to examine each contract and check if it contains this issue. If you find any potential issues, record them using the format below.\n\n### Output Format\n\nIf NO concrete vulnerability found, output exactly: **\"There’s no such issue.\"**\n\nOtherwise, follow the format below:\n\n```\n### Summary\nMinTokensOut For Intermediate, Not Final Amount\n\n### Vulnerability Details\n1. **File Name:** [Insert File Name\u001d, if input is not a file and cannot justify file name, leave blank]\n2. **Function Name(s):** [The functions where the issue occur]\n3. **Description:**\n[Describe vulnerability details]\n\n### Code Snippet\n[The lines where the vulnerability occurs]\n\n### Recommendation\n[Provide brief recommendations, do not need to mention Audit and Testing, do not need Code Snippet.]\n```",
+              "role": "system"
+            },
+            {
+              "content": "={{ $json.chatInput }}"
+            }
+          ]
+        },
+        "jsonOutput": true,
+        "options": {}
+      },
+      "type": "@n8n/n8n-nodes-langchain.openAi",
+      "typeVersion": 1.7,
+      "position": [
+        -1320,
+        3840
+      ],
+      "id": "0da3582d-7b75-4624-9abb-2a1cb7915c8d",
+      "name": "Slippage-MinTokensOut For Intermediate, Not Final Amount",
+      "credentials": {
+        "openAiApi": {
+          "id": "FoBpFXcmVQSivgx6",
+          "name": "OpenAi account"
+        }
+      }
+    },
+    {
+      "parameters": {
+        "content": "### On-Chain Slippage Calculation Can Be Manipulated\nhttps://github.com/sherlock-audit/2023-02-notional/blob/main/leveraged-vaults/contracts/vaults/curve/external/Curve2TokenConvexHelper.sol#L112",
+        "width": 380
+      },
+      "type": "n8n-nodes-base.stickyNote",
+      "typeVersion": 1,
+      "position": [
+        -920,
+        4180
+      ],
+      "id": "3b5087ec-b7f2-410a-808a-9b0118446ad3",
+      "name": "Sticky Note7"
+    },
+    {
+      "parameters": {
+        "modelId": {
+          "__rl": true,
+          "value": "gpt-4o-mini",
+          "mode": "list",
+          "cachedResultName": "GPT-4O-MINI"
+        },
+        "messages": {
+          "values": [
+            {
+              "content": "=You are a smart contract auditor. After reading the following vulnerability knowledge and understanding correct and incorrect examples, detect the problem in the contract code.\n\n### Vulnerability Knowledge\n\n**On-Chain Slippage Calculation Can Be Manipulated**\nDevelopers should ensure & auditors must verify that users are allowed to specify their own slippage parameters which were calculated off-chain.\n\n### Examples\n\n#### Example 1\n\nConsider this simplified code from Sherlock's Olympus Update contest\n\n```solidity\nfunction swapTokensMulti(\n    SwapInOut memory                 _swap,\n    IController.UniswapParams memory _uniswap,\n    bool                             _rewardSwap\n    ) public returns (uint256) {\n    IERC20(_swap.tokenIn).safeIncreaseAllowance(_uniswap.router, _swap.amount);\n\n    // @audit on-chain slippage calculation can be manipulated,\n    // Quoter.quoteExactInput() itself does a swap!\n    // https://github.com/Uniswap/v3-periphery/blob/main/contracts/lens/QuoterV2.sol#L138-L146\n    // amountOutMinimum must be specified by user, calculated off-chain\n    uint256 amountOutMinimum = IQuoter(_uniswap.quoter).quoteExactInput(\n      abi.encodePacked(_swap.tokenIn, _uniswap.poolFee, WETH, _uniswap.poolFee, _swap.tokenOut),\n      _swap.amount\n    );\n\n    uint256 balanceBefore = IERC20(_swap.tokenOut).balanceOf(address(this));\n    if (_rewardSwap && balanceBefore > amountOutMinimum) return amountOutMinimum;\n\n    ISwapRouter.ExactInputParams memory params = ISwapRouter.ExactInputParams({\n      path: abi.encodePacked(\n        _swap.tokenIn,\n        _uniswap.poolFee,\n        WETH,\n        _uniswap.poolFee,\n        _swap.tokenOut\n      ),\n      recipient: address(this),\n      deadline: block.timestamp,\n      amountIn: _swap.amount,\n      amountOutMinimum: amountOutMinimum\n    });\n\n    ISwapRouter(_uniswap.router).exactInput(params);\n    uint256 balanceAfter = IERC20(_swap.tokenOut).balanceOf(address(this));\n\n    return balanceAfter - balanceBefore;\n}\n```\n\nThis code attempts to perform on-chain slippage calculation by using Quoter.quoteExactInput() which itself performs a swap and hence is subject to manipulation via sandwich attacks.\n\n### Task to Perform\nFollow the examples above to examine each contract and check if it contains this issue. If you find any potential issues, record them using the format below.\n\n### Output Format\n\nIf NO concrete vulnerability found, output exactly: **\"There’s no such issue.\"**\n\nOtherwise, follow the format below:\n\n```\n### Summary\nOn-Chain Slippage Calculation Can Be Manipulated\n\n### Vulnerability Details\n1. **File Name:** [Insert File Name\u001d, if input is not a file and cannot justify file name, leave blank]\n2. **Function Name(s):** [The functions where the issue occur]\n3. **Description:**\n[Describe vulnerability details]\n\n### Code Snippet\n[The lines where the vulnerability occurs]\n\n### Recommendation\n[Provide brief recommendations, do not need to mention Audit and Testing, do not need Code Snippet.]\n```",
+              "role": "system"
+            },
+            {
+              "content": "={{ $json.chatInput }}"
+            }
+          ]
+        },
+        "jsonOutput": true,
+        "options": {}
+      },
+      "type": "@n8n/n8n-nodes-langchain.openAi",
+      "typeVersion": 1.7,
+      "position": [
+        -1320,
+        4160
+      ],
+      "id": "e1c4c270-fe21-411e-ab7c-4858ca79cffb",
+      "name": "Slippage-On-Chain Slippage Calculation Can Be Manipulated",
+      "credentials": {
+        "openAiApi": {
+          "id": "FoBpFXcmVQSivgx6",
+          "name": "OpenAi account"
+        }
+      }
+    },
+    {
+      "parameters": {
+        "content": "### Hard-coded Slippage May Freeze User Funds\nhttps://github.com/code-423n4/2022-05-alchemix/blob/de65c34c7b6e4e94662bf508e214dcbf327984f4/contracts-hardhat/TransmuterBuffer.sol#L511-L524",
+        "width": 380
+      },
+      "type": "n8n-nodes-base.stickyNote",
+      "typeVersion": 1,
+      "position": [
+        -920,
+        4420
+      ],
+      "id": "2093f253-cc67-4e12-8800-1bc6fb5ce815",
+      "name": "Sticky Note8"
+    },
+    {
+      "parameters": {
+        "modelId": {
+          "__rl": true,
+          "value": "gpt-4o-mini",
+          "mode": "list",
+          "cachedResultName": "GPT-4O-MINI"
+        },
+        "messages": {
+          "values": [
+            {
+              "content": "=You are a smart contract auditor. After reading the following vulnerability knowledge and understanding correct and incorrect examples, detect the problem in the contract code.\n\n### Vulnerability Knowledge\n\n**Hard-coded Slippage May Freeze User Funds**\nThe idea of setting slippage is to protect the user from getting less tokens than they wanted due to high volatility and stop them from being exploited by MEV bots. So why don't projects just hard-code low slippage to protect users? Because hard-coded slippage can freeze user funds during periods of high volatility.\n\n### Examples\n\n#### Example 1\n\nConsider this simplified code from Sherlock's Olympus Update contest\n\n```solidity\nfunction withdrawCollateral(\n    address _asset,\n    uint256 _amount,\n    address _to\n) external virtual {\n    // Before withdraw from lending pool, get the stAsset address and withdrawal amount\n    // Ex: In Lido vault, it will return stETH address and same amount\n    (address _stAsset, uint256 _stAssetAmount) = _getWithdrawalAmount(_asset, _amount);\n\n    // withdraw from lendingPool, it will convert user's aToken to stAsset\n    uint256 _amountToWithdraw = ILendingPool(_addressesProvider.getLendingPool()).withdrawFrom(\n        _stAsset,\n        _stAssetAmount,\n        msg.sender,\n        address(this)\n    );\n\n    // Withdraw from vault, it will convert stAsset to asset and send to user\n    // Ex: In Lido vault, it will return ETH or stETH to user\n    uint256 withdrawAmount = _withdrawFromYieldPool(_asset, _amountToWithdraw, _to);\n\n    if (_amount == type(uint256).max) {\n        uint256 decimal = IERC20Detailed(_asset).decimals();\n        _amount = _amountToWithdraw.mul(this.pricePerShare()).div(10**decimal);\n    }\n    // @audit hard-coded slippage can cause all withdrawals to revert during\n    // times of high volatility, freezing user funds. Users should have the option to\n    // withdraw during high volatility by setting their own slippage.\n    require(withdrawAmount >= _amount.percentMul(99_00), Errors.VT_WITHDRAW_AMOUNT_MISMATCH);\n\n    emit WithdrawCollateral(_asset, _to, _amount);\n}\n```\n\nThis code sets a very small slippage on withdrawals. While this may protect users from losing funds due to slippage, during times of high volatility when slippage is unavoidable, it will also cause all withdrawals to revert, freezing user funds.\n\n**Suggestion**\n\nIf a project uses a default slippage, users should always be able to override it with their own slippage to ensure they can transact even during times of high volatility.\n\n### Task to Perform\nFollow the examples above to examine each contract and check if it contains this issue. If you find any potential issues, record them using the format below.\n\n### Output Format\n\nIf NO concrete vulnerability found, output exactly: **\"There’s no such issue.\"**\n\nOtherwise, follow the format below:\n\n```\n### Summary\nHard-coded Slippage May Freeze User Funds\n\n### Vulnerability Details\n1. **File Name:** [Insert File Name\u001d, if input is not a file and cannot justify file name, leave blank]\n2. **Function Name(s):** [The functions where the issue occur]\n3. **Description:**\n[Describe vulnerability details]\n\n### Code Snippet\n[The lines where the vulnerability occurs]\n\n### Recommendation\n[Provide brief recommendations, do not need to mention Audit and Testing, do not need Code Snippet.]\n```",
+              "role": "system"
+            },
+            {
+              "content": "={{ $json.chatInput }}"
+            }
+          ]
+        },
+        "jsonOutput": true,
+        "options": {}
+      },
+      "type": "@n8n/n8n-nodes-langchain.openAi",
+      "typeVersion": 1.7,
+      "position": [
+        -1320,
+        4440
+      ],
+      "id": "b6581f27-0e94-4c29-a32a-41f0581124eb",
+      "name": "Slippage-Hard-coded Slippage May Freeze User Funds",
+      "credentials": {
+        "openAiApi": {
+          "id": "FoBpFXcmVQSivgx6",
+          "name": "OpenAi account"
+        }
+      }
+    },
+    {
+      "parameters": {
+        "modelId": {
+          "__rl": true,
+          "value": "gpt-4o-mini",
+          "mode": "list",
+          "cachedResultName": "GPT-4O-MINI"
+        },
+        "messages": {
+          "values": [
+            {
+              "content": "=You are a smart contract auditor. After reading the following vulnerability knowledge and understanding correct and incorrect examples, detect the problem in the contract code.\n\n### Vulnerability Knowledge\n\n**Zero Slippage Required**\nA function that requires zero slippage is likely to revert presenting a persistent Denial Of Service to users. Expecting zero slippage is unrealistic which is why developers must allow users to specify slippage parameters.\n\n### Task to Perform\nFollow the examples above to examine each contract and check if it contains this issue. If you find any potential issues, record them using the format below.\n\n### Output Format\n\nIf NO concrete vulnerability found, output exactly: **\"There’s no such issue.\"**\n\nOtherwise, follow the format below:\n\n```\n### Summary\nZero Slippage Required\n\n### Vulnerability Details\n1. **File Name:** [Insert File Name\u001d, if input is not a file and cannot justify file name, leave blank]\n2. **Function Name(s):** [The functions where the issue occur]\n3. **Description:**\n[Describe vulnerability details]\n\n### Code Snippet\n[The lines where the vulnerability occurs]\n\n### Recommendation\n[Provide brief recommendations, do not need to mention Audit and Testing, do not need Code Snippet.]\n```",
+              "role": "system"
+            },
+            {
+              "content": "={{ $json.chatInput }}"
+            }
+          ]
+        },
+        "jsonOutput": true,
+        "options": {}
+      },
+      "type": "@n8n/n8n-nodes-langchain.openAi",
+      "typeVersion": 1.7,
+      "position": [
+        -1320,
+        4760
+      ],
+      "id": "b2c1e727-b94f-41a7-aa77-240f377adecf",
+      "name": "Slippage-Zero Slippage Required",
+      "credentials": {
+        "openAiApi": {
+          "id": "FoBpFXcmVQSivgx6",
+          "name": "OpenAi account"
+        }
+      }
+    }
+  ],
+  "pinData": {},
+  "connections": {
+    "When chat message received": {
+      "main": [
+        [
+          {
+            "node": "Slippage-No Slippage Parameter",
+            "type": "main",
+            "index": 0
+          },
+          {
+            "node": "Slippage-No Expiration Deadline",
+            "type": "main",
+            "index": 0
+          },
+          {
+            "node": "Slippage-Incorrect Slippage Calculation",
+            "type": "main",
+            "index": 0
+          },
+          {
+            "node": "Slippage-Mismatched Slippage Precision",
+            "type": "main",
+            "index": 0
+          },
+          {
+            "node": "Slippage-Minting Exposes Users To Unlimited Slippage",
+            "type": "main",
+            "index": 0
+          },
+          {
+            "node": "Slippage-MinTokensOut For Intermediate, Not Final Amount",
+            "type": "main",
+            "index": 0
+          },
+          {
+            "node": "Slippage-On-Chain Slippage Calculation Can Be Manipulated",
+            "type": "main",
+            "index": 0
+          },
+          {
+            "node": "Slippage-Hard-coded Slippage May Freeze User Funds",
+            "type": "main",
+            "index": 0
+          },
+          {
+            "node": "Slippage-Zero Slippage Required",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    }
+  },
+  "active": false,
+  "settings": {
+    "executionOrder": "v1"
+  },
+  "versionId": "aec48114-5e4f-48c5-a0f2-fee5895468a5",
+  "meta": {
+    "templateCredsSetupCompleted": true,
+    "instanceId": "6b00ef11cec26a47977bd0b02eca112c312cc7db1a82f551ff9d08d2af38b1d9"
+  },
+  "id": "umzFa6Ik87FYWCJo",
+  "tags": []
+}
