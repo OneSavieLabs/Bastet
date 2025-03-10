@@ -34,6 +34,21 @@ There are five examples included in our prompt:
 * Positive Test Cases: 84
 * Negative Test Cases: 29
 
-|  TP  |  FP  |  TN  |  FN  | Accuracy | Precision | Recall | F1 |
-| ---- | ---- | ---- | ---- | -------- | --------- | ------ | -- |
-|      |      |      |      |          |           |        |    |
+|  TP  |  TN  |  FN  |  FP  |  FP_t  | Accuracy | Precision | Recall |   F1   |
+| ---- | ---- | ---- | ---- | ------ | -------- | --------- | ------ | ------ |
+|  74  |  19  |  3   |  10  |    7   |   0.82   |   0.81    |  0.88  |  0.84  |
+
+* $` TP `$ (True Positive): The LLM correctly identifies the vulnerability with the correct type.
+* $` TN `$ (True Negative): The LLM correctly concludes that the code is not vulnerable.
+* $` FN `$ (False Negative): The LLM incorrectly identifies a vulnerable code segment as non-vulnerable.
+* $` FP `$ (False Positive): The LLM incorrectly identifies a non-vulnerable code segment as vulnerable.
+* $` FP_t `$ (False Positive Type): The LLM identifies a vulnerable code segment as vulnerable, but with an incorrect vulnerability type.
+
+Since FP-type includes both false positives (reporting a non- existent vulnerability) and false negatives (failing to report an ex- isting vulnerability), we calculate the precision and recall of the LLMs’ vulnerability detection results as follows:
+
+* $` Precision = \frac {TP}{TP + FP + FP_t} `$
+* $` Recal = \frac {TP}{TP + FN + FP_t} `$ 
+
+## References
+
+1. The definitions for confusion matrix, precision, and recall refer to [LLM4Vuln: A Unified Evaluation Framework for Decoupling and Enhancing LLMs’ Vulnerability Reasoning](https://arxiv.org/pdf/2401.16185).
