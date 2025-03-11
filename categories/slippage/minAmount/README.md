@@ -47,7 +47,7 @@ There are five examples included in our prompt:
 Since FP-type includes both false positives (reporting a non- existent vulnerability) and false negatives (failing to report an ex- isting vulnerability), we calculate the precision and recall of the LLMs’ vulnerability detection results as follows:
 
 * $` Precision = \frac {TP}{TP + FP + FP_t} `$
-* $` Recal = \frac {TP}{TP + FN + FP_t} `$ 
+* $` Recall = \frac {TP}{TP + FN + FP_t} `$ 
 
 ## References
 
