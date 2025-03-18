@@ -1,0 +1,316 @@
+{
+  "name": "ERC4626",
+  "nodes": [
+    {
+      "parameters": {
+        "options": {}
+      },
+      "id": "072649cf-306a-496a-8851-f78c78d4833a",
+      "name": "When chat message received",
+      "type": "@n8n/n8n-nodes-langchain.chatTrigger",
+      "typeVersion": 1.1,
+      "position": [
+        -1120,
+        300
+      ],
+      "webhookId": "471f4f97-1fd4-4312-b3ee-6fcc3310611d"
+    },
+    {
+      "parameters": {
+        "content": "## Knowledge:\nERC4626\nhttps://hackmd.io/@jbuCOBZvRjaiqc9WpSNXMg/HyPD8iL8R",
+        "height": 120,
+        "width": 540
+      },
+      "type": "n8n-nodes-base.stickyNote",
+      "typeVersion": 1,
+      "position": [
+        -1420,
+        80
+      ],
+      "id": "191873b2-c9e9-43e5-a3a4-1781ae8e5a70",
+      "name": "Sticky Note"
+    },
+    {
+      "parameters": {
+        "content": "### Rounding\nhttps://github.com/code-423n4/2022-06-notional-coop/blob/main/notional-wrapped-fcash/contracts/wfCashERC4626.sol#L186-L191",
+        "width": 380
+      },
+      "type": "n8n-nodes-base.stickyNote",
+      "typeVersion": 1,
+      "position": [
+        -420,
+        -140
+      ],
+      "id": "d506e6d9-def7-49b2-8219-a53a50239d93",
+      "name": "Sticky Note1"
+    },
+    {
+      "parameters": {
+        "content": "### Global and user-specific limits\nhttps://github.com/code-423n4/2023-05-maia/blob/main/src/maia/tokens/ERC4626PartnerManager.sol#L174",
+        "width": 380
+      },
+      "type": "n8n-nodes-base.stickyNote",
+      "typeVersion": 1,
+      "position": [
+        -420,
+        300
+      ],
+      "id": "8a9f8364-68f2-4aab-ac5c-29ee86698fde",
+      "name": "Sticky Note2"
+    },
+    {
+      "parameters": {
+        "modelId": {
+          "__rl": true,
+          "value": "gpt-4o-mini",
+          "mode": "list",
+          "cachedResultName": "GPT-4O-MINI"
+        },
+        "messages": {
+          "values": [
+            {
+              "content": "=You are a smart contract auditor. After reading the following vulnerability knowledge and understanding correct and incorrect examples, detect the problem in the contract code.\n\n### Vulnerability Knowledge\n\n**ERC4626 Rounding**\nERC-4626 vault implementations need to consider the rounding direction of different function implementations, as it is safer to prioritize the vault itself over the user in the computation.\n\n### Examples\n\n#### Example 1: Incorrect Example\n\nCheck out the following sample code:\n\n```solidity\nfunction withdraw(\n        uint256 assets,\n        address receiver,\n        address owner\n    ) public nonReentrant returns (uint256 shares) {\n        if (receiver == address(0)) revert InvalidReceiver();\n        shares = convertToShares(assets);\n/// .... [skipped the code]\n\nfunction convertToShares(uint256 assets) public view returns (uint256) {\n        uint256 supply = totalSupply(); \n\n        return\n            supply == 0\n                ? assets\n                : assets.mulDiv(supply, totalAssets(), Math.Rounding.Down);\n    }\n```\n\nin the above example, convertToShares() uses Rounding.Down, assuming the vault state is as follows:\n\nTotal Asset = 1000 WETH\nTotal Supply = 10 shares\n\nConsider this scenario, Alice wants to withdraw 99 WETH from the vault, which is calculated as 99 * 10/1000, and due to rounding down, the value of the postback is 0, Alice can withdraw the asset from the vault without having to burn its share.\n\n**Suggestion**\n\nFor more information on the rounding direction of different functions in the vault, please refer to\n\nhttps://github.com/OpenZeppelin/openzeppelin-contracts/blob/master/contracts/token/ERC20/extensions/ERC4626.sol\n\n### Task to Perform\nFollow the examples above to examine each contract and check if it contains this issue. If you find any potential issues, record them using the format below.\n\n### Output Format\n\nIf NO concrete vulnerability found, output exactly: **\"There’s no such issue.\"**\n\nOtherwise, follow the format below:\n\n```\n### Summary\nERC4626 Rounding\n\n### Vulnerability Details\n1. **File Name:** [Insert File Name\u001d, if input is not a file and cannot justify file name, leave blank]\n2. **Function Name(s):** [The functions where the issue occur]\n3. **Description:**\n[Describe vulnerability details]\n\n### Code Snippet\n[The lines where the vulnerability occurs]\n\n### Recommendation\n[Provide brief recommendations, do not need to mention Audit and Testing, do not need Code Snippet.]\n```",
+              "role": "system"
+            },
+            {
+              "content": "={{ $json.contract_content }}"
+            }
+          ]
+        },
+        "jsonOutput": true,
+        "options": {}
+      },
+      "type": "@n8n/n8n-nodes-langchain.openAi",
+      "typeVersion": 1.7,
+      "position": [
+        -420,
+        40
+      ],
+      "id": "66ca53f0-b2c9-4a92-85de-94dae5fc7b2c",
+      "name": "ERC4626-Rounding",
+      "credentials": {
+        "openAiApi": {
+          "id": "j2EqOAWsZ02BwUUN",
+          "name": "OpenAi account"
+        }
+      }
+    },
+    {
+      "parameters": {
+        "modelId": {
+          "__rl": true,
+          "value": "gpt-4o-mini",
+          "mode": "list",
+          "cachedResultName": "GPT-4O-MINI"
+        },
+        "messages": {
+          "values": [
+            {
+              "content": "=You are a smart contract auditor. After reading the following vulnerability knowledge and understanding correct and incorrect examples, detect the problem in the contract code.\n\n### Vulnerability Knowledge\n\n**Global and user-specific limits**\nWhen implementing a vault, it may happen that certain functions in the vault may be suspended due to urgent withdrawals or intentional by design, and some functions need to take into account these global state changes or user-specific restrictions.\n\n### Examples\n\n#### Example 1: Incorrect Example\n\nCheck out the following sample code:\n\n```solidity\nfunction deposit(uint256 assets, address receiver) external nonReentrant whenNotPaused returns (uint256) {\n        uint256 shares = previewDeposit(assets);\n        require(shares > 0, \"ZERO_SHARES\");\n        /// .... [skipped the code]\n    }\nfunction maxDeposit(address) public view virtual returns (uint256) {\n        return type(uint256).max;\n    }\n```\n\nwhenTokenNotPaused's modifier checks if the state at which deposit() was executed, and if the vault happens to be paused, maxDeposit() returns a value that can't actually be deposited, causing any component that relies on these functions to pass back the correct value to fail.\n\n**Suggestion**\n\nAccording to EIP 4626, maxDeposit(), maxMint(), maxWithdraw(), and maxRedeem() need to be taken into account global state or user-specific restrictions, and must be passed back to 0 if completely deactivated (even temporarily).\n\n### Task to Perform\nFollow the examples above to examine each contract and check if it contains this issue. If you find any potential issues, record them using the format below.\n\n### Output Format\n\nIf NO concrete vulnerability found, output exactly: **\"There’s no such issue.\"**\n\nOtherwise, follow the format below:\n\n```\n### Summary\nGlobal and user-specific limits\n\n### Vulnerability Details\n1. **File Name:** [Insert File Name\u001d, if input is not a file and cannot justify file name, leave blank]\n2. **Function Name(s):** [The functions where the issue occur]\n3. **Description:**\n[Describe vulnerability details]\n\n### Code Snippet\n[The lines where the vulnerability occurs]\n\n### Recommendation\n[Provide brief recommendations, do not need to mention Audit and Testing, do not need Code Snippet.]\n```",
+              "role": "system"
+            },
+            {
+              "content": "={{ $json.chatInput }}"
+            }
+          ]
+        },
+        "jsonOutput": true,
+        "options": {}
+      },
+      "type": "@n8n/n8n-nodes-langchain.openAi",
+      "typeVersion": 1.7,
+      "position": [
+        -420,
+        480
+      ],
+      "id": "8abd8919-0489-4703-9155-281fd7047916",
+      "name": "ERC4626-Global and user-specific limits",
+      "credentials": {
+        "openAiApi": {
+          "id": "j2EqOAWsZ02BwUUN",
+          "name": "OpenAi account"
+        }
+      }
+    },
+    {
+      "parameters": {
+        "modelId": {
+          "__rl": true,
+          "value": "gpt-4o-mini",
+          "mode": "list",
+          "cachedResultName": "GPT-4O-MINI"
+        },
+        "messages": {
+          "values": [
+            {
+              "content": "=You are a smart contract auditor. After reading the following vulnerability knowledge and understanding correct and incorrect examples, detect the problem in the contract code.\n\n### Vulnerability Knowledge\n\n**Fee**\nWhen designing vault-related applications, many project parties will charge for using some of the functions in the vault, and some functions need to consider the cost to be able to reflect truthfully.\n\n### Examples\n\n#### Example 1: Incorrect Example\n\nCheck out the following sample code:\n\n```solidity\n \n    function deposit(uint256 assets, address receiver) external nonReentrant whenNotPaused returns (uint256) {\n        uint256 fee = (assets * DEPOSIT_FEE_RATE) / MAX_FEE_RATE;\n        uint256 assetsAfterFee = assets - fee;\n        uint256 shares = _convertToShares(assetsAfterFee);\n\n        require(shares > 0, \"ZERO_SHARES\");\n\n        _mint(receiver, shares);\n        asset.safeTransferFrom(msg.sender, address(this), assetsAfterFee);\n        asset.safeTransferFrom(msg.sender, address(this), fee); // Transfer fee to the vault\n\n        emit Deposit(msg.sender, receiver, assetsAfterFee, shares, fee);\n        return shares;\n    }\n    \n    function previewDeposit(uint256 assets) public view virtual returns (uint256) {\n        return assets;\n    }\n\n```\n\nThere is a fee at the time of deposit, and the actual deposit amount is not the same as the value of the previewDeposit() return, which causes a value gap for the user or other contracts that integrate the vault.\n\n**Suggestion**\n\nAccording to EIP 4626, previewDeposit(), previewMint(), previewWithdraw(), and previewRedeem() are required to consider the expected fees charged when posting backs.\n\n### Task to Perform\nFollow the examples above to examine each contract and check if it contains this issue. If you find any potential issues, record them using the format below.\n\n### Output Format\n\nIf NO concrete vulnerability found, output exactly: **\"There’s no such issue.\"**\n\nOtherwise, follow the format below:\n\n```\n### Summary\nFee\n\n### Vulnerability Details\n1. **File Name:** [Insert File Name\u001d, if input is not a file and cannot justify file name, leave blank]\n2. **Function Name(s):** [The functions where the issue occur]\n3. **Description:**\n[Describe vulnerability details]\n\n### Code Snippet\n[The lines where the vulnerability occurs]\n\n### Recommendation\n[Provide brief recommendations, do not need to mention Audit and Testing, do not need Code Snippet.]\n```",
+              "role": "system"
+            },
+            {
+              "content": "={{ $json.chatInput }}"
+            }
+          ]
+        },
+        "jsonOutput": true,
+        "options": {}
+      },
+      "type": "@n8n/n8n-nodes-langchain.openAi",
+      "typeVersion": 1.7,
+      "position": [
+        -420,
+        880
+      ],
+      "id": "590e14f8-9408-4de6-9edf-02c440831079",
+      "name": "ERC4626-Fee",
+      "credentials": {
+        "openAiApi": {
+          "id": "j2EqOAWsZ02BwUUN",
+          "name": "OpenAi account"
+        }
+      }
+    },
+    {
+      "parameters": {
+        "content": "### Fee\nhttps://github.com/code-423n4/2023-05-maia/blob/54a45beb1428d85999da3f721f923cbf36ee3d35/src/erc-4626/UlyssesERC4626.sol#L96-L106",
+        "width": 380
+      },
+      "type": "n8n-nodes-base.stickyNote",
+      "typeVersion": 1,
+      "position": [
+        -420,
+        700
+      ],
+      "id": "ba80ff06-3d3a-4365-9f8e-1df2f613a36a",
+      "name": "Sticky Note3"
+    },
+    {
+      "parameters": {
+        "inputSource": "passthrough"
+      },
+      "type": "n8n-nodes-base.executeWorkflowTrigger",
+      "typeVersion": 1.1,
+      "position": [
+        -1120,
+        520
+      ],
+      "id": "09674d6f-4132-4ee7-9e15-7f1493d20a3c",
+      "name": "Workflow Input Trigger"
+    },
+    {
+      "parameters": {
+        "assignments": {
+          "assignments": [
+            {
+              "id": "d77160dc-1f0b-47c3-a309-8f2bc247e58e",
+              "name": "contract_content",
+              "value": "={{ $json.chatInput }}",
+              "type": "string"
+            }
+          ]
+        },
+        "options": {}
+      },
+      "type": "n8n-nodes-base.set",
+      "typeVersion": 3.4,
+      "position": [
+        -780,
+        160
+      ],
+      "id": "5607110c-8b5d-441d-86c7-4a240bddaafa",
+      "name": "Edit Fields"
+    },
+    {
+      "parameters": {
+        "assignments": {
+          "assignments": [
+            {
+              "id": "d77160dc-1f0b-47c3-a309-8f2bc247e58e",
+              "name": "contract_content",
+              "value": "={{ $json.contract_content }}",
+              "type": "string"
+            }
+          ]
+        },
+        "options": {}
+      },
+      "type": "n8n-nodes-base.set",
+      "typeVersion": 3.4,
+      "position": [
+        -780,
+        420
+      ],
+      "id": "0f60d258-62b0-4bb8-8ca8-3810bf484109",
+      "name": "Edit Fields1"
+    }
+  ],
+  "pinData": {},
+  "connections": {
+    "When chat message received": {
+      "main": [
+        [
+          {
+            "node": "Edit Fields",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Workflow Input Trigger": {
+      "main": [
+        [
+          {
+            "node": "Edit Fields1",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Edit Fields": {
+      "main": [
+        [
+          {
+            "node": "ERC4626-Rounding",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Edit Fields1": {
+      "main": [
+        [
+          {
+            "node": "ERC4626-Rounding",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "ERC4626-Rounding": {
+      "main": [
+        []
+      ]
+    }
+  },
+  "active": true,
+  "settings": {
+    "executionOrder": "v1"
+  },
+  "versionId": "6017c69f-f846-47c7-9cf6-c9a75b96af34",
+  "meta": {
+    "templateCredsSetupCompleted": true,
+    "instanceId": "c52f7c76a7b40b9b9f276c4afe2fd4fd3674ed446a15060094ec5f3a235bedb7"
+  },
+  "id": "FrgXzC1R4eYLhCrW",
+  "tags": [
+    {
+      "createdAt": "2025-03-17T09:24:33.000Z",
+      "updatedAt": "2025-03-17T09:24:33.000Z",
+      "id": "h8AX7MJLY80MRvJZ",
+      "name": "processor"
+    }
+  ]
+}

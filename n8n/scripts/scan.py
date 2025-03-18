@@ -90,12 +90,13 @@ def insert_analysis_result(cur, file_path, result):
         (contract_name, contract_path, audit_result)
         VALUES (%s, %s, %s)
         '''
-        
+
         cur.execute(insert_query, (
             file_name, 
             file_path, 
             audit_result,
         ))
+
     except Exception as e:
         print(f"Unexpected error in insert_analysis_result: {str(e)}")
         raise e
@@ -119,7 +120,7 @@ def main(folder_path):
     success_count = 0
     error_count = 0
 
-    with get_conn('bastet') as conn:
+    with get_conn('n8n') as conn:
         with conn.cursor() as cur:
             for file_path in tqdm(contract_files, 
                                  desc="Processing contracts", 
@@ -130,6 +131,7 @@ def main(folder_path):
                 try:
                     relative_path = os.path.relpath(file_path, folder_path)
                     result = scan_contract(file_path)
+
                     insert_analysis_result(cur, relative_path, result)
                     success_count += 1
                     
