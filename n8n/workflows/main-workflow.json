@@ -1,0 +1,285 @@
+{
+  "name": "Main flow with execute workflow",
+  "nodes": [
+    {
+      "parameters": {
+        "httpMethod": "POST",
+        "path": "b7f726b4-1cfd-4de0-99e7-911990a8445d",
+        "responseMode": "responseNode",
+        "options": {}
+      },
+      "type": "n8n-nodes-base.webhook",
+      "typeVersion": 2,
+      "position": [
+        -520,
+        320
+      ],
+      "id": "c684c5f9-ff8a-4eef-b99e-e0092a0fe1d1",
+      "name": "Webhook1",
+      "webhookId": "b7f726b4-1cfd-4de0-99e7-911990a8445d"
+    },
+    {
+      "parameters": {
+        "respondWith": "allIncomingItems",
+        "options": {}
+      },
+      "type": "n8n-nodes-base.respondToWebhook",
+      "typeVersion": 1.1,
+      "position": [
+        840,
+        60
+      ],
+      "id": "f271c9c6-f2ac-4f76-992a-2ab48b5a5432",
+      "name": "Respond to Webhook1"
+    },
+    {
+      "parameters": {
+        "conditions": {
+          "options": {
+            "caseSensitive": true,
+            "leftValue": "",
+            "typeValidation": "strict",
+            "version": 2
+          },
+          "conditions": [
+            {
+              "id": "aec5e9ac-3ea7-45d7-8e28-6739dc9bf1f2",
+              "leftValue": "={{ $json.headers['x-api-key'] }}",
+              "rightValue": "1234567890",
+              "operator": {
+                "type": "string",
+                "operation": "equals",
+                "name": "filter.operator.equals"
+              }
+            }
+          ],
+          "combinator": "and"
+        },
+        "options": {}
+      },
+      "type": "n8n-nodes-base.if",
+      "typeVersion": 2.2,
+      "position": [
+        -200,
+        500
+      ],
+      "id": "b4cef690-08e5-4c23-9cb3-d8f3086daacc",
+      "name": "Check API Key1"
+    },
+    {
+      "parameters": {
+        "respondWith": "json",
+        "responseBody": "{\n  \"error\": \"Unauthorized\"\n}",
+        "options": {
+          "responseCode": 403
+        }
+      },
+      "type": "n8n-nodes-base.respondToWebhook",
+      "typeVersion": 1.1,
+      "position": [
+        60,
+        640
+      ],
+      "id": "136c47aa-1bc6-4bd3-be1a-14e6cfe82e8e",
+      "name": "403 Unauthorized1"
+    },
+    {
+      "parameters": {
+        "workflowId": {
+          "__rl": true,
+          "value": "={{ $json.id }}",
+          "mode": "id"
+        },
+        "workflowInputs": {
+          "mappingMode": "defineBelow",
+          "value": {},
+          "matchingColumns": [],
+          "schema": [],
+          "attemptToConvertTypes": false,
+          "convertFieldsToString": true
+        },
+        "options": {}
+      },
+      "type": "n8n-nodes-base.executeWorkflow",
+      "typeVersion": 1.2,
+      "position": [
+        820,
+        340
+      ],
+      "id": "f7d893be-c0f4-4b15-93b8-525ca60a002b",
+      "name": "Execute Workflow",
+      "retryOnFail": false,
+      "onError": "continueErrorOutput"
+    },
+    {
+      "parameters": {
+        "filters": {},
+        "requestOptions": {}
+      },
+      "type": "n8n-nodes-base.n8n",
+      "typeVersion": 1,
+      "position": [
+        -200,
+        160
+      ],
+      "id": "59d14d71-f0a3-4209-b715-0afc9c6c28e8",
+      "name": "n8n",
+      "alwaysOutputData": false,
+      "credentials": {
+        "n8nApi": {
+          "id": "o5r0kPd8WxSgpAH4",
+          "name": "n8n account"
+        }
+      }
+    },
+    {
+      "parameters": {
+        "options": {}
+      },
+      "type": "n8n-nodes-base.splitInBatches",
+      "typeVersion": 3,
+      "position": [
+        520,
+        160
+      ],
+      "id": "b4255746-2c18-498c-b572-9ddddc8d223e",
+      "name": "Loop Over Items"
+    },
+    {
+      "parameters": {
+        "respondWith": "json",
+        "responseBody": "{\n  \"error\": \"Workflow error\"\n}",
+        "options": {
+          "responseCode": 500
+        }
+      },
+      "type": "n8n-nodes-base.respondToWebhook",
+      "typeVersion": 1.1,
+      "position": [
+        1080,
+        540
+      ],
+      "id": "59d66614-ac2c-41ba-8f4a-d4e3bd4070eb",
+      "name": "500 Workflow error"
+    },
+    {
+      "parameters": {
+        "jsCode": "// Loop over input items and add a new field called 'myNewField' to the JSON of each one\nconst workflowData = $(\"n8n\").all();\nconst contextData = $(\"Webhook1\").all()[0];\n\nconst result = workflowData\n  .filter((item) => item.json.tags[0] && item.json.tags[0].name === \"processor\")\n  .map((item) => {\n    return {\n      id: item.json.id,\n      name: item.json.name,\n      contract_content: contextData.json.body.contract_content,\n    };\n  });\n\nreturn result;"
+      },
+      "type": "n8n-nodes-base.code",
+      "typeVersion": 2,
+      "position": [
+        100,
+        300
+      ],
+      "id": "7aeb6263-f906-4de2-992e-c1bb1d90e4be",
+      "name": "Code"
+    }
+  ],
+  "pinData": {},
+  "connections": {
+    "Webhook1": {
+      "main": [
+        [
+          {
+            "node": "Check API Key1",
+            "type": "main",
+            "index": 0
+          },
+          {
+            "node": "n8n",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Check API Key1": {
+      "main": [
+        [
+          {
+            "node": "Code",
+            "type": "main",
+            "index": 0
+          }
+        ],
+        [
+          {
+            "node": "403 Unauthorized1",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Execute Workflow": {
+      "main": [
+        [
+          {
+            "node": "Loop Over Items",
+            "type": "main",
+            "index": 0
+          }
+        ],
+        [
+          {
+            "node": "500 Workflow error",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "n8n": {
+      "main": [
+        [
+          {
+            "node": "Code",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Loop Over Items": {
+      "main": [
+        [
+          {
+            "node": "Respond to Webhook1",
+            "type": "main",
+            "index": 0
+          }
+        ],
+        [
+          {
+            "node": "Execute Workflow",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Code": {
+      "main": [
+        [
+          {
+            "node": "Loop Over Items",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    }
+  },
+  "active": true,
+  "settings": {
+    "executionOrder": "v1"
+  },
+  "versionId": "ea79687e-d2af-4a6c-a35e-96f491d1a5e7",
+  "meta": {
+    "templateCredsSetupCompleted": true,
+    "instanceId": "c52f7c76a7b40b9b9f276c4afe2fd4fd3674ed446a15060094ec5f3a235bedb7"
+  },
+  "id": "bYGOo23CXjHnnF8X",
+  "tags": []
+}

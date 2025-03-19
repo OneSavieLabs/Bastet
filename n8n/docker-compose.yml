@@ -1,8 +1,9 @@
-version: '3.7'
+version: "3.7"
 # Reference: https://github.com/n8n-io/n8n-hosting/tree/main/docker-compose/withPostgres
 services:
   n8n:
-    image: docker.n8n.io/n8nio/n8n:1.76.3
+    image: docker.n8n.io/n8nio/n8n:1.82.1
+
     restart: always
     environment:
       - DB_TYPE=postgresdb
@@ -35,8 +36,8 @@ services:
     healthcheck:
       test:
         [
-          'CMD-SHELL',
-          'pg_isready -h localhost -U ${POSTGRES_USER} -d ${POSTGRES_DB}',
+          "CMD-SHELL",
+          "pg_isready -h localhost -U ${POSTGRES_USER} -d ${POSTGRES_DB}",
         ]
       interval: 5s
       timeout: 5s
