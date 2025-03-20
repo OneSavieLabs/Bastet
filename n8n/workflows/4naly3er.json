@@ -26,14 +26,14 @@
       "type": "@n8n/n8n-nodes-langchain.openAi",
       "typeVersion": 1.7,
       "position": [
-        400,
-        -300
+        0,
+        260
       ],
-      "id": "5bba225f-2b7a-47b9-9283-00b86d8c4e80",
+      "id": "5e91d4d1-0b9c-49ef-8a33-a28981fcac0f",
       "name": "4naly3er-GAS-ERC721usage",
       "credentials": {
         "openAiApi": {
-          "id": "McJHqUpwbGEcQ02W",
+          "id": "j2EqOAWsZ02BwUUN",
           "name": "OpenAi account"
         }
       }
@@ -63,14 +63,14 @@
       "type": "@n8n/n8n-nodes-langchain.openAi",
       "typeVersion": 1.7,
       "position": [
-        400,
-        -160
+        0,
+        400
       ],
-      "id": "797ba729-3162-4949-b359-7abb33539255",
+      "id": "1c787f91-b046-413a-afa7-585a7a922240",
       "name": "4naly3er-GAS-addPlusEqual",
       "credentials": {
         "openAiApi": {
-          "id": "McJHqUpwbGEcQ02W",
+          "id": "j2EqOAWsZ02BwUUN",
           "name": "OpenAi account"
         }
       }
@@ -100,14 +100,14 @@
       "type": "@n8n/n8n-nodes-langchain.openAi",
       "typeVersion": 1.7,
       "position": [
-        400,
-        -560
+        0,
+        0
       ],
-      "id": "38b00a48-be38-4d42-90d5-986f9088e49c",
+      "id": "97bfe6bf-36e2-4c75-80c4-6f9d227cc333",
       "name": "Few-shot",
       "credentials": {
         "openAiApi": {
-          "id": "McJHqUpwbGEcQ02W",
+          "id": "j2EqOAWsZ02BwUUN",
           "name": "OpenAi account"
         }
       }
@@ -116,13 +116,13 @@
       "parameters": {
         "options": {}
       },
-      "id": "5bac9a12-3090-4d3e-97ea-4f18871cb86b",
+      "id": "ca91f03c-eeff-4cb7-9a33-7794523c97a0",
       "name": "When chat message received",
       "type": "@n8n/n8n-nodes-langchain.chatTrigger",
       "typeVersion": 1.1,
       "position": [
-        140,
-        60
+        -480,
+        580
       ],
       "webhookId": "45e4d06b-bcc3-4b56-af90-9a1e235cf99d"
     },
@@ -151,14 +151,14 @@
       "type": "@n8n/n8n-nodes-langchain.openAi",
       "typeVersion": 1.7,
       "position": [
-        400,
-        -20
+        0,
+        540
       ],
-      "id": "e93e961e-bf3e-4f52-b2ed-c5c7cd94336c",
+      "id": "77a8ff40-667a-4dd9-ae9a-e1681743fd25",
       "name": "4naly3er-GAS-_msgSender",
       "credentials": {
         "openAiApi": {
-          "id": "McJHqUpwbGEcQ02W",
+          "id": "j2EqOAWsZ02BwUUN",
           "name": "OpenAi account"
         }
       }
@@ -188,14 +188,14 @@
       "type": "@n8n/n8n-nodes-langchain.openAi",
       "typeVersion": 1.7,
       "position": [
-        400,
-        380
+        0,
+        940
       ],
-      "id": "89a02049-ace2-4c3b-bc67-77d49e161eb5",
+      "id": "bc3c8af6-edca-47ad-a7bc-5bfd7ada6140",
       "name": "4naly3er-H-comparisonOutsideCondition",
       "credentials": {
         "openAiApi": {
-          "id": "McJHqUpwbGEcQ02W",
+          "id": "j2EqOAWsZ02BwUUN",
           "name": "OpenAi account"
         }
       }
@@ -225,17 +225,30 @@
       "type": "@n8n/n8n-nodes-langchain.openAi",
       "typeVersion": 1.7,
       "position": [
-        400,
-        500
+        0,
+        1060
       ],
-      "id": "0a9a580d-10a1-4b3a-a5cb-ebd4eadb3373",
+      "id": "82d729d7-9ee2-4c54-b48d-b40433326db4",
       "name": "4naly3er-H-wstETHPriceStEth",
       "credentials": {
         "openAiApi": {
-          "id": "McJHqUpwbGEcQ02W",
+          "id": "j2EqOAWsZ02BwUUN",
           "name": "OpenAi account"
         }
       }
+    },
+    {
+      "parameters": {
+        "inputSource": "passthrough"
+      },
+      "type": "n8n-nodes-base.executeWorkflowTrigger",
+      "typeVersion": 1.1,
+      "position": [
+        -480,
+        820
+      ],
+      "id": "aa810c16-0a5b-4f82-8c83-155a7544c9a6",
+      "name": "Workflow Input Trigger"
     }
   ],
   "pinData": {},
@@ -275,16 +288,60 @@
           }
         ]
       ]
+    },
+    "Workflow Input Trigger": {
+      "main": [
+        [
+          {
+            "node": "Few-shot",
+            "type": "main",
+            "index": 0
+          },
+          {
+            "node": "4naly3er-GAS-ERC721usage",
+            "type": "main",
+            "index": 0
+          },
+          {
+            "node": "4naly3er-GAS-addPlusEqual",
+            "type": "main",
+            "index": 0
+          },
+          {
+            "node": "4naly3er-GAS-_msgSender",
+            "type": "main",
+            "index": 0
+          },
+          {
+            "node": "4naly3er-H-comparisonOutsideCondition",
+            "type": "main",
+            "index": 0
+          },
+          {
+            "node": "4naly3er-H-wstETHPriceStEth",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
     }
   },
-  "active": false,
+  "active": true,
   "settings": {
     "executionOrder": "v1"
   },
-  "versionId": "35a6cd4e-9f02-4603-b1f1-231619021dc3",
+  "versionId": "49d80624-7b4b-4d0d-aa95-4c3fd9aa3dd5",
   "meta": {
-    "instanceId": "8789129020d7ccc9e3bcc76e80866ad16ba71549d1d93d78797a77a182bbbcd8"
+    "templateCredsSetupCompleted": true,
+    "instanceId": "c52f7c76a7b40b9b9f276c4afe2fd4fd3674ed446a15060094ec5f3a235bedb7"
   },
-  "id": "Qv3fzyglzana3FQB",
-  "tags": []
+  "id": "x3Gk2pexAsmMM40P",
+  "tags": [
+    {
+      "createdAt": "2025-03-20T08:14:08.895Z",
+      "updatedAt": "2025-03-20T08:14:08.895Z",
+      "id": "L8wrJSWKPRpbssNN",
+      "name": "processor"
+    }
+  ]
 }

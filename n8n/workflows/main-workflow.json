@@ -1,10 +1,10 @@
 {
-  "name": "Main flow with execute workflow",
+  "name": "Main Workflow",
   "nodes": [
     {
       "parameters": {
         "httpMethod": "POST",
-        "path": "b7f726b4-1cfd-4de0-99e7-911990a8445d",
+        "path": "main-workflow",
         "responseMode": "responseNode",
         "options": {}
       },
@@ -164,7 +164,7 @@
     },
     {
       "parameters": {
-        "jsCode": "// Loop over input items and add a new field called 'myNewField' to the JSON of each one\nconst workflowData = $(\"n8n\").all();\nconst contextData = $(\"Webhook1\").all()[0];\n\nconst result = workflowData\n  .filter((item) => item.json.tags[0] && item.json.tags[0].name === \"processor\")\n  .map((item) => {\n    return {\n      id: item.json.id,\n      name: item.json.name,\n      contract_content: contextData.json.body.contract_content,\n    };\n  });\n\nreturn result;"
+        "jsCode": "// Loop over input items and add a new field called 'myNewField' to the JSON of each one\nconst workflowData = $(\"n8n\").all();\nconst contextData = $(\"Webhook1\").all()[0];\n\nconst result = workflowData\n  .filter((item) => item.json.active && item.json.tags[0] && item.json.tags[0].name === \"processor\")\n  .map((item) => {\n    return {\n      id: item.json.id,\n      name: item.json.name,\n      chatInput: contextData.json.body.chatInput,\n    };\n  });\n\nreturn result;"
       },
       "type": "n8n-nodes-base.code",
       "typeVersion": 2,
@@ -275,11 +275,10 @@
   "settings": {
     "executionOrder": "v1"
   },
-  "versionId": "ea79687e-d2af-4a6c-a35e-96f491d1a5e7",
+  "versionId": "0b026310-b7a0-4842-a54e-60bb4e44dfb0",
   "meta": {
-    "templateCredsSetupCompleted": true,
     "instanceId": "c52f7c76a7b40b9b9f276c4afe2fd4fd3674ed446a15060094ec5f3a235bedb7"
   },
-  "id": "bYGOo23CXjHnnF8X",
+  "id": "CJrhcG3MgFr2FokV",
   "tags": []
 }

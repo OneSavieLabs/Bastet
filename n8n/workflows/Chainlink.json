@@ -5,13 +5,13 @@
       "parameters": {
         "options": {}
       },
-      "id": "222adba1-3bff-4c7e-a002-bde9d53f4cb7",
+      "id": "9e2b4d88-5ab1-4248-86bd-23655def6e0d",
       "name": "When chat message received",
       "type": "@n8n/n8n-nodes-langchain.chatTrigger",
       "typeVersion": 1.1,
       "position": [
-        -1800,
-        2720
+        -2000,
+        1700
       ],
       "webhookId": "1fd9eba9-f00b-4c9a-b48f-3695c1e6941b"
     },
@@ -40,14 +40,14 @@
       "type": "@n8n/n8n-nodes-langchain.openAi",
       "typeVersion": 1.7,
       "position": [
-        -20,
-        620
+        -220,
+        -1340
       ],
-      "id": "1b8ade0d-642b-46f1-b027-2cde8f511efc",
+      "id": "f5563312-173e-42ff-ab3d-6a6b49b28c4f",
       "name": "Chainlink-Not Checking For Stale Prices",
       "credentials": {
         "openAiApi": {
-          "id": "FoBpFXcmVQSivgx6",
+          "id": "j2EqOAWsZ02BwUUN",
           "name": "OpenAi account"
         }
       }
@@ -61,10 +61,10 @@
       "type": "n8n-nodes-base.stickyNote",
       "typeVersion": 1,
       "position": [
-        -2000,
-        2500
+        -2200,
+        1480
       ],
-      "id": "77592959-20ef-4fe6-a381-a5a67520c572",
+      "id": "0f56cc7d-909c-4b4c-b2a8-5a37d0580cca",
       "name": "Sticky Note"
     },
     {
@@ -75,10 +75,10 @@
       "type": "n8n-nodes-base.stickyNote",
       "typeVersion": 1,
       "position": [
-        400,
-        580
+        -220,
+        -1540
       ],
-      "id": "2f299a09-0b03-4493-8cb5-1d01e0f9158b",
+      "id": "039fd270-1e00-4ad8-87c9-ff475a0ee3f5",
       "name": "Sticky Note1"
     },
     {
@@ -106,14 +106,14 @@
       "type": "@n8n/n8n-nodes-langchain.openAi",
       "typeVersion": 1.7,
       "position": [
-        -20,
-        880
+        -240,
+        -860
       ],
-      "id": "9690d1b9-4a4c-4925-a1a1-10255fe19ea2",
+      "id": "b21f0e64-4b81-415c-b5e5-fa9ed60d4f44",
       "name": "Chainlink-Not Checking For Down L2 Sequencer",
       "credentials": {
         "openAiApi": {
-          "id": "FoBpFXcmVQSivgx6",
+          "id": "j2EqOAWsZ02BwUUN",
           "name": "OpenAi account"
         }
       }
@@ -126,10 +126,10 @@
       "type": "n8n-nodes-base.stickyNote",
       "typeVersion": 1,
       "position": [
-        400,
-        860
+        -240,
+        -1080
       ],
-      "id": "0f55b7c8-1f0b-41e0-8ecf-eb474af5179b",
+      "id": "1a75c367-a79f-466f-ad8f-243260ae9555",
       "name": "Sticky Note2"
     },
     {
@@ -157,14 +157,14 @@
       "type": "@n8n/n8n-nodes-langchain.openAi",
       "typeVersion": 1.7,
       "position": [
-        -40,
-        1160
+        -260,
+        -440
       ],
-      "id": "c60052ae-6941-4add-9836-d11d78485fd9",
+      "id": "1e3c96c3-ec20-43e4-8807-e3ef29663bee",
       "name": "Chainlink-Same Heartbeat Used For Multiple Price Feeds",
       "credentials": {
         "openAiApi": {
-          "id": "FoBpFXcmVQSivgx6",
+          "id": "j2EqOAWsZ02BwUUN",
           "name": "OpenAi account"
         }
       }
@@ -177,10 +177,10 @@
       "type": "n8n-nodes-base.stickyNote",
       "typeVersion": 1,
       "position": [
-        400,
-        1120
+        -260,
+        -620
       ],
-      "id": "65d69952-fa28-484b-9592-d23bb6cb451c",
+      "id": "d6c28820-dc2a-4010-aa64-a2541b8faa34",
       "name": "Sticky Note3"
     },
     {
@@ -191,10 +191,10 @@
       "type": "n8n-nodes-base.stickyNote",
       "typeVersion": 1,
       "position": [
-        400,
-        1440
+        -260,
+        -200
       ],
-      "id": "0380999f-c315-420e-94bb-9e78cf77eff6",
+      "id": "79951526-fcfe-4e0e-b817-b86788744145",
       "name": "Sticky Note4"
     },
     {
@@ -222,14 +222,14 @@
       "type": "@n8n/n8n-nodes-langchain.openAi",
       "typeVersion": 1.7,
       "position": [
-        -40,
-        1460
+        -260,
+        0
       ],
-      "id": "88fe1def-328c-43a3-bb1c-741f51b1c7ca",
+      "id": "6da9fa52-b75c-4249-bf40-688aeb8c3a0e",
       "name": "Chainlink-Oracle Price Feeds Not Updated Frequently",
       "credentials": {
         "openAiApi": {
-          "id": "FoBpFXcmVQSivgx6",
+          "id": "j2EqOAWsZ02BwUUN",
           "name": "OpenAi account"
         }
       }
@@ -259,14 +259,14 @@
       "type": "@n8n/n8n-nodes-langchain.openAi",
       "typeVersion": 1.7,
       "position": [
-        -40,
-        1760
+        -260,
+        340
       ],
-      "id": "820585cb-570d-4788-be50-ad86a9253a02",
+      "id": "5f2ef055-d207-41d9-ae82-81f6948d2667",
       "name": "Chainlink-Request Confirmation < Depth of Chain Re-Orgs",
       "credentials": {
         "openAiApi": {
-          "id": "FoBpFXcmVQSivgx6",
+          "id": "j2EqOAWsZ02BwUUN",
           "name": "OpenAi account"
         }
       }
@@ -296,14 +296,14 @@
       "type": "@n8n/n8n-nodes-langchain.openAi",
       "typeVersion": 1.7,
       "position": [
-        -40,
-        2060
+        -260,
+        780
       ],
-      "id": "f4e6dec2-0ecf-42d1-8138-edbe16a2831f",
+      "id": "febe2295-c742-4c4e-a557-7f82b6334d02",
       "name": "Chainlink-Assuming Oracle Price Precision",
       "credentials": {
         "openAiApi": {
-          "id": "FoBpFXcmVQSivgx6",
+          "id": "j2EqOAWsZ02BwUUN",
           "name": "OpenAi account"
         }
       }
@@ -311,15 +311,15 @@
     {
       "parameters": {
         "content": "### Assuming Oracle Price Precision\nhttps://github.com/code-423n4/2021-12-vader/blob/00ed84015d4116da2f9db0c68db6742c89e73f65/contracts/lbt/LiquidityBasedTWAP.sol#L393-L409",
-        "width": 380
+        "width": 390
       },
       "type": "n8n-nodes-base.stickyNote",
       "typeVersion": 1,
       "position": [
-        400,
-        2040
+        -260,
+        580
       ],
-      "id": "6e0537b0-e7bb-44f3-87cc-2b415ec76f83",
+      "id": "e8912beb-ec78-416e-8511-e07e4237e15a",
       "name": "Sticky Note5"
     },
     {
@@ -347,14 +347,14 @@
       "type": "@n8n/n8n-nodes-langchain.openAi",
       "typeVersion": 1.7,
       "position": [
-        -40,
-        2400
+        -260,
+        1220
       ],
-      "id": "f99c1d2d-382d-4156-8c98-2664444b27d6",
+      "id": "e52ef8cc-dc99-4019-b1ef-168808208a79",
       "name": "Chainlink-Incorrect Oracle Price Feed Address",
       "credentials": {
         "openAiApi": {
-          "id": "FoBpFXcmVQSivgx6",
+          "id": "j2EqOAWsZ02BwUUN",
           "name": "OpenAi account"
         }
       }
@@ -367,10 +367,10 @@
       "type": "n8n-nodes-base.stickyNote",
       "typeVersion": 1,
       "position": [
-        400,
-        2380
+        -260,
+        1020
       ],
-      "id": "662536fc-f7e7-4389-a415-81949d41a67f",
+      "id": "87db5687-6011-4b9e-91cd-18ccea160357",
       "name": "Sticky Note6"
     },
     {
@@ -398,14 +398,14 @@
       "type": "@n8n/n8n-nodes-langchain.openAi",
       "typeVersion": 1.7,
       "position": [
-        -40,
-        2720
+        -240,
+        1700
       ],
-      "id": "cc0ef2a7-b369-4ed2-a27e-643d312b7bba",
+      "id": "0ecca034-07ca-44cb-b964-b95fa969240f",
       "name": "Chainlink-Oracle Price Updates Can Be Front-Run",
       "credentials": {
         "openAiApi": {
-          "id": "FoBpFXcmVQSivgx6",
+          "id": "j2EqOAWsZ02BwUUN",
           "name": "OpenAi account"
         }
       }
@@ -418,10 +418,10 @@
       "type": "n8n-nodes-base.stickyNote",
       "typeVersion": 1,
       "position": [
-        400,
-        2700
+        -240,
+        1480
       ],
-      "id": "44ac39a2-3591-4bac-bd7f-ef3da91b0932",
+      "id": "2e354c39-b999-460d-bc32-ad0179797dcf",
       "name": "Sticky Note7"
     },
     {
@@ -449,14 +449,14 @@
       "type": "@n8n/n8n-nodes-langchain.openAi",
       "typeVersion": 1.7,
       "position": [
-        -40,
-        3080
+        -240,
+        2140
       ],
-      "id": "c6e2f125-48ef-4654-b71c-8a31317dda51",
+      "id": "bfa9a1f2-b5d2-42ed-9743-8cf42c9b728d",
       "name": "Chainlink-Unhandled Oracle Revert Denial Of Service",
       "credentials": {
         "openAiApi": {
-          "id": "FoBpFXcmVQSivgx6",
+          "id": "j2EqOAWsZ02BwUUN",
           "name": "OpenAi account"
         }
       }
@@ -469,10 +469,10 @@
       "type": "n8n-nodes-base.stickyNote",
       "typeVersion": 1,
       "position": [
-        400,
-        3060
+        -240,
+        1940
       ],
-      "id": "55cd1b0f-1864-474f-ac51-fef5333dceb2",
+      "id": "1d665852-ad75-495a-8848-95744529e0ee",
       "name": "Sticky Note8"
     },
     {
@@ -500,14 +500,14 @@
       "type": "@n8n/n8n-nodes-langchain.openAi",
       "typeVersion": 1.7,
       "position": [
-        -40,
-        3400
+        -240,
+        2520
       ],
-      "id": "3af30e54-b287-42bd-9f39-41e203100ad5",
+      "id": "ad680642-b8fd-4aaa-9e96-d458a6fc6765",
       "name": "Chainlink-Unhandled Depeg Of Bridged Assets",
       "credentials": {
         "openAiApi": {
-          "id": "FoBpFXcmVQSivgx6",
+          "id": "j2EqOAWsZ02BwUUN",
           "name": "OpenAi account"
         }
       }
@@ -520,10 +520,10 @@
       "type": "n8n-nodes-base.stickyNote",
       "typeVersion": 1,
       "position": [
-        400,
-        3380
+        -240,
+        2340
       ],
-      "id": "baafe4f6-b8b6-4acf-932e-8104da3a76c6",
+      "id": "0ddc4cce-d751-4ed8-9104-7380e408095d",
       "name": "Sticky Note9"
     },
     {
@@ -551,14 +551,14 @@
       "type": "@n8n/n8n-nodes-langchain.openAi",
       "typeVersion": 1.7,
       "position": [
-        -40,
-        3740
+        -240,
+        2960
       ],
-      "id": "0c0bbe77-1eff-493a-a196-343f14c1d300",
+      "id": "dbf68890-1c03-48a2-86a6-fb0edeca3539",
       "name": "Chainlink-Oracle Returns Incorrect Price During Flash Crashes",
       "credentials": {
         "openAiApi": {
-          "id": "FoBpFXcmVQSivgx6",
+          "id": "j2EqOAWsZ02BwUUN",
           "name": "OpenAi account"
         }
       }
@@ -571,10 +571,10 @@
       "type": "n8n-nodes-base.stickyNote",
       "typeVersion": 1,
       "position": [
-        400,
-        3740
+        -240,
+        2760
       ],
-      "id": "de63e136-dc87-4419-814a-60057b058453",
+      "id": "4fcdad1b-7f14-4b57-8cc7-287ab769cb42",
       "name": "Sticky Note10"
     },
     {
@@ -602,14 +602,14 @@
       "type": "@n8n/n8n-nodes-langchain.openAi",
       "typeVersion": 1.7,
       "position": [
-        -40,
-        4100
+        -240,
+        3220
       ],
-      "id": "c459eba4-b59c-44be-8cdb-a04941a50f65",
+      "id": "0ab87bdc-c501-45ed-9bd1-e9a3a0f22199",
       "name": "Chainlink-Placing Bets After Randomness Request",
       "credentials": {
         "openAiApi": {
-          "id": "FoBpFXcmVQSivgx6",
+          "id": "j2EqOAWsZ02BwUUN",
           "name": "OpenAi account"
         }
       }
@@ -639,17 +639,67 @@
       "type": "@n8n/n8n-nodes-langchain.openAi",
       "typeVersion": 1.7,
       "position": [
-        -40,
-        4420
+        -240,
+        3540
       ],
-      "id": "c9defb91-9326-4f2c-8edf-4d7180d35eb1",
+      "id": "7d5a396f-5c13-4075-b303-04699162963c",
       "name": "Chainlink-Re-requesting Randomness",
       "credentials": {
         "openAiApi": {
-          "id": "FoBpFXcmVQSivgx6",
+          "id": "j2EqOAWsZ02BwUUN",
           "name": "OpenAi account"
         }
       }
+    },
+    {
+      "parameters": {
+        "inputSource": "passthrough"
+      },
+      "type": "n8n-nodes-base.executeWorkflowTrigger",
+      "typeVersion": 1.1,
+      "position": [
+        -2000,
+        1960
+      ],
+      "id": "62ae4a25-8983-48f0-93c4-bf22588ec2f4",
+      "name": "Workflow Input Trigger"
+    },
+    {
+      "parameters": {
+        "numberInputs": 10
+      },
+      "type": "n8n-nodes-base.merge",
+      "typeVersion": 3,
+      "position": [
+        1040,
+        280
+      ],
+      "id": "8778cb86-4cea-4819-8789-ed2d82b5793d",
+      "name": "Merge"
+    },
+    {
+      "parameters": {
+        "numberInputs": 3
+      },
+      "type": "n8n-nodes-base.merge",
+      "typeVersion": 3,
+      "position": [
+        1000,
+        2800
+      ],
+      "id": "fc42014e-a70f-46b6-90e9-e3e9873d4ecc",
+      "name": "Merge1"
+    },
+    {
+      "parameters": {},
+      "type": "n8n-nodes-base.merge",
+      "typeVersion": 3,
+      "position": [
+        1660,
+        2020
+      ],
+      "id": "18ed8372-e79c-452c-9407-1adbf7bd19cf",
+      "name": "Merge2"
     }
   ],
   "pinData": {},
@@ -724,17 +774,260 @@
           }
         ]
       ]
+    },
+    "Workflow Input Trigger": {
+      "main": [
+        [
+          {
+            "node": "Chainlink-Not Checking For Stale Prices",
+            "type": "main",
+            "index": 0
+          },
+          {
+            "node": "Chainlink-Not Checking For Down L2 Sequencer",
+            "type": "main",
+            "index": 0
+          },
+          {
+            "node": "Chainlink-Same Heartbeat Used For Multiple Price Feeds",
+            "type": "main",
+            "index": 0
+          },
+          {
+            "node": "Chainlink-Oracle Price Feeds Not Updated Frequently",
+            "type": "main",
+            "index": 0
+          },
+          {
+            "node": "Chainlink-Request Confirmation < Depth of Chain Re-Orgs",
+            "type": "main",
+            "index": 0
+          },
+          {
+            "node": "Chainlink-Assuming Oracle Price Precision",
+            "type": "main",
+            "index": 0
+          },
+          {
+            "node": "Chainlink-Incorrect Oracle Price Feed Address",
+            "type": "main",
+            "index": 0
+          },
+          {
+            "node": "Chainlink-Oracle Price Updates Can Be Front-Run",
+            "type": "main",
+            "index": 0
+          },
+          {
+            "node": "Chainlink-Unhandled Oracle Revert Denial Of Service",
+            "type": "main",
+            "index": 0
+          },
+          {
+            "node": "Chainlink-Unhandled Depeg Of Bridged Assets",
+            "type": "main",
+            "index": 0
+          },
+          {
+            "node": "Chainlink-Oracle Returns Incorrect Price During Flash Crashes",
+            "type": "main",
+            "index": 0
+          },
+          {
+            "node": "Chainlink-Placing Bets After Randomness Request",
+            "type": "main",
+            "index": 0
+          },
+          {
+            "node": "Chainlink-Re-requesting Randomness",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Chainlink-Not Checking For Stale Prices": {
+      "main": [
+        [
+          {
+            "node": "Merge",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Chainlink-Not Checking For Down L2 Sequencer": {
+      "main": [
+        [
+          {
+            "node": "Merge",
+            "type": "main",
+            "index": 1
+          }
+        ]
+      ]
+    },
+    "Chainlink-Same Heartbeat Used For Multiple Price Feeds": {
+      "main": [
+        [
+          {
+            "node": "Merge",
+            "type": "main",
+            "index": 2
+          }
+        ]
+      ]
+    },
+    "Chainlink-Oracle Price Feeds Not Updated Frequently": {
+      "main": [
+        [
+          {
+            "node": "Merge",
+            "type": "main",
+            "index": 3
+          }
+        ]
+      ]
+    },
+    "Chainlink-Request Confirmation < Depth of Chain Re-Orgs": {
+      "main": [
+        [
+          {
+            "node": "Merge",
+            "type": "main",
+            "index": 4
+          }
+        ]
+      ]
+    },
+    "Chainlink-Assuming Oracle Price Precision": {
+      "main": [
+        [
+          {
+            "node": "Merge",
+            "type": "main",
+            "index": 5
+          }
+        ]
+      ]
+    },
+    "Chainlink-Incorrect Oracle Price Feed Address": {
+      "main": [
+        [
+          {
+            "node": "Merge",
+            "type": "main",
+            "index": 6
+          }
+        ]
+      ]
+    },
+    "Chainlink-Oracle Price Updates Can Be Front-Run": {
+      "main": [
+        [
+          {
+            "node": "Merge",
+            "type": "main",
+            "index": 7
+          }
+        ]
+      ]
+    },
+    "Chainlink-Unhandled Oracle Revert Denial Of Service": {
+      "main": [
+        [
+          {
+            "node": "Merge",
+            "type": "main",
+            "index": 8
+          }
+        ]
+      ]
+    },
+    "Chainlink-Unhandled Depeg Of Bridged Assets": {
+      "main": [
+        [
+          {
+            "node": "Merge",
+            "type": "main",
+            "index": 9
+          }
+        ]
+      ]
+    },
+    "Chainlink-Oracle Returns Incorrect Price During Flash Crashes": {
+      "main": [
+        [
+          {
+            "node": "Merge1",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Chainlink-Placing Bets After Randomness Request": {
+      "main": [
+        [
+          {
+            "node": "Merge1",
+            "type": "main",
+            "index": 1
+          }
+        ]
+      ]
+    },
+    "Chainlink-Re-requesting Randomness": {
+      "main": [
+        [
+          {
+            "node": "Merge1",
+            "type": "main",
+            "index": 2
+          }
+        ]
+      ]
+    },
+    "Merge1": {
+      "main": [
+        [
+          {
+            "node": "Merge2",
+            "type": "main",
+            "index": 1
+          }
+        ]
+      ]
+    },
+    "Merge": {
+      "main": [
+        [
+          {
+            "node": "Merge2",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
     }
   },
-  "active": false,
+  "active": true,
   "settings": {
     "executionOrder": "v1"
   },
-  "versionId": "6c654a77-0a9c-44e0-9af9-81b889392df0",
+  "versionId": "11e993d2-25ea-4e7e-9d3a-66d9c223c723",
   "meta": {
     "templateCredsSetupCompleted": true,
-    "instanceId": "6b00ef11cec26a47977bd0b02eca112c312cc7db1a82f551ff9d08d2af38b1d9"
+    "instanceId": "c52f7c76a7b40b9b9f276c4afe2fd4fd3674ed446a15060094ec5f3a235bedb7"
   },
-  "id": "Ln5LqZGAq6b0A6lp",
-  "tags": []
+  "id": "1RgydQzdEZcObFwW",
+  "tags": [
+    {
+      "createdAt": "2025-03-20T08:14:08.895Z",
+      "updatedAt": "2025-03-20T08:14:08.895Z",
+      "id": "L8wrJSWKPRpbssNN",
+      "name": "processor"
+    }
+  ]
 }
