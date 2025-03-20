@@ -1,11 +1,11 @@
 {
-  "name": "Chainlink",
+  "name": "chainlink",
   "nodes": [
     {
       "parameters": {
         "options": {}
       },
-      "id": "0cf0ff15-9f07-4396-9632-d97bc922254c",
+      "id": "9c4f7092-178f-42a8-9185-0358e5ce1974",
       "name": "When chat message received",
       "type": "@n8n/n8n-nodes-langchain.chatTrigger",
       "typeVersion": 1.1,
@@ -30,7 +30,7 @@
               "role": "system"
             },
             {
-              "content": "={{ $json.contract_content }}"
+              "content": "={{ $json.chatInput }}"
             }
           ]
         },
@@ -43,7 +43,7 @@
         -420,
         40
       ],
-      "id": "f97db9e9-4aca-4180-9b6b-c1d9a1c6cc70",
+      "id": "48ddf635-f473-4685-95f1-4353a68a9270",
       "name": "Chainlink-Not Checking For Stale Prices",
       "credentials": {
         "openAiApi": {
@@ -64,7 +64,7 @@
         -2400,
         1920
       ],
-      "id": "871a08ae-1328-4058-a9f7-09a8f5ea2980",
+      "id": "b1b93394-3c85-4b5a-8e3f-fd2ca7e29c7e",
       "name": "Sticky Note"
     },
     {
@@ -78,7 +78,7 @@
         0,
         0
       ],
-      "id": "05c3da7d-4deb-4452-b3bd-8ab302602fd7",
+      "id": "d8bdd86d-884c-4f2a-9b2e-85c914dfe0ef",
       "name": "Sticky Note1"
     },
     {
@@ -109,8 +109,14 @@
         -420,
         300
       ],
-      "id": "8ba0e14a-a5c4-464a-8549-ea50e82d9f8e",
-      "name": "Chainlink-Not Checking For Down L2 Sequencer"
+      "id": "1001630e-6167-48ab-8567-4d65142de390",
+      "name": "Chainlink-Not Checking For Down L2 Sequencer",
+      "credentials": {
+        "openAiApi": {
+          "id": "j2EqOAWsZ02BwUUN",
+          "name": "OpenAi account"
+        }
+      }
     },
     {
       "parameters": {
@@ -123,7 +129,7 @@
         0,
         280
       ],
-      "id": "c838130d-7a0c-4eea-b6d0-254678bb2bb2",
+      "id": "1e437fba-8d17-4f3f-b58d-ab0570fb4e0e",
       "name": "Sticky Note2"
     },
     {
@@ -154,7 +160,7 @@
         -440,
         580
       ],
-      "id": "c9472093-357e-47e8-b245-77d2e486a64a",
+      "id": "0792de4b-b1ec-4b6d-898e-a08889dff63c",
       "name": "Chainlink-Same Heartbeat Used For Multiple Price Feeds"
     },
     {
@@ -168,7 +174,7 @@
         0,
         540
       ],
-      "id": "a9437048-7b51-41f2-a5e6-e0a2681d4462",
+      "id": "b20165a2-d25f-4d95-b966-e043415678f5",
       "name": "Sticky Note3"
     },
     {
@@ -182,7 +188,7 @@
         0,
         860
       ],
-      "id": "80da27d0-b46b-413a-84cf-105d40521b7b",
+      "id": "6f65c833-aa98-4c8f-a6f3-6486d69dc011",
       "name": "Sticky Note4"
     },
     {
@@ -213,7 +219,7 @@
         -440,
         880
       ],
-      "id": "8479ec34-7581-4613-b1fd-ba318074178e",
+      "id": "cf30744b-0f12-4bb6-92e0-7d0dfd655e97",
       "name": "Chainlink-Oracle Price Feeds Not Updated Frequently"
     },
     {
@@ -244,7 +250,7 @@
         -440,
         1180
       ],
-      "id": "3c47b4ae-e01b-4eb8-b692-34a6183299bf",
+      "id": "95bdf21a-e61c-41f8-8dae-5f3653aa688c",
       "name": "Chainlink-Request Confirmation < Depth of Chain Re-Orgs"
     },
     {
@@ -275,7 +281,7 @@
         -440,
         1480
       ],
-      "id": "955de319-737a-43f8-a056-812a8f2a687b",
+      "id": "561705ef-c924-4766-a891-82ce3416f240",
       "name": "Chainlink-Assuming Oracle Price Precision"
     },
     {
@@ -289,7 +295,7 @@
         0,
         1460
       ],
-      "id": "cb54b7bc-973c-4d57-bac7-5a92741a931f",
+      "id": "c911ff7e-3a8f-4faf-a26d-6853fcb6557a",
       "name": "Sticky Note5"
     },
     {
@@ -320,7 +326,7 @@
         -440,
         1820
       ],
-      "id": "c8e7f318-4272-4d2d-b40d-83bc88b07de6",
+      "id": "65f38418-60dd-45cf-ae54-35e2055237c5",
       "name": "Chainlink-Incorrect Oracle Price Feed Address"
     },
     {
@@ -334,7 +340,7 @@
         0,
         1800
       ],
-      "id": "a3a61947-1ad3-4ac1-b3ad-33d7bc27ab88",
+      "id": "8acd0961-0465-4ecf-949d-5b80bb9da921",
       "name": "Sticky Note6"
     },
     {
@@ -365,7 +371,7 @@
         -440,
         2140
       ],
-      "id": "7c5f5acc-b645-4107-87a6-c48ac80ca76a",
+      "id": "72d45911-c88a-419c-9eb2-28a8c5d54c77",
       "name": "Chainlink-Oracle Price Updates Can Be Front-Run"
     },
     {
@@ -379,7 +385,7 @@
         0,
         2120
       ],
-      "id": "142ba504-67b4-45bf-aeeb-b957f923f31e",
+      "id": "26cda2cf-c349-4d1e-9cd5-4f6026ed7ae4",
       "name": "Sticky Note7"
     },
     {
@@ -410,7 +416,7 @@
         -440,
         2500
       ],
-      "id": "1d4d822d-96f9-4567-b3e4-cb81edbcc72c",
+      "id": "9ef15007-b8da-4149-9c76-f5f2603a2108",
       "name": "Chainlink-Unhandled Oracle Revert Denial Of Service"
     },
     {
@@ -424,7 +430,7 @@
         0,
         2480
       ],
-      "id": "d79a5d8b-6b35-4230-be49-55c7876fdc6d",
+      "id": "4040d759-8b70-4dd8-b5ed-284811ce14ab",
       "name": "Sticky Note8"
     },
     {
@@ -455,7 +461,7 @@
         -440,
         2820
       ],
-      "id": "57638205-2409-4794-813d-dc75a35475b4",
+      "id": "e8cb5806-f71b-4dbb-a110-09c69b614e8d",
       "name": "Chainlink-Unhandled Depeg Of Bridged Assets"
     },
     {
@@ -469,7 +475,7 @@
         0,
         2800
       ],
-      "id": "c3c5bd7f-649a-4fbe-892a-f8d8a07e29d4",
+      "id": "13137737-32a2-4346-83a9-1532f3958c0f",
       "name": "Sticky Note9"
     },
     {
@@ -500,7 +506,7 @@
         -440,
         3160
       ],
-      "id": "cc846ce3-8e60-4c9a-b2e0-7b8374174594",
+      "id": "78034f79-2415-45f0-81fd-bb0c93605fa4",
       "name": "Chainlink-Oracle Returns Incorrect Price During Flash Crashes"
     },
     {
@@ -514,7 +520,7 @@
         0,
         3160
       ],
-      "id": "6793fd94-515f-4deb-938d-79d0a581ecbc",
+      "id": "9b945751-2c18-42df-a77c-3f613b0e372d",
       "name": "Sticky Note10"
     },
     {
@@ -545,7 +551,7 @@
         -440,
         3520
       ],
-      "id": "92bb43a8-7cae-41df-8143-2c0b61544ce8",
+      "id": "8a5d7797-94f2-4a09-ae3b-359c039283fb",
       "name": "Chainlink-Placing Bets After Randomness Request"
     },
     {
@@ -576,7 +582,7 @@
         -440,
         3840
       ],
-      "id": "1a568a9f-ecc5-4d2e-9d5d-853e6349a779",
+      "id": "87d49ecb-bc26-4938-a46b-2969eb0dab5f",
       "name": "Chainlink-Re-requesting Randomness"
     },
     {
@@ -589,73 +595,17 @@
         -2360,
         2440
       ],
-      "id": "fa6701c6-fad9-413b-9201-9ed8112764d8",
+      "id": "96be2685-cf8d-4333-9a30-b6f87cddbdbe",
       "name": "When Executed by Another Workflow"
-    },
-    {
-      "parameters": {
-        "assignments": {
-          "assignments": [
-            {
-              "id": "d77160dc-1f0b-47c3-a309-8f2bc247e58e",
-              "name": "contract_content",
-              "value": "={{ $json.chatInput }}",
-              "type": "string"
-            }
-          ]
-        },
-        "options": {}
-      },
-      "type": "n8n-nodes-base.set",
-      "typeVersion": 3.4,
-      "position": [
-        -2040,
-        2180
-      ],
-      "id": "12115b4b-96e3-4965-bd8f-899bf0906395",
-      "name": "Chat Data Formatter"
-    },
-    {
-      "parameters": {
-        "assignments": {
-          "assignments": [
-            {
-              "id": "d77160dc-1f0b-47c3-a309-8f2bc247e58e",
-              "name": "contract_content",
-              "value": "={{ $json.contract_content }}",
-              "type": "string"
-            }
-          ]
-        },
-        "options": {}
-      },
-      "type": "n8n-nodes-base.set",
-      "typeVersion": 3.4,
-      "position": [
-        -2040,
-        2440
-      ],
-      "id": "3c8b5430-10e1-4d01-aa9f-e6e41ce0e91c",
-      "name": "Workflow Data Formatter"
     }
   ],
-  "pinData": {
-    "When Executed by Another Workflow": [
-      {
-        "json": {
-          "id": "u6W9rAiqCgM4RJvW",
-          "name": "Chainlink",
-          "contract_content": "// SPDX-License-Identifier: MIT\npragma solidity ^0.8.0;\n\nimport \"./wfCashLogic.sol\";\nimport \"../interfaces/IERC4626.sol\";\n\ncontract wfCashERC4626 is IERC4626, wfCashLogic {\n    constructor(INotionalV2 _notional, WETH9 _weth) wfCashLogic(_notional, _weth) {}\n\n    /**\n     * @dev See {IERC4626-asset}\n     */\n    function asset() public view override returns (address) {\n        (IERC20 underlyingToken, bool isETH) = getToken(true);\n        return isETH ? address(WETH) : address(underlyingToken);\n    }\n\n    function _getMaturedValue() private view returns (uint256) {\n        // If the fCash has matured we use the cash balance instead.\n        uint16 currencyId = getCurrencyId();\n        // We cannot settle an account in a view method, so this may fail if the account has not been settled\n        // after maturity. This can be done by anyone so it should not be an issue\n        (int256 cashBalance, /* */, /* */ ) = NotionalV2.getAccountBalance(currencyId, address(this));\n        int256 underlyingExternal = NotionalV2.convertCashBalanceToExternal(currencyId, cashBalance, true);\n        require(underlyingExternal > 0, \"Must Settle\");\n\n        return uint256(underlyingExternal);\n    }\n\n    function _getPresentValue(uint256 fCashAmount) private view returns (uint256) {\n        ( /* */ , int256 precision) = getUnderlyingToken();\n        // Get the present value of the fCash held by the contract, this is returned in 8 decimal precision\n        (uint16 currencyId, uint40 maturity) = getDecodedID();\n        int256 pvInternal = NotionalV2.getPresentfCashValue(\n            currencyId,\n            maturity,\n            int256(fCashAmount), // total supply cannot overflow as fCash overflows at uint88\n            block.timestamp,\n            false\n        );\n\n        int256 pvExternal = (pvInternal * precision) / Constants.INTERNAL_TOKEN_PRECISION;\n        // PV should always be >= 0 since we are lending\n        require(pvExternal >= 0);\n        return uint256(pvExternal);\n    }\n\n    /**\n     * @dev See {IERC4626-totalAssets}\n     */\n    function totalAssets() public view override returns (uint256) {\n        return hasMatured() ? _getMaturedValue() : _getPresentValue(totalSupply());\n    }\n\n    /**\n     * @dev See {IERC4626-convertToShares}\n     */\n    function convertToShares(uint256 assets) public view override returns (uint256 shares) {\n        uint256 supply = totalSupply();\n        if (supply == 0) {\n            // Scales assets by the value of a single unit of fCash\n            uint256 unitfCashValue = _getPresentValue(uint256(Constants.INTERNAL_TOKEN_PRECISION));\n            return (assets * uint256(Constants.INTERNAL_TOKEN_PRECISION)) / unitfCashValue;\n        }\n\n        return (assets * totalSupply()) / totalAssets();\n    }\n\n    /**\n     * @dev See {IERC4626-convertToAssets}\n     */\n    function convertToAssets(uint256 shares) public view override returns (uint256 assets) {\n        uint256 supply = totalSupply();\n        if (supply == 0) {\n            // Catch the edge case where totalSupply causes a divide by zero error\n            return _getPresentValue(shares);\n        }\n\n        return (shares * totalAssets()) / supply;\n    }\n\n    /**\n     * @dev See {IERC4626-maxDeposit}\n     */\n    function maxDeposit(address) public view override returns (uint256) {\n        return hasMatured() ? 0 : type(uint256).max;\n    }\n\n    /**\n     * @dev See {IERC4626-maxMint}\n     */\n    function maxMint(address) public view override returns (uint256) {\n        return hasMatured() ? 0 : type(uint88).max;\n    }\n\n    /**\n     * @dev See {IERC4626-maxWithdraw}\n     */\n    function maxWithdraw(address owner) public view override returns (uint256) {\n        return previewWithdraw(balanceOf(owner));\n    }\n\n    /**\n     * @dev See {IERC4626-maxRedeem}\n     */\n    function maxRedeem(address owner) public view override returns (uint256) {\n        return balanceOf(owner);\n    }\n\n    /**\n     * @dev See {IERC4626-previewDeposit}\n     */\n    function previewDeposit(uint256 assets) public view override returns (uint256) {\n        if (hasMatured()) {\n            return 0;\n        } else {\n            // This is how much fCash received from depositing assets\n            (uint16 currencyId, uint40 maturity) = getDecodedID();\n            (uint256 fCashAmount, /* */, /* */ ) =\n                NotionalV2.getfCashLendFromDeposit(currencyId, assets, maturity, 0, block.timestamp, true);\n\n            return fCashAmount;\n        }\n    }\n\n    /**\n     * @dev See {IERC4626-previewMint}\n     */\n    function previewMint(uint256 shares) public view override returns (uint256) {\n        if (hasMatured()) {\n            return 0;\n        } else {\n            // This is how much fCash received from depositing assets\n            (uint16 currencyId, uint40 maturity) = getDecodedID();\n            (uint256 depositAmountUnderlying, /* */, /* */, /* */ ) =\n                NotionalV2.getDepositFromfCashLend(currencyId, shares, maturity, 0, block.timestamp);\n\n            return depositAmountUnderlying;\n        }\n    }\n\n    /**\n     * @dev See {IERC4626-previewWithdraw}\n     */\n    function previewWithdraw(uint256 assets) public view override returns (uint256 shares) {\n        if (hasMatured()) {\n            shares = convertToShares(assets);\n        } else {\n            // If withdrawing non-matured assets, we sell them on the market (i.e. borrow)\n            (uint16 currencyId, uint40 maturity) = getDecodedID();\n            (shares, /* */, /* */ ) =\n                NotionalV2.getfCashBorrowFromPrincipal(currencyId, assets, maturity, 0, block.timestamp, true);\n        }\n    }\n\n    /**\n     * @dev See {IERC4626-previewRedeem}\n     */\n    function previewRedeem(uint256 shares) public view override returns (uint256 assets) {\n        if (hasMatured()) {\n            assets = convertToAssets(shares);\n        } else {\n            // If withdrawing non-matured assets, we sell them on the market (i.e. borrow)\n            (uint16 currencyId, uint40 maturity) = getDecodedID();\n            (assets, /* */, /* */, /* */ ) =\n                NotionalV2.getPrincipalFromfCashBorrow(currencyId, shares, maturity, 0, block.timestamp);\n        }\n    }\n\n    /**\n     * @dev See {IERC4626-deposit}\n     */\n    function deposit(uint256 assets, address receiver) public override returns (uint256) {\n        uint256 shares = previewDeposit(assets);\n        // Will revert if matured\n        _mintInternal(assets, _safeUint88(shares), receiver, 0, true);\n        emit Deposit(msg.sender, receiver, assets, shares);\n        return shares;\n    }\n\n    /**\n     * @dev See {IERC4626-mint}\n     */\n    function mint(uint256 shares, address receiver) public override returns (uint256) {\n        uint256 assets = previewMint(shares);\n        // Will revert if matured\n        _mintInternal(assets, _safeUint88(shares), receiver, 0, true);\n        emit Deposit(msg.sender, receiver, assets, shares);\n        return assets;\n    }\n\n    /**\n     * @dev See {IERC4626-withdraw}\n     */\n    function withdraw(uint256 assets, address receiver, address owner) public override returns (uint256) {\n        uint256 shares = previewWithdraw(assets);\n\n        if (msg.sender != owner) {\n            _spendAllowance(owner, msg.sender, shares);\n        }\n        _redeemInternal(shares, receiver, owner);\n\n        emit Withdraw(msg.sender, receiver, owner, assets, shares);\n\n        return shares;\n    }\n\n    /**\n     * @dev See {IERC4626-redeem}\n     */\n    function redeem(uint256 shares, address receiver, address owner) public override returns (uint256) {\n        // It is more accurate and gas efficient to check the balance of the\n        // receiver here than rely on the previewRedeem method.\n        uint256 balanceBefore = IERC20(asset()).balanceOf(receiver);\n\n        if (msg.sender != owner) {\n            _spendAllowance(owner, msg.sender, shares);\n        }\n        _redeemInternal(shares, receiver, owner);\n\n        uint256 balanceAfter = IERC20(asset()).balanceOf(receiver);\n        uint256 assets = balanceAfter - balanceBefore;\n        emit Withdraw(msg.sender, receiver, owner, assets, shares);\n        return assets;\n    }\n\n    function _redeemInternal(uint256 shares, address receiver, address owner) private {\n        bytes memory userData = abi.encode(\n            RedeemOpts({redeemToUnderlying: true, transferfCash: false, receiver: receiver, maxImpliedRate: 0})\n        );\n\n        // No operator data\n        _burn(owner, shares, userData, \"\");\n    }\n\n    function _safeNegInt88(uint256 x) private pure returns (int88) {\n        int256 y = -int256(x);\n        require(int256(type(int88).min) <= y);\n        return int88(y);\n    }\n}\n"
-        }
-      }
-    ]
-  },
+  "pinData": {},
   "connections": {
     "When chat message received": {
       "main": [
         [
           {
-            "node": "Chat Data Formatter",
+            "node": "Chainlink-Not Checking For Stale Prices",
             "type": "main",
             "index": 0
           }
@@ -666,28 +616,6 @@
       "main": [
         [
           {
-            "node": "Workflow Data Formatter",
-            "type": "main",
-            "index": 0
-          }
-        ]
-      ]
-    },
-    "Chat Data Formatter": {
-      "main": [
-        [
-          {
-            "node": "Chainlink-Not Checking For Stale Prices",
-            "type": "main",
-            "index": 0
-          }
-        ]
-      ]
-    },
-    "Workflow Data Formatter": {
-      "main": [
-        [
-          {
             "node": "Chainlink-Not Checking For Stale Prices",
             "type": "main",
             "index": 0
@@ -696,15 +624,15 @@
       ]
     }
   },
-  "active": true,
+  "active": false,
   "settings": {
     "executionOrder": "v1"
   },
-  "versionId": "91719d90-bbf7-4b00-a99c-f62ccee7a8bf",
+  "versionId": "0c623a0e-3629-4fd3-9d4a-2f91d41a38b5",
   "meta": {
     "instanceId": "c52f7c76a7b40b9b9f276c4afe2fd4fd3674ed446a15060094ec5f3a235bedb7"
   },
-  "id": "u6W9rAiqCgM4RJvW",
+  "id": "lcYryLF7y4wtLOYQ",
   "tags": [
     {
       "createdAt": "2025-03-17T09:24:33.000Z",

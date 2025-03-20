@@ -9,14 +9,14 @@ from tqdm import tqdm
 
 load_dotenv()
 
-N8N_WEBHOOK_URL = os.getenv('N8N_WEBHOOK_URL')
+N8N_WEBHOOK_URL = os.getenv('N8N_WEBHOOK_URL', 'http://localhost:5678/webhook/main-workflow')
 
-def get_conn(dbname='postgres'):
+def get_conn(dbname='n8n'):
     """Get database connection with standard configuration"""
     return psycopg.connect(
         host=os.getenv('POSTGRES_HOST', 'localhost'),
-        user=os.getenv('POSTGRES_USER'),
-        password=os.getenv('POSTGRES_PASSWORD'),
+        user=os.getenv('POSTGRES_USER', 'bastet'),
+        password=os.getenv('POSTGRES_PASSWORD', 'bastet'),
         port=os.getenv('POSTGRES_PORT', '5432'),
         dbname=dbname,
         autocommit=True,
@@ -65,7 +65,7 @@ def scan_contract(file_path):
         # call n8n webhook
         response = requests.post(
             N8N_WEBHOOK_URL,
-            json={'contract_content': contract_content},
+            json={'chatInput': contract_content},
             headers={'Content-Type': 'application/json', 'X-API-Key': '1234567890'},
         )
 
@@ -77,7 +77,6 @@ def scan_contract(file_path):
     except Exception as e:
         print(f"Unexpected error in scan_contract: {str(e)}")
         raise e
-    
 
 def insert_analysis_result(cur, file_path, result):
     """insert the analysis result into the database"""

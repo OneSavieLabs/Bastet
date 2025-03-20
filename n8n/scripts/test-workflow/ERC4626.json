@@ -1,17 +1,17 @@
 {
-  "name": "ERC4626",
+  "name": "erc4626",
   "nodes": [
     {
       "parameters": {
         "options": {}
       },
-      "id": "072649cf-306a-496a-8851-f78c78d4833a",
+      "id": "e531307e-5bc2-4204-9169-f58e241b5bf9",
       "name": "When chat message received",
       "type": "@n8n/n8n-nodes-langchain.chatTrigger",
       "typeVersion": 1.1,
       "position": [
-        -1120,
-        300
+        -700,
+        440
       ],
       "webhookId": "471f4f97-1fd4-4312-b3ee-6fcc3310611d"
     },
@@ -24,10 +24,10 @@
       "type": "n8n-nodes-base.stickyNote",
       "typeVersion": 1,
       "position": [
-        -1420,
-        80
+        -1000,
+        220
       ],
-      "id": "191873b2-c9e9-43e5-a3a4-1781ae8e5a70",
+      "id": "cf3e72a5-f4d6-4cd5-99bd-2351d7903578",
       "name": "Sticky Note"
     },
     {
@@ -38,10 +38,10 @@
       "type": "n8n-nodes-base.stickyNote",
       "typeVersion": 1,
       "position": [
-        -420,
-        -140
+        0,
+        0
       ],
-      "id": "d506e6d9-def7-49b2-8219-a53a50239d93",
+      "id": "bbdf089d-c3ad-40f2-b7f1-80a3d72dde86",
       "name": "Sticky Note1"
     },
     {
@@ -52,10 +52,10 @@
       "type": "n8n-nodes-base.stickyNote",
       "typeVersion": 1,
       "position": [
-        -420,
-        300
+        0,
+        440
       ],
-      "id": "8a9f8364-68f2-4aab-ac5c-29ee86698fde",
+      "id": "20b9c1cb-da9a-444e-b74c-26d580efcbbb",
       "name": "Sticky Note2"
     },
     {
@@ -73,7 +73,7 @@
               "role": "system"
             },
             {
-              "content": "={{ $json.contract_content }}"
+              "content": "={{ $json.chatInput }}"
             }
           ]
         },
@@ -83,10 +83,10 @@
       "type": "@n8n/n8n-nodes-langchain.openAi",
       "typeVersion": 1.7,
       "position": [
-        -420,
-        40
+        0,
+        180
       ],
-      "id": "66ca53f0-b2c9-4a92-85de-94dae5fc7b2c",
+      "id": "9f6d9c5a-2401-4bde-8c3d-9234fd100b90",
       "name": "ERC4626-Rounding",
       "credentials": {
         "openAiApi": {
@@ -120,10 +120,10 @@
       "type": "@n8n/n8n-nodes-langchain.openAi",
       "typeVersion": 1.7,
       "position": [
-        -420,
-        480
+        0,
+        620
       ],
-      "id": "8abd8919-0489-4703-9155-281fd7047916",
+      "id": "ab01f85d-4dd0-42a2-9d81-842974102a85",
       "name": "ERC4626-Global and user-specific limits",
       "credentials": {
         "openAiApi": {
@@ -157,10 +157,10 @@
       "type": "@n8n/n8n-nodes-langchain.openAi",
       "typeVersion": 1.7,
       "position": [
-        -420,
-        880
+        0,
+        1020
       ],
-      "id": "590e14f8-9408-4de6-9edf-02c440831079",
+      "id": "5b870eed-b4dd-468d-a805-c616a2f46fe9",
       "name": "ERC4626-Fee",
       "credentials": {
         "openAiApi": {
@@ -177,10 +177,10 @@
       "type": "n8n-nodes-base.stickyNote",
       "typeVersion": 1,
       "position": [
-        -420,
-        700
+        0,
+        840
       ],
-      "id": "ba80ff06-3d3a-4365-9f8e-1df2f613a36a",
+      "id": "6631f5b0-f416-430f-9101-be8fa705a4a6",
       "name": "Sticky Note3"
     },
     {
@@ -190,57 +190,11 @@
       "type": "n8n-nodes-base.executeWorkflowTrigger",
       "typeVersion": 1.1,
       "position": [
-        -1120,
-        520
+        -700,
+        660
       ],
-      "id": "09674d6f-4132-4ee7-9e15-7f1493d20a3c",
+      "id": "0a283d66-8c91-47a3-99ed-4823dc161312",
       "name": "Workflow Input Trigger"
-    },
-    {
-      "parameters": {
-        "assignments": {
-          "assignments": [
-            {
-              "id": "d77160dc-1f0b-47c3-a309-8f2bc247e58e",
-              "name": "contract_content",
-              "value": "={{ $json.chatInput }}",
-              "type": "string"
-            }
-          ]
-        },
-        "options": {}
-      },
-      "type": "n8n-nodes-base.set",
-      "typeVersion": 3.4,
-      "position": [
-        -780,
-        160
-      ],
-      "id": "5607110c-8b5d-441d-86c7-4a240bddaafa",
-      "name": "Edit Fields"
-    },
-    {
-      "parameters": {
-        "assignments": {
-          "assignments": [
-            {
-              "id": "d77160dc-1f0b-47c3-a309-8f2bc247e58e",
-              "name": "contract_content",
-              "value": "={{ $json.contract_content }}",
-              "type": "string"
-            }
-          ]
-        },
-        "options": {}
-      },
-      "type": "n8n-nodes-base.set",
-      "typeVersion": 3.4,
-      "position": [
-        -780,
-        420
-      ],
-      "id": "0f60d258-62b0-4bb8-8ca8-3810bf484109",
-      "name": "Edit Fields1"
     }
   ],
   "pinData": {},
@@ -249,7 +203,7 @@
       "main": [
         [
           {
-            "node": "Edit Fields",
+            "node": "ERC4626-Rounding",
             "type": "main",
             "index": 0
           }
@@ -260,51 +214,23 @@
       "main": [
         [
           {
-            "node": "Edit Fields1",
-            "type": "main",
-            "index": 0
-          }
-        ]
-      ]
-    },
-    "Edit Fields": {
-      "main": [
-        [
-          {
             "node": "ERC4626-Rounding",
             "type": "main",
             "index": 0
           }
         ]
-      ]
-    },
-    "Edit Fields1": {
-      "main": [
-        [
-          {
-            "node": "ERC4626-Rounding",
-            "type": "main",
-            "index": 0
-          }
-        ]
-      ]
-    },
-    "ERC4626-Rounding": {
-      "main": [
-        []
       ]
     }
   },
-  "active": true,
+  "active": false,
   "settings": {
     "executionOrder": "v1"
   },
-  "versionId": "6017c69f-f846-47c7-9cf6-c9a75b96af34",
+  "versionId": "66f04122-1f04-43cd-9028-fc6018c54b21",
   "meta": {
-    "templateCredsSetupCompleted": true,
     "instanceId": "c52f7c76a7b40b9b9f276c4afe2fd4fd3674ed446a15060094ec5f3a235bedb7"
   },
-  "id": "FrgXzC1R4eYLhCrW",
+  "id": "Dtcqs7e9SA9uk8iD",
   "tags": [
     {
       "createdAt": "2025-03-17T09:24:33.000Z",
