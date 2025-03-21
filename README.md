@@ -51,26 +51,24 @@ docker-compose -f ./docker-compose.yml up -d
 
 7. Click the user icon at the bottom left → Settings → Click the **n8n API** in the sidebar → Create an API key → Label fill Bastet → Expiration select "No Expiration" (If you want to set an expiration time, select it) → Copy the API key and paste it to `N8N_API_KEY` in `.env` file, because the API key will not be visible after creation, you can only create it again → Click Done.
 
-8. Import the workflow
+8. Back to the homepage (http://localhost:5678/home/workflows)
 
-**Before the setup, make sure you fill the N8N_API_KEY in `.env` file.**
+9. Click **Create Credential** in the arrow button next to the Create Workflow button → Fill in "n8n" in the input → You will see "n8n API" and select it, click Continue → API Key fill in the API key you just created, Base URL fill in http://host.docker.internal:5678/api/v1 -> click the Save button and you will see Connection tested successfully message -> click the **Details** in sidebar and copy the value of the **ID** field and paste it to `N8N_API_CREDENTIAL_ID` in `.env` file.
+
+10. Based on previous step, Create OpenAi credentials, create a new credential with your OpenAi Key. and copy the value of the **ID** field and paste it to `N8N_OPENAI_CREDENTIAL_ID` in `.env` file.
+
+11. Import the workflow
+
+**Before the setup, make sure you fill the N8N_API_KEY, N8N_API_CREDENTIAL_ID, N8N_OPENAI_CREDENTIAL_ID in `.env` file.**
 
 ```bash
 cd scripts
 poetry run python import-workflow.py
 ```
 
-9. Back to the homepage (http://localhost:5678/home/workflows), you will the Main workflow and the Sub workflow(We call it processor) you selected with "processor" tag in the n8n homepage.
+You will see the Main workflow and the Sub workflow(We call it processor) you selected with "processor" tag in the homepage.
 
-10. Click **Create Credential** in the arrow button next to the Create Workflow button → Fill in "n8n" in the input → You will see "n8n API" and select it, click Continue → API Key fill in the API key you just created, Base URL fill in http://host.docker.internal:5678/api/v1, click the Save button and you will see Connection tested successfully message.
-
-11. Based on previous step, Create OpenAi credentials, create a new credential with your OpenAi Key.
-
-12. Go into the Main workflow, double click the **n8n node**, and select the credential you just created (should be called **n8n account**) in the Credential to connect with field. close the node window and click the **Save** button (or use Command(Ctrl)+S to save).
-
-13. Based on previous step, Click all the OpenAI nodes in the Sub workflow and connect them to your OpenAi credential. remember to click the **Save** button after each connection.
-
-14. Turn on the switch button of Main workflow and the Sub workflow in the n8n homepage.
+12. Turn on the switch button of Main workflow and the Sub workflow in the homepage.
 
 ## Usage
 
