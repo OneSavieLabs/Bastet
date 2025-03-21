@@ -1,7 +1,6 @@
 import requests
 import os
 import json
-import time
 from dotenv import load_dotenv
 from tqdm import tqdm
 load_dotenv()
@@ -25,7 +24,7 @@ if not workflow_files:
   print("No workflow files found in the folder.")
   exit(1)
 
-print(f"Found {len(workflow_files)} workflow files.")
+print(f"Found {len(workflow_files)} processor workflow files.")
 for i, filename in enumerate(workflow_files, 1):
     print(f"{i}. {filename}")
 
@@ -45,7 +44,7 @@ while True:
     except ValueError:
         print("Error: Please enter a valid number or 'all'!")
 
-print(f"Importing {len(selected_files)} workflow files: {', '.join(selected_files)}")
+print(f"Importing {len(selected_files)} processor workflow files: {', '.join(selected_files)}")
 
 # import main workflow
 main_workflow_path = os.path.join(WORKFLOW_FOLDER_PATH, main_workflow_name)
@@ -63,7 +62,7 @@ with open(main_workflow_path, "r") as file:
     except Exception as e:
       tqdm.write(f"\033[91m❌ Failed to import main workflow: {e}\033[0m")
 
-# Import workflow files
+# Import processor workflow files
 for filename in selected_files:
   if filename.endswith(".json"):
     file_path = os.path.join(WORKFLOW_FOLDER_PATH, filename)
@@ -73,7 +72,7 @@ for filename in selected_files:
       workflow_name = workflow_data['name']
 
       if workflow_name in existing_workflow_names:
-        tqdm.write(f"\033[94mℹ️  Workflow {filename} already exists.\033[0m")
+        tqdm.write(f"\033[94mℹ️  Processor workflow {filename} already exists.\033[0m")
         continue
 
       filtered_workflow_data = {key: workflow_data[key] for key in workflow_data if key in ALLOWED_FIELDS}
