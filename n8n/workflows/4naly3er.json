@@ -249,6 +249,19 @@
       ],
       "id": "aa810c16-0a5b-4f82-8c83-155a7544c9a6",
       "name": "Workflow Input Trigger"
+    },
+    {
+      "parameters": {
+        "numberInputs": 6
+      },
+      "type": "n8n-nodes-base.merge",
+      "typeVersion": 3,
+      "position": [
+        860,
+        560
+      ],
+      "id": "0668c605-5bd1-4754-b759-875f33e3a834",
+      "name": "Merge"
     }
   ],
   "pinData": {},
@@ -324,18 +337,83 @@
           }
         ]
       ]
+    },
+    "Few-shot": {
+      "main": [
+        [
+          {
+            "node": "Merge",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "4naly3er-GAS-ERC721usage": {
+      "main": [
+        [
+          {
+            "node": "Merge",
+            "type": "main",
+            "index": 1
+          }
+        ]
+      ]
+    },
+    "4naly3er-GAS-addPlusEqual": {
+      "main": [
+        [
+          {
+            "node": "Merge",
+            "type": "main",
+            "index": 2
+          }
+        ]
+      ]
+    },
+    "4naly3er-GAS-_msgSender": {
+      "main": [
+        [
+          {
+            "node": "Merge",
+            "type": "main",
+            "index": 3
+          }
+        ]
+      ]
+    },
+    "4naly3er-H-comparisonOutsideCondition": {
+      "main": [
+        [
+          {
+            "node": "Merge",
+            "type": "main",
+            "index": 4
+          }
+        ]
+      ]
+    },
+    "4naly3er-H-wstETHPriceStEth": {
+      "main": [
+        [
+          {
+            "node": "Merge",
+            "type": "main",
+            "index": 5
+          }
+        ]
+      ]
     }
   },
-  "active": true,
+  "active": false,
   "settings": {
     "executionOrder": "v1"
   },
-  "versionId": "49d80624-7b4b-4d0d-aa95-4c3fd9aa3dd5",
+  "versionId": "7e41bde8-0ba0-45a7-bf45-a5b8763b6fc6",
   "meta": {
-    "templateCredsSetupCompleted": true,
     "instanceId": "c52f7c76a7b40b9b9f276c4afe2fd4fd3674ed446a15060094ec5f3a235bedb7"
   },
-  "id": "x3Gk2pexAsmMM40P",
+  "id": "Svweg4k4jOJj8C91",
   "tags": [
     {
       "createdAt": "2025-03-20T08:14:08.895Z",

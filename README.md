@@ -1,6 +1,6 @@
 <img src="cattt.jpg"  width="70%">
 
-## Bastet
+# Bastet
 
 Bastet is a comprehensive dataset of common smart contract vulnerabilities in DeFi along with an AI-driven automated detection process to enhance vulnerability detection accuracy and optimize security lifecycle management.
 
@@ -10,40 +10,114 @@ Bastet is a comprehensive dataset of common smart contract vulnerabilities in De
 
 **Prerequisites**
 
+- Python 3.10 or higher
 - Docker installed on your machine
 - Docker Compose installed on your machine
+- n8n instance with webhook endpoint configured
+- Poetry for dependency management
 
 **Installation Steps**
 
-1. Set up environment variables:
+1. Setup environment:
 
 ```bash
-cp n8n/.env.example n8n/.env
+# Initialize virtual environment and install dependencies
+poetry shell
+poetry install
+```
+
+2. Configure environment variables in `.env`:
+
+```bash
+cp .env.example .env
 ```
 
 Update the environment variables in `.env` file if needed.
 
-2. Start n8n:
+3. Add your smart contracts:
+
+- Place your `.sol` files in `n8n/scripts/smart-contracts/`
+- Remove `example.sol`
+
+4. Start n8n:
 
 ```bash
-docker-compose -f ./n8n/docker-compose.yml up -d
+docker-compose -f ./docker-compose.yml up -d
 ```
 
-3. Access the n8n dashboard, Open your browser and navigate to `http://localhost:5678`
+5. Access the n8n dashboard, Open your browser and navigate to `http://localhost:5678`
 
-4. (Frist time only) Setup owner account, activiate free n8n pro features
+6. (First time only) Setup owner account, activate free n8n pro features
 
-5. Create OpenAi credentials, create a new credential with your OpenAi Key
+7. Click the user icon at the bottom left → Settings → Click the **n8n API** in the sidebar → Create an API key → Label fill Bastet → Expiration select "No Expiration" (If you want to set an expiration time, select it) → Copy the API key and paste it to `N8N_API_KEY` in `.env` file, because the API key will not be visible after creation, you can only create it again → Click Done.
 
-6. Create a new workflow, or import the workflow from the `n8n/workflows` directory.
+8. Import the workflow
 
-7. Click all the OpenAI nodes and connect them to your OpenAi credential.
+**Before the setup, make sure you fill the N8N_API_KEY in `.env` file.**
 
-8. Click the Save button to save the workflow.
+```bash
+cd scripts
+poetry run python import-workflow.py
+```
 
-9. Click the Run button to run the workflow.
+9. Back to the homepage (http://localhost:5678/home/workflows), you will the Main workflow and the Sub workflow(We call it processor) you selected with "processor" tag in the n8n homepage.
 
-10. Click "Chat" and get start
+10. Click **Create Credential** in the arrow button next to the Create Workflow button → Fill in "n8n" in the input → You will see "n8n API" and select it, click Continue → API Key fill in the API key you just created, Base URL fill in http://host.docker.internal:5678/api/v1, click the Save button and you will see Connection tested successfully message.
+
+11. Based on previous step, Create OpenAi credentials, create a new credential with your OpenAi Key.
+
+12. Go into the Main workflow, double click the **n8n node**, and select the credential you just created (should be called **n8n account**) in the Credential to connect with field. close the node window and click the **Save** button (or use Command(Ctrl)+S to save).
+
+13. Based on previous step, Click all the OpenAI nodes in the Sub workflow and connect them to your OpenAi credential. remember to click the **Save** button after each connection.
+
+14. Turn on the switch button of Main workflow and the Sub workflow in the n8n homepage.
+
+## Usage
+
+### Scan Multiple Contracts with Multiple Processor Workflows
+
+Navigate to the scripts directory containing the scanning scripts:
+
+```bash
+cd /scripts
+```
+
+The main script `scan.py` will recursively scan all `.sol` files in the specified directory:
+
+```bash
+poetry run python scan.py ../smart-contracts
+```
+
+The script will scan all contracts in the `smart-contracts` directory using the processor workflows that you have activated by turning on their respective switch buttons.
+
+### Scan Single Contract with Single Processor Workflow
+
+1. Go into Processor workflow you want to scan.
+2. Click the **Chat** button on the bottom and input the contract content.
+
+### Features
+
+- Recursive scanning of `.sol` files in specified directories
+- Automatic database creation and schema setup
+- Integration with n8n workflows via webhooks
+- Detailed processing summary and error reporting
+- Results stored in PostgreSQL for further analysis
+
+### Database Schema
+
+The script create the `analysis` table. We will create the table automatically when the first scan is started:
+
+```sql
+CREATE TABLE analysis (
+    id SERIAL PRIMARY KEY,
+    contract_name VARCHAR(1024),
+    contract_path TEXT,
+    audit_result JSONB,
+    audit_result_review BOOLEAN DEFAULT FALSE,
+    created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
+    updated_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP
+)
+```
 
 ## Overview
 
@@ -64,8 +138,10 @@ Bastet/
 │   │   │   ├── audit-competitions-findings/
 │   │   │   ├── secure-implementations/
 │   │   │   ├── README.md
-├── workflow/
-│   ├── README.md
+├── n8n/
+│   ├── workflows/
+├── scripts/
+├── smart-contracts/
 ├── README.md
 
 ```
