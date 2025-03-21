@@ -18,7 +18,7 @@ Bastet is a comprehensive dataset of common smart contract vulnerabilities in De
 
 **Installation Steps**
 
-1. Setup environment:
+1. Setup Python environment:
 
 ```bash
 # Initialize virtual environment and install dependencies
