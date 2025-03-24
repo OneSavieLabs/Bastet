@@ -50,7 +50,9 @@
           ]
         },
         "jsonOutput": true,
-        "options": {}
+        "options": {
+          "maxTokens": 16000
+        }
       },
       "type": "@n8n/n8n-nodes-langchain.openAi",
       "typeVersion": 1.7,
@@ -62,8 +64,8 @@
       "name": "Unbounded loop",
       "credentials": {
         "openAiApi": {
-          "id": "FoBpFXcmVQSivgx6",
-          "name": "OpenAi account"
+          "id": "Ib4AZLl2VBpk1lhE",
+          "name": "OpenAI account"
         }
       }
     },
@@ -87,7 +89,9 @@
           ]
         },
         "jsonOutput": true,
-        "options": {}
+        "options": {
+          "maxTokens": 16000
+        }
       },
       "type": "@n8n/n8n-nodes-langchain.openAi",
       "typeVersion": 1.7,
@@ -99,8 +103,8 @@
       "name": "Integration/Logical error",
       "credentials": {
         "openAiApi": {
-          "id": "FoBpFXcmVQSivgx6",
-          "name": "OpenAi account"
+          "id": "Ib4AZLl2VBpk1lhE",
+          "name": "OpenAI account"
         }
       }
     },
@@ -124,7 +128,9 @@
           ]
         },
         "jsonOutput": true,
-        "options": {}
+        "options": {
+          "maxTokens": 16000
+        }
       },
       "type": "@n8n/n8n-nodes-langchain.openAi",
       "typeVersion": 1.7,
@@ -136,8 +142,8 @@
       "name": "Refund failed",
       "credentials": {
         "openAiApi": {
-          "id": "FoBpFXcmVQSivgx6",
-          "name": "OpenAi account"
+          "id": "Ib4AZLl2VBpk1lhE",
+          "name": "OpenAI account"
         }
       }
     },
@@ -150,11 +156,37 @@
       "type": "n8n-nodes-base.stickyNote",
       "typeVersion": 1,
       "position": [
-        -880,
-        2960
+        -1320,
+        3160
       ],
       "id": "5b5e6a0f-2761-4545-b195-225d33c753e7",
       "name": "Sticky Note1"
+    },
+    {
+      "parameters": {
+        "inputSource": "passthrough"
+      },
+      "type": "n8n-nodes-base.executeWorkflowTrigger",
+      "typeVersion": 1.1,
+      "position": [
+        -1820,
+        2860
+      ],
+      "id": "9e16801a-c686-4cab-a957-b50b586ee06a",
+      "name": "Workflow Input Trigger"
+    },
+    {
+      "parameters": {
+        "numberInputs": 3
+      },
+      "type": "n8n-nodes-base.merge",
+      "typeVersion": 3,
+      "position": [
+        -700,
+        2640
+      ],
+      "id": "6e276e91-2c8d-4fbc-bedf-f561e6623c31",
+      "name": "Merge"
     }
   ],
   "pinData": {},
@@ -179,17 +211,77 @@
           }
         ]
       ]
+    },
+    "Workflow Input Trigger": {
+      "main": [
+        [
+          {
+            "node": "Unbounded loop",
+            "type": "main",
+            "index": 0
+          },
+          {
+            "node": "Integration/Logical error",
+            "type": "main",
+            "index": 0
+          },
+          {
+            "node": "Refund failed",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Unbounded loop": {
+      "main": [
+        [
+          {
+            "node": "Merge",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Integration/Logical error": {
+      "main": [
+        [
+          {
+            "node": "Merge",
+            "type": "main",
+            "index": 1
+          }
+        ]
+      ]
+    },
+    "Refund failed": {
+      "main": [
+        [
+          {
+            "node": "Merge",
+            "type": "main",
+            "index": 2
+          }
+        ]
+      ]
     }
   },
   "active": false,
   "settings": {
     "executionOrder": "v1"
   },
-  "versionId": "07d3cc69-b33a-422f-9c5b-4cd11e9d7dea",
+  "versionId": "d6bbfb60-ae9a-4f21-921c-8c726feaeaf4",
   "meta": {
-    "templateCredsSetupCompleted": true,
-    "instanceId": "6b00ef11cec26a47977bd0b02eca112c312cc7db1a82f551ff9d08d2af38b1d9"
+    "instanceId": "0c3ecf5e323087ea5132b8ca4933e216718dbfade54257b5815560a48e0970b7"
   },
-  "id": "RNaL3LpN6b97XQ7t",
-  "tags": []
+  "id": "YP0eD0pvefwSRoj5",
+  "tags": [
+    {
+      "createdAt": "2025-03-21T07:24:29.761Z",
+      "updatedAt": "2025-03-21T07:24:29.761Z",
+      "id": "7x8UEvxbDNKhWIyp",
+      "name": "processor"
+    }
+  ]
 }

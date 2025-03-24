@@ -3,7 +3,9 @@
   "nodes": [
     {
       "parameters": {
-        "options": {}
+        "options": {
+          "allowFileUploads": true
+        }
       },
       "id": "e3e317b4-ecfb-4110-a607-23bab593c9d4",
       "name": "When chat message received",
@@ -78,7 +80,9 @@
           ]
         },
         "jsonOutput": true,
-        "options": {}
+        "options": {
+          "maxTokens": 16000
+        }
       },
       "type": "@n8n/n8n-nodes-langchain.openAi",
       "typeVersion": 1.7,
@@ -90,8 +94,8 @@
       "name": "ERC4626-Rounding",
       "credentials": {
         "openAiApi": {
-          "id": "j2EqOAWsZ02BwUUN",
-          "name": "OpenAi account"
+          "id": "Ib4AZLl2VBpk1lhE",
+          "name": "OpenAI account"
         }
       }
     },
@@ -115,7 +119,9 @@
           ]
         },
         "jsonOutput": true,
-        "options": {}
+        "options": {
+          "maxTokens": 16000
+        }
       },
       "type": "@n8n/n8n-nodes-langchain.openAi",
       "typeVersion": 1.7,
@@ -127,8 +133,8 @@
       "name": "ERC4626-Global and user-specific limits",
       "credentials": {
         "openAiApi": {
-          "id": "j2EqOAWsZ02BwUUN",
-          "name": "OpenAi account"
+          "id": "Ib4AZLl2VBpk1lhE",
+          "name": "OpenAI account"
         }
       }
     },
@@ -152,7 +158,9 @@
           ]
         },
         "jsonOutput": true,
-        "options": {}
+        "options": {
+          "maxTokens": 16000
+        }
       },
       "type": "@n8n/n8n-nodes-langchain.openAi",
       "typeVersion": 1.7,
@@ -164,8 +172,8 @@
       "name": "ERC4626-Fee",
       "credentials": {
         "openAiApi": {
-          "id": "j2EqOAWsZ02BwUUN",
-          "name": "OpenAi account"
+          "id": "Ib4AZLl2VBpk1lhE",
+          "name": "OpenAI account"
         }
       }
     },
@@ -292,17 +300,16 @@
   "settings": {
     "executionOrder": "v1"
   },
-  "versionId": "674f891f-2d0b-4d75-8302-12f453a70536",
+  "versionId": "f19b8b18-ad93-4ceb-9abc-4735555f12c9",
   "meta": {
-    "templateCredsSetupCompleted": true,
-    "instanceId": "c52f7c76a7b40b9b9f276c4afe2fd4fd3674ed446a15060094ec5f3a235bedb7"
+    "instanceId": "0c3ecf5e323087ea5132b8ca4933e216718dbfade54257b5815560a48e0970b7"
   },
-  "id": "MmWYPSRzUgL6jlju",
+  "id": "2toDMAWJ9YXjt5kd",
   "tags": [
     {
-      "createdAt": "2025-03-20T08:14:08.895Z",
-      "updatedAt": "2025-03-20T08:14:08.895Z",
-      "id": "L8wrJSWKPRpbssNN",
+      "createdAt": "2025-03-21T07:24:29.761Z",
+      "updatedAt": "2025-03-21T07:24:29.761Z",
+      "id": "7x8UEvxbDNKhWIyp",
       "name": "processor"
     }
   ]

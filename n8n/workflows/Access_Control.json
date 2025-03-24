@@ -38,8 +38,8 @@
       "type": "n8n-nodes-base.stickyNote",
       "typeVersion": 1,
       "position": [
-        -920,
-        2320
+        -1320,
+        2160
       ],
       "id": "e0671a3b-7694-45ea-9f20-9371eaa99152",
       "name": "Sticky Note1"
@@ -64,7 +64,9 @@
           ]
         },
         "jsonOutput": true,
-        "options": {}
+        "options": {
+          "maxTokens": 16000
+        }
       },
       "type": "@n8n/n8n-nodes-langchain.openAi",
       "typeVersion": 1.7,
@@ -76,8 +78,8 @@
       "name": "Lack of two-step process for contract ownership changes",
       "credentials": {
         "openAiApi": {
-          "id": "FoBpFXcmVQSivgx6",
-          "name": "OpenAi account"
+          "id": "Ib4AZLl2VBpk1lhE",
+          "name": "OpenAI account"
         }
       }
     },
@@ -101,20 +103,22 @@
           ]
         },
         "jsonOutput": true,
-        "options": {}
+        "options": {
+          "maxTokens": 16000
+        }
       },
       "type": "@n8n/n8n-nodes-langchain.openAi",
       "typeVersion": 1.7,
       "position": [
         -1320,
-        2680
+        2780
       ],
       "id": "0f732c5b-91f6-4546-8fd9-72a9fd1f454c",
       "name": "Lack of access control",
       "credentials": {
         "openAiApi": {
-          "id": "FoBpFXcmVQSivgx6",
-          "name": "OpenAi account"
+          "id": "Ib4AZLl2VBpk1lhE",
+          "name": "OpenAI account"
         }
       }
     },
@@ -126,11 +130,35 @@
       "type": "n8n-nodes-base.stickyNote",
       "typeVersion": 1,
       "position": [
-        -920,
-        2660
+        -1320,
+        2600
       ],
       "id": "752c570a-9245-4f20-af33-58d4a807a4fb",
       "name": "Sticky Note2"
+    },
+    {
+      "parameters": {
+        "inputSource": "passthrough"
+      },
+      "type": "n8n-nodes-base.executeWorkflowTrigger",
+      "typeVersion": 1.1,
+      "position": [
+        -1860,
+        2720
+      ],
+      "id": "28a6ea94-1562-4f95-9b45-ea9b9eaf8d19",
+      "name": "Workflow Input Trigger"
+    },
+    {
+      "parameters": {},
+      "type": "n8n-nodes-base.merge",
+      "typeVersion": 3,
+      "position": [
+        -760,
+        2500
+      ],
+      "id": "1fc47030-97b5-49b9-9194-2c8fb6299705",
+      "name": "Merge"
     }
   ],
   "pinData": {},
@@ -150,17 +178,61 @@
           }
         ]
       ]
+    },
+    "Workflow Input Trigger": {
+      "main": [
+        [
+          {
+            "node": "Lack of two-step process for contract ownership changes",
+            "type": "main",
+            "index": 0
+          },
+          {
+            "node": "Lack of access control",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Lack of two-step process for contract ownership changes": {
+      "main": [
+        [
+          {
+            "node": "Merge",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Lack of access control": {
+      "main": [
+        [
+          {
+            "node": "Merge",
+            "type": "main",
+            "index": 1
+          }
+        ]
+      ]
     }
   },
   "active": false,
   "settings": {
     "executionOrder": "v1"
   },
-  "versionId": "cb852781-42cd-4e1e-804b-ef91e69628cd",
+  "versionId": "68a9787e-6452-472e-bc8b-b2ab05a8d1e2",
   "meta": {
-    "templateCredsSetupCompleted": true,
-    "instanceId": "6b00ef11cec26a47977bd0b02eca112c312cc7db1a82f551ff9d08d2af38b1d9"
+    "instanceId": "0c3ecf5e323087ea5132b8ca4933e216718dbfade54257b5815560a48e0970b7"
   },
-  "id": "TjcvBiDaSVC1Ovfs",
-  "tags": []
+  "id": "yTdcLjFbX7wRUNur",
+  "tags": [
+    {
+      "createdAt": "2025-03-21T07:24:29.761Z",
+      "updatedAt": "2025-03-21T07:24:29.761Z",
+      "id": "7x8UEvxbDNKhWIyp",
+      "name": "processor"
+    }
+  ]
 }

@@ -38,8 +38,8 @@
       "type": "n8n-nodes-base.stickyNote",
       "typeVersion": 1,
       "position": [
-        -920,
-        2320
+        -1300,
+        1860
       ],
       "id": "05593281-f31a-4388-9813-96f387af1986",
       "name": "Sticky Note1"
@@ -64,20 +64,22 @@
           ]
         },
         "jsonOutput": true,
-        "options": {}
+        "options": {
+          "maxTokens": 16000
+        }
       },
       "type": "@n8n/n8n-nodes-langchain.openAi",
       "typeVersion": 1.7,
       "position": [
-        -1320,
-        2340
+        -1300,
+        2040
       ],
       "id": "1c80ae57-4b94-4fda-a5e2-bfb04fdfbe97",
       "name": "Slippage-No Slippage Parameter",
       "credentials": {
         "openAiApi": {
-          "id": "FoBpFXcmVQSivgx6",
-          "name": "OpenAi account"
+          "id": "Ib4AZLl2VBpk1lhE",
+          "name": "OpenAI account"
         }
       }
     },
@@ -101,20 +103,22 @@
           ]
         },
         "jsonOutput": true,
-        "options": {}
+        "options": {
+          "maxTokens": 16000
+        }
       },
       "type": "@n8n/n8n-nodes-langchain.openAi",
       "typeVersion": 1.7,
       "position": [
-        -1320,
-        2640
+        -1300,
+        2460
       ],
       "id": "c41d52d1-0c38-4bd6-9677-f542b95b2d2f",
       "name": "Slippage-No Expiration Deadline",
       "credentials": {
         "openAiApi": {
-          "id": "FoBpFXcmVQSivgx6",
-          "name": "OpenAi account"
+          "id": "Ib4AZLl2VBpk1lhE",
+          "name": "OpenAI account"
         }
       }
     },
@@ -126,8 +130,8 @@
       "type": "n8n-nodes-base.stickyNote",
       "typeVersion": 1,
       "position": [
-        -920,
-        2640
+        -1300,
+        2280
       ],
       "id": "d9e41675-0eb7-421e-b4e1-75cb6f865c75",
       "name": "Sticky Note2"
@@ -152,20 +156,22 @@
           ]
         },
         "jsonOutput": true,
-        "options": {}
+        "options": {
+          "maxTokens": 16000
+        }
       },
       "type": "@n8n/n8n-nodes-langchain.openAi",
       "typeVersion": 1.7,
       "position": [
-        -1320,
-        2940
+        -1300,
+        2880
       ],
       "id": "89ed9a6a-1f73-416b-a260-61c17446dd13",
       "name": "Slippage-Incorrect Slippage Calculation",
       "credentials": {
         "openAiApi": {
-          "id": "FoBpFXcmVQSivgx6",
-          "name": "OpenAi account"
+          "id": "Ib4AZLl2VBpk1lhE",
+          "name": "OpenAI account"
         }
       }
     },
@@ -177,8 +183,8 @@
       "type": "n8n-nodes-base.stickyNote",
       "typeVersion": 1,
       "position": [
-        -920,
-        2940
+        -1300,
+        2700
       ],
       "id": "b679a7ee-c1b0-4052-8e03-74bc5ddb9d53",
       "name": "Sticky Note3"
@@ -203,20 +209,22 @@
           ]
         },
         "jsonOutput": true,
-        "options": {}
+        "options": {
+          "maxTokens": 16000
+        }
       },
       "type": "@n8n/n8n-nodes-langchain.openAi",
       "typeVersion": 1.7,
       "position": [
-        -1320,
+        -1300,
         3240
       ],
       "id": "7025f0f6-a7e1-436d-8727-7cffa9663f79",
       "name": "Slippage-Mismatched Slippage Precision",
       "credentials": {
         "openAiApi": {
-          "id": "FoBpFXcmVQSivgx6",
-          "name": "OpenAi account"
+          "id": "Ib4AZLl2VBpk1lhE",
+          "name": "OpenAI account"
         }
       }
     },
@@ -228,8 +236,8 @@
       "type": "n8n-nodes-base.stickyNote",
       "typeVersion": 1,
       "position": [
-        -920,
-        3220
+        -1300,
+        3060
       ],
       "id": "d2224e12-a9ff-446f-b107-84db3119d1ff",
       "name": "Sticky Note4"
@@ -254,20 +262,22 @@
           ]
         },
         "jsonOutput": true,
-        "options": {}
+        "options": {
+          "maxTokens": 16000
+        }
       },
       "type": "@n8n/n8n-nodes-langchain.openAi",
       "typeVersion": 1.7,
       "position": [
-        -1320,
-        3520
+        -1300,
+        3580
       ],
       "id": "4d60999b-1626-4d49-9a94-fe8ea9037a35",
       "name": "Slippage-Minting Exposes Users To Unlimited Slippage",
       "credentials": {
         "openAiApi": {
-          "id": "FoBpFXcmVQSivgx6",
-          "name": "OpenAi account"
+          "id": "Ib4AZLl2VBpk1lhE",
+          "name": "OpenAI account"
         }
       }
     },
@@ -279,8 +289,8 @@
       "type": "n8n-nodes-base.stickyNote",
       "typeVersion": 1,
       "position": [
-        -920,
-        3520
+        -1300,
+        3400
       ],
       "id": "89aa80e9-7cbb-48a6-8bdf-b23b988136ca",
       "name": "Sticky Note5"
@@ -293,8 +303,8 @@
       "type": "n8n-nodes-base.stickyNote",
       "typeVersion": 1,
       "position": [
-        -920,
-        3860
+        -1300,
+        3780
       ],
       "id": "e7d41c79-e277-4050-861b-48f97881a1d9",
       "name": "Sticky Note6"
@@ -319,20 +329,22 @@
           ]
         },
         "jsonOutput": true,
-        "options": {}
+        "options": {
+          "maxTokens": 16000
+        }
       },
       "type": "@n8n/n8n-nodes-langchain.openAi",
       "typeVersion": 1.7,
       "position": [
-        -1320,
-        3840
+        -1300,
+        3960
       ],
       "id": "0da3582d-7b75-4624-9abb-2a1cb7915c8d",
       "name": "Slippage-MinTokensOut For Intermediate, Not Final Amount",
       "credentials": {
         "openAiApi": {
-          "id": "FoBpFXcmVQSivgx6",
-          "name": "OpenAi account"
+          "id": "Ib4AZLl2VBpk1lhE",
+          "name": "OpenAI account"
         }
       }
     },
@@ -344,8 +356,8 @@
       "type": "n8n-nodes-base.stickyNote",
       "typeVersion": 1,
       "position": [
-        -920,
-        4180
+        -1300,
+        4160
       ],
       "id": "3b5087ec-b7f2-410a-808a-9b0118446ad3",
       "name": "Sticky Note7"
@@ -370,20 +382,22 @@
           ]
         },
         "jsonOutput": true,
-        "options": {}
+        "options": {
+          "maxTokens": 16000
+        }
       },
       "type": "@n8n/n8n-nodes-langchain.openAi",
       "typeVersion": 1.7,
       "position": [
-        -1320,
-        4160
+        -1300,
+        4340
       ],
       "id": "e1c4c270-fe21-411e-ab7c-4858ca79cffb",
       "name": "Slippage-On-Chain Slippage Calculation Can Be Manipulated",
       "credentials": {
         "openAiApi": {
-          "id": "FoBpFXcmVQSivgx6",
-          "name": "OpenAi account"
+          "id": "Ib4AZLl2VBpk1lhE",
+          "name": "OpenAI account"
         }
       }
     },
@@ -395,8 +409,8 @@
       "type": "n8n-nodes-base.stickyNote",
       "typeVersion": 1,
       "position": [
-        -920,
-        4420
+        -1320,
+        4540
       ],
       "id": "2093f253-cc67-4e12-8800-1bc6fb5ce815",
       "name": "Sticky Note8"
@@ -421,20 +435,22 @@
           ]
         },
         "jsonOutput": true,
-        "options": {}
+        "options": {
+          "maxTokens": 16000
+        }
       },
       "type": "@n8n/n8n-nodes-langchain.openAi",
       "typeVersion": 1.7,
       "position": [
         -1320,
-        4440
+        4720
       ],
       "id": "b6581f27-0e94-4c29-a32a-41f0581124eb",
       "name": "Slippage-Hard-coded Slippage May Freeze User Funds",
       "credentials": {
         "openAiApi": {
-          "id": "FoBpFXcmVQSivgx6",
-          "name": "OpenAi account"
+          "id": "Ib4AZLl2VBpk1lhE",
+          "name": "OpenAI account"
         }
       }
     },
@@ -458,22 +474,50 @@
           ]
         },
         "jsonOutput": true,
-        "options": {}
+        "options": {
+          "maxTokens": 16000
+        }
       },
       "type": "@n8n/n8n-nodes-langchain.openAi",
       "typeVersion": 1.7,
       "position": [
         -1320,
-        4760
+        5000
       ],
       "id": "b2c1e727-b94f-41a7-aa77-240f377adecf",
       "name": "Slippage-Zero Slippage Required",
       "credentials": {
         "openAiApi": {
-          "id": "FoBpFXcmVQSivgx6",
-          "name": "OpenAi account"
+          "id": "Ib4AZLl2VBpk1lhE",
+          "name": "OpenAI account"
         }
       }
+    },
+    {
+      "parameters": {
+        "inputSource": "passthrough"
+      },
+      "type": "n8n-nodes-base.executeWorkflowTrigger",
+      "typeVersion": 1.1,
+      "position": [
+        -2500,
+        3880
+      ],
+      "id": "1b9a1d19-7ccd-485f-aeda-19a52da0baea",
+      "name": "Workflow Input Trigger"
+    },
+    {
+      "parameters": {
+        "numberInputs": 9
+      },
+      "type": "n8n-nodes-base.merge",
+      "typeVersion": 3,
+      "position": [
+        -100,
+        3300
+      ],
+      "id": "edbd80f9-59d0-413f-9384-3c204056c437",
+      "name": "Merge"
     }
   ],
   "pinData": {},
@@ -528,17 +572,173 @@
           }
         ]
       ]
+    },
+    "Workflow Input Trigger": {
+      "main": [
+        [
+          {
+            "node": "Slippage-No Slippage Parameter",
+            "type": "main",
+            "index": 0
+          },
+          {
+            "node": "Slippage-No Expiration Deadline",
+            "type": "main",
+            "index": 0
+          },
+          {
+            "node": "Slippage-Incorrect Slippage Calculation",
+            "type": "main",
+            "index": 0
+          },
+          {
+            "node": "Slippage-Mismatched Slippage Precision",
+            "type": "main",
+            "index": 0
+          },
+          {
+            "node": "Slippage-Minting Exposes Users To Unlimited Slippage",
+            "type": "main",
+            "index": 0
+          },
+          {
+            "node": "Slippage-MinTokensOut For Intermediate, Not Final Amount",
+            "type": "main",
+            "index": 0
+          },
+          {
+            "node": "Slippage-On-Chain Slippage Calculation Can Be Manipulated",
+            "type": "main",
+            "index": 0
+          },
+          {
+            "node": "Slippage-Hard-coded Slippage May Freeze User Funds",
+            "type": "main",
+            "index": 0
+          },
+          {
+            "node": "Slippage-Zero Slippage Required",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Slippage-No Slippage Parameter": {
+      "main": [
+        [
+          {
+            "node": "Merge",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Slippage-No Expiration Deadline": {
+      "main": [
+        [
+          {
+            "node": "Merge",
+            "type": "main",
+            "index": 1
+          }
+        ]
+      ]
+    },
+    "Slippage-Incorrect Slippage Calculation": {
+      "main": [
+        [
+          {
+            "node": "Merge",
+            "type": "main",
+            "index": 2
+          }
+        ]
+      ]
+    },
+    "Slippage-Mismatched Slippage Precision": {
+      "main": [
+        [
+          {
+            "node": "Merge",
+            "type": "main",
+            "index": 3
+          }
+        ]
+      ]
+    },
+    "Slippage-Minting Exposes Users To Unlimited Slippage": {
+      "main": [
+        [
+          {
+            "node": "Merge",
+            "type": "main",
+            "index": 4
+          }
+        ]
+      ]
+    },
+    "Slippage-MinTokensOut For Intermediate, Not Final Amount": {
+      "main": [
+        [
+          {
+            "node": "Merge",
+            "type": "main",
+            "index": 5
+          }
+        ]
+      ]
+    },
+    "Slippage-On-Chain Slippage Calculation Can Be Manipulated": {
+      "main": [
+        [
+          {
+            "node": "Merge",
+            "type": "main",
+            "index": 6
+          }
+        ]
+      ]
+    },
+    "Slippage-Hard-coded Slippage May Freeze User Funds": {
+      "main": [
+        [
+          {
+            "node": "Merge",
+            "type": "main",
+            "index": 7
+          }
+        ]
+      ]
+    },
+    "Slippage-Zero Slippage Required": {
+      "main": [
+        [
+          {
+            "node": "Merge",
+            "type": "main",
+            "index": 8
+          }
+        ]
+      ]
     }
   },
   "active": false,
   "settings": {
     "executionOrder": "v1"
   },
-  "versionId": "aec48114-5e4f-48c5-a0f2-fee5895468a5",
+  "versionId": "58e19cce-23d7-4220-8816-d93056444d9d",
   "meta": {
-    "templateCredsSetupCompleted": true,
-    "instanceId": "6b00ef11cec26a47977bd0b02eca112c312cc7db1a82f551ff9d08d2af38b1d9"
+    "instanceId": "0c3ecf5e323087ea5132b8ca4933e216718dbfade54257b5815560a48e0970b7"
   },
-  "id": "umzFa6Ik87FYWCJo",
-  "tags": []
+  "id": "L6B6pcreKXhI0sM4",
+  "tags": [
+    {
+      "createdAt": "2025-03-21T07:24:29.761Z",
+      "updatedAt": "2025-03-21T07:24:29.761Z",
+      "id": "7x8UEvxbDNKhWIyp",
+      "name": "processor"
+    }
+  ]
 }

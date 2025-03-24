@@ -35,7 +35,9 @@
           ]
         },
         "jsonOutput": true,
-        "options": {}
+        "options": {
+          "maxTokens": 16000
+        }
       },
       "type": "@n8n/n8n-nodes-langchain.openAi",
       "typeVersion": 1.7,
@@ -47,8 +49,8 @@
       "name": "Chainlink-Not Checking For Stale Prices",
       "credentials": {
         "openAiApi": {
-          "id": "j2EqOAWsZ02BwUUN",
-          "name": "OpenAi account"
+          "id": "Ib4AZLl2VBpk1lhE",
+          "name": "OpenAI account"
         }
       }
     },
@@ -101,7 +103,9 @@
           ]
         },
         "jsonOutput": true,
-        "options": {}
+        "options": {
+          "maxTokens": 16000
+        }
       },
       "type": "@n8n/n8n-nodes-langchain.openAi",
       "typeVersion": 1.7,
@@ -113,8 +117,8 @@
       "name": "Chainlink-Not Checking For Down L2 Sequencer",
       "credentials": {
         "openAiApi": {
-          "id": "j2EqOAWsZ02BwUUN",
-          "name": "OpenAi account"
+          "id": "Ib4AZLl2VBpk1lhE",
+          "name": "OpenAI account"
         }
       }
     },
@@ -152,7 +156,9 @@
           ]
         },
         "jsonOutput": true,
-        "options": {}
+        "options": {
+          "maxTokens": 16000
+        }
       },
       "type": "@n8n/n8n-nodes-langchain.openAi",
       "typeVersion": 1.7,
@@ -164,8 +170,8 @@
       "name": "Chainlink-Same Heartbeat Used For Multiple Price Feeds",
       "credentials": {
         "openAiApi": {
-          "id": "j2EqOAWsZ02BwUUN",
-          "name": "OpenAi account"
+          "id": "Ib4AZLl2VBpk1lhE",
+          "name": "OpenAI account"
         }
       }
     },
@@ -217,7 +223,9 @@
           ]
         },
         "jsonOutput": true,
-        "options": {}
+        "options": {
+          "maxTokens": 16000
+        }
       },
       "type": "@n8n/n8n-nodes-langchain.openAi",
       "typeVersion": 1.7,
@@ -229,8 +237,8 @@
       "name": "Chainlink-Oracle Price Feeds Not Updated Frequently",
       "credentials": {
         "openAiApi": {
-          "id": "j2EqOAWsZ02BwUUN",
-          "name": "OpenAi account"
+          "id": "Ib4AZLl2VBpk1lhE",
+          "name": "OpenAI account"
         }
       }
     },
@@ -254,7 +262,9 @@
           ]
         },
         "jsonOutput": true,
-        "options": {}
+        "options": {
+          "maxTokens": 16000
+        }
       },
       "type": "@n8n/n8n-nodes-langchain.openAi",
       "typeVersion": 1.7,
@@ -266,8 +276,8 @@
       "name": "Chainlink-Request Confirmation < Depth of Chain Re-Orgs",
       "credentials": {
         "openAiApi": {
-          "id": "j2EqOAWsZ02BwUUN",
-          "name": "OpenAi account"
+          "id": "Ib4AZLl2VBpk1lhE",
+          "name": "OpenAI account"
         }
       }
     },
@@ -291,7 +301,9 @@
           ]
         },
         "jsonOutput": true,
-        "options": {}
+        "options": {
+          "maxTokens": 16000
+        }
       },
       "type": "@n8n/n8n-nodes-langchain.openAi",
       "typeVersion": 1.7,
@@ -303,8 +315,8 @@
       "name": "Chainlink-Assuming Oracle Price Precision",
       "credentials": {
         "openAiApi": {
-          "id": "j2EqOAWsZ02BwUUN",
-          "name": "OpenAi account"
+          "id": "Ib4AZLl2VBpk1lhE",
+          "name": "OpenAI account"
         }
       }
     },
@@ -342,7 +354,9 @@
           ]
         },
         "jsonOutput": true,
-        "options": {}
+        "options": {
+          "maxTokens": 16000
+        }
       },
       "type": "@n8n/n8n-nodes-langchain.openAi",
       "typeVersion": 1.7,
@@ -354,8 +368,8 @@
       "name": "Chainlink-Incorrect Oracle Price Feed Address",
       "credentials": {
         "openAiApi": {
-          "id": "j2EqOAWsZ02BwUUN",
-          "name": "OpenAi account"
+          "id": "Ib4AZLl2VBpk1lhE",
+          "name": "OpenAI account"
         }
       }
     },
@@ -393,7 +407,9 @@
           ]
         },
         "jsonOutput": true,
-        "options": {}
+        "options": {
+          "maxTokens": 16000
+        }
       },
       "type": "@n8n/n8n-nodes-langchain.openAi",
       "typeVersion": 1.7,
@@ -405,8 +421,8 @@
       "name": "Chainlink-Oracle Price Updates Can Be Front-Run",
       "credentials": {
         "openAiApi": {
-          "id": "j2EqOAWsZ02BwUUN",
-          "name": "OpenAi account"
+          "id": "Ib4AZLl2VBpk1lhE",
+          "name": "OpenAI account"
         }
       }
     },
@@ -444,7 +460,9 @@
           ]
         },
         "jsonOutput": true,
-        "options": {}
+        "options": {
+          "maxTokens": 16000
+        }
       },
       "type": "@n8n/n8n-nodes-langchain.openAi",
       "typeVersion": 1.7,
@@ -456,8 +474,8 @@
       "name": "Chainlink-Unhandled Oracle Revert Denial Of Service",
       "credentials": {
         "openAiApi": {
-          "id": "j2EqOAWsZ02BwUUN",
-          "name": "OpenAi account"
+          "id": "Ib4AZLl2VBpk1lhE",
+          "name": "OpenAI account"
         }
       }
     },
@@ -495,7 +513,9 @@
           ]
         },
         "jsonOutput": true,
-        "options": {}
+        "options": {
+          "maxTokens": 16000
+        }
       },
       "type": "@n8n/n8n-nodes-langchain.openAi",
       "typeVersion": 1.7,
@@ -507,8 +527,8 @@
       "name": "Chainlink-Unhandled Depeg Of Bridged Assets",
       "credentials": {
         "openAiApi": {
-          "id": "j2EqOAWsZ02BwUUN",
-          "name": "OpenAi account"
+          "id": "Ib4AZLl2VBpk1lhE",
+          "name": "OpenAI account"
         }
       }
     },
@@ -546,7 +566,9 @@
           ]
         },
         "jsonOutput": true,
-        "options": {}
+        "options": {
+          "maxTokens": 16000
+        }
       },
       "type": "@n8n/n8n-nodes-langchain.openAi",
       "typeVersion": 1.7,
@@ -558,8 +580,8 @@
       "name": "Chainlink-Oracle Returns Incorrect Price During Flash Crashes",
       "credentials": {
         "openAiApi": {
-          "id": "j2EqOAWsZ02BwUUN",
-          "name": "OpenAi account"
+          "id": "Ib4AZLl2VBpk1lhE",
+          "name": "OpenAI account"
         }
       }
     },
@@ -597,7 +619,9 @@
           ]
         },
         "jsonOutput": true,
-        "options": {}
+        "options": {
+          "maxTokens": 16000
+        }
       },
       "type": "@n8n/n8n-nodes-langchain.openAi",
       "typeVersion": 1.7,
@@ -609,8 +633,8 @@
       "name": "Chainlink-Placing Bets After Randomness Request",
       "credentials": {
         "openAiApi": {
-          "id": "j2EqOAWsZ02BwUUN",
-          "name": "OpenAi account"
+          "id": "Ib4AZLl2VBpk1lhE",
+          "name": "OpenAI account"
         }
       }
     },
@@ -634,7 +658,9 @@
           ]
         },
         "jsonOutput": true,
-        "options": {}
+        "options": {
+          "maxTokens": 16000
+        }
       },
       "type": "@n8n/n8n-nodes-langchain.openAi",
       "typeVersion": 1.7,
@@ -646,8 +672,8 @@
       "name": "Chainlink-Re-requesting Randomness",
       "credentials": {
         "openAiApi": {
-          "id": "j2EqOAWsZ02BwUUN",
-          "name": "OpenAi account"
+          "id": "Ib4AZLl2VBpk1lhE",
+          "name": "OpenAI account"
         }
       }
     },
@@ -1012,21 +1038,20 @@
       ]
     }
   },
-  "active": true,
+  "active": false,
   "settings": {
     "executionOrder": "v1"
   },
-  "versionId": "11e993d2-25ea-4e7e-9d3a-66d9c223c723",
+  "versionId": "1393e5f1-01f8-4d71-a615-71f7cf15b131",
   "meta": {
-    "templateCredsSetupCompleted": true,
-    "instanceId": "c52f7c76a7b40b9b9f276c4afe2fd4fd3674ed446a15060094ec5f3a235bedb7"
+    "instanceId": "0c3ecf5e323087ea5132b8ca4933e216718dbfade54257b5815560a48e0970b7"
   },
-  "id": "1RgydQzdEZcObFwW",
+  "id": "TkUX9ko9poWe17Fb",
   "tags": [
     {
-      "createdAt": "2025-03-20T08:14:08.895Z",
-      "updatedAt": "2025-03-20T08:14:08.895Z",
-      "id": "L8wrJSWKPRpbssNN",
+      "createdAt": "2025-03-21T07:24:29.761Z",
+      "updatedAt": "2025-03-21T07:24:29.761Z",
+      "id": "7x8UEvxbDNKhWIyp",
       "name": "processor"
     }
   ]
