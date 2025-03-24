@@ -26,68 +26,29 @@
       "type": "@n8n/n8n-nodes-langchain.openAi",
       "typeVersion": 1.7,
       "position": [
-        400,
-        -300
+        0,
+        260
       ],
-      "id": "5bba225f-2b7a-47b9-9283-00b86d8c4e80",
+      "id": "843ed6a6-866a-49e5-a40e-c427e3c5db3a",
       "name": "4naly3er-GAS-ERC721usage",
       "credentials": {
         "openAiApi": {
           "id": "pMbla2pFqoBKXDmY",
           "name": "OpenAi account 20250306"
         }
-      },
-      "disabled": true
-    },
-    {
-      "parameters": {
-        "modelId": {
-          "__rl": true,
-          "value": "gpt-4o-mini",
-          "mode": "list",
-          "cachedResultName": "GPT-4O-MINI"
-        },
-        "messages": {
-          "values": [
-            {
-              "content": "=You are a smart contract auditor, trying to detect the **No Slippage Parameter** vulnerability in the given contract code.\n\n## No Slippage Parameter Vulnerability\n\nDeFi platforms must allow users to specify a slippage parameter - the minimum amount of tokens they want to be returned from a swap. Functions include exchanges, swaps, liquidity-related operations, and other similar functionalities need to consider whether there is a slippage parameter similar to minAmountOut.\n\n## No Slippage Parameter Vulnerability Examples\n\nExample 1: the code below contains **No Slippage Parameter** vulnerability since the slippage parameter is set to 0.\n\nIUniswapRouterV2(SUSHI_ROUTER).swapExactTokensForTokens(\n    toSwap,\n    0, // @audit min return 0 tokens; no slippage => user loss of funds\n    path,\n    address(this),\n    now\n    );\n\nExample 2: the code below contains **No Slippage Parameter** vulnerability since the slippage parameter is unused.\n\nfunction addLiquidity(\n\nIERC20 tokenA, IERC20 tokenB,\n\nuint256 amountADesired, uint256 amountBDesired,\n\nuint256 amountAMin, uint256 amountBMin,\n\naddress to, uint256 deadline\n\n) external override returns (uint256 liquidity) {\n\nreturn addLiquidity(\n\ntokenA, tokenB,\n\namountADesired, amountBDesired,\n\nto, deadline\n\n); // @audit amountAMin and amountBMin unused\n\n}\n\nExample 3: the code below contains **No Slippage Parameter** vulnerability since the slippage parameter is hardcoded.\n\nuint256 amountToSwap = IERC20(isTokenA ? vault.token1() : vault.token0()).balanceOf(address(this));\n\nif (amountToSwap > 0) {\n\nswapPool = IUniswapV3Pool(vault.pool());\n\n// @audit The 4th variable is called sqrtPriceLimitX96 and it represents the square root of the lowest or highest price that you are willing to perform the trade at. In this case, we've hardcoded in that we are willing to take the worst possible rate (highest price in the event we are trading 1 => 0; lowest price in the event we are trading 0 => 1).\n\nswapPool.swap(\n\naddress(this),\n\n// if withdraw token is Token0, then swap token1 -> token0 (false)\n\n!isTokenA,\n\nint256(amountToSwap),\n\nisTokenA\n\n? UniV3WrappedLibMockup.MAX_SQRT_RATIO - 1 // Token0 -> Token1\n\n: UniV3WrappedLibMockup.MIN_SQRT_RATIO + 1, // Token1 -> Token0\n\nabi.encode(address(this))\n\n);\n\n}\n\nExample 4: the code below DOES NOT contains **No Slippage Parameter** vulnerability since the slippage parameter is thoroughly checked to prevent being set to 0, unused, and hardcoded.\n\nfunction swapExactTokensForTokens(uint amountIn, uint amountOutMin, address[] calldata path, address to, uint deadline) external virtual override ensure(deadline) returns (uint[] memory amounts) {\n\namounts = UniswapV2Library.getAmountsOut(factory, amountIn, path);\n\nrequire(amounts[amounts.length - 1] >= amountOutMin, 'UniswapV2Router: INSUFFICIENT_OUTPUT_AMOUNT'); // @audit the slippage parameter is checked to avoid **No Slippage Parameter** vulnerability \n\nTransferHelper.safeTransferFrom(path[0], msg.sender, UniswapV2Library.pairFor(factory, path[0], path[1]), amounts[0]);\n\n_swap(amounts, path, to);\n\n}\n\nExample 5: the code below DOES NOT contains **No Slippage Parameter** vulnerability since the slippage parameter is thoroughly checked to prevent being set to 0, unused, and hardcoded.\n\n\nfunction exactInputSingle(ExactInputSingleParams memory params) external payable override nonReentrant returns (uint256 amountOut) {\n\n// use amountIn == Constants.CONTRACT_BALANCE as a flag to swap the entire balance of the\n\ncontract\n\nbool hasAlreadyPaid;\n\nif (params.amountIn == Constants.CONTRACT_BALANCE) {\n\nhasAlreadyPaid = true;\n\nparams.amountIn = IERC20(params.tokenIn).balanceOf(address(this));\n\n}\n\namountOut = exactInputInternal(\n        params.amountIn, params.recipient, params.sqrtPriceLimitX96,\n        SwapCallbackData({\n            path: abi.encodePacked(params.tokenIn, params.fee, params.tokenOut),\n            payer: hasAlreadyPaid ? address(this) : msg.sender\n        })\n    );\nrequire(amountOut >= params.amountOutMinimum); // @audit the slippage parameter is checked to avoid **No Slippage Parameter** vulnerability \n\n}\n\n\n## Task to Perform\n\nFollow the examples above to examine each function to check if it contains the **No Slippage Parameter** vulnerability concretely, record it with the format below if the function does contain. \n\nYou need to simulate the function to determine if it does contain the **No Slippage Parameter** vulnerability.\n\nNoted: token swapping operations are not limited to function containing the name related to “swap”.\n\n## Output Format\nIf NO concrete vulnerability found, output EXACTLY “There’s no such vulnerability.”\n\nOtherwise, follow the format below: \n\n“””\n### Summary\nLack of slippage control\n\n### Vulnerability details\n[1. Insert File Name\u001d, if input is not a file and cannot justify file name, leave blank]\n[2. The functions where the vulnerability occur]\n[3. Describe vulnerability details]\n\n### Code Snippet\n[The lines where the vulnerability occurs]\n\n### Recommendation\n[Provide brief recommendations, do not need to mention Audit and Testing, do not need Code Snippet.]\n“””",
-              "role": "system"
-            },
-            {
-              "content": "={{ $json.chatInput }}"
-            }
-          ]
-        },
-        "jsonOutput": true,
-        "options": {}
-      },
-      "type": "@n8n/n8n-nodes-langchain.openAi",
-      "typeVersion": 1.7,
-      "position": [
-        400,
-        -560
-      ],
-      "id": "38b00a48-be38-4d42-90d5-986f9088e49c",
-      "name": "Few-shot",
-      "credentials": {
-        "openAiApi": {
-          "id": "McJHqUpwbGEcQ02W",
-          "name": "OpenAi account"
-        }
-      },
-      "disabled": true
+      }
     },
     {
       "parameters": {
         "options": {}
       },
-      "id": "5bac9a12-3090-4d3e-97ea-4f18871cb86b",
+      "id": "abfb5c30-a54d-472c-a3ab-c97c18c1a482",
       "name": "When chat message received",
       "type": "@n8n/n8n-nodes-langchain.chatTrigger",
       "typeVersion": 1.1,
       "position": [
-        140,
-        60
+        -260,
+        620
       ],
       "webhookId": "45e4d06b-bcc3-4b56-af90-9a1e235cf99d"
     },
@@ -116,18 +77,17 @@
       "type": "@n8n/n8n-nodes-langchain.openAi",
       "typeVersion": 1.7,
       "position": [
-        400,
-        -20
+        0,
+        540
       ],
-      "id": "e93e961e-bf3e-4f52-b2ed-c5c7cd94336c",
+      "id": "e01f440f-5cfc-4126-bdef-27404908a2ae",
       "name": "4naly3er-GAS-_msgSender",
       "credentials": {
         "openAiApi": {
           "id": "pMbla2pFqoBKXDmY",
           "name": "OpenAi account 20250306"
         }
-      },
-      "disabled": true
+      }
     },
     {
       "parameters": {
@@ -154,18 +114,17 @@
       "type": "@n8n/n8n-nodes-langchain.openAi",
       "typeVersion": 1.7,
       "position": [
-        900,
-        100
+        500,
+        660
       ],
-      "id": "89a02049-ace2-4c3b-bc67-77d49e161eb5",
+      "id": "93231b30-6516-4453-aadb-dfa76e3f2c78",
       "name": "4naly3er-H-comparisonOutsideCondition",
       "credentials": {
         "openAiApi": {
           "id": "pMbla2pFqoBKXDmY",
           "name": "OpenAi account 20250306"
         }
-      },
-      "disabled": true
+      }
     },
     {
       "parameters": {
@@ -192,18 +151,17 @@
       "type": "@n8n/n8n-nodes-langchain.openAi",
       "typeVersion": 1.7,
       "position": [
-        900,
-        220
+        500,
+        780
       ],
-      "id": "0a9a580d-10a1-4b3a-a5cb-ebd4eadb3373",
+      "id": "0a79204a-fbe7-4b67-aac9-877779d3541b",
       "name": "4naly3er-H-wstETHPriceStEth",
       "credentials": {
         "openAiApi": {
           "id": "pMbla2pFqoBKXDmY",
           "name": "OpenAi account 20250306"
         }
-      },
-      "disabled": true
+      }
     },
     {
       "parameters": {
@@ -232,18 +190,17 @@
       "type": "@n8n/n8n-nodes-langchain.openAi",
       "typeVersion": 1.7,
       "position": [
-        900,
-        340
+        500,
+        900
       ],
-      "id": "b38dc560-2e28-4fa8-8361-f79ea818b722",
+      "id": "09d4bc7d-5659-467e-84cb-cf15a5b26181",
       "name": "4naly3er-H-delegateCallInLoop",
       "credentials": {
         "openAiApi": {
           "id": "pMbla2pFqoBKXDmY",
           "name": "OpenAi account 20250306"
         }
-      },
-      "disabled": true
+      }
     },
     {
       "parameters": {
@@ -272,18 +229,17 @@
       "type": "@n8n/n8n-nodes-langchain.openAi",
       "typeVersion": 1.7,
       "position": [
-        900,
-        460
+        500,
+        1020
       ],
-      "id": "026dcfea-e159-4215-996f-1cfee8ece5b0",
+      "id": "7904db70-b098-4dbe-a5be-68af029fe63d",
       "name": "4naly3er-H-get_dy_underlyingFlashLoan",
       "credentials": {
         "openAiApi": {
           "id": "pMbla2pFqoBKXDmY",
           "name": "OpenAi account 20250306"
         }
-      },
-      "disabled": true
+      }
     },
     {
       "parameters": {
@@ -310,18 +266,17 @@
       "type": "@n8n/n8n-nodes-langchain.openAi",
       "typeVersion": 1.7,
       "position": [
-        900,
-        580
+        500,
+        1140
       ],
-      "id": "dae957f2-d794-471b-84d2-5ef3cdddc92d",
+      "id": "ef92e78e-4e89-4dfe-8e7e-09bb2111e304",
       "name": "4naly3er-H-msg.valueInLoop",
       "credentials": {
         "openAiApi": {
           "id": "pMbla2pFqoBKXDmY",
           "name": "OpenAi account 20250306"
         }
-      },
-      "disabled": true
+      }
     },
     {
       "parameters": {
@@ -345,24 +300,23 @@
         "jsonOutput": true,
         "options": {
           "maxTokens": 16384,
-          "topP": 0
+          "topP": 0.1
         }
       },
       "type": "@n8n/n8n-nodes-langchain.openAi",
       "typeVersion": 1.7,
       "position": [
-        400,
-        -160
+        0,
+        400
       ],
-      "id": "e097e6a5-dd4b-407f-8a15-09af2dc51de5",
+      "id": "c5e5c85d-70fd-46d6-9595-904e3d74ca30",
       "name": "4naly3er-GAS-addPlusEqual",
       "credentials": {
         "openAiApi": {
           "id": "pMbla2pFqoBKXDmY",
           "name": "OpenAi account 20250306"
         }
-      },
-      "disabled": true
+      }
     }
   ],
   "pinData": {},
@@ -372,11 +326,6 @@
         [
           {
             "node": "4naly3er-GAS-ERC721usage",
-            "type": "main",
-            "index": 0
-          },
-          {
-            "node": "Few-shot",
             "type": "main",
             "index": 0
           },
@@ -423,10 +372,9 @@
   "settings": {
     "executionOrder": "v1"
   },
-  "versionId": "3fcf2c9f-af73-4eba-9ee7-10a993f27660",
+  "versionId": "",
   "meta": {
     "instanceId": "b65aa6ef3a7847d68323b6fbd676508eb1969c11cc56ff2fc44b7d41b90f104a"
   },
-  "id": "Qv3fzyglzana3FQB",
   "tags": []
 }
