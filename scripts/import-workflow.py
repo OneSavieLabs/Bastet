@@ -3,6 +3,7 @@ import os
 import json
 from dotenv import load_dotenv
 from tqdm import tqdm
+
 load_dotenv()
 
 # Settings
@@ -12,10 +13,22 @@ HEADERS = {"X-N8N-API-KEY": API_KEY, "Content-Type": "application/json"}
 WORKFLOW_FOLDER_PATH = "../n8n/workflows"
 ALLOWED_FIELDS = {"name", "nodes", "connections", "settings", "staticData"}
 
+openai_credential_id = os.getenv("N8N_OPENAI_CREDENTIAL_ID")
+n8n_api_credential_id = os.getenv("N8N_API_CREDENTIAL_ID")
+
+if openai_credential_id is None:
+  tqdm.write("\033[91m❌ OpenAI credential id is not set, please set it in the .env file\033[0m")
+  exit(1)
+
+if n8n_api_credential_id is None:
+  tqdm.write("\033[91m❌ n8n api credential id is not set, please set it in the .env file\033[0m")
+  exit(1)
+
 imported_workflows = []
 existing_workflows = requests.get(f"{N8N_URL}/workflows", headers=HEADERS).json()["data"]
 existing_workflow_names = [workflow["name"] for workflow in existing_workflows]
 main_workflow_name = "main-workflow.json"
+
 
 # Scan workflow files
 workflow_files = [f for f in os.listdir(WORKFLOW_FOLDER_PATH) if f.endswith(".json")]
@@ -56,6 +69,13 @@ with open(main_workflow_path, "r") as file:
     tqdm.write("\033[94mℹ️  Main workflow already exists.\033[0m")
   else:
     filtered_main_workflow_data = {key: main_workflow_data[key] for key in main_workflow_data if key in ALLOWED_FIELDS}
+    # update n8n api credential id
+    for node in filtered_main_workflow_data["nodes"]:
+      if (node["type"] == "n8n-nodes-base.n8n"):
+        node["credentials"]["n8nApi"] = {
+          "id": n8n_api_credential_id,
+          "name": "n8n account"
+        }
     try:
       response = requests.post(f"{N8N_URL}/workflows", headers=HEADERS, json=filtered_main_workflow_data)
       tqdm.write("\033[92m✅ Successfully imported main workflow\033[0m")
@@ -76,6 +96,13 @@ for filename in selected_files:
         continue
 
       filtered_workflow_data = {key: workflow_data[key] for key in workflow_data if key in ALLOWED_FIELDS}
+      # update openai credential id
+      for node in filtered_workflow_data["nodes"]:
+        if (node["type"] == "@n8n/n8n-nodes-langchain.openAi"):
+            node["credentials"]["openAiApi"] = {
+              "id": openai_credential_id,
+              "name": "OpenAI account"
+            }
 
       try:
         response = requests.post(f"{N8N_URL}/workflows", headers=HEADERS, json=filtered_workflow_data)
