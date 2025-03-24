@@ -9,36 +9,25 @@ from tqdm import tqdm
 
 load_dotenv()
 
-N8N_WEBHOOK_URL = os.getenv('N8N_WEBHOOK_URL')
+N8N_WEBHOOK_URL = os.getenv('N8N_WEBHOOK_URL', 'http://localhost:5678/webhook/main-workflow')
 
-def get_conn(dbname='postgres'):
+def get_conn(dbname='n8n'):
     """Get database connection with standard configuration"""
     return psycopg.connect(
         host=os.getenv('POSTGRES_HOST', 'localhost'),
-        user=os.getenv('POSTGRES_USER'),
-        password=os.getenv('POSTGRES_PASSWORD'),
+        user=os.getenv('POSTGRES_USER', 'bastet'),
+        password=os.getenv('POSTGRES_PASSWORD', 'bastet'),
         port=os.getenv('POSTGRES_PORT', '5432'),
         dbname=dbname,
         autocommit=True,
         row_factory=dict_row,
     )
 
-def create_database():
-    """create database if not exist"""
-    try:
-        with get_conn() as conn:
-            with conn.cursor() as cur:
-                cur.execute("SELECT 1 FROM pg_database WHERE datname = 'bastet'")
-                if not cur.fetchone():
-                    cur.execute('CREATE DATABASE bastet')
-    except Exception as e:
-        print(f"Unexpected error in create_database: {str(e)}")
-        raise e
 
 def create_table():
     """create table if not exist"""
     try:
-        with get_conn('bastet') as conn:
+        with get_conn('n8n') as conn:
             with conn.cursor() as cur:
                 create_table_query = '''
                 CREATE TABLE IF NOT EXISTS analysis (
@@ -65,7 +54,7 @@ def scan_contract(file_path):
         # call n8n webhook
         response = requests.post(
             N8N_WEBHOOK_URL,
-            json={'contract_content': contract_content},
+            json={'chatInput': contract_content},
             headers={'Content-Type': 'application/json', 'X-API-Key': '1234567890'},
         )
 
@@ -77,7 +66,6 @@ def scan_contract(file_path):
     except Exception as e:
         print(f"Unexpected error in scan_contract: {str(e)}")
         raise e
-    
 
 def insert_analysis_result(cur, file_path, result):
     """insert the analysis result into the database"""
@@ -90,12 +78,13 @@ def insert_analysis_result(cur, file_path, result):
         (contract_name, contract_path, audit_result)
         VALUES (%s, %s, %s)
         '''
-        
+
         cur.execute(insert_query, (
             file_name, 
             file_path, 
             audit_result,
         ))
+
     except Exception as e:
         print(f"Unexpected error in insert_analysis_result: {str(e)}")
         raise e
@@ -104,13 +93,12 @@ def main(folder_path):
     print('Scanning contracts...')
     # TODO: move create_database, create_table to migration script
     try:
-        create_database()
         create_table()
     except Exception as e:
         print(f"Unexpected error in main: {str(e)}")
         raise e
 
-    print('Database and table created.')
+    print('analysis table created.')
     
     contract_files = glob.glob(os.path.join(folder_path, '**/*.sol'), recursive=True)
     total_files = len(contract_files)
@@ -119,7 +107,7 @@ def main(folder_path):
     success_count = 0
     error_count = 0
 
-    with get_conn('bastet') as conn:
+    with get_conn('n8n') as conn:
         with conn.cursor() as cur:
             for file_path in tqdm(contract_files, 
                                  desc="Processing contracts", 
@@ -130,6 +118,7 @@ def main(folder_path):
                 try:
                     relative_path = os.path.relpath(file_path, folder_path)
                     result = scan_contract(file_path)
+
                     insert_analysis_result(cur, relative_path, result)
                     success_count += 1
                     
