@@ -29,8 +29,7 @@ AccessManaged.sol,0
 IERC1363.sol,0
 IERC1967.sol,0
 IERC2981.sol,0
-"TransparentUpgradeableProxy.sol
-",0
+TransparentUpgradeableProxy.sol,0
 ProxyAdmin.sol,0
 AccessControlDefaultAdminRules.sol,0
 IAccessControlEnumerable.sol,0
