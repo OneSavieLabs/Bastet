@@ -1,8 +1,61 @@
-<img src="cattt.jpg"  width="70%">
 
 # Bastet
+<img src="cattt.jpg"  width="70%">
 
 Bastet is a comprehensive dataset of common smart contract vulnerabilities in DeFi along with an AI-driven automated detection process to enhance vulnerability detection accuracy and optimize security lifecycle management.
+
+## Overview
+
+Bastet covers common vulnerabilities in DeFi, including medium- to high-risk vulnerabilities found on-chain and in audit competitions, along with corresponding secure implementations. It aims to help developers and researchers gain deeper insights into vulnerability patterns and best security practices.
+
+In addition, Bastet integrates an AI-driven automated vulnerability detection process. By designing tailored detection workflows, Bastet enhances AI's accuracy in identifying vulnerabilities, with the goal of optimizing security lifecycle management—from development and auditing to ongoing monitoring.
+
+We strive to improve overall security coverage and warmly welcome contributions of additional vulnerability types, datasets, or improved AI detection methodologies.
+Please refer to our [Contributing Guidelines](CONTRIBUTING.md).
+Together, we can drive the industry's security development forward.
+
+```
+Bastet/
+│── cli/                        # Python CLI package
+│   │── __init__.py
+│   │── main.py                 # CLI entry point
+│   │── commands/               # CLI commands
+│   │   │── <module>/
+│   │   │	│── __init__.py     #CLI routing only, logic will define below
+│   │   │	│── <function>.py
+│── dataset/                    # dataset location
+│	│── catogory/               # Legacy: wait for refactor
+│   │	├── (Type)/
+│   │   │	├── (Scenario)/
+│   │   │   │	├── on-chain-vulnerabilities/
+│   │   │   │	├── audit-competitions-findings/
+│   │   │   │	├── secure-implementations/
+│   │   │   │	├── README.md
+│   │── scan_queue/             # default directory of contracts which need to be scanned by CLI
+│   │	│── <file>.sol
+│   │── source_code/            # default directory of file recorded in dataset.csv, for evaluation.
+│   │	│── <file>.sol
+│   │── dataset.csv             # dataset sheet, provide ground truth.
+│── n8n_workflows/              # n8n workflow files
+│   │── <file>.json             # workflow for analyzing the smart contracts 
+│── docker-compose.yaml
+│── README.md
+│── poetry.lock
+│── pyproject.toml
+│── .gitignore
+
+```
+
+### Features
+
+- Recursive scanning of `.sol` files in specified directories
+- Automatic database creation and schema setup
+- Integration with n8n workflows via webhooks
+- Detailed processing summary and error reporting
+- Results stored in PostgreSQL for further analysis
+- A dataset for evaluate the prompt
+- A cli interface to trigger evaluate workflow
+- Python file formatter: Black
 
 ## How to install
 
@@ -70,6 +123,20 @@ You will see the Main workflow and the Sub workflow(We call it processor) you se
 
 12. Turn on the switch button of Main workflow and the Sub workflow in the homepage.
 
+13. The following script create the `analysis` table. We will create the table automatically when the first scan is started:
+
+```sql
+CREATE TABLE analysis (
+    id SERIAL PRIMARY KEY,
+    contract_name VARCHAR(1024),
+    contract_path TEXT,
+    audit_result JSONB,
+    audit_result_review BOOLEAN DEFAULT FALSE,
+    created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
+    updated_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP
+)
+```
+
 ## Usage
 
 ### Scan Multiple Contracts with Multiple Processor Workflows
@@ -93,56 +160,69 @@ The script will scan all contracts in the `smart-contracts` directory using the 
 1. Go into Processor workflow you want to scan.
 2. Click the **Chat** button on the bottom and input the contract content.
 
-### Features
+### Evaluation
 
-- Recursive scanning of `.sol` files in specified directories
-- Automatic database creation and schema setup
-- Integration with n8n workflows via webhooks
-- Detailed processing summary and error reporting
-- Results stored in PostgreSQL for further analysis
+1. import the workflow you want to evaluate, the output of the workflow need to follow the following json.
 
-### Database Schema
-
-The script create the `analysis` table. We will create the table automatically when the first scan is started:
-
-```sql
-CREATE TABLE analysis (
-    id SERIAL PRIMARY KEY,
-    contract_name VARCHAR(1024),
-    contract_path TEXT,
-    audit_result JSONB,
-    audit_result_review BOOLEAN DEFAULT FALSE,
-    created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
-    updated_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP
-)
+```json
+[
+    {
+        "Summary":  "brief summary",
+        "Severity": ["High", "Medium", "Low"],
+        "Vulnerability Details": {
+            "File Name": "<file>.sol",
+            "Function Name": "<function name>",
+            "Description": "brief description"
+        },
+    
+        "Code Snippet": [
+            "Code snippet inside the constract",
+            ...
+        ],
+    
+        "Recommendation": "A recommendation to fix the vulnerability"
+    
+    }
+]
 ```
 
-## Overview
+2. run the command
 
-Bastet covers common vulnerabilities in DeFi, including medium- to high-risk vulnerabilities found on-chain and in audit competitions, along with corresponding secure implementations. It aims to help developers and researchers gain deeper insights into vulnerability patterns and best security practices.
-
-In addition, Bastet integrates an AI-driven automated vulnerability detection process. By designing tailored detection workflows, Bastet enhances AI's accuracy in identifying vulnerabilities, with the goal of optimizing security lifecycle management—from development and auditing to ongoing monitoring.
-
-We strive to improve overall security coverage and warmly welcome contributions of additional vulnerability types, datasets, or improved AI detection methodologies.
-Please refer to our [Contributing Guidelines](CONTRIBUTING.md).
-Together, we can drive the industry's security development forward.
-
+```bash
+poetry run cli/main.py eval
 ```
-Bastet/
-│── categories/
-│   ├── (Type)/
-│   │   ├── (Scenario)/
-│   │   │   ├── on-chain-vulnerabilities/
-│   │   │   ├── audit-competitions-findings/
-│   │   │   ├── secure-implementations/
-│   │   │   ├── README.md
-├── n8n/
-│   ├── workflows/
-├── scripts/
-├── smart-contracts/
-├── README.md
 
+> you can use flag `--help` for detail information of flag you can use 
+
+#### Demo Case Setup
+
+1. import `COT.json` to your n8n service.
+
+2. provide the openAI credential for the workflow `COT` you create.
+
+3. make the workflow active
+
+4. run
+
+```bash
+poetry run cli/main.py eval --n8n-webhook-url http://<n8n service provider>/webhook/COT
 ```
+
+you shell get the confusion metrics. like this
+```
++----------------+---------+
+| Metric         |   Value |
++================+=========+
+| True Positive  |      16 |
++----------------+---------+
+| True Negative  |      27 |
++----------------+---------+
+| False Positive |       2 |
++----------------+---------+
+| False Negative |      13 |
++----------------+---------+
+```
+Note: the number shell be difference since the answer of LLM model is not stable, the answer here is created by gpt-4o-mini
 
 ## Disclaimer
 
