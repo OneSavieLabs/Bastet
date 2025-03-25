@@ -1,3 +1,5 @@
+> **⚠️ Legacy Notice:**  
+> This document is marked as legacy and may contain outdated information. Please refer to the latest documentation for updated methodologies and results.
 ## Methodology
 
 We apply Chain of Thought (CoT) combined with Few-shot technique in our prompt.
