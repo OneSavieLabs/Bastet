@@ -1,7 +1,6 @@
-import os
 import dotenv
-import typer
 import evaluate
+import typer
 
 dotenv.load_dotenv()
 
