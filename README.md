@@ -208,7 +208,7 @@ The script will scan all contracts in the `smart-contracts` directory using the 
 2. run the command
 
 ```bash
-poetry run cli/main.py eval
+poetry run python cli/main.py eval
 ```
 
 > you can use flag `--help` for detail information of flag you can use 
