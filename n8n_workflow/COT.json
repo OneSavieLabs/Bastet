@@ -16,47 +16,20 @@
       },
       "type": "@n8n/n8n-nodes-langchain.chainLlm",
       "typeVersion": 1.5,
-      "position": [
-        120,
-        20
-      ],
-      "id": "914803ec-e49c-40c9-be82-a2430ee80630",
+      "position": [340, 0],
+      "id": "0fff0801-c2ee-4f61-a4af-ddd37f175f7b",
       "name": "Basic LLM Chain"
     },
     {
       "parameters": {
-        "jsonSchemaExample": "[\n    {\n        \"Summary\":  \"function `sellPrincipalToken`lack of slippage protection\",\n        \"Vulnerability Details\": {\n            \"File Name\": \"MarketPlace.sol\",\n            \"Function Name\": \"sellPrincipalToken\",\n            \"Description\": \"No slippage protection implemented for token sale.\"\n        },\n    \n        \"Code Snippet\": [\n            \"Safe.transfer(IERC20(address(pool.fyToken())), address(pool), a);\",\n            \"return pool.sellFYToken(msg.sender, pool.sellFYTokenPreview(a));\"\n        ],\n    \n        \"Recommendation\": \"Implement minimum output checks or slippage parameters to protect user funds.\"\n    \n    }\n]"
+        "schemaType": "manual",
+        "inputSchema": "{\n  \"type\": \"array\",\n  \"items\": {\n    \"type\": \"object\",\n    \"properties\": {\n      \"Summary\": {\n        \"type\": \"string\",\n        \"description\": \"Brief summary of the vulnerability\"\n      },\n      \"Severity\": {\n        \"type\": \"string\",\n        \"items\": {\n          \"type\": \"string\",\n          \"enum\": [\"High\", \"Medium\", \"Low\"]\n        },\n        \"description\": \"Severity level of the vulnerability\"\n      },\n      \"Vulnerability Details\": {\n        \"type\": \"object\",\n        \"properties\": {\n          \"File Name\": {\n            \"type\": \"string\",\n            \"description\": \"File name where the vulnerability exists\"\n          },\n          \"Function Name\": {\n            \"type\": \"string\",\n            \"description\": \"Function name where the vulnerability is found\"\n          },\n          \"Description\": {\n            \"type\": \"string\",\n            \"description\": \"Detailed description of the vulnerability\"\n          }\n        },\n        \"required\": [\"File Name\", \"Function Name\", \"Description\"]\n      },\n      \"Code Snippet\": {\n        \"type\": \"array\",\n        \"items\": {\n          \"type\": \"string\"\n        },\n        \"description\": \"Code snippet showing the vulnerability\",\n        \"default\": []\n      },\n      \"Recommendation\": {\n        \"type\": \"string\",\n        \"description\": \"Recommendation to fix the vulnerability\"\n      }\n    },\n    \"required\": [\"Summary\", \"Severity\", \"Vulnerability Details\", \"Code Snippet\", \"Recommendation\"]\n  },\n  \"additionalProperties\": false,\n  \"default\": []\n}"
       },
       "type": "@n8n/n8n-nodes-langchain.outputParserStructured",
       "typeVersion": 1.2,
-      "position": [
-        500,
-        460
-      ],
-      "id": "e24a6145-ebf8-490b-bebf-398a8d7f9dc3",
+      "position": [720, 440],
+      "id": "3886c5d8-d954-4608-b857-1d913b1b4e84",
       "name": "Structured Output Parser"
-    },
-    {
-      "parameters": {
-        "model": "gpt-4o-mini",
-        "options": {
-          "responseFormat": "json_object"
-        }
-      },
-      "type": "@n8n/n8n-nodes-langchain.lmChatAzureOpenAi",
-      "typeVersion": 1,
-      "position": [
-        20,
-        260
-      ],
-      "id": "5fb126df-9436-4c02-8a26-5cc8fa252905",
-      "name": "Azure OpenAI Chat Model",
-      "credentials": {
-        "azureOpenAiApi": {
-          "id": "ErdmXxiCHufYGCbv",
-          "name": "Azure Open AI account"
-        }
-      }
     },
     {
       "parameters": {
@@ -66,34 +39,9 @@
       },
       "type": "@n8n/n8n-nodes-langchain.outputParserAutofixing",
       "typeVersion": 1,
-      "position": [
-        260,
-        280
-      ],
-      "id": "a6943479-8ca4-42d8-a295-9acea07f7d40",
+      "position": [480, 260],
+      "id": "6c2340e5-8868-4e57-a5c5-baab481bb375",
       "name": "Auto-fixing Output Parser"
-    },
-    {
-      "parameters": {
-        "model": "gpt-4o-mini",
-        "options": {
-          "responseFormat": "json_object"
-        }
-      },
-      "type": "@n8n/n8n-nodes-langchain.lmChatAzureOpenAi",
-      "typeVersion": 1,
-      "position": [
-        200,
-        460
-      ],
-      "id": "fe0eb883-f002-4ff4-a882-139670388304",
-      "name": "Azure OpenAI Chat Model1",
-      "credentials": {
-        "azureOpenAiApi": {
-          "id": "ErdmXxiCHufYGCbv",
-          "name": "Azure Open AI account"
-        }
-      }
     },
     {
       "parameters": {
@@ -104,13 +52,30 @@
       },
       "type": "n8n-nodes-base.webhook",
       "typeVersion": 2,
-      "position": [
-        -220,
-        20
-      ],
-      "id": "d54a5a32-9be8-4c00-a983-7e9e5bdeff80",
+      "position": [0, 0],
+      "id": "5250a143-6bd1-4a9b-908f-bb48db40b654",
       "name": "Webhook",
       "webhookId": "0f3a3dc2-9cb2-4454-86b1-bb95ef26a901"
+    },
+    {
+      "parameters": {
+        "options": {}
+      },
+      "type": "@n8n/n8n-nodes-langchain.lmChatOpenAi",
+      "typeVersion": 1,
+      "position": [280, 180],
+      "id": "340ebf63-f35e-4030-94be-9e230ec8ac74",
+      "name": "LLM for answer"
+    },
+    {
+      "parameters": {
+        "options": {}
+      },
+      "type": "@n8n/n8n-nodes-langchain.lmChatOpenAi",
+      "typeVersion": 1,
+      "position": [440, 440],
+      "id": "96658803-9891-4fc3-95a4-62c133cff179",
+      "name": "LLM for auto correct output format"
     }
   ],
   "pinData": {},
@@ -121,17 +86,6 @@
           {
             "node": "Auto-fixing Output Parser",
             "type": "ai_outputParser",
-            "index": 0
-          }
-        ]
-      ]
-    },
-    "Azure OpenAI Chat Model": {
-      "ai_languageModel": [
-        [
-          {
-            "node": "Basic LLM Chain",
-            "type": "ai_languageModel",
             "index": 0
           }
         ]
@@ -148,17 +102,6 @@
         ]
       ]
     },
-    "Azure OpenAI Chat Model1": {
-      "ai_languageModel": [
-        [
-          {
-            "node": "Auto-fixing Output Parser",
-            "type": "ai_languageModel",
-            "index": 0
-          }
-        ]
-      ]
-    },
     "Webhook": {
       "main": [
         [
@@ -169,16 +112,38 @@
           }
         ]
       ]
+    },
+    "LLM for answer": {
+      "ai_languageModel": [
+        [
+          {
+            "node": "Basic LLM Chain",
+            "type": "ai_languageModel",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "LLM for auto correct output format": {
+      "ai_languageModel": [
+        [
+          {
+            "node": "Auto-fixing Output Parser",
+            "type": "ai_languageModel",
+            "index": 0
+          }
+        ]
+      ]
     }
   },
-  "active": true,
+  "active": false,
   "settings": {
     "executionOrder": "v1"
   },
-  "versionId": "1ac9ce81-344a-4c17-8c13-4a6fa4c2bdda",
+  "versionId": "733a2dcf-686c-42fd-bcf0-366d5b7e21dc",
   "meta": {
-    "instanceId": "b65aa6ef3a7847d68323b6fbd676508eb1969c11cc56ff2fc44b7d41b90f104a"
+    "instanceId": "fc85062144fd92f9929bd44e2350b6e9b61697cd5a566e71a7126a62ec9586d5"
   },
-  "id": "8vUSFF0Q7VnBYDbU",
+  "id": "2GuWrJ8UAfBtl8FX",
   "tags": []
 }
