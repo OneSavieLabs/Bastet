@@ -27,9 +27,9 @@
       "typeVersion": 1.7,
       "position": [
         0,
-        260
+        0
       ],
-      "id": "843ed6a6-866a-49e5-a40e-c427e3c5db3a",
+      "id": "a8fba6c8-5bfd-40c2-9f4a-daaf368c43d4",
       "name": "4naly3er-GAS-ERC721usage",
       "credentials": {
         "openAiApi": {
@@ -42,13 +42,13 @@
       "parameters": {
         "options": {}
       },
-      "id": "abfb5c30-a54d-472c-a3ab-c97c18c1a482",
+      "id": "599f1452-67da-44cd-9f2c-d87b35699757",
       "name": "When chat message received",
       "type": "@n8n/n8n-nodes-langchain.chatTrigger",
       "typeVersion": 1.1,
       "position": [
         -260,
-        620
+        360
       ],
       "webhookId": "45e4d06b-bcc3-4b56-af90-9a1e235cf99d"
     },
@@ -78,9 +78,9 @@
       "typeVersion": 1.7,
       "position": [
         0,
-        540
+        280
       ],
-      "id": "e01f440f-5cfc-4126-bdef-27404908a2ae",
+      "id": "16e5ae60-efb9-45a3-b33d-cc5305bfc046",
       "name": "4naly3er-GAS-_msgSender",
       "credentials": {
         "openAiApi": {
@@ -115,9 +115,9 @@
       "typeVersion": 1.7,
       "position": [
         500,
-        660
+        400
       ],
-      "id": "93231b30-6516-4453-aadb-dfa76e3f2c78",
+      "id": "8177c375-5398-4b2c-a687-9cc60aea1d69",
       "name": "4naly3er-H-comparisonOutsideCondition",
       "credentials": {
         "openAiApi": {
@@ -152,9 +152,9 @@
       "typeVersion": 1.7,
       "position": [
         500,
-        780
+        520
       ],
-      "id": "0a79204a-fbe7-4b67-aac9-877779d3541b",
+      "id": "d16eb7ef-22cd-4c26-97bf-4f442fe66abe",
       "name": "4naly3er-H-wstETHPriceStEth",
       "credentials": {
         "openAiApi": {
@@ -191,9 +191,9 @@
       "typeVersion": 1.7,
       "position": [
         500,
-        900
+        640
       ],
-      "id": "09d4bc7d-5659-467e-84cb-cf15a5b26181",
+      "id": "a12039af-510e-45c5-9fce-eaa97082a683",
       "name": "4naly3er-H-delegateCallInLoop",
       "credentials": {
         "openAiApi": {
@@ -230,9 +230,9 @@
       "typeVersion": 1.7,
       "position": [
         500,
-        1020
+        760
       ],
-      "id": "7904db70-b098-4dbe-a5be-68af029fe63d",
+      "id": "409aa768-920b-45b4-a075-d3bd47fdaf3a",
       "name": "4naly3er-H-get_dy_underlyingFlashLoan",
       "credentials": {
         "openAiApi": {
@@ -267,9 +267,9 @@
       "typeVersion": 1.7,
       "position": [
         500,
-        1140
+        880
       ],
-      "id": "ef92e78e-4e89-4dfe-8e7e-09bb2111e304",
+      "id": "90edce64-0121-493c-9a3e-adb603286ae0",
       "name": "4naly3er-H-msg.valueInLoop",
       "credentials": {
         "openAiApi": {
@@ -307,9 +307,9 @@
       "typeVersion": 1.7,
       "position": [
         0,
-        400
+        140
       ],
-      "id": "c5e5c85d-70fd-46d6-9595-904e3d74ca30",
+      "id": "06d8c9b8-4f89-496a-8753-b981c40205fb",
       "name": "4naly3er-GAS-addPlusEqual",
       "credentials": {
         "openAiApi": {
@@ -317,6 +317,56 @@
           "name": "OpenAi account 20250306"
         }
       }
+    },
+    {
+      "parameters": {
+        "numberInputs": 3
+      },
+      "type": "n8n-nodes-base.merge",
+      "typeVersion": 3,
+      "position": [
+        500,
+        160
+      ],
+      "id": "d3f7ad9f-7b98-4e78-8641-02f0c713a121",
+      "name": "Merge"
+    },
+    {
+      "parameters": {
+        "numberInputs": 5
+      },
+      "type": "n8n-nodes-base.merge",
+      "typeVersion": 3,
+      "position": [
+        980,
+        660
+      ],
+      "id": "6b1c15fa-728d-4d36-ac4b-0b2622796643",
+      "name": "Merge1"
+    },
+    {
+      "parameters": {},
+      "type": "n8n-nodes-base.executeWorkflowTrigger",
+      "typeVersion": 1.1,
+      "position": [
+        -260,
+        560
+      ],
+      "id": "5c898239-7836-4cc0-a5f2-d3e51394bf51",
+      "name": "Workflow Input Trigger"
+    },
+    {
+      "parameters": {
+        "numberInputs": 3
+      },
+      "type": "n8n-nodes-base.merge",
+      "typeVersion": 3,
+      "position": [
+        1340,
+        500
+      ],
+      "id": "c5f4e72f-0b29-4850-9d88-9e513907dfa1",
+      "name": "Merge2"
     }
   ],
   "pinData": {},
@@ -366,15 +416,126 @@
           }
         ]
       ]
+    },
+    "4naly3er-GAS-addPlusEqual": {
+      "main": [
+        [
+          {
+            "node": "Merge",
+            "type": "main",
+            "index": 1
+          }
+        ]
+      ]
+    },
+    "4naly3er-GAS-ERC721usage": {
+      "main": [
+        [
+          {
+            "node": "Merge",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "4naly3er-GAS-_msgSender": {
+      "main": [
+        [
+          {
+            "node": "Merge",
+            "type": "main",
+            "index": 2
+          }
+        ]
+      ]
+    },
+    "4naly3er-H-comparisonOutsideCondition": {
+      "main": [
+        [
+          {
+            "node": "Merge1",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "4naly3er-H-wstETHPriceStEth": {
+      "main": [
+        [
+          {
+            "node": "Merge1",
+            "type": "main",
+            "index": 1
+          }
+        ]
+      ]
+    },
+    "4naly3er-H-delegateCallInLoop": {
+      "main": [
+        [
+          {
+            "node": "Merge1",
+            "type": "main",
+            "index": 2
+          }
+        ]
+      ]
+    },
+    "4naly3er-H-get_dy_underlyingFlashLoan": {
+      "main": [
+        [
+          {
+            "node": "Merge1",
+            "type": "main",
+            "index": 3
+          }
+        ]
+      ]
+    },
+    "4naly3er-H-msg.valueInLoop": {
+      "main": [
+        [
+          {
+            "node": "Merge1",
+            "type": "main",
+            "index": 4
+          }
+        ]
+      ]
+    },
+    "Merge": {
+      "main": [
+        [
+          {
+            "node": "Merge2",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Merge1": {
+      "main": [
+        [
+          {
+            "node": "Merge2",
+            "type": "main",
+            "index": 1
+          }
+        ]
+      ]
     }
   },
   "active": false,
   "settings": {
     "executionOrder": "v1"
   },
-  "versionId": "",
+  "versionId": "b0a61f31-d33b-45bc-a8e5-189f724877a5",
   "meta": {
     "instanceId": "b65aa6ef3a7847d68323b6fbd676508eb1969c11cc56ff2fc44b7d41b90f104a"
   },
+  "id": "QCdlgE4u4IbPnLos",
   "tags": []
 }
