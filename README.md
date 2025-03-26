@@ -63,11 +63,9 @@ Bastet/
 
 **Prerequisites**
 
-- Python 3.10 or higher
-- Docker installed on your machine
-- Docker Compose installed on your machine
-- n8n instance with webhook endpoint configured
-- Poetry for dependency management
+- [Python](https://www.python.org/) 3.10 or higher
+- [Docker](https://www.docker.com/) installed on your machine
+- [Docker Compose](https://docs.docker.com/compose/) installed on your machine
 
 **Installation Steps**
 
@@ -87,30 +85,25 @@ cp .env.example .env
 
 Update the environment variables in `.env` file if needed.
 
-3. Add your smart contracts:
-
-- Place your `.sol` files in `n8n/scripts/smart-contracts/`
-- Remove `example.sol`
-
-4. Start n8n:
+3. Start n8n and database:
 
 ```bash
 docker-compose -f ./docker-compose.yml up -d
 ```
 
-5. Access the n8n dashboard, Open your browser and navigate to `http://localhost:5678`
+4. Access the n8n dashboard, Open your browser and navigate to `http://localhost:5678`
 
-6. (First time only) Setup owner account, activate free n8n pro features
+5. (First time only) Setup owner account, activate free n8n pro features
 
-7. Click the user icon at the bottom left → Settings → Click the **n8n API** in the sidebar → Create an API key → Label fill Bastet → Expiration select "No Expiration" (If you want to set an expiration time, select it) → Copy the API key and paste it to `N8N_API_KEY` in `.env` file, because the API key will not be visible after creation, you can only create it again → Click Done.
+6. Click the user icon at the bottom left → Settings → Click the **n8n API** in the sidebar → Create an API key → Label fill Bastet → Expiration select "No Expiration" (If you want to set an expiration time, select it) → Copy the API key and paste it to `N8N_API_KEY` in `.env` file, because the API key will not be visible after creation, you can only create it again → Click Done.
 
-8. Back to the homepage (http://localhost:5678/home/workflows)
+7. Back to the homepage (http://localhost:5678/home/workflows)
 
-9. Click **Create Credential** in the arrow button next to the Create Workflow button → Fill in "n8n" in the input → You will see "n8n API" and select it, click Continue → API Key fill in the API key you just created, Base URL fill in http://host.docker.internal:5678/api/v1 -> click the Save button and you will see Connection tested successfully message -> click the **Details** in sidebar and copy the value of the **ID** field and paste it to `N8N_API_CREDENTIAL_ID` in `.env` file.
+8. Click **Create Credential** in the arrow button next to the Create Workflow button → Fill in "n8n" in the input → You will see "n8n API" and select it, click Continue → API Key fill in the API key you just created, Base URL fill in http://host.docker.internal:5678/api/v1 -> click the Save button and you will see Connection tested successfully message -> click the **Details** in sidebar and copy the value of the **ID** field and paste it to `N8N_API_CREDENTIAL_ID` in `.env` file.
 
-10. Based on previous step, Create OpenAi credentials, create a new credential with your OpenAi Key. and copy the value of the **ID** field and paste it to `N8N_OPENAI_CREDENTIAL_ID` in `.env` file.
+9. Based on previous step, Create OpenAi credentials, create a new credential with your OpenAi Key. and copy the value of the **ID** field and paste it to `N8N_OPENAI_CREDENTIAL_ID` in `.env` file.
 
-11. Import the workflow
+10. Import the workflow by excuting the following code 
 
 **Before the setup, make sure you fill the N8N_API_KEY, N8N_API_CREDENTIAL_ID, N8N_OPENAI_CREDENTIAL_ID in `.env` file.**
 
@@ -121,21 +114,7 @@ poetry run python import-workflow.py
 
 You will see the Main workflow and the Sub workflow(We call it processor) you selected with "processor" tag in the homepage.
 
-12. Turn on the switch button of Main workflow and the Sub workflow in the homepage.
-
-13. The following script create the `analysis` table. We will create the table automatically when the first scan is started:
-
-```sql
-CREATE TABLE analysis (
-    id SERIAL PRIMARY KEY,
-    contract_name VARCHAR(1024),
-    contract_path TEXT,
-    audit_result JSONB,
-    audit_result_review BOOLEAN DEFAULT FALSE,
-    created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
-    updated_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP
-)
-```
+11. Turn on the switch button of Main workflow and the Sub workflow in the homepage.
 
 ## Usage
 
@@ -162,29 +141,68 @@ The script will scan all contracts in the `smart-contracts` directory using the 
 
 ### Evaluation
 
-1. import the workflow you want to evaluate, the output of the workflow need to follow the following json.
+1. import the workflow you want to evaluate
 
+> The output of the workflow need to follow the following json schema. 
 ```json
-[
-    {
-        "Summary":  "brief summary",
-        "Severity": ["High", "Medium", "Low"],
-        "Vulnerability Details": {
-            "File Name": "<file>.sol",
-            "Function Name": "<function name>",
-            "Description": "brief description"
+{
+  "type": "array",
+  "items": {
+    "type": "object",
+    "properties": {
+      "Summary": {
+        "type": "string",
+        "description": "Brief summary of the vulnerability"
+      },
+      "Severity": {
+        "type": "string",
+        "items": {
+          "type": "string",
+          "enum": ["High", "Medium", "Low"]
         },
-    
-        "Code Snippet": [
-            "Code snippet inside the constract",
-            ...
-        ],
-    
-        "Recommendation": "A recommendation to fix the vulnerability"
-    
-    }
-]
+        "description": "Severity level of the vulnerability"
+      },
+      "Vulnerability Details": {
+        "type": "object",
+        "properties": {
+          "File Name": {
+            "type": "string",
+            "description": "File name where the vulnerability exists"
+          },
+          "Function Name": {
+            "type": "string",
+            "description": "Function name where the vulnerability is found"
+          },
+          "Description": {
+            "type": "string",
+            "description": "Detailed description of the vulnerability"
+          }
+        },
+        "required": ["File Name", "Function Name", "Description"]
+      },
+      "Code Snippet": {
+        "type": "array",
+        "items": {
+          "type": "string"
+        },
+        "description": "Code snippet showing the vulnerability",
+        "default": []
+      },
+      "Recommendation": {
+        "type": "string",
+        "description": "Recommendation to fix the vulnerability"
+      }
+    },
+    "required": ["Summary", "Severity", "Vulnerability Details", "Code Snippet", "Recommendation"]
+  },
+  "additionalProperties": false,
+  "default": []
+}
 ```
+
+> The trigger point should be a webhook and this work should be activated (by clicking the switch at n8n home page)
+
+> You may refer `n8n_workflow/slippage_minAmount.json`
 
 2. run the command
 
@@ -198,7 +216,7 @@ poetry run cli/main.py eval
 
 1. import `slippage_minAmount.json` to your n8n service.
 
-2. provide the openAI credential for the workflow `COT` you create.
+2. provide the openAI credential for the workflow `slippage_minAmount` you just create.
 
 3. make the workflow active
 
