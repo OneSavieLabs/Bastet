@@ -196,7 +196,7 @@ poetry run cli/main.py eval
 
 #### Demo Case Setup
 
-1. import `COT.json` to your n8n service.
+1. import `slippage_minAmount.json` to your n8n service.
 
 2. provide the openAI credential for the workflow `COT` you create.
 
@@ -205,7 +205,7 @@ poetry run cli/main.py eval
 4. run
 
 ```bash
-poetry run cli/main.py eval --n8n-webhook-url http://<n8n service provider>/webhook/COT
+poetry run cli/main.py eval --n8n-webhook-url http://<n8n service provider>/webhook/slippage_minAmount
 ```
 
 you shell get the confusion metrics. like this
