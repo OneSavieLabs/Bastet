@@ -20,7 +20,7 @@ def default(
         help="The path to the source code directory",
     ),
     n8n_workflow_webhook_url: str = typer.Option(
-        "http://localhost:5678/webhook/COT",
+        "http://localhost:5678/webhook/slippage_minAmount",
         "--n8n-workflow-webhook-url",
         help="The URL of the n8n workflow webhook to test",
     ),

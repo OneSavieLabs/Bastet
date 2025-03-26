@@ -66,6 +66,7 @@ Bastet/
 - [Python](https://www.python.org/) 3.10 or higher
 - [Docker](https://www.docker.com/) installed on your machine
 - [Docker Compose](https://docs.docker.com/compose/) installed on your machine
+- [Poetry](https://python-poetry.org/) for package management, if you want to follow our instruction the version should< 2.0.0
 
 **Installation Steps**
 
@@ -223,7 +224,7 @@ poetry run cli/main.py eval
 4. run
 
 ```bash
-poetry run cli/main.py eval --n8n-webhook-url http://<n8n service provider>/webhook/slippage_minAmount
+poetry run cli/main.py eval
 ```
 
 you shell get the confusion metrics. like this
