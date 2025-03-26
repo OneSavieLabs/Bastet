@@ -1,5 +1,5 @@
-
 # Bastet
+
 <img src="cattt.jpg"  width="70%">
 
 Bastet is a comprehensive dataset of common smart contract vulnerabilities in DeFi along with an AI-driven automated detection process to enhance vulnerability detection accuracy and optimize security lifecycle management.
@@ -37,7 +37,7 @@ Bastet/
 │   │	│── <file>.sol
 │   │── dataset.csv             # dataset sheet, provide ground truth.
 │── n8n_workflows/              # n8n workflow files
-│   │── <file>.json             # workflow for analyzing the smart contracts 
+│   │── <file>.json             # workflow for analyzing the smart contracts
 │── docker-compose.yaml
 │── README.md
 │── poetry.lock
@@ -104,13 +104,12 @@ docker-compose -f ./docker-compose.yml up -d
 
 9. Based on previous step, Create OpenAi credentials, create a new credential with your OpenAi Key. and copy the value of the **ID** field and paste it to `N8N_OPENAI_CREDENTIAL_ID` in `.env` file.
 
-10. Import the workflow by excuting the following code 
+10. Import the workflow by executing the following code
 
 **Before the setup, make sure you fill the N8N_API_KEY, N8N_API_CREDENTIAL_ID, N8N_OPENAI_CREDENTIAL_ID in `.env` file.**
 
 ```bash
-cd scripts
-poetry run python import-workflow.py
+poetry run python cli/main.py import_workflow
 ```
 
 You will see the Main workflow and the Sub workflow(We call it processor) you selected with "processor" tag in the homepage.
@@ -121,16 +120,10 @@ You will see the Main workflow and the Sub workflow(We call it processor) you se
 
 ### Scan Multiple Contracts with Multiple Processor Workflows
 
-Navigate to the scripts directory containing the scanning scripts:
+The main script `scan` will recursively scan all `.sol` files in the specified directory:
 
 ```bash
-cd /scripts
-```
-
-The main script `scan.py` will recursively scan all `.sol` files in the specified directory:
-
-```bash
-poetry run python scan.py ../smart-contracts
+poetry run python cli/main.py scan
 ```
 
 The script will scan all contracts in the `smart-contracts` directory using the processor workflows that you have activated by turning on their respective switch buttons.
@@ -144,7 +137,8 @@ The script will scan all contracts in the `smart-contracts` directory using the 
 
 1. import the workflow you want to evaluate
 
-> The output of the workflow need to follow the following json schema. 
+> The output of the workflow need to follow the following json schema.
+
 ```json
 {
   "type": "array",
@@ -194,7 +188,13 @@ The script will scan all contracts in the `smart-contracts` directory using the 
         "description": "Recommendation to fix the vulnerability"
       }
     },
-    "required": ["Summary", "Severity", "Vulnerability Details", "Code Snippet", "Recommendation"]
+    "required": [
+      "Summary",
+      "Severity",
+      "Vulnerability Details",
+      "Code Snippet",
+      "Recommendation"
+    ]
   },
   "additionalProperties": false,
   "default": []
@@ -211,23 +211,24 @@ The script will scan all contracts in the `smart-contracts` directory using the 
 poetry run python cli/main.py eval
 ```
 
-> you can use flag `--help` for detail information of flag you can use 
+> you can use flag `--help` for detail information of flag you can use
 
 #### Demo Case Setup
 
-1. import `slippage_minAmount.json` to your n8n service.
+1. import `slippage_min_amount.json` to your n8n service.
 
-2. provide the openAI credential for the workflow `slippage_minAmount` you just create.
+2. provide the openAI credential for the workflow `slippage_min_amount` you just create.
 
 3. make the workflow active
 
 4. run
 
 ```bash
-poetry run cli/main.py eval
+poetry run python cli/main.py eval
 ```
 
 you shell get the confusion metrics. like this
+
 ```
 +----------------+---------+
 | Metric         |   Value |
@@ -241,6 +242,7 @@ you shell get the confusion metrics. like this
 | False Negative |      13 |
 +----------------+---------+
 ```
+
 Note: the number shell be difference since the answer of LLM model is not stable, the answer here is created by gpt-4o-mini
 
 ## Disclaimer

@@ -1,5 +1,5 @@
 {
-  "name": "slippage_minAmount",
+  "name": "slippage min amount",
   "nodes": [
     {
       "parameters": {
@@ -65,7 +65,13 @@
       "typeVersion": 1,
       "position": [280, 180],
       "id": "340ebf63-f35e-4030-94be-9e230ec8ac74",
-      "name": "LLM for answer"
+      "name": "LLM for answer",
+      "credentials": {
+        "openAiApi": {
+          "id": "",
+          "name": "OpenAI account"
+        }
+      }
     },
     {
       "parameters": {
@@ -75,7 +81,13 @@
       "typeVersion": 1,
       "position": [440, 440],
       "id": "96658803-9891-4fc3-95a4-62c133cff179",
-      "name": "LLM for auto correct output format"
+      "name": "LLM for auto correct output format",
+      "credentials": {
+        "openAiApi": {
+          "id": "",
+          "name": "OpenAI account"
+        }
+      }
     }
   ],
   "pinData": {},
@@ -140,10 +152,18 @@
   "settings": {
     "executionOrder": "v1"
   },
-  "versionId": "733a2dcf-686c-42fd-bcf0-366d5b7e21dc",
+  "versionId": "a9a596a3-7857-4b22-8a34-1481dff73eb7",
   "meta": {
-    "instanceId": "fc85062144fd92f9929bd44e2350b6e9b61697cd5a566e71a7126a62ec9586d5"
+    "templateCredsSetupCompleted": true,
+    "instanceId": "0c3ecf5e323087ea5132b8ca4933e216718dbfade54257b5815560a48e0970b7"
   },
-  "id": "2GuWrJ8UAfBtl8FX",
-  "tags": []
+  "id": "yh6A2AtjV2L7c6QW",
+  "tags": [
+    {
+      "createdAt": "2025-03-21T07:24:29.761Z",
+      "updatedAt": "2025-03-21T07:24:29.761Z",
+      "id": "7x8UEvxbDNKhWIyp",
+      "name": "processor"
+    }
+  ]
 }

@@ -1,5 +1,5 @@
 {
-  "name": "Main Workflow",
+  "name": "main workflow",
   "nodes": [
     {
       "parameters": {
@@ -10,10 +10,7 @@
       },
       "type": "n8n-nodes-base.webhook",
       "typeVersion": 2,
-      "position": [
-        -520,
-        320
-      ],
+      "position": [-520, 320],
       "id": "c684c5f9-ff8a-4eef-b99e-e0092a0fe1d1",
       "name": "Webhook1",
       "webhookId": "b7f726b4-1cfd-4de0-99e7-911990a8445d"
@@ -25,10 +22,7 @@
       },
       "type": "n8n-nodes-base.respondToWebhook",
       "typeVersion": 1.1,
-      "position": [
-        840,
-        60
-      ],
+      "position": [840, 60],
       "id": "f271c9c6-f2ac-4f76-992a-2ab48b5a5432",
       "name": "Respond to Webhook1"
     },
@@ -59,10 +53,7 @@
       },
       "type": "n8n-nodes-base.if",
       "typeVersion": 2.2,
-      "position": [
-        -200,
-        500
-      ],
+      "position": [-200, 500],
       "id": "b4cef690-08e5-4c23-9cb3-d8f3086daacc",
       "name": "Check API Key1"
     },
@@ -76,10 +67,7 @@
       },
       "type": "n8n-nodes-base.respondToWebhook",
       "typeVersion": 1.1,
-      "position": [
-        60,
-        640
-      ],
+      "position": [60, 640],
       "id": "136c47aa-1bc6-4bd3-be1a-14e6cfe82e8e",
       "name": "403 Unauthorized1"
     },
@@ -102,10 +90,7 @@
       },
       "type": "n8n-nodes-base.executeWorkflow",
       "typeVersion": 1.2,
-      "position": [
-        820,
-        340
-      ],
+      "position": [820, 340],
       "id": "f7d893be-c0f4-4b15-93b8-525ca60a002b",
       "name": "Execute Workflow",
       "retryOnFail": false,
@@ -118,10 +103,7 @@
       },
       "type": "n8n-nodes-base.n8n",
       "typeVersion": 1,
-      "position": [
-        -200,
-        160
-      ],
+      "position": [-200, 160],
       "id": "59d14d71-f0a3-4209-b715-0afc9c6c28e8",
       "name": "n8n",
       "alwaysOutputData": false,
@@ -138,10 +120,7 @@
       },
       "type": "n8n-nodes-base.splitInBatches",
       "typeVersion": 3,
-      "position": [
-        520,
-        160
-      ],
+      "position": [520, 160],
       "id": "b4255746-2c18-498c-b572-9ddddc8d223e",
       "name": "Loop Over Items"
     },
@@ -155,10 +134,7 @@
       },
       "type": "n8n-nodes-base.respondToWebhook",
       "typeVersion": 1.1,
-      "position": [
-        1080,
-        540
-      ],
+      "position": [1080, 540],
       "id": "59d66614-ac2c-41ba-8f4a-d4e3bd4070eb",
       "name": "500 Workflow error"
     },
@@ -168,10 +144,7 @@
       },
       "type": "n8n-nodes-base.code",
       "typeVersion": 2,
-      "position": [
-        100,
-        300
-      ],
+      "position": [100, 300],
       "id": "7aeb6263-f906-4de2-992e-c1bb1d90e4be",
       "name": "Code"
     }
