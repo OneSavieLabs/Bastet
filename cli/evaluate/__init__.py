@@ -21,7 +21,7 @@ def default(
     ),
     n8n_workflow_webhook_url: str = typer.Option(
         "http://localhost:5678/webhook/COT",
-        "--n8n-webhook-url",
+        "--n8n-workflow-webhook-url",
         help="The URL of the n8n workflow webhook to test",
     ),
 ):
