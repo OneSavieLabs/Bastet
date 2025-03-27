@@ -79,3 +79,4 @@ def evaluate(csv_path: str, source_code_path: str, n8n_workflow_webhook_url: str
     ]
     table = tabulate(data, headers=["Metric", "Value"], tablefmt="grid")
     print(table)
+    print("accuracy:", (tp + tn) / (tp + tn + fp + fn))

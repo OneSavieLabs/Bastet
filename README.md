@@ -196,14 +196,13 @@ The script will scan all contracts in the `smart-contracts` directory using the 
       "Recommendation"
     ]
   },
-  "additionalProperties": false,
-  "default": []
+  "additionalProperties": false
 }
 ```
 
-> The trigger point should be a webhook and this work should be activated (by clicking the switch at n8n home page)
+> The trigger point should be a webhook and this workflow should be activated (by clicking the switch at n8n home page)
 
-> You may refer `n8n_workflow/slippage_minAmount.json`
+> You may refer `n8n_workflow/slippage_min_amount.json`
 
 2. run the command
 
