@@ -7,7 +7,7 @@ def scan(folder_path: str, n8n_workflow_webhook_url: str):
     import json
     from tqdm import tqdm
 
-    def get_conn(dbname='n8n'):
+    def get_conn(dbname='postgres'):
         """Get database connection with standard configuration"""
         return psycopg.connect(
             host=os.getenv('POSTGRES_HOST', 'localhost'),
@@ -18,11 +18,22 @@ def scan(folder_path: str, n8n_workflow_webhook_url: str):
             autocommit=True,
             row_factory=dict_row,
         )
-
+    def create_database():
+        """create database if not exist"""
+        print('Creating database...')
+        try:
+            with get_conn() as conn:
+                with conn.cursor() as cur:
+                    cur.execute("SELECT 1 FROM pg_database WHERE datname = 'bastet'")
+                    if not cur.fetchone():
+                        cur.execute('CREATE DATABASE bastet')
+        except Exception as e:
+            print(f"Unexpected error in create_database: {str(e)}")
+            raise e
     def create_table():
         """create table if not exist"""
         try:
-            with get_conn('n8n') as conn:
+            with get_conn('bastet') as conn:
                 with conn.cursor() as cur:
                     create_table_query = '''
                     CREATE TABLE IF NOT EXISTS analysis (
@@ -87,12 +98,13 @@ def scan(folder_path: str, n8n_workflow_webhook_url: str):
     print('Scanning contracts...')
     # TODO: move create_database, create_table to migration script
     try:
+        create_database()
         create_table()
     except Exception as e:
         print(f"Unexpected error in main: {str(e)}")
         raise e
 
-    print('analysis table created.')
+    print('Database and table created.')
     
     contract_files = glob.glob(os.path.join(folder_path, '**/*.sol'), recursive=True)
     total_files = len(contract_files)
@@ -101,7 +113,7 @@ def scan(folder_path: str, n8n_workflow_webhook_url: str):
     success_count = 0
     error_count = 0
 
-    with get_conn('n8n') as conn:
+    with get_conn('bastet') as conn:
         with conn.cursor() as cur:
             for file_path in tqdm(contract_files, 
                                 desc="Processing contracts", 
