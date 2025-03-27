@@ -109,7 +109,7 @@ docker-compose -f ./docker-compose.yml up -d
 **Before the setup, make sure you fill the N8N_API_KEY, N8N_API_CREDENTIAL_ID, N8N_OPENAI_CREDENTIAL_ID in `.env` file.**
 
 ```bash
-poetry run python cli/main.py import_workflow
+poetry run python cli/main.py init
 ```
 
 You will see the Main workflow and the Sub workflow(We call it processor) you selected with "processor" tag in the homepage.
