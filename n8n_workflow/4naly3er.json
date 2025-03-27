@@ -2,6 +2,17 @@
   "name": "4naly3er",
   "nodes": [
     {
+      "parameters": {},
+      "type": "n8n-nodes-base.executeWorkflowTrigger",
+      "typeVersion": 1.1,
+      "position": [
+        480,
+        2340
+      ],
+      "id": "0544d261-6175-468a-8e9f-38f6d022ea57",
+      "name": "Workflow Input Trigger"
+    },
+    {
       "parameters": {
         "modelId": {
           "__rl": true,
@@ -26,10 +37,10 @@
       "type": "@n8n/n8n-nodes-langchain.openAi",
       "typeVersion": 1.7,
       "position": [
-        0,
-        0
+        1400,
+        1000
       ],
-      "id": "a8fba6c8-5bfd-40c2-9f4a-daaf368c43d4",
+      "id": "3cc11638-7bb1-43e6-8b85-4844bd852497",
       "name": "4naly3er-GAS-ERC721usage",
       "credentials": {
         "openAiApi": {
@@ -42,13 +53,13 @@
       "parameters": {
         "options": {}
       },
-      "id": "599f1452-67da-44cd-9f2c-d87b35699757",
+      "id": "4870284c-bfd1-4a99-9b61-4ff8c8c492ce",
       "name": "When chat message received",
       "type": "@n8n/n8n-nodes-langchain.chatTrigger",
       "typeVersion": 1.1,
       "position": [
-        -260,
-        360
+        500,
+        1580
       ],
       "webhookId": "45e4d06b-bcc3-4b56-af90-9a1e235cf99d"
     },
@@ -77,10 +88,10 @@
       "type": "@n8n/n8n-nodes-langchain.openAi",
       "typeVersion": 1.7,
       "position": [
-        0,
-        280
+        1400,
+        1280
       ],
-      "id": "16e5ae60-efb9-45a3-b33d-cc5305bfc046",
+      "id": "656a6f15-4d87-48dc-9ac8-c816558b94c3",
       "name": "4naly3er-GAS-_msgSender",
       "credentials": {
         "openAiApi": {
@@ -114,10 +125,10 @@
       "type": "@n8n/n8n-nodes-langchain.openAi",
       "typeVersion": 1.7,
       "position": [
-        500,
-        400
+        1920,
+        1440
       ],
-      "id": "8177c375-5398-4b2c-a687-9cc60aea1d69",
+      "id": "cf339bf2-3e09-4957-ac36-b2a99878cf3e",
       "name": "4naly3er-H-comparisonOutsideCondition",
       "credentials": {
         "openAiApi": {
@@ -151,10 +162,10 @@
       "type": "@n8n/n8n-nodes-langchain.openAi",
       "typeVersion": 1.7,
       "position": [
-        500,
-        520
+        1920,
+        1560
       ],
-      "id": "d16eb7ef-22cd-4c26-97bf-4f442fe66abe",
+      "id": "872a3c28-afed-42c1-a1b5-9b024a385273",
       "name": "4naly3er-H-wstETHPriceStEth",
       "credentials": {
         "openAiApi": {
@@ -190,10 +201,10 @@
       "type": "@n8n/n8n-nodes-langchain.openAi",
       "typeVersion": 1.7,
       "position": [
-        500,
-        640
+        1920,
+        1680
       ],
-      "id": "a12039af-510e-45c5-9fce-eaa97082a683",
+      "id": "6dd0e9dc-27bb-4cb9-a511-775e5073650d",
       "name": "4naly3er-H-delegateCallInLoop",
       "credentials": {
         "openAiApi": {
@@ -229,11 +240,280 @@
       "type": "@n8n/n8n-nodes-langchain.openAi",
       "typeVersion": 1.7,
       "position": [
-        500,
-        760
+        1920,
+        1800
       ],
-      "id": "409aa768-920b-45b4-a075-d3bd47fdaf3a",
+      "id": "73cee9f6-ec28-44a2-a548-004b90f4c491",
       "name": "4naly3er-H-get_dy_underlyingFlashLoan",
+      "credentials": {
+        "openAiApi": {
+          "id": "pMbla2pFqoBKXDmY",
+          "name": "OpenAi account 20250306"
+        }
+      }
+    },
+    {
+      "parameters": {
+        "modelId": {
+          "__rl": true,
+          "value": "gpt-4o",
+          "mode": "list",
+          "cachedResultName": "GPT-4O"
+        },
+        "messages": {
+          "values": [
+            {
+              "content": "=You are a smart contract auditor, you should strictly follow the following steps to detect **using `+=` operator ** in the given contract code.\n\n   - use code and regex to find all `+=` operators in the smart contract\n   - If no matches are found, output exactly: **\"There’s no such issue.\"**\n",
+              "role": "system"
+            },
+            {
+              "content": "={{ $json.chatInput }}"
+            }
+          ]
+        },
+        "jsonOutput": true,
+        "options": {
+          "maxTokens": 16384,
+          "topP": 0
+        }
+      },
+      "type": "@n8n/n8n-nodes-langchain.openAi",
+      "typeVersion": 1.7,
+      "position": [
+        1400,
+        1140
+      ],
+      "id": "1290f43d-b22f-43af-afbe-8ba6f886698a",
+      "name": "4naly3er-GAS-addPlusEqual",
+      "credentials": {
+        "openAiApi": {
+          "id": "pMbla2pFqoBKXDmY",
+          "name": "OpenAi account 20250306"
+        }
+      }
+    },
+    {
+      "parameters": {
+        "modelId": {
+          "__rl": true,
+          "value": "gpt-4o-mini",
+          "mode": "list",
+          "cachedResultName": "GPT-4O-MINI"
+        },
+        "messages": {
+          "values": [
+            {
+              "content": "=You are a smart contract auditor, you should strictly follow the following steps to find potential **centralization risks** related to **privileged access control** in smart contracts, these risks arise when there are owners or roles with the authority to perform administrative tasks, potentially allowing malicious updates or fund drainage if the trusted entity is compromised.\n\n### **Detecting Centralization Risk Due to Trusted Owners and Roles**\n\nIn many smart contracts, certain functions are restricted to privileged users (e.g., an owner or admin). This centralization of control can lead to serious risks if the privileged account is compromised or used maliciously. For example, a contract that relies on a single owner to withdraw funds or change critical parameters introduces a centralization risk. It is essential to detect such patterns and ensure that ownership and roles are distributed or safeguarded to prevent malicious behavior.\n\n#### **Detection Process**\n\n1. **Pattern Detection Using Regex**\n\n   - Scan the smart contract code for instances of ownership or role-based access control mechanisms.\n   - The following regex pattern identifies keywords such as `onlyOwner`, `onlyRole()`, `Ownable`, `AccessControl`, and other role-based modifiers:\n     ```js\n     /( onlyOwner )|( onlyRole\\()|( requiresAuth )|(Owned)!?([(, ])|(Ownable)!?([(, ])|(Ownable2Step)!?([(, ])|(AccessControl)!?([(, ])|(AccessControlCrossChain)!?([(, ])|(AccessControlEnumerable)!?([(, ])|(Auth)!?([(, ])|(RolesAuthority)!?([(, ])|(MultiRolesAuthority)!?([(, ])/g\n     ```\n\n2. **Automated Pattern Matching**\n   - write code to run the regex against the smart contract files to detect all instances where ownership or role-based access control mechanisms are used.\n   - **Output**: Collect all occurrences where the regex pattern matches.\n\n3. **Manual Rule-Based Review**\n   - After detecting these keywords, manually review the code to identify **privileged access** to critical functions. Check for functions like `withdrawFunds`, `changeOwner`, or any admin-level actions.\n   - Ensure that the contract does not overly centralize control in the hands of a single address (e.g., the owner) or a small set of roles.\n   - **Look for safeguards**: Check if there are any protections in place such as **multi-signature wallets**, **governance mechanisms**, or **quorum requirements** to distribute control and reduce centralization.\n\n4. **Identify Centralization Risk**\n   - Centralization risk is identified when a contract allows one or a few trusted addresses (e.g., `onlyOwner`) to perform critical actions without safeguards in place to prevent abuse.\n   - **Example Vulnerabilities**:\n     - Single-owner contracts with unrestricted power to withdraw funds or change parameters.\n     - Role-based contracts with highly privileged roles (e.g., admin) and no checks or multi-sig approval.\n\n#### **Example Issue**\n\n##### **Example 1: Centralized Control with `onlyOwner`**\n\n```solidity\ncontract CentralizedControl {\n    address public owner;\n\n    modifier onlyOwner() {\n        require(msg.sender == owner, \"Not the owner\");\n        _;\n    }\n\n    function withdrawFunds(address recipient, uint256 amount) public onlyOwner {\n        payable(recipient).transfer(amount);\n    }\n}\n```\n\n**Explanation**:\n- This contract uses the `onlyOwner` modifier to restrict the `withdrawFunds` function to the owner. The **centralization risk** is that the owner has exclusive control over fund withdrawals, and if this account is compromised, an attacker can drain funds.\n\n##### **Example 2: Improved with Multi-Signature and Quorum**\n\n```solidity\ncontract DecentralizedControl {\n    address[] public admins;\n    uint256 public quorum;\n\n    modifier onlyAdmins() {\n        require(isAdmin(msg.sender), \"Not an admin\");\n        _;\n    }\n\n    function isAdmin(address user) public view returns (bool) {\n        for (uint i = 0; i < admins.length; i++) {\n            if (admins[i] == user) return true;\n        }\n        return false;\n    }\n\n    function withdrawFunds(address recipient, uint256 amount) public onlyAdmins {\n        require(quorumReached(), \"Not enough approvals\");\n        payable(recipient).transfer(amount);\n    }\n\n    function quorumReached() internal view returns (bool) {\n        uint256 approvals = 0;\n        for (uint i = 0; i < admins.length; i++) {\n            if (isAdmin(admins[i])) approvals++;\n        }\n        return approvals >= quorum;\n    }\n}\n```\n\n**Explanation**:\n- In this example, the contract uses a **multi-signature** mechanism where multiple admins must approve a withdrawal. This reduces the centralization risk and prevents malicious actors from draining funds with a single compromised account.\n\n#### **Task to Perform**\n\n1. **Scan the smart contracts** using the regex to identify usage of access control mechanisms like `onlyOwner`, `onlyRole()`, `Ownable`, `AccessControl`, etc.\n2. **Manually review** the instances of these access control mechanisms to identify centralization risks.\n3. **Ensure** that critical functions, such as fund withdrawals or sensitive parameter changes, are protected by multi-signature wallets, quorum-based decision-making, or decentralized governance mechanisms.\n\n#### **Output Format**\n\nIf **no centralization risk** is found, output exactly: **\"There’s no such issue.\"**\n\nOtherwise, follow this format:\n\n```\n### Summary\nCentralization risk due to privileged ownership or roles.\n\n### Vulnerability Details\n1. **File Name:** [Insert File Name\u001d, if input is not a file and cannot justify file name, leave blank]\n2. **Function Name(s):** [The functions where the issue occur]\n3. **Description:**\n[Describe vulnerability details]\n\n### Code Snippet\n[The lines where the vulnerability occurs]\n\n### Recommendation\n[Provide brief recommendations, do not need to mention Audit and Testing, do not need Code Snippet.]\n```",
+              "role": "system"
+            },
+            {
+              "content": "={{ $json.chatInput }}"
+            }
+          ]
+        },
+        "jsonOutput": true,
+        "options": {}
+      },
+      "type": "@n8n/n8n-nodes-langchain.openAi",
+      "typeVersion": 1.7,
+      "position": [
+        1440,
+        2620
+      ],
+      "id": "565f93dc-afdd-4290-b9a2-2a368fc55892",
+      "name": "4naly3er-M-centralizationRisk",
+      "credentials": {
+        "openAiApi": {
+          "id": "pMbla2pFqoBKXDmY",
+          "name": "OpenAi account 20250306"
+        }
+      }
+    },
+    {
+      "parameters": {
+        "modelId": {
+          "__rl": true,
+          "value": "gpt-4o-mini",
+          "mode": "list",
+          "cachedResultName": "GPT-4O-MINI"
+        },
+        "messages": {
+          "values": [
+            {
+              "content": "=You are a smart contract auditor, you should strictly follow the following steps to detect the usage of `block.number` in different Layer2 (L2) environments, particularly focusing on the differences between Optimism and Arbitrum, as well as OpenZeppelin's modifications.\n\n### **Detecting `block.number` Issues on Layer 2 (L2) Networks**\n\n`block.number` behaves differently on various Layer 2 (L2) networks. On Optimism, it represents the L2 block number, while on Arbitrum, it refers to the L1 block number. This inconsistency can cause issues, especially when using block numbers for timing, such as in voting mechanisms or governance proposals. \n\nTo avoid these problems:\n- On **Arbitrum**, you need to use `ArbSys(address(100)).arbBlockNumber()`.\n- **OpenZeppelin Contracts** introduced a fix in version 4.9 to avoid using block numbers for timing in their governance system, instead implementing a clock.\n\n#### **Detection Process**\n\n1. **Pattern Detection Using Regex**:\n   - Use code and the following regex to search the contract code for instances of `block.number`:\n     ```js\n     /block\\.number/gi\n     ```\n   - If no matches are found, output exactly: **\"There’s no such issue.\"**\n   - If matches are found, proceed to step 2 for a manual review.\n\n2. **Manual Review**:\n   - If `block.number` is found, determine if the contract is running on an L2 network like Optimism or Arbitrum.\n   - Review whether the contract uses `block.number` for timing or voting, which could lead to inconsistencies due to the differences in L2 block numbers.\n   - Ensure that the correct approach is used based on the network, such as `arbBlockNumber()` for Arbitrum, or implementing a **clock** for L2 as suggested by OpenZeppelin.\n\n#### **Example Issue:**\n\n##### **Example 1: Incorrect Use of `block.number` for Timing on L2**\n\n```solidity\nfunction vote(uint256 proposalId) public {\n    require(block.number >= proposals[proposalId].startBlock, \"Voting hasn't started yet\");\n    require(block.number <= proposals[proposalId].endBlock, \"Voting has ended\");\n    // Vote logic\n}\n```\n\n**Explanation:**\n- This contract uses `block.number` for timing-based logic. However, `block.number` behaves differently on L2 networks like Optimism and Arbitrum. This can lead to inconsistencies across chains, especially if this is used for cross-chain voting or timing-related logic.\n\n##### **Example 2: Correct Use with `arbBlockNumber()` for Arbitrum**\n\n```solidity\nfunction vote(uint256 proposalId) public {\n    require(ArbSys(address(100)).arbBlockNumber() >= proposals[proposalId].startBlock, \"Voting hasn't started yet\");\n    require(ArbSys(address(100)).arbBlockNumber() <= proposals[proposalId].endBlock, \"Voting has ended\");\n    // Vote logic\n}\n```\n\n**Explanation:**\n- On Arbitrum, the correct function `arbBlockNumber()` must be used instead of `block.number`, ensuring consistent timing logic across different Layer 2 environments.\n\n#### **Task to Perform**\n\n1. **Scan through smart contracts** for any usage of `block.number` using the regex.\n2. **Manually verify** if the use of `block.number` is in the context of **timing**, **voting**, or other related operations.\n3. Ensure that contracts either:\n   - Use `arbBlockNumber()` for Arbitrum or another L2-specific solution.\n   - Implement a **clock** for timing in L2 networks, as recommended by OpenZeppelin Contracts version 4.9.\n\n#### **Output Format**\n\nIf **no issue** is found, output exactly: **\"There’s no such issue.\"**\n\nOtherwise, follow this format:\n\n```\n### Summary\nInconsistent use of `block.number` on Layer 2 networks can cause timing issues.\n\n### Vulnerability Details\n1. **File Name:** [Insert File Name\u001d, if input is not a file and cannot justify file name, leave blank]\n2. **Function Name(s):** [The functions where the issue occur]\n3. **Description:**\n[Describe vulnerability details]\n\n### Code Snippet\n[The lines where the vulnerability occurs]\n\n### Recommendation\n[Provide brief recommendations, do not need to mention Audit and Testing, do not need Code Snippet.]\n```",
+              "role": "system"
+            },
+            {
+              "content": "={{ $json.chatInput }}"
+            }
+          ]
+        },
+        "jsonOutput": true,
+        "options": {
+          "maxTokens": 16384,
+          "topP": 0.8
+        }
+      },
+      "type": "@n8n/n8n-nodes-langchain.openAi",
+      "typeVersion": 1.7,
+      "position": [
+        1440,
+        2500
+      ],
+      "id": "d0a0b739-0630-4dac-bb5f-a85ffd4bc027",
+      "name": "4naly3er-M-blockNumberL2",
+      "credentials": {
+        "openAiApi": {
+          "id": "pMbla2pFqoBKXDmY",
+          "name": "OpenAi account 20250306"
+        }
+      }
+    },
+    {
+      "parameters": {
+        "modelId": {
+          "__rl": true,
+          "value": "gpt-4o-mini",
+          "mode": "list",
+          "cachedResultName": "GPT-4O-MINI"
+        },
+        "messages": {
+          "values": [
+            {
+              "content": "=You are a smart contract auditor, you should strictly follow the following steps to detect `approve()`/`safeApprove()` Vulnerability in Smart Contracts\n\n### Introduction\n\nSome ERC20 tokens, including popular ones like USDT, do not allow changing an allowance from a non-zero value directly. This can cause transactions to revert, as the contract prevents front-running changes to approvals. To safely set an allowance, the approval should first be set to zero before updating it to the desired value.\n\nAdditionally, OpenZeppelin's implementation of `safeApprove()` will throw an error if an approval is attempted from a non-zero value to another non-zero value, with the error message `\"SafeERC20: approve from non-zero to non-zero allowance\"`. This helps prevent potentially harmful allowance changes.\n\n### Detection Process\n\n1. **Code-Based Detection**\n   - detect occurrences of `approve()` and `safeApprove()` function calls using the following regex in the smart contract:\n\t```\n\t/\\.(safe)?approve\\(/gi\n     ```\n   - If no matches are found, output exactly: **\"There’s no such issue.\"**\n   - If a match is found, proceed to manual rule-based detection.\n\n2. **Manual Rule-Based Detection**\n   - Verify whether the detected `approve()` or `safeApprove()` is called from a non-zero allowance.\n   - Ensure that the approval is set to zero before any further allowance adjustments to avoid revert errors or unintended behavior.\n   - Check if the contract uses a safe approach by resetting the allowance to zero before setting the new one.\n\n### Issue Examples\n\n#### Example 1: **Unsafe `approve()` Usage Without Zeroing First**\n\n```solidity\ncontract TokenHandler {\n    IERC20 token;\n\n    function increaseAllowance(address spender, uint256 addedValue) public {\n        token.approve(spender, addedValue); // @audit Unsafe: No zeroing before changing allowance\n    }\n}\n```\n\n**Explanation:**\n- The contract calls `approve()` without setting the allowance to zero first. This could cause a revert for tokens like USDT.\n\n#### Example 2: **Safe `approve()` Usage With Zeroing First**\n\n```solidity\ncontract TokenHandler {\n    IERC20 token;\n\n    function increaseAllowance(address spender, uint256 addedValue) public {\n        token.approve(spender, 0); // First, reset allowance to zero\n        token.approve(spender, addedValue); // Then, approve the new value\n    }\n}\n```\n\n**Explanation:**\n- This approach ensures that the allowance is first set to zero before changing the approval, preventing potential reverts from non-zero allowances.\n\n### Task to Perform\n\nFollow the examples above to examine each contract to check if `approve()` or `safeApprove()` is incorrectly used without zeroing the allowance first. The process should first scan using the regex filter and then proceed to manual rule-based analysis.\n\n### Output Format\n\nIf NO concrete vulnerability is found, output exactly: **\"There’s no such issue.\"**\n\nOtherwise, follow the format below:\n\n```\n### Summary\n`approve()`/`safeApprove()` may revert if the current approval is not zero.\n\n### Vulnerability Details\n1. **File Name:** [Insert File Name\u001d, if input is not a file and cannot justify file name, leave blank]\n2. **Function Name(s):** [The functions where the issue occur]\n3. **Description:**\n[Describe vulnerability details]\n\n### Code Snippet\n[The lines where the vulnerability occurs]\n\n### Recommendation\n[Provide brief recommendations, do not need to mention Audit and Testing, do not need Code Snippet.]\n```",
+              "role": "system"
+            },
+            {
+              "content": "={{ $json.chatInput }}"
+            }
+          ]
+        },
+        "jsonOutput": true,
+        "options": {
+          "maxTokens": 16384
+        }
+      },
+      "type": "@n8n/n8n-nodes-langchain.openAi",
+      "typeVersion": 1.7,
+      "position": [
+        1440,
+        2260
+      ],
+      "id": "024310e0-cc4b-42ae-a971-57004a079eb5",
+      "name": "4naly3er-M-approve0first",
+      "credentials": {
+        "openAiApi": {
+          "id": "pMbla2pFqoBKXDmY",
+          "name": "OpenAi account 20250306"
+        }
+      }
+    },
+    {
+      "parameters": {
+        "modelId": {
+          "__rl": true,
+          "value": "gpt-4o-mini",
+          "mode": "list",
+          "cachedResultName": "GPT-4O-MINI"
+        },
+        "messages": {
+          "values": [
+            {
+              "content": "=You are a smart contract auditor, you should strictly follow the following steps to detect the usage of `tx.origin` inside the contract.\n\n### **`tx.origin` should not be used anymore**\nThe `tx.origin` global variable in Solidity is **unsafe in almost every context**. It represents the **original external account** that initiated the transaction, which can be easily exploited in smart contract vulnerabilities, especially with reentrancy attacks. \n\nVitalik Buterin and others in the Ethereum community have emphasized that **`tx.origin` should not be used for authorization** or security-related checks. Using `tx.origin` for authorization is risky because it can be manipulated by an attacker, who could exploit a contract’s reliance on `tx.origin` to execute unauthorized actions.\n\n#### **Detection Process**\n\n1. **Pattern Detection Using Regex**:\n\n   - use code to find any exiting `tx.origin` using the following regex pattern:\n     ```js\n     /tx\\.origin/gi\n     ```\n\n2. **Manual Rule-Based Verification**:\n\n   - If any matches are found, manually check if `tx.origin` is being used for **authorization** or **authentication** purposes, as it can be exploited in these cases.\n   - Review the context in which `tx.origin` is used. If it's being used in sensitive operations like access control, **replace it** with safer alternatives, such as `msg.sender`.\n\n#### **Example Issue with `tx.origin`**\n\n##### **Example 1: Unsafe Use of `tx.origin` for Authorization**\n\n```solidity\nfunction authorize(address user) public {\n    require(tx.origin == owner, \"Not authorized\");  // @audit: unsafe use of tx.origin\n    // Proceed with the authorization logic\n}\n```\n\n**Explanation:**\n- The function checks whether `tx.origin` matches the owner's address for authorization. This is unsafe because `tx.origin` refers to the original sender of the transaction, which could be manipulated during a reentrancy attack.\n\n##### **Example 2: Recommended Fix (Use `msg.sender` Instead)**\n\n```solidity\nfunction authorize(address user) public {\n    require(msg.sender == owner, \"Not authorized\");  // Safe: uses msg.sender for authorization\n    // Proceed with the authorization logic\n}\n```\n\n**Explanation:**\n- The function now checks `msg.sender`, which refers to the immediate caller of the contract, making it a safer alternative for authorization checks.\n\n#### **Task to Perform**\n\n1. **Scan through smart contracts** using the regex to identify any occurrences of `tx.origin`.\n2. **Manually review** flagged code to ensure it is not used for sensitive operations like authorization, and replace it with `msg.sender` where applicable.\n\n#### **Output Format**\n\nIf **no unsafe use of `tx.origin`** is found, output exactly: **\"There’s no such issue.\"**\n\nOtherwise, follow the format below:\n\n```\n### Summary\nUse of `tx.origin` is unsafe for authorization.\n\n### Vulnerability Details\n1. **File Name:** [Insert File Name\u001d, if input is not a file and cannot justify file name, leave blank]\n2. **Function Name(s):** [The functions where the issue occur]\n3. **Description:**\n[Describe vulnerability details]\n\n### Code Snippet\n[The lines where the vulnerability occurs]\n\n### Recommendation\n[Provide brief recommendations, do not need to mention Audit and Testing, do not need Code Snippet.]\n```",
+              "role": "system"
+            },
+            {
+              "content": "={{ $json.chatInput }}"
+            }
+          ]
+        },
+        "jsonOutput": true,
+        "options": {}
+      },
+      "type": "@n8n/n8n-nodes-langchain.openAi",
+      "typeVersion": 1.7,
+      "position": [
+        1440,
+        2380
+      ],
+      "id": "2c171b3a-26e9-4c3d-8458-b2529a2ef45e",
+      "name": "4naly3er-M-avoidTx.origin",
+      "credentials": {
+        "openAiApi": {
+          "id": "pMbla2pFqoBKXDmY",
+          "name": "OpenAi account 20250306"
+        }
+      }
+    },
+    {
+      "parameters": {
+        "modelId": {
+          "__rl": true,
+          "value": "gpt-4o-mini",
+          "mode": "list",
+          "cachedResultName": "GPT-4O-MINI"
+        },
+        "messages": {
+          "values": [
+            {
+              "content": "=You are a smart contract auditor, you should strictly follow the following steps to detect **Fee-On-Transfer** Accounting issue in the given contract code.\n\n###  Detecting Fee-On-Transfer Accounting Issues in Smart Contracts\n\nCertain ERC20 tokens implement a fee-on-transfer mechanism, deducting a portion of the transferred amount as a fee. Contracts assuming that the transferred amount equals the requested amount may miscalculate balances, leading to financial losses or incorrect contract logic. To prevent these issues, contracts must:\n\n- Check account balances before and after transfers instead of relying solely on function parameters.\n- Explicitly document that fee-on-transfer tokens are unsupported if they cannot be handled properly.\n\n### Detection Process\n\n1. **Match the AST Detector**\n   - Analyze the smart contract’s AST (Abstract Syntax Tree) to detect:\n     - Calls to `transferFrom` and `safeTransferFrom`.\n     - ERC20 token casts and variable declarations related to transfers.\n     - Cases where `address(this)` is used within these functions.\n   - If no matches are found, output exactly: **\"There’s no such issue.\"**\n   - If a match is found, proceed to manual rule-based detection.\n\n2. **Manual Rule-Based Detection**\n   - Verify whether the contract computes the received amount by checking balance differences before and after transfers.\n   - Identify whether the contract incorrectly assumes the full transfer amount is received without accounting for fees.\n   - Check if the contract explicitly states that fee-on-transfer tokens are unsupported.\n\n### Output Format\n\nIf NO concrete vulnerability is found, output exactly: **\"There’s no such issue.\"**\n\nOtherwise, follow the format below:\n\n```\n### Summary\nSmart contract assumes full transfer amount without considering fee-on-transfer tokens.\n\n### Vulnerability Details\n1. **File Name:** [Insert File Name\u001d, if input is not a file and cannot justify file name, leave blank]\n2. **Function Name(s):** [The functions where the issue occur]\n3. **Description:**\n[Describe vulnerability details]\n\n### Code Snippet\n[The lines where the vulnerability occurs]\n\n### Recommendation\n[Provide brief recommendations, do not need to mention Audit and Testing, do not need Code Snippet.]\n```",
+              "role": "system"
+            },
+            {
+              "content": "={{ $json.chatInput }}"
+            }
+          ]
+        },
+        "jsonOutput": true,
+        "options": {}
+      },
+      "type": "@n8n/n8n-nodes-langchain.openAi",
+      "typeVersion": 1.7,
+      "position": [
+        1440,
+        2140
+      ],
+      "id": "e062f64b-9a85-4190-b2d2-4998f0786813",
+      "name": "4naly3er-M-NFTRedefinesMint",
+      "credentials": {
+        "openAiApi": {
+          "id": "pMbla2pFqoBKXDmY",
+          "name": "OpenAi account 20250306"
+        }
+      }
+    },
+    {
+      "parameters": {
+        "modelId": {
+          "__rl": true,
+          "value": "gpt-4o-mini",
+          "mode": "list",
+          "cachedResultName": "GPT-4O-MINI"
+        },
+        "messages": {
+          "values": [
+            {
+              "content": "=You are a smart contract auditor, you should strictly follow the following steps to detect **Fee-On-Transfer** Accounting issue in the given contract code.\n\n###  Detecting Fee-On-Transfer Accounting Issues in Smart Contracts\n\nCertain ERC20 tokens implement a fee-on-transfer mechanism, deducting a portion of the transferred amount as a fee. Contracts assuming that the transferred amount equals the requested amount may miscalculate balances, leading to financial losses or incorrect contract logic. To prevent these issues, contracts must:\n\n- Check account balances before and after transfers instead of relying solely on function parameters.\n- Explicitly document that fee-on-transfer tokens are unsupported if they cannot be handled properly.\n\n### Detection Process\n\n1. **Match the AST Detector**\n   - Analyze the smart contract’s AST (Abstract Syntax Tree) to detect:\n     - Calls to `transferFrom` and `safeTransferFrom`.\n     - ERC20 token casts and variable declarations related to transfers.\n     - Cases where `address(this)` is used within these functions.\n   - If no matches are found, output exactly: **\"There’s no such issue.\"**\n   - If a match is found, proceed to manual rule-based detection.\n\n2. **Manual Rule-Based Detection**\n   - Verify whether the contract computes the received amount by checking balance differences before and after transfers.\n   - Identify whether the contract incorrectly assumes the full transfer amount is received without accounting for fees.\n   - Check if the contract explicitly states that fee-on-transfer tokens are unsupported.\n\n### Output Format\n\nIf NO concrete vulnerability is found, output exactly: **\"There’s no such issue.\"**\n\nOtherwise, follow the format below:\n\n```\n### Summary\nSmart contract assumes full transfer amount without considering fee-on-transfer tokens.\n\n### Vulnerability Details\n1. **File Name:** [Insert File Name\u001d, if input is not a file and cannot justify file name, leave blank]\n2. **Function Name(s):** [The functions where the issue occur]\n3. **Description:**\n[Describe vulnerability details]\n\n### Code Snippet\n[The lines where the vulnerability occurs]\n\n### Recommendation\n[Provide brief recommendations, do not need to mention Audit and Testing, do not need Code Snippet.]\n```",
+              "role": "system"
+            },
+            {
+              "content": "={{ $json.chatInput }}"
+            }
+          ]
+        },
+        "jsonOutput": true,
+        "options": {
+          "maxTokens": 16000
+        }
+      },
+      "type": "@n8n/n8n-nodes-langchain.openAi",
+      "typeVersion": 1.7,
+      "position": [
+        1440,
+        2020
+      ],
+      "id": "38839595-d366-4ace-b886-8b914d5413ea",
+      "name": "4naly3er-M-FoTTokens",
       "credentials": {
         "openAiApi": {
           "id": "pMbla2pFqoBKXDmY",
@@ -266,10 +546,10 @@
       "type": "@n8n/n8n-nodes-langchain.openAi",
       "typeVersion": 1.7,
       "position": [
-        500,
-        880
+        1920,
+        1920
       ],
-      "id": "90edce64-0121-493c-9a3e-adb603286ae0",
+      "id": "a5e8869d-364a-44a5-8ec7-d5caa3b18437",
       "name": "4naly3er-H-msg.valueInLoop",
       "credentials": {
         "openAiApi": {
@@ -280,43 +560,29 @@
     },
     {
       "parameters": {
-        "modelId": {
-          "__rl": true,
-          "value": "gpt-4o",
-          "mode": "list",
-          "cachedResultName": "GPT-4O"
-        },
-        "messages": {
-          "values": [
-            {
-              "content": "=You are a smart contract auditor, you should strictly follow the following steps to detect **using `+=` operator ** in the given contract code.\n\n   - use code and regex to find all `+=` operators in the smart contract\n   - If no matches are found, output exactly: **\"There’s no such issue.\"**\n",
-              "role": "system"
-            },
-            {
-              "content": "={{ $json.chatInput }}"
-            }
-          ]
-        },
-        "jsonOutput": true,
-        "options": {
-          "maxTokens": 16384,
-          "topP": 0.1
-        }
+        "numberInputs": 5
       },
-      "type": "@n8n/n8n-nodes-langchain.openAi",
-      "typeVersion": 1.7,
+      "type": "n8n-nodes-base.merge",
+      "typeVersion": 3,
       "position": [
-        0,
-        140
+        2440,
+        1660
       ],
-      "id": "06d8c9b8-4f89-496a-8753-b981c40205fb",
-      "name": "4naly3er-GAS-addPlusEqual",
-      "credentials": {
-        "openAiApi": {
-          "id": "pMbla2pFqoBKXDmY",
-          "name": "OpenAi account 20250306"
-        }
-      }
+      "id": "8d1a131b-b1ea-46b1-a93c-63c90abcf5e3",
+      "name": "Merge"
+    },
+    {
+      "parameters": {
+        "numberInputs": 10
+      },
+      "type": "n8n-nodes-base.merge",
+      "typeVersion": 3,
+      "position": [
+        2440,
+        2500
+      ],
+      "id": "8bb63cda-e142-4f92-bca5-c1de0fb74eae",
+      "name": "Merge1"
     },
     {
       "parameters": {
@@ -325,11 +591,11 @@
       "type": "n8n-nodes-base.merge",
       "typeVersion": 3,
       "position": [
-        500,
-        160
+        2520,
+        1200
       ],
-      "id": "d3f7ad9f-7b98-4e78-8641-02f0c713a121",
-      "name": "Merge"
+      "id": "29ce4b9a-2ef5-4894-8924-7de0ecab85b4",
+      "name": "Merge2"
     },
     {
       "parameters": {
@@ -338,35 +604,11 @@
       "type": "n8n-nodes-base.merge",
       "typeVersion": 3,
       "position": [
-        980,
-        660
+        3100,
+        1920
       ],
-      "id": "6b1c15fa-728d-4d36-ac4b-0b2622796643",
-      "name": "Merge1"
-    },
-    {
-      "parameters": {},
-      "type": "n8n-nodes-base.executeWorkflowTrigger",
-      "typeVersion": 1.1,
-      "position": [
-        -260,
-        560
-      ],
-      "id": "5c898239-7836-4cc0-a5f2-d3e51394bf51",
-      "name": "Workflow Input Trigger"
-    },
-    {
-      "parameters": {
-        "numberInputs": 3
-      },
-      "type": "n8n-nodes-base.merge",
-      "typeVersion": 3,
-      "position": [
-        1340,
-        500
-      ],
-      "id": "c5f4e72f-0b29-4850-9d88-9e513907dfa1",
-      "name": "Merge2"
+      "id": "028a8e7d-2224-432a-923b-33c619a0d863",
+      "name": "Merge3"
     }
   ],
   "pinData": {},
@@ -405,47 +647,55 @@
             "index": 0
           },
           {
-            "node": "4naly3er-H-msg.valueInLoop",
+            "node": "4naly3er-GAS-addPlusEqual",
             "type": "main",
             "index": 0
           },
           {
-            "node": "4naly3er-GAS-addPlusEqual",
+            "node": "4naly3er-M-centralizationRisk",
+            "type": "main",
+            "index": 0
+          },
+          {
+            "node": "4naly3er-M-blockNumberL2",
+            "type": "main",
+            "index": 0
+          },
+          {
+            "node": "4naly3er-M-approve0first",
+            "type": "main",
+            "index": 0
+          },
+          {
+            "node": "4naly3er-M-avoidTx.origin",
+            "type": "main",
+            "index": 0
+          },
+          {
+            "node": "4naly3er-M-NFTRedefinesMint",
+            "type": "main",
+            "index": 0
+          },
+          {
+            "node": "4naly3er-M-FoTTokens",
+            "type": "main",
+            "index": 0
+          },
+          {
+            "node": "4naly3er-H-msg.valueInLoop",
             "type": "main",
             "index": 0
           }
         ]
       ]
     },
-    "4naly3er-GAS-addPlusEqual": {
+    "4naly3er-M-FoTTokens": {
       "main": [
         [
           {
-            "node": "Merge",
-            "type": "main",
-            "index": 1
-          }
-        ]
-      ]
-    },
-    "4naly3er-GAS-ERC721usage": {
-      "main": [
-        [
-          {
-            "node": "Merge",
+            "node": "Merge1",
             "type": "main",
             "index": 0
-          }
-        ]
-      ]
-    },
-    "4naly3er-GAS-_msgSender": {
-      "main": [
-        [
-          {
-            "node": "Merge",
-            "type": "main",
-            "index": 2
           }
         ]
       ]
@@ -454,7 +704,7 @@
       "main": [
         [
           {
-            "node": "Merge1",
+            "node": "Merge",
             "type": "main",
             "index": 0
           }
@@ -465,7 +715,7 @@
       "main": [
         [
           {
-            "node": "Merge1",
+            "node": "Merge",
             "type": "main",
             "index": 1
           }
@@ -476,7 +726,7 @@
       "main": [
         [
           {
-            "node": "Merge1",
+            "node": "Merge",
             "type": "main",
             "index": 2
           }
@@ -487,7 +737,7 @@
       "main": [
         [
           {
-            "node": "Merge1",
+            "node": "Merge",
             "type": "main",
             "index": 3
           }
@@ -498,14 +748,14 @@
       "main": [
         [
           {
-            "node": "Merge1",
+            "node": "Merge",
             "type": "main",
             "index": 4
           }
         ]
       ]
     },
-    "Merge": {
+    "4naly3er-GAS-ERC721usage": {
       "main": [
         [
           {
@@ -516,7 +766,7 @@
         ]
       ]
     },
-    "Merge1": {
+    "4naly3er-GAS-addPlusEqual": {
       "main": [
         [
           {
@@ -526,16 +776,114 @@
           }
         ]
       ]
+    },
+    "4naly3er-GAS-_msgSender": {
+      "main": [
+        [
+          {
+            "node": "Merge2",
+            "type": "main",
+            "index": 2
+          }
+        ]
+      ]
+    },
+    "4naly3er-M-NFTRedefinesMint": {
+      "main": [
+        [
+          {
+            "node": "Merge1",
+            "type": "main",
+            "index": 1
+          }
+        ]
+      ]
+    },
+    "4naly3er-M-approve0first": {
+      "main": [
+        [
+          {
+            "node": "Merge1",
+            "type": "main",
+            "index": 2
+          }
+        ]
+      ]
+    },
+    "4naly3er-M-avoidTx.origin": {
+      "main": [
+        [
+          {
+            "node": "Merge1",
+            "type": "main",
+            "index": 3
+          }
+        ]
+      ]
+    },
+    "4naly3er-M-blockNumberL2": {
+      "main": [
+        [
+          {
+            "node": "Merge1",
+            "type": "main",
+            "index": 4
+          }
+        ]
+      ]
+    },
+    "4naly3er-M-centralizationRisk": {
+      "main": [
+        [
+          {
+            "node": "Merge1",
+            "type": "main",
+            "index": 5
+          }
+        ]
+      ]
+    },
+    "Merge": {
+      "main": [
+        [
+          {
+            "node": "Merge3",
+            "type": "main",
+            "index": 1
+          }
+        ]
+      ]
+    },
+    "Merge2": {
+      "main": [
+        [
+          {
+            "node": "Merge3",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Merge1": {
+      "main": [
+        [
+          {
+            "node": "Merge3",
+            "type": "main",
+            "index": 2
+          }
+        ]
+      ]
     }
   },
   "active": false,
   "settings": {
     "executionOrder": "v1"
   },
-  "versionId": "b0a61f31-d33b-45bc-a8e5-189f724877a5",
+  "versionId": "",
   "meta": {
     "instanceId": "b65aa6ef3a7847d68323b6fbd676508eb1969c11cc56ff2fc44b7d41b90f104a"
   },
-  "id": "QCdlgE4u4IbPnLos",
   "tags": []
 }
