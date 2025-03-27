@@ -1,5 +1,5 @@
 {
-  "name": "denial of service",
+  "name": "Denial of Service",
   "nodes": [
     {
       "parameters": {
@@ -9,7 +9,10 @@
       "name": "When chat message received",
       "type": "@n8n/n8n-nodes-langchain.chatTrigger",
       "typeVersion": 1.1,
-      "position": [-1820, 2640],
+      "position": [
+        -1820,
+        2640
+      ],
       "webhookId": "22520757-268d-4c27-9313-9d4de69d1e1b"
     },
     {
@@ -20,7 +23,10 @@
       },
       "type": "n8n-nodes-base.stickyNote",
       "typeVersion": 1,
-      "position": [-2180, 2480],
+      "position": [
+        -2180,
+        2480
+      ],
       "id": "2433cbb2-75f4-4450-9a1f-d87acba80759",
       "name": "Sticky Note"
     },
@@ -48,7 +54,10 @@
       },
       "type": "@n8n/n8n-nodes-langchain.openAi",
       "typeVersion": 1.7,
-      "position": [-1320, 2340],
+      "position": [
+        -1320,
+        2340
+      ],
       "id": "cdf55a88-ba1a-4042-bed5-2d7a2eaf526e",
       "name": "Unbounded loop",
       "credentials": {
@@ -82,7 +91,10 @@
       },
       "type": "@n8n/n8n-nodes-langchain.openAi",
       "typeVersion": 1.7,
-      "position": [-1320, 2640],
+      "position": [
+        -1320,
+        2640
+      ],
       "id": "801d979f-4f02-41c1-a33f-4f1e7943fc95",
       "name": "Integration/Logical error",
       "credentials": {
@@ -116,7 +128,10 @@
       },
       "type": "@n8n/n8n-nodes-langchain.openAi",
       "typeVersion": 1.7,
-      "position": [-1320, 2960],
+      "position": [
+        -1320,
+        2960
+      ],
       "id": "24acd02b-9d01-4204-a403-de00019336b5",
       "name": "Refund failed",
       "credentials": {
@@ -134,7 +149,10 @@
       },
       "type": "n8n-nodes-base.stickyNote",
       "typeVersion": 1,
-      "position": [-880, 2960],
+      "position": [
+        -880,
+        2960
+      ],
       "id": "5b5e6a0f-2761-4545-b195-225d33c753e7",
       "name": "Sticky Note1"
     }

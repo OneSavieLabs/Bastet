@@ -1,5 +1,5 @@
 {
-  "name": "chainlink",
+  "name": "Chainlink",
   "nodes": [
     {
       "parameters": {
@@ -9,7 +9,10 @@
       "name": "When chat message received",
       "type": "@n8n/n8n-nodes-langchain.chatTrigger",
       "typeVersion": 1.1,
-      "position": [-2000, 1700],
+      "position": [
+        -2000,
+        1700
+      ],
       "webhookId": "1fd9eba9-f00b-4c9a-b48f-3695c1e6941b"
     },
     {
@@ -36,7 +39,10 @@
       },
       "type": "@n8n/n8n-nodes-langchain.openAi",
       "typeVersion": 1.7,
-      "position": [-220, -1340],
+      "position": [
+        -220,
+        -1340
+      ],
       "id": "f5563312-173e-42ff-ab3d-6a6b49b28c4f",
       "name": "Chainlink-Not Checking For Stale Prices",
       "credentials": {
@@ -54,7 +60,10 @@
       },
       "type": "n8n-nodes-base.stickyNote",
       "typeVersion": 1,
-      "position": [-2200, 1480],
+      "position": [
+        -2200,
+        1480
+      ],
       "id": "0f56cc7d-909c-4b4c-b2a8-5a37d0580cca",
       "name": "Sticky Note"
     },
@@ -65,7 +74,10 @@
       },
       "type": "n8n-nodes-base.stickyNote",
       "typeVersion": 1,
-      "position": [-220, -1540],
+      "position": [
+        -220,
+        -1540
+      ],
       "id": "039fd270-1e00-4ad8-87c9-ff475a0ee3f5",
       "name": "Sticky Note1"
     },
@@ -93,7 +105,10 @@
       },
       "type": "@n8n/n8n-nodes-langchain.openAi",
       "typeVersion": 1.7,
-      "position": [-240, -860],
+      "position": [
+        -240,
+        -860
+      ],
       "id": "b21f0e64-4b81-415c-b5e5-fa9ed60d4f44",
       "name": "Chainlink-Not Checking For Down L2 Sequencer",
       "credentials": {
@@ -110,7 +125,10 @@
       },
       "type": "n8n-nodes-base.stickyNote",
       "typeVersion": 1,
-      "position": [-240, -1080],
+      "position": [
+        -240,
+        -1080
+      ],
       "id": "1a75c367-a79f-466f-ad8f-243260ae9555",
       "name": "Sticky Note2"
     },
@@ -138,7 +156,10 @@
       },
       "type": "@n8n/n8n-nodes-langchain.openAi",
       "typeVersion": 1.7,
-      "position": [-260, -440],
+      "position": [
+        -260,
+        -440
+      ],
       "id": "1e3c96c3-ec20-43e4-8807-e3ef29663bee",
       "name": "Chainlink-Same Heartbeat Used For Multiple Price Feeds",
       "credentials": {
@@ -155,7 +176,10 @@
       },
       "type": "n8n-nodes-base.stickyNote",
       "typeVersion": 1,
-      "position": [-260, -620],
+      "position": [
+        -260,
+        -620
+      ],
       "id": "d6c28820-dc2a-4010-aa64-a2541b8faa34",
       "name": "Sticky Note3"
     },
@@ -166,7 +190,10 @@
       },
       "type": "n8n-nodes-base.stickyNote",
       "typeVersion": 1,
-      "position": [-260, -200],
+      "position": [
+        -260,
+        -200
+      ],
       "id": "79951526-fcfe-4e0e-b817-b86788744145",
       "name": "Sticky Note4"
     },
@@ -194,7 +221,10 @@
       },
       "type": "@n8n/n8n-nodes-langchain.openAi",
       "typeVersion": 1.7,
-      "position": [-260, 0],
+      "position": [
+        -260,
+        0
+      ],
       "id": "6da9fa52-b75c-4249-bf40-688aeb8c3a0e",
       "name": "Chainlink-Oracle Price Feeds Not Updated Frequently",
       "credentials": {
@@ -228,7 +258,10 @@
       },
       "type": "@n8n/n8n-nodes-langchain.openAi",
       "typeVersion": 1.7,
-      "position": [-260, 340],
+      "position": [
+        -260,
+        340
+      ],
       "id": "5f2ef055-d207-41d9-ae82-81f6948d2667",
       "name": "Chainlink-Request Confirmation < Depth of Chain Re-Orgs",
       "credentials": {
@@ -262,7 +295,10 @@
       },
       "type": "@n8n/n8n-nodes-langchain.openAi",
       "typeVersion": 1.7,
-      "position": [-260, 780],
+      "position": [
+        -260,
+        780
+      ],
       "id": "febe2295-c742-4c4e-a557-7f82b6334d02",
       "name": "Chainlink-Assuming Oracle Price Precision",
       "credentials": {
@@ -279,7 +315,10 @@
       },
       "type": "n8n-nodes-base.stickyNote",
       "typeVersion": 1,
-      "position": [-260, 580],
+      "position": [
+        -260,
+        580
+      ],
       "id": "e8912beb-ec78-416e-8511-e07e4237e15a",
       "name": "Sticky Note5"
     },
@@ -307,7 +346,10 @@
       },
       "type": "@n8n/n8n-nodes-langchain.openAi",
       "typeVersion": 1.7,
-      "position": [-260, 1220],
+      "position": [
+        -260,
+        1220
+      ],
       "id": "e52ef8cc-dc99-4019-b1ef-168808208a79",
       "name": "Chainlink-Incorrect Oracle Price Feed Address",
       "credentials": {
@@ -324,7 +366,10 @@
       },
       "type": "n8n-nodes-base.stickyNote",
       "typeVersion": 1,
-      "position": [-260, 1020],
+      "position": [
+        -260,
+        1020
+      ],
       "id": "87db5687-6011-4b9e-91cd-18ccea160357",
       "name": "Sticky Note6"
     },
@@ -352,7 +397,10 @@
       },
       "type": "@n8n/n8n-nodes-langchain.openAi",
       "typeVersion": 1.7,
-      "position": [-240, 1700],
+      "position": [
+        -240,
+        1700
+      ],
       "id": "0ecca034-07ca-44cb-b964-b95fa969240f",
       "name": "Chainlink-Oracle Price Updates Can Be Front-Run",
       "credentials": {
@@ -369,7 +417,10 @@
       },
       "type": "n8n-nodes-base.stickyNote",
       "typeVersion": 1,
-      "position": [-240, 1480],
+      "position": [
+        -240,
+        1480
+      ],
       "id": "2e354c39-b999-460d-bc32-ad0179797dcf",
       "name": "Sticky Note7"
     },
@@ -397,7 +448,10 @@
       },
       "type": "@n8n/n8n-nodes-langchain.openAi",
       "typeVersion": 1.7,
-      "position": [-240, 2140],
+      "position": [
+        -240,
+        2140
+      ],
       "id": "bfa9a1f2-b5d2-42ed-9743-8cf42c9b728d",
       "name": "Chainlink-Unhandled Oracle Revert Denial Of Service",
       "credentials": {
@@ -414,7 +468,10 @@
       },
       "type": "n8n-nodes-base.stickyNote",
       "typeVersion": 1,
-      "position": [-240, 1940],
+      "position": [
+        -240,
+        1940
+      ],
       "id": "1d665852-ad75-495a-8848-95744529e0ee",
       "name": "Sticky Note8"
     },
@@ -442,7 +499,10 @@
       },
       "type": "@n8n/n8n-nodes-langchain.openAi",
       "typeVersion": 1.7,
-      "position": [-240, 2520],
+      "position": [
+        -240,
+        2520
+      ],
       "id": "ad680642-b8fd-4aaa-9e96-d458a6fc6765",
       "name": "Chainlink-Unhandled Depeg Of Bridged Assets",
       "credentials": {
@@ -459,7 +519,10 @@
       },
       "type": "n8n-nodes-base.stickyNote",
       "typeVersion": 1,
-      "position": [-240, 2340],
+      "position": [
+        -240,
+        2340
+      ],
       "id": "0ddc4cce-d751-4ed8-9104-7380e408095d",
       "name": "Sticky Note9"
     },
@@ -487,7 +550,10 @@
       },
       "type": "@n8n/n8n-nodes-langchain.openAi",
       "typeVersion": 1.7,
-      "position": [-240, 2960],
+      "position": [
+        -240,
+        2960
+      ],
       "id": "dbf68890-1c03-48a2-86a6-fb0edeca3539",
       "name": "Chainlink-Oracle Returns Incorrect Price During Flash Crashes",
       "credentials": {
@@ -504,7 +570,10 @@
       },
       "type": "n8n-nodes-base.stickyNote",
       "typeVersion": 1,
-      "position": [-240, 2760],
+      "position": [
+        -240,
+        2760
+      ],
       "id": "4fcdad1b-7f14-4b57-8cc7-287ab769cb42",
       "name": "Sticky Note10"
     },
@@ -532,7 +601,10 @@
       },
       "type": "@n8n/n8n-nodes-langchain.openAi",
       "typeVersion": 1.7,
-      "position": [-240, 3220],
+      "position": [
+        -240,
+        3220
+      ],
       "id": "0ab87bdc-c501-45ed-9bd1-e9a3a0f22199",
       "name": "Chainlink-Placing Bets After Randomness Request",
       "credentials": {
@@ -566,7 +638,10 @@
       },
       "type": "@n8n/n8n-nodes-langchain.openAi",
       "typeVersion": 1.7,
-      "position": [-240, 3540],
+      "position": [
+        -240,
+        3540
+      ],
       "id": "7d5a396f-5c13-4075-b303-04699162963c",
       "name": "Chainlink-Re-requesting Randomness",
       "credentials": {
@@ -582,7 +657,10 @@
       },
       "type": "n8n-nodes-base.executeWorkflowTrigger",
       "typeVersion": 1.1,
-      "position": [-2000, 1960],
+      "position": [
+        -2000,
+        1960
+      ],
       "id": "62ae4a25-8983-48f0-93c4-bf22588ec2f4",
       "name": "Workflow Input Trigger"
     },
@@ -592,7 +670,10 @@
       },
       "type": "n8n-nodes-base.merge",
       "typeVersion": 3,
-      "position": [1040, 280],
+      "position": [
+        1040,
+        280
+      ],
       "id": "8778cb86-4cea-4819-8789-ed2d82b5793d",
       "name": "Merge"
     },
@@ -602,7 +683,10 @@
       },
       "type": "n8n-nodes-base.merge",
       "typeVersion": 3,
-      "position": [1000, 2800],
+      "position": [
+        1000,
+        2800
+      ],
       "id": "fc42014e-a70f-46b6-90e9-e3e9873d4ecc",
       "name": "Merge1"
     },
@@ -610,7 +694,10 @@
       "parameters": {},
       "type": "n8n-nodes-base.merge",
       "typeVersion": 3,
-      "position": [1660, 2020],
+      "position": [
+        1660,
+        2020
+      ],
       "id": "18ed8372-e79c-452c-9407-1adbf7bd19cf",
       "name": "Merge2"
     }

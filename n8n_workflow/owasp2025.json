@@ -1,5 +1,5 @@
 {
-  "name": "owasp2025",
+  "name": "OWASP2025",
   "nodes": [
     {
       "parameters": {
@@ -9,7 +9,10 @@
       "name": "When chat message received",
       "type": "@n8n/n8n-nodes-langchain.chatTrigger",
       "typeVersion": 1.1,
-      "position": [-2300, 3700],
+      "position": [
+        -2300,
+        3700
+      ],
       "webhookId": "b1994562-8677-41bd-a2dd-3ad9245498ea"
     },
     {
@@ -20,7 +23,10 @@
       },
       "type": "n8n-nodes-base.stickyNote",
       "typeVersion": 1,
-      "position": [-2640, 3500],
+      "position": [
+        -2640,
+        3500
+      ],
       "id": "9aae1a82-e68d-4ec5-9616-fc4ceefe89ae",
       "name": "Sticky Note"
     },
@@ -31,7 +37,10 @@
       },
       "type": "n8n-nodes-base.stickyNote",
       "typeVersion": 1,
-      "position": [-920, 2320],
+      "position": [
+        -920,
+        2320
+      ],
       "id": "e2c48b1d-16b6-47df-901c-b3898bb9efa2",
       "name": "Sticky Note1"
     },
@@ -59,7 +68,10 @@
       },
       "type": "@n8n/n8n-nodes-langchain.openAi",
       "typeVersion": 1.7,
-      "position": [-1320, 2340],
+      "position": [
+        -1320,
+        2340
+      ],
       "id": "2ba0af18-adfe-4ac7-a57f-dce589dcf417",
       "name": "SC01:2025 - Improper Access Control",
       "credentials": {
@@ -93,7 +105,10 @@
       },
       "type": "@n8n/n8n-nodes-langchain.openAi",
       "typeVersion": 1.7,
-      "position": [-1320, 2620],
+      "position": [
+        -1320,
+        2620
+      ],
       "id": "4748f81f-804e-4b56-bd09-28cb1f83559c",
       "name": "SC02:2025 - Price Oracle Manipulation",
       "credentials": {
@@ -110,7 +125,10 @@
       },
       "type": "n8n-nodes-base.stickyNote",
       "typeVersion": 1,
-      "position": [-920, 2620],
+      "position": [
+        -920,
+        2620
+      ],
       "id": "ecad2db4-426a-42d6-84ec-89e327a5c8c9",
       "name": "Sticky Note2"
     },
@@ -121,7 +139,10 @@
       },
       "type": "n8n-nodes-base.stickyNote",
       "typeVersion": 1,
-      "position": [-920, 2900],
+      "position": [
+        -920,
+        2900
+      ],
       "id": "2406bcd0-fac0-4e0f-84c6-4ec97b5b75e7",
       "name": "Sticky Note3"
     },
@@ -149,7 +170,10 @@
       },
       "type": "@n8n/n8n-nodes-langchain.openAi",
       "typeVersion": 1.7,
-      "position": [-1320, 2900],
+      "position": [
+        -1320,
+        2900
+      ],
       "id": "40935ea0-4ed3-4906-b37c-5fe6a86800bc",
       "name": "SC03:2025 - Logic Errors",
       "credentials": {
@@ -166,7 +190,10 @@
       },
       "type": "n8n-nodes-base.stickyNote",
       "typeVersion": 1,
-      "position": [-920, 3200],
+      "position": [
+        -920,
+        3200
+      ],
       "id": "90a0fc77-e65e-4cb7-9fa5-f29123a4e237",
       "name": "Sticky Note4"
     },
@@ -194,7 +221,10 @@
       },
       "type": "@n8n/n8n-nodes-langchain.openAi",
       "typeVersion": 1.7,
-      "position": [-1320, 3200],
+      "position": [
+        -1320,
+        3200
+      ],
       "id": "cdfd0c0c-be6e-49af-aace-d2aaf6019b81",
       "name": "SC04:2025 - Lack of Input Validation",
       "credentials": {
@@ -211,7 +241,10 @@
       },
       "type": "n8n-nodes-base.stickyNote",
       "typeVersion": 1,
-      "position": [-920, 3480],
+      "position": [
+        -920,
+        3480
+      ],
       "id": "066436f2-3f57-40e4-b0a7-fa5ed2db7c28",
       "name": "Sticky Note5"
     },
@@ -239,7 +272,10 @@
       },
       "type": "@n8n/n8n-nodes-langchain.openAi",
       "typeVersion": 1.7,
-      "position": [-1320, 3480],
+      "position": [
+        -1320,
+        3480
+      ],
       "id": "f7cc8200-b12c-4987-a2e7-7870d0a4e7cf",
       "name": "SC05:2025 - Reentrancy",
       "credentials": {
@@ -273,7 +309,10 @@
       },
       "type": "@n8n/n8n-nodes-langchain.openAi",
       "typeVersion": 1.7,
-      "position": [-1320, 3800],
+      "position": [
+        -1320,
+        3800
+      ],
       "id": "e20a47a0-965b-4cf9-8396-1fddc821828e",
       "name": "SC06:2025 Unchecked External Calls",
       "credentials": {
@@ -290,7 +329,10 @@
       },
       "type": "n8n-nodes-base.stickyNote",
       "typeVersion": 1,
-      "position": [-920, 3800],
+      "position": [
+        -920,
+        3800
+      ],
       "id": "6756bcc9-9da9-4181-8957-2335af056a10",
       "name": "Sticky Note6"
     },
@@ -318,7 +360,10 @@
       },
       "type": "@n8n/n8n-nodes-langchain.openAi",
       "typeVersion": 1.7,
-      "position": [-1320, 4140],
+      "position": [
+        -1320,
+        4140
+      ],
       "id": "22553221-5a74-483e-afe5-5c282e01d552",
       "name": "SC07:2025 - Flash Loan Attacks",
       "credentials": {
@@ -335,7 +380,10 @@
       },
       "type": "n8n-nodes-base.stickyNote",
       "typeVersion": 1,
-      "position": [-920, 4120],
+      "position": [
+        -920,
+        4120
+      ],
       "id": "785542bc-43cb-4d14-b130-b44ad90dd3b9",
       "name": "Sticky Note7"
     },
@@ -346,7 +394,10 @@
       },
       "type": "n8n-nodes-base.stickyNote",
       "typeVersion": 1,
-      "position": [-920, 4420],
+      "position": [
+        -920,
+        4420
+      ],
       "id": "ce1a42a4-5da8-4298-b175-2fdacf066f06",
       "name": "Sticky Note8"
     },
@@ -374,7 +425,10 @@
       },
       "type": "@n8n/n8n-nodes-langchain.openAi",
       "typeVersion": 1.7,
-      "position": [-1320, 4440],
+      "position": [
+        -1320,
+        4440
+      ],
       "id": "f625c5d7-bcc5-4b05-80d2-9975bf28167c",
       "name": "SC08:2025 - Integer Overflow and Underflow",
       "credentials": {
@@ -408,7 +462,10 @@
       },
       "type": "@n8n/n8n-nodes-langchain.openAi",
       "typeVersion": 1.7,
-      "position": [-1320, 4780],
+      "position": [
+        -1320,
+        4780
+      ],
       "id": "8e9dc9f6-04d5-4a4c-a15f-db0dae2e08a7",
       "name": "SC09:2025 - Insecure Randomness",
       "credentials": {
@@ -425,7 +482,10 @@
       },
       "type": "n8n-nodes-base.stickyNote",
       "typeVersion": 1,
-      "position": [-920, 4760],
+      "position": [
+        -920,
+        4760
+      ],
       "id": "879041e0-56a7-4e50-81de-2aa31626a83a",
       "name": "Sticky Note9"
     },
@@ -436,7 +496,10 @@
       },
       "type": "n8n-nodes-base.stickyNote",
       "typeVersion": 1,
-      "position": [-920, 5120],
+      "position": [
+        -920,
+        5120
+      ],
       "id": "e2b490d1-8917-4781-8823-6b15de591941",
       "name": "Sticky Note10"
     },
@@ -464,7 +527,10 @@
       },
       "type": "@n8n/n8n-nodes-langchain.openAi",
       "typeVersion": 1.7,
-      "position": [-1320, 5120],
+      "position": [
+        -1320,
+        5120
+      ],
       "id": "3b216349-3051-43f0-9f41-28b72b414f43",
       "name": "SC10:2025 - Denial Of Service",
       "credentials": {
