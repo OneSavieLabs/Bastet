@@ -126,7 +126,9 @@ The main script `scan` will recursively scan all `.sol` files in the specified d
 poetry run python cli/main.py scan
 ```
 
-The script will scan all contracts in the `smart-contracts` directory using the processor workflows that you have activated by turning on their respective switch buttons.
+The script will scan all contracts in the `dataset/scan_queue` directory using the processor workflows that you have activated by turning on their respective switch buttons.
+
+> you can use flag `--help` for detail information of flag you can use
 
 ### Scan Single Contract with Single Processor Workflow
 
