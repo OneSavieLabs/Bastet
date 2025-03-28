@@ -21,20 +21,20 @@ Bastet/
 │   │── main.py                 # CLI entry point
 │   │── commands/               # CLI commands
 │   │   │── <module>/
-│   │   │   │── __init__.py       # CLI routing only, logic will define below
-│   │   │	  │── <function>.py
+│   │   │   │── __init__.py     # CLI routing only, logic will define below
+│   │   │   │── <function>.py
 │── dataset/                    # dataset location
-│	  │── catogory/               # Legacy: wait for refactor
+│   │── catogory/               # Legacy: wait for refactor
 │   │   ├── (Type)/
-│   │   │	  ├── (Scenario)/
-│   │   │   │	  ├── on-chain-vulnerabilities/
-│   │   │   │	  ├── audit-competitions-findings/
-│   │   │   │	  ├── secure-implementations/
-│   │   │   │	  ├── README.md
+│   │   │   ├── (Scenario)/
+│   │   │   │   ├── on-chain-vulnerabilities/
+│   │   │   │   ├── audit-competitions-findings/
+│   │   │   │   ├── secure-implementations/
+│   │   │   │   ├── README.md
 │   │── scan_queue/             # default directory of contracts which need to be scanned by CLI
-│   │	  │── <file>.sol
+│   │   │── <file>.sol
 │   │── source_code/            # default directory of file recorded in dataset.csv, for evaluation
-│   │	  │── <file>.sol
+│   │   │── <file>.sol
 │   │── dataset.csv             # dataset sheet, provide ground truth.
 │── n8n_workflows/              # n8n workflow files
 │   │── <file>.json             # workflow for analyzing the smart contracts
