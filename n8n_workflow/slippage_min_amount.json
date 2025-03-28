@@ -4,7 +4,7 @@
     {
       "parameters": {
         "promptType": "define",
-        "text": "={{ $json.body.prompt }}",
+        "text": "={{ $json.chatInput }}",
         "hasOutputParser": true,
         "messages": {
           "messageValues": [
@@ -16,7 +16,7 @@
       },
       "type": "@n8n/n8n-nodes-langchain.chainLlm",
       "typeVersion": 1.5,
-      "position": [340, 0],
+      "position": [560, 0],
       "id": "0fff0801-c2ee-4f61-a4af-ddd37f175f7b",
       "name": "Basic LLM Chain"
     },
@@ -27,7 +27,7 @@
       },
       "type": "@n8n/n8n-nodes-langchain.outputParserStructured",
       "typeVersion": 1.2,
-      "position": [720, 440],
+      "position": [820, 180],
       "id": "3886c5d8-d954-4608-b857-1d913b1b4e84",
       "name": "Structured Output Parser"
     },
@@ -40,7 +40,7 @@
       },
       "type": "n8n-nodes-base.webhook",
       "typeVersion": 2,
-      "position": [0, 0],
+      "position": [-100, 0],
       "id": "5250a143-6bd1-4a9b-908f-bb48db40b654",
       "name": "Webhook",
       "webhookId": "0f3a3dc2-9cb2-4454-86b1-bb95ef26a901"
@@ -53,7 +53,7 @@
       },
       "type": "@n8n/n8n-nodes-langchain.lmChatOpenAi",
       "typeVersion": 1,
-      "position": [280, 180],
+      "position": [500, 180],
       "id": "340ebf63-f35e-4030-94be-9e230ec8ac74",
       "name": "LLM for answer",
       "credentials": {
@@ -69,9 +69,29 @@
       },
       "type": "n8n-nodes-base.executeWorkflowTrigger",
       "typeVersion": 1.1,
-      "position": [0, 180],
+      "position": [-100, 180],
       "id": "a2b002e8-570b-425a-96fb-548dee799f9b",
       "name": "Workflow Input Trigger"
+    },
+    {
+      "parameters": {
+        "assignments": {
+          "assignments": [
+            {
+              "id": "4cad7351-acee-42aa-a217-bf2b8b624e2f",
+              "name": "chatInput",
+              "value": "={{ $json.body.prompt }}",
+              "type": "string"
+            }
+          ]
+        },
+        "options": {}
+      },
+      "type": "n8n-nodes-base.set",
+      "typeVersion": 3.4,
+      "position": [200, 0],
+      "id": "1116de4f-81c3-4732-9d39-3815dbdc753f",
+      "name": "Edit Fields"
     }
   ],
   "pinData": {},
@@ -91,7 +111,7 @@
       "main": [
         [
           {
-            "node": "Basic LLM Chain",
+            "node": "Edit Fields",
             "type": "main",
             "index": 0
           }
@@ -119,13 +139,24 @@
           }
         ]
       ]
+    },
+    "Edit Fields": {
+      "main": [
+        [
+          {
+            "node": "Basic LLM Chain",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
     }
   },
   "active": false,
   "settings": {
     "executionOrder": "v1"
   },
-  "versionId": "5fd5adf0-1628-4c0d-b294-7342db6dab09",
+  "versionId": "c9e5a65a-19e4-42fd-8ba3-908f364c8cc0",
   "meta": {
     "instanceId": "022db2fbd0a73e6d486f16c5eb885d1053a420197cf4f3857ab5d1742b50c5ad"
   },
