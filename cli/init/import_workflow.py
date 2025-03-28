@@ -83,7 +83,6 @@ def import_workflow(workflow_path: str, n8n_api_url: str):
       file_path = os.path.join(workflow_path, filename)
       with open(file_path, "r") as file:
         workflow_data = json.load(file)
-        workflow_id = workflow_data['id']
         workflow_name = workflow_data['name']
 
         if workflow_name in existing_workflow_names:
