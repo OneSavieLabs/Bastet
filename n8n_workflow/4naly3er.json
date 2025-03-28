@@ -32,7 +32,9 @@
           ]
         },
         "jsonOutput": true,
-        "options": {}
+        "options": {
+          "maxTokens": 16000
+        }
       },
       "type": "@n8n/n8n-nodes-langchain.openAi",
       "typeVersion": 1.7,
@@ -83,7 +85,9 @@
           ]
         },
         "jsonOutput": true,
-        "options": {}
+        "options": {
+          "maxTokens": 16000
+        }
       },
       "type": "@n8n/n8n-nodes-langchain.openAi",
       "typeVersion": 1.7,
@@ -120,7 +124,9 @@
           ]
         },
         "jsonOutput": true,
-        "options": {}
+        "options": {
+          "maxTokens": 16000
+        }
       },
       "type": "@n8n/n8n-nodes-langchain.openAi",
       "typeVersion": 1.7,
@@ -157,7 +163,9 @@
           ]
         },
         "jsonOutput": true,
-        "options": {}
+        "options": {
+          "maxTokens": 16000
+        }
       },
       "type": "@n8n/n8n-nodes-langchain.openAi",
       "typeVersion": 1.7,
@@ -195,7 +203,8 @@
         },
         "jsonOutput": true,
         "options": {
-          "topP": 0.4
+          "topP": 0.4,
+          "maxTokens": 16000
         }
       },
       "type": "@n8n/n8n-nodes-langchain.openAi",
@@ -234,7 +243,8 @@
         },
         "jsonOutput": true,
         "options": {
-          "topP": 0.4
+          "topP": 0.4,
+          "maxTokens": 16000
         }
       },
       "type": "@n8n/n8n-nodes-langchain.openAi",
@@ -273,7 +283,7 @@
         },
         "jsonOutput": true,
         "options": {
-          "maxTokens": 16384,
+          "maxTokens": 16000,
           "topP": 0
         }
       },
@@ -312,7 +322,9 @@
           ]
         },
         "jsonOutput": true,
-        "options": {}
+        "options": {
+          "maxTokens": 16000
+        }
       },
       "type": "@n8n/n8n-nodes-langchain.openAi",
       "typeVersion": 1.7,
@@ -350,7 +362,7 @@
         },
         "jsonOutput": true,
         "options": {
-          "maxTokens": 16384,
+          "maxTokens": 16000,
           "topP": 0.8
         }
       },
@@ -390,7 +402,7 @@
         },
         "jsonOutput": true,
         "options": {
-          "maxTokens": 16384
+          "maxTokens": 16000
         }
       },
       "type": "@n8n/n8n-nodes-langchain.openAi",
@@ -428,7 +440,9 @@
           ]
         },
         "jsonOutput": true,
-        "options": {}
+        "options": {
+          "maxTokens": 16000
+        }
       },
       "type": "@n8n/n8n-nodes-langchain.openAi",
       "typeVersion": 1.7,
@@ -465,7 +479,9 @@
           ]
         },
         "jsonOutput": true,
-        "options": {}
+        "options": {
+          "maxTokens": 16000
+        }
       },
       "type": "@n8n/n8n-nodes-langchain.openAi",
       "typeVersion": 1.7,
@@ -541,7 +557,9 @@
           ]
         },
         "jsonOutput": true,
-        "options": {}
+        "options": {
+          "maxTokens": 16000
+        }
       },
       "type": "@n8n/n8n-nodes-langchain.openAi",
       "typeVersion": 1.7,
