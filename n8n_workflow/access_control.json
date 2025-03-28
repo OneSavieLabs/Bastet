@@ -1,5 +1,5 @@
 {
-  "name": "Access Control",
+  "name": "access control",
   "nodes": [
     {
       "parameters": {
@@ -9,10 +9,7 @@
       "name": "When chat message received",
       "type": "@n8n/n8n-nodes-langchain.chatTrigger",
       "typeVersion": 1.1,
-      "position": [
-        -1860,
-        2420
-      ],
+      "position": [-1860, 2420],
       "webhookId": "03164255-7211-490a-a3b7-06cf8844f407"
     },
     {
@@ -23,10 +20,7 @@
       },
       "type": "n8n-nodes-base.stickyNote",
       "typeVersion": 1,
-      "position": [
-        -2200,
-        2200
-      ],
+      "position": [-2200, 2200],
       "id": "a8975cb0-ab3d-4240-bdce-ff6d9b39c364",
       "name": "Sticky Note"
     },
@@ -37,10 +31,7 @@
       },
       "type": "n8n-nodes-base.stickyNote",
       "typeVersion": 1,
-      "position": [
-        -1340,
-        2140
-      ],
+      "position": [-1340, 2140],
       "id": "e0671a3b-7694-45ea-9f20-9371eaa99152",
       "name": "Sticky Note1"
     },
@@ -70,10 +61,7 @@
       },
       "type": "@n8n/n8n-nodes-langchain.openAi",
       "typeVersion": 1.7,
-      "position": [
-        -1320,
-        2340
-      ],
+      "position": [-1320, 2340],
       "id": "c4483115-0b1c-47bb-a28f-f031f306177e",
       "name": "Lack of two-step process for contract ownership changes",
       "credentials": {
@@ -109,10 +97,7 @@
       },
       "type": "@n8n/n8n-nodes-langchain.openAi",
       "typeVersion": 1.7,
-      "position": [
-        -1320,
-        2680
-      ],
+      "position": [-1320, 2680],
       "id": "0f732c5b-91f6-4546-8fd9-72a9fd1f454c",
       "name": "Lack of access control",
       "credentials": {
@@ -129,10 +114,7 @@
       },
       "type": "n8n-nodes-base.stickyNote",
       "typeVersion": 1,
-      "position": [
-        -1320,
-        2900
-      ],
+      "position": [-1320, 2900],
       "id": "752c570a-9245-4f20-af33-58d4a807a4fb",
       "name": "Sticky Note2"
     },
@@ -142,10 +124,7 @@
       },
       "type": "n8n-nodes-base.executeWorkflowTrigger",
       "typeVersion": 1.1,
-      "position": [
-        -1860,
-        2640
-      ],
+      "position": [-1860, 2640],
       "id": "fc2fec0e-bc38-4f37-8c35-90f65d9c28dd",
       "name": "Workflow Input Trigger"
     },
@@ -153,10 +132,7 @@
       "parameters": {},
       "type": "n8n-nodes-base.merge",
       "typeVersion": 3,
-      "position": [
-        -800,
-        2520
-      ],
+      "position": [-800, 2520],
       "id": "0977460b-5591-4adc-b48d-1cabc73bf16d",
       "name": "Merge"
     }

@@ -59,7 +59,9 @@
     },
     {
       "parameters": {
-        "options": {}
+        "options": {
+          "maxTokens": 16000
+        }
       },
       "type": "@n8n/n8n-nodes-langchain.lmChatOpenAi",
       "typeVersion": 1,
@@ -69,7 +71,7 @@
       "credentials": {
         "openAiApi": {
           "id": "",
-          "name": "OpenAI account"
+          "name": "OpenAi account"
         }
       }
     },
@@ -88,6 +90,16 @@
           "name": "OpenAI account"
         }
       }
+    },
+    {
+      "parameters": {
+        "inputSource": "passthrough"
+      },
+      "type": "n8n-nodes-base.executeWorkflowTrigger",
+      "typeVersion": 1.1,
+      "position": [0, 180],
+      "id": "a2b002e8-570b-425a-96fb-548dee799f9b",
+      "name": "Workflow Input Trigger"
     }
   ],
   "pinData": {},
@@ -146,23 +158,33 @@
           }
         ]
       ]
+    },
+    "Workflow Input Trigger": {
+      "main": [
+        [
+          {
+            "node": "Basic LLM Chain",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
     }
   },
   "active": false,
   "settings": {
     "executionOrder": "v1"
   },
-  "versionId": "a9a596a3-7857-4b22-8a34-1481dff73eb7",
+  "versionId": "162e12e8-2f5d-4682-951e-42c829eb9925",
   "meta": {
-    "templateCredsSetupCompleted": true,
-    "instanceId": "0c3ecf5e323087ea5132b8ca4933e216718dbfade54257b5815560a48e0970b7"
+    "instanceId": "05462fd1d5b4ba8cfb2088b0bbba2bf68a52dacabf05e9e2fddc98f00c1a98c1"
   },
-  "id": "yh6A2AtjV2L7c6QW",
+  "id": "gTcjNUFCEzM9cOtn",
   "tags": [
     {
-      "createdAt": "2025-03-21T07:24:29.761Z",
-      "updatedAt": "2025-03-21T07:24:29.761Z",
-      "id": "7x8UEvxbDNKhWIyp",
+      "createdAt": "2025-03-28T03:10:25.912Z",
+      "updatedAt": "2025-03-28T03:10:25.912Z",
+      "id": "ftVrnm2eUdzg9KX7",
       "name": "processor"
     }
   ]

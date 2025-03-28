@@ -2,17 +2,6 @@
   "name": "4naly3er",
   "nodes": [
     {
-      "parameters": {},
-      "type": "n8n-nodes-base.executeWorkflowTrigger",
-      "typeVersion": 1.1,
-      "position": [
-        480,
-        2340
-      ],
-      "id": "0544d261-6175-468a-8e9f-38f6d022ea57",
-      "name": "Workflow Input Trigger"
-    },
-    {
       "parameters": {
         "modelId": {
           "__rl": true,
@@ -46,8 +35,8 @@
       "name": "4naly3er-GAS-ERC721usage",
       "credentials": {
         "openAiApi": {
-          "id": "pMbla2pFqoBKXDmY",
-          "name": "OpenAi account 20250306"
+          "id": "3n5IdJTc1ZEDFCSE",
+          "name": "OpenAi account"
         }
       }
     },
@@ -99,8 +88,8 @@
       "name": "4naly3er-GAS-_msgSender",
       "credentials": {
         "openAiApi": {
-          "id": "pMbla2pFqoBKXDmY",
-          "name": "OpenAi account 20250306"
+          "id": "3n5IdJTc1ZEDFCSE",
+          "name": "OpenAi account"
         }
       }
     },
@@ -138,8 +127,8 @@
       "name": "4naly3er-H-comparisonOutsideCondition",
       "credentials": {
         "openAiApi": {
-          "id": "pMbla2pFqoBKXDmY",
-          "name": "OpenAi account 20250306"
+          "id": "3n5IdJTc1ZEDFCSE",
+          "name": "OpenAi account"
         }
       }
     },
@@ -177,8 +166,8 @@
       "name": "4naly3er-H-wstETHPriceStEth",
       "credentials": {
         "openAiApi": {
-          "id": "pMbla2pFqoBKXDmY",
-          "name": "OpenAi account 20250306"
+          "id": "3n5IdJTc1ZEDFCSE",
+          "name": "OpenAi account"
         }
       }
     },
@@ -203,8 +192,8 @@
         },
         "jsonOutput": true,
         "options": {
-          "topP": 0.4,
-          "maxTokens": 16000
+          "maxTokens": 16000,
+          "topP": 0.4
         }
       },
       "type": "@n8n/n8n-nodes-langchain.openAi",
@@ -217,8 +206,8 @@
       "name": "4naly3er-H-delegateCallInLoop",
       "credentials": {
         "openAiApi": {
-          "id": "pMbla2pFqoBKXDmY",
-          "name": "OpenAi account 20250306"
+          "id": "3n5IdJTc1ZEDFCSE",
+          "name": "OpenAi account"
         }
       }
     },
@@ -243,8 +232,8 @@
         },
         "jsonOutput": true,
         "options": {
-          "topP": 0.4,
-          "maxTokens": 16000
+          "maxTokens": 16000,
+          "topP": 0.4
         }
       },
       "type": "@n8n/n8n-nodes-langchain.openAi",
@@ -257,8 +246,8 @@
       "name": "4naly3er-H-get_dy_underlyingFlashLoan",
       "credentials": {
         "openAiApi": {
-          "id": "pMbla2pFqoBKXDmY",
-          "name": "OpenAi account 20250306"
+          "id": "3n5IdJTc1ZEDFCSE",
+          "name": "OpenAi account"
         }
       }
     },
@@ -297,8 +286,8 @@
       "name": "4naly3er-GAS-addPlusEqual",
       "credentials": {
         "openAiApi": {
-          "id": "pMbla2pFqoBKXDmY",
-          "name": "OpenAi account 20250306"
+          "id": "3n5IdJTc1ZEDFCSE",
+          "name": "OpenAi account"
         }
       }
     },
@@ -336,8 +325,8 @@
       "name": "4naly3er-M-centralizationRisk",
       "credentials": {
         "openAiApi": {
-          "id": "pMbla2pFqoBKXDmY",
-          "name": "OpenAi account 20250306"
+          "id": "3n5IdJTc1ZEDFCSE",
+          "name": "OpenAi account"
         }
       }
     },
@@ -376,8 +365,8 @@
       "name": "4naly3er-M-blockNumberL2",
       "credentials": {
         "openAiApi": {
-          "id": "pMbla2pFqoBKXDmY",
-          "name": "OpenAi account 20250306"
+          "id": "3n5IdJTc1ZEDFCSE",
+          "name": "OpenAi account"
         }
       }
     },
@@ -415,8 +404,8 @@
       "name": "4naly3er-M-approve0first",
       "credentials": {
         "openAiApi": {
-          "id": "pMbla2pFqoBKXDmY",
-          "name": "OpenAi account 20250306"
+          "id": "3n5IdJTc1ZEDFCSE",
+          "name": "OpenAi account"
         }
       }
     },
@@ -454,8 +443,8 @@
       "name": "4naly3er-M-avoidTx.origin",
       "credentials": {
         "openAiApi": {
-          "id": "pMbla2pFqoBKXDmY",
-          "name": "OpenAi account 20250306"
+          "id": "3n5IdJTc1ZEDFCSE",
+          "name": "OpenAi account"
         }
       }
     },
@@ -493,8 +482,8 @@
       "name": "4naly3er-M-NFTRedefinesMint",
       "credentials": {
         "openAiApi": {
-          "id": "pMbla2pFqoBKXDmY",
-          "name": "OpenAi account 20250306"
+          "id": "3n5IdJTc1ZEDFCSE",
+          "name": "OpenAi account"
         }
       }
     },
@@ -532,8 +521,8 @@
       "name": "4naly3er-M-FoTTokens",
       "credentials": {
         "openAiApi": {
-          "id": "pMbla2pFqoBKXDmY",
-          "name": "OpenAi account 20250306"
+          "id": "3n5IdJTc1ZEDFCSE",
+          "name": "OpenAi account"
         }
       }
     },
@@ -571,8 +560,8 @@
       "name": "4naly3er-H-msg.valueInLoop",
       "credentials": {
         "openAiApi": {
-          "id": "pMbla2pFqoBKXDmY",
-          "name": "OpenAi account 20250306"
+          "id": "3n5IdJTc1ZEDFCSE",
+          "name": "OpenAi account"
         }
       }
     },
@@ -627,6 +616,19 @@
       ],
       "id": "028a8e7d-2224-432a-923b-33c619a0d863",
       "name": "Merge3"
+    },
+    {
+      "parameters": {
+        "inputSource": "passthrough"
+      },
+      "type": "n8n-nodes-base.executeWorkflowTrigger",
+      "typeVersion": 1.1,
+      "position": [
+        500,
+        1800
+      ],
+      "id": "83df843f-3501-4f0c-88dd-07f1de0a2930",
+      "name": "Workflow Input Trigger"
     }
   ],
   "pinData": {},
@@ -893,15 +895,99 @@
           }
         ]
       ]
+    },
+    "Workflow Input Trigger": {
+      "main": [
+        [
+          {
+            "node": "4naly3er-GAS-ERC721usage",
+            "type": "main",
+            "index": 0
+          },
+          {
+            "node": "4naly3er-GAS-addPlusEqual",
+            "type": "main",
+            "index": 0
+          },
+          {
+            "node": "4naly3er-GAS-_msgSender",
+            "type": "main",
+            "index": 0
+          },
+          {
+            "node": "4naly3er-H-comparisonOutsideCondition",
+            "type": "main",
+            "index": 0
+          },
+          {
+            "node": "4naly3er-H-wstETHPriceStEth",
+            "type": "main",
+            "index": 0
+          },
+          {
+            "node": "4naly3er-H-delegateCallInLoop",
+            "type": "main",
+            "index": 0
+          },
+          {
+            "node": "4naly3er-H-get_dy_underlyingFlashLoan",
+            "type": "main",
+            "index": 0
+          },
+          {
+            "node": "4naly3er-H-msg.valueInLoop",
+            "type": "main",
+            "index": 0
+          },
+          {
+            "node": "4naly3er-M-FoTTokens",
+            "type": "main",
+            "index": 0
+          },
+          {
+            "node": "4naly3er-M-NFTRedefinesMint",
+            "type": "main",
+            "index": 0
+          },
+          {
+            "node": "4naly3er-M-approve0first",
+            "type": "main",
+            "index": 0
+          },
+          {
+            "node": "4naly3er-M-avoidTx.origin",
+            "type": "main",
+            "index": 0
+          },
+          {
+            "node": "4naly3er-M-blockNumberL2",
+            "type": "main",
+            "index": 0
+          },
+          {
+            "node": "4naly3er-M-centralizationRisk",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
     }
   },
   "active": false,
   "settings": {
     "executionOrder": "v1"
   },
-  "versionId": "",
+  "versionId": "bc3abe3c-b7b8-496a-b055-12debafdf386",
   "meta": {
-    "instanceId": "b65aa6ef3a7847d68323b6fbd676508eb1969c11cc56ff2fc44b7d41b90f104a"
+    "instanceId": "05462fd1d5b4ba8cfb2088b0bbba2bf68a52dacabf05e9e2fddc98f00c1a98c1"
   },
-  "tags": []
+  "id": "XR9oQLNnQnqHoTx9",
+  "tags": [
+    {
+      "createdAt": "2025-03-28T03:10:25.912Z",
+      "updatedAt": "2025-03-28T03:10:25.912Z",
+      "id": "ftVrnm2eUdzg9KX7",
+      "name": "processor"
+    }
+  ]
 }

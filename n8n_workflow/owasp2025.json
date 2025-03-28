@@ -1,5 +1,5 @@
 {
-  "name": "OWASP2025",
+  "name": "owasp2025",
   "nodes": [
     {
       "parameters": {
@@ -38,8 +38,8 @@
       "type": "n8n-nodes-base.stickyNote",
       "typeVersion": 1,
       "position": [
-        -920,
-        2320
+        -1340,
+        2140
       ],
       "id": "e2c48b1d-16b6-47df-901c-b3898bb9efa2",
       "name": "Sticky Note1"
@@ -78,7 +78,7 @@
       "name": "SC01:2025 - Improper Access Control",
       "credentials": {
         "openAiApi": {
-          "id": "FoBpFXcmVQSivgx6",
+          "id": "3n5IdJTc1ZEDFCSE",
           "name": "OpenAi account"
         }
       }
@@ -110,14 +110,14 @@
       "type": "@n8n/n8n-nodes-langchain.openAi",
       "typeVersion": 1.7,
       "position": [
-        -1320,
-        2620
+        -1340,
+        2820
       ],
       "id": "4748f81f-804e-4b56-bd09-28cb1f83559c",
       "name": "SC02:2025 - Price Oracle Manipulation",
       "credentials": {
         "openAiApi": {
-          "id": "FoBpFXcmVQSivgx6",
+          "id": "3n5IdJTc1ZEDFCSE",
           "name": "OpenAi account"
         }
       }
@@ -130,8 +130,8 @@
       "type": "n8n-nodes-base.stickyNote",
       "typeVersion": 1,
       "position": [
-        -920,
-        2620
+        -1360,
+        2600
       ],
       "id": "ecad2db4-426a-42d6-84ec-89e327a5c8c9",
       "name": "Sticky Note2"
@@ -144,8 +144,8 @@
       "type": "n8n-nodes-base.stickyNote",
       "typeVersion": 1,
       "position": [
-        -920,
-        2900
+        -1360,
+        3080
       ],
       "id": "2406bcd0-fac0-4e0f-84c6-4ec97b5b75e7",
       "name": "Sticky Note3"
@@ -177,14 +177,14 @@
       "type": "@n8n/n8n-nodes-langchain.openAi",
       "typeVersion": 1.7,
       "position": [
-        -1320,
-        2900
+        -1360,
+        3280
       ],
       "id": "40935ea0-4ed3-4906-b37c-5fe6a86800bc",
       "name": "SC03:2025 - Logic Errors",
       "credentials": {
         "openAiApi": {
-          "id": "FoBpFXcmVQSivgx6",
+          "id": "3n5IdJTc1ZEDFCSE",
           "name": "OpenAi account"
         }
       }
@@ -192,13 +192,14 @@
     {
       "parameters": {
         "content": "### SC04:2025 - Lack of Input\nFile 46 of 50 : OneInchImpl.sol\nhttps://blog.solidityscan.com/socket-gateway-hack-analysis-b0e9567f7d3e",
+        "height": 120,
         "width": 380
       },
       "type": "n8n-nodes-base.stickyNote",
       "typeVersion": 1,
       "position": [
-        -920,
-        3200
+        -1360,
+        3500
       ],
       "id": "90a0fc77-e65e-4cb7-9fa5-f29123a4e237",
       "name": "Sticky Note4"
@@ -230,14 +231,14 @@
       "type": "@n8n/n8n-nodes-langchain.openAi",
       "typeVersion": 1.7,
       "position": [
-        -1320,
-        3200
+        -1360,
+        3640
       ],
       "id": "cdfd0c0c-be6e-49af-aace-d2aaf6019b81",
       "name": "SC04:2025 - Lack of Input Validation",
       "credentials": {
         "openAiApi": {
-          "id": "FoBpFXcmVQSivgx6",
+          "id": "3n5IdJTc1ZEDFCSE",
           "name": "OpenAi account"
         }
       }
@@ -250,8 +251,8 @@
       "type": "n8n-nodes-base.stickyNote",
       "typeVersion": 1,
       "position": [
-        -920,
-        3480
+        -1340,
+        3900
       ],
       "id": "066436f2-3f57-40e4-b0a7-fa5ed2db7c28",
       "name": "Sticky Note5"
@@ -283,14 +284,14 @@
       "type": "@n8n/n8n-nodes-langchain.openAi",
       "typeVersion": 1.7,
       "position": [
-        -1320,
-        3480
+        -1340,
+        4080
       ],
       "id": "f7cc8200-b12c-4987-a2e7-7870d0a4e7cf",
       "name": "SC05:2025 - Reentrancy",
       "credentials": {
         "openAiApi": {
-          "id": "FoBpFXcmVQSivgx6",
+          "id": "3n5IdJTc1ZEDFCSE",
           "name": "OpenAi account"
         }
       }
@@ -322,14 +323,14 @@
       "type": "@n8n/n8n-nodes-langchain.openAi",
       "typeVersion": 1.7,
       "position": [
-        -1320,
-        3800
+        -1340,
+        4480
       ],
       "id": "e20a47a0-965b-4cf9-8396-1fddc821828e",
       "name": "SC06:2025 Unchecked External Calls",
       "credentials": {
         "openAiApi": {
-          "id": "FoBpFXcmVQSivgx6",
+          "id": "3n5IdJTc1ZEDFCSE",
           "name": "OpenAi account"
         }
       }
@@ -342,8 +343,8 @@
       "type": "n8n-nodes-base.stickyNote",
       "typeVersion": 1,
       "position": [
-        -920,
-        3800
+        -1340,
+        4280
       ],
       "id": "6756bcc9-9da9-4181-8957-2335af056a10",
       "name": "Sticky Note6"
@@ -375,14 +376,14 @@
       "type": "@n8n/n8n-nodes-langchain.openAi",
       "typeVersion": 1.7,
       "position": [
-        -1320,
-        4140
+        -1340,
+        4840
       ],
       "id": "22553221-5a74-483e-afe5-5c282e01d552",
       "name": "SC07:2025 - Flash Loan Attacks",
       "credentials": {
         "openAiApi": {
-          "id": "FoBpFXcmVQSivgx6",
+          "id": "3n5IdJTc1ZEDFCSE",
           "name": "OpenAi account"
         }
       }
@@ -395,8 +396,8 @@
       "type": "n8n-nodes-base.stickyNote",
       "typeVersion": 1,
       "position": [
-        -920,
-        4120
+        -1360,
+        4660
       ],
       "id": "785542bc-43cb-4d14-b130-b44ad90dd3b9",
       "name": "Sticky Note7"
@@ -409,8 +410,8 @@
       "type": "n8n-nodes-base.stickyNote",
       "typeVersion": 1,
       "position": [
-        -920,
-        4420
+        -1320,
+        5040
       ],
       "id": "ce1a42a4-5da8-4298-b175-2fdacf066f06",
       "name": "Sticky Note8"
@@ -443,13 +444,13 @@
       "typeVersion": 1.7,
       "position": [
         -1320,
-        4440
+        5220
       ],
       "id": "f625c5d7-bcc5-4b05-80d2-9975bf28167c",
       "name": "SC08:2025 - Integer Overflow and Underflow",
       "credentials": {
         "openAiApi": {
-          "id": "FoBpFXcmVQSivgx6",
+          "id": "3n5IdJTc1ZEDFCSE",
           "name": "OpenAi account"
         }
       }
@@ -481,14 +482,14 @@
       "type": "@n8n/n8n-nodes-langchain.openAi",
       "typeVersion": 1.7,
       "position": [
-        -1320,
-        4780
+        -1300,
+        5600
       ],
       "id": "8e9dc9f6-04d5-4a4c-a15f-db0dae2e08a7",
       "name": "SC09:2025 - Insecure Randomness",
       "credentials": {
         "openAiApi": {
-          "id": "FoBpFXcmVQSivgx6",
+          "id": "3n5IdJTc1ZEDFCSE",
           "name": "OpenAi account"
         }
       }
@@ -501,8 +502,8 @@
       "type": "n8n-nodes-base.stickyNote",
       "typeVersion": 1,
       "position": [
-        -920,
-        4760
+        -1300,
+        5420
       ],
       "id": "879041e0-56a7-4e50-81de-2aa31626a83a",
       "name": "Sticky Note9"
@@ -515,8 +516,8 @@
       "type": "n8n-nodes-base.stickyNote",
       "typeVersion": 1,
       "position": [
-        -920,
-        5120
+        -1300,
+        5800
       ],
       "id": "e2b490d1-8917-4781-8823-6b15de591941",
       "name": "Sticky Note10"
@@ -548,17 +549,43 @@
       "type": "@n8n/n8n-nodes-langchain.openAi",
       "typeVersion": 1.7,
       "position": [
-        -1320,
-        5120
+        -1300,
+        5980
       ],
       "id": "3b216349-3051-43f0-9f41-28b72b414f43",
       "name": "SC10:2025 - Denial Of Service",
       "credentials": {
         "openAiApi": {
-          "id": "FoBpFXcmVQSivgx6",
+          "id": "3n5IdJTc1ZEDFCSE",
           "name": "OpenAi account"
         }
       }
+    },
+    {
+      "parameters": {
+        "inputSource": "passthrough"
+      },
+      "type": "n8n-nodes-base.executeWorkflowTrigger",
+      "typeVersion": 1.1,
+      "position": [
+        -2300,
+        3920
+      ],
+      "id": "33d9882e-2cc9-47fb-9a2a-4aab8944ccc2",
+      "name": "Workflow Input Trigger"
+    },
+    {
+      "parameters": {
+        "numberInputs": 10
+      },
+      "type": "n8n-nodes-base.merge",
+      "typeVersion": 3,
+      "position": [
+        0,
+        3960
+      ],
+      "id": "dbed7722-f9dc-4289-b2f2-cbd8606de156",
+      "name": "Merge"
     }
   ],
   "pinData": {},
@@ -618,17 +645,189 @@
           }
         ]
       ]
+    },
+    "Workflow Input Trigger": {
+      "main": [
+        [
+          {
+            "node": "SC01:2025 - Improper Access Control",
+            "type": "main",
+            "index": 0
+          },
+          {
+            "node": "SC02:2025 - Price Oracle Manipulation",
+            "type": "main",
+            "index": 0
+          },
+          {
+            "node": "SC03:2025 - Logic Errors",
+            "type": "main",
+            "index": 0
+          },
+          {
+            "node": "SC04:2025 - Lack of Input Validation",
+            "type": "main",
+            "index": 0
+          },
+          {
+            "node": "SC05:2025 - Reentrancy",
+            "type": "main",
+            "index": 0
+          },
+          {
+            "node": "SC06:2025 Unchecked External Calls",
+            "type": "main",
+            "index": 0
+          },
+          {
+            "node": "SC07:2025 - Flash Loan Attacks",
+            "type": "main",
+            "index": 0
+          },
+          {
+            "node": "SC08:2025 - Integer Overflow and Underflow",
+            "type": "main",
+            "index": 0
+          },
+          {
+            "node": "SC09:2025 - Insecure Randomness",
+            "type": "main",
+            "index": 0
+          },
+          {
+            "node": "SC10:2025 - Denial Of Service",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "SC01:2025 - Improper Access Control": {
+      "main": [
+        [
+          {
+            "node": "Merge",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "SC02:2025 - Price Oracle Manipulation": {
+      "main": [
+        [
+          {
+            "node": "Merge",
+            "type": "main",
+            "index": 1
+          }
+        ]
+      ]
+    },
+    "SC03:2025 - Logic Errors": {
+      "main": [
+        [
+          {
+            "node": "Merge",
+            "type": "main",
+            "index": 2
+          }
+        ]
+      ]
+    },
+    "SC04:2025 - Lack of Input Validation": {
+      "main": [
+        [
+          {
+            "node": "Merge",
+            "type": "main",
+            "index": 3
+          }
+        ]
+      ]
+    },
+    "SC05:2025 - Reentrancy": {
+      "main": [
+        [
+          {
+            "node": "Merge",
+            "type": "main",
+            "index": 4
+          }
+        ]
+      ]
+    },
+    "SC06:2025 Unchecked External Calls": {
+      "main": [
+        [
+          {
+            "node": "Merge",
+            "type": "main",
+            "index": 5
+          }
+        ]
+      ]
+    },
+    "SC07:2025 - Flash Loan Attacks": {
+      "main": [
+        [
+          {
+            "node": "Merge",
+            "type": "main",
+            "index": 6
+          }
+        ]
+      ]
+    },
+    "SC08:2025 - Integer Overflow and Underflow": {
+      "main": [
+        [
+          {
+            "node": "Merge",
+            "type": "main",
+            "index": 7
+          }
+        ]
+      ]
+    },
+    "SC09:2025 - Insecure Randomness": {
+      "main": [
+        [
+          {
+            "node": "Merge",
+            "type": "main",
+            "index": 8
+          }
+        ]
+      ]
+    },
+    "SC10:2025 - Denial Of Service": {
+      "main": [
+        [
+          {
+            "node": "Merge",
+            "type": "main",
+            "index": 9
+          }
+        ]
+      ]
     }
   },
   "active": false,
   "settings": {
     "executionOrder": "v1"
   },
-  "versionId": "2000e3c6-224a-41b8-8629-621ce38afb91",
+  "versionId": "cbd86234-a2bc-4ca3-8c58-4f06c3f75d71",
   "meta": {
-    "templateCredsSetupCompleted": true,
-    "instanceId": "6b00ef11cec26a47977bd0b02eca112c312cc7db1a82f551ff9d08d2af38b1d9"
+    "instanceId": "05462fd1d5b4ba8cfb2088b0bbba2bf68a52dacabf05e9e2fddc98f00c1a98c1"
   },
-  "id": "79SQlseG3jGStzUi",
-  "tags": []
+  "id": "G8ZYjUy4HUz073E7",
+  "tags": [
+    {
+      "createdAt": "2025-03-28T03:10:25.912Z",
+      "updatedAt": "2025-03-28T03:10:25.912Z",
+      "id": "ftVrnm2eUdzg9KX7",
+      "name": "processor"
+    }
+  ]
 }
