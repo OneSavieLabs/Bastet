@@ -9,7 +9,10 @@
       "name": "When chat message received",
       "type": "@n8n/n8n-nodes-langchain.chatTrigger",
       "typeVersion": 1.1,
-      "position": [-1120, 260],
+      "position": [
+        -1120,
+        260
+      ],
       "webhookId": "471f4f97-1fd4-4312-b3ee-6fcc3310611d"
     },
     {
@@ -20,7 +23,10 @@
       },
       "type": "n8n-nodes-base.stickyNote",
       "typeVersion": 1,
-      "position": [-1420, 80],
+      "position": [
+        -1420,
+        80
+      ],
       "id": "b36e2cde-b8f0-4bc6-a9cc-01916521cf1e",
       "name": "Sticky Note"
     },
@@ -31,7 +37,10 @@
       },
       "type": "n8n-nodes-base.stickyNote",
       "typeVersion": 1,
-      "position": [-420, -280],
+      "position": [
+        -420,
+        -280
+      ],
       "id": "dfe3cc0a-44e4-4618-8fe1-03552a4b704f",
       "name": "Sticky Note1"
     },
@@ -42,7 +51,10 @@
       },
       "type": "n8n-nodes-base.stickyNote",
       "typeVersion": 1,
-      "position": [-420, 120],
+      "position": [
+        -420,
+        120
+      ],
       "id": "20e477c7-438b-4d02-a301-6a0b75f6405e",
       "name": "Sticky Note2"
     },
@@ -72,7 +84,10 @@
       },
       "type": "@n8n/n8n-nodes-langchain.openAi",
       "typeVersion": 1.7,
-      "position": [-420, -100],
+      "position": [
+        -420,
+        -100
+      ],
       "id": "6054b4ee-005d-49b9-a1a1-23814cea3391",
       "name": "ERC4626-Rounding",
       "credentials": {
@@ -108,7 +123,10 @@
       },
       "type": "@n8n/n8n-nodes-langchain.openAi",
       "typeVersion": 1.7,
-      "position": [-420, 300],
+      "position": [
+        -420,
+        300
+      ],
       "id": "b4babbee-d25b-4268-9b6c-0bcba765f0fe",
       "name": "ERC4626-Global and user-specific limits",
       "credentials": {
@@ -144,7 +162,10 @@
       },
       "type": "@n8n/n8n-nodes-langchain.openAi",
       "typeVersion": 1.7,
-      "position": [-420, 700],
+      "position": [
+        -420,
+        700
+      ],
       "id": "fa11e1f9-0cce-4810-ba3b-e9b9b6bd1f7d",
       "name": "ERC4626-Fee",
       "credentials": {
@@ -161,7 +182,10 @@
       },
       "type": "n8n-nodes-base.stickyNote",
       "typeVersion": 1,
-      "position": [-420, 520],
+      "position": [
+        -420,
+        520
+      ],
       "id": "b6cdd763-f50f-41c1-a297-b7d431a38013",
       "name": "Sticky Note3"
     },
@@ -171,7 +195,10 @@
       },
       "type": "n8n-nodes-base.executeWorkflowTrigger",
       "typeVersion": 1.1,
-      "position": [-1120, 480],
+      "position": [
+        -1120,
+        480
+      ],
       "id": "5173abd2-f5f7-4a57-b59d-d6238a1054d0",
       "name": "Workflow Input Trigger"
     },
@@ -181,7 +208,10 @@
       },
       "type": "n8n-nodes-base.merge",
       "typeVersion": 3,
-      "position": [180, 280],
+      "position": [
+        180,
+        280
+      ],
       "id": "539b7f9b-f1b0-4cee-95ce-2a5f968a5891",
       "name": "Merge"
     }

@@ -9,7 +9,10 @@
       "name": "When chat message received",
       "type": "@n8n/n8n-nodes-langchain.chatTrigger",
       "typeVersion": 1.1,
-      "position": [-1860, 2480],
+      "position": [
+        -1860,
+        2480
+      ],
       "webhookId": "03164255-7211-490a-a3b7-06cf8844f407"
     },
     {
@@ -20,7 +23,10 @@
       },
       "type": "n8n-nodes-base.stickyNote",
       "typeVersion": 1,
-      "position": [-2200, 2300],
+      "position": [
+        -2200,
+        2300
+      ],
       "id": "a8975cb0-ab3d-4240-bdce-ff6d9b39c364",
       "name": "Sticky Note"
     },
@@ -31,7 +37,10 @@
       },
       "type": "n8n-nodes-base.stickyNote",
       "typeVersion": 1,
-      "position": [-920, 2320],
+      "position": [
+        -920,
+        2320
+      ],
       "id": "e0671a3b-7694-45ea-9f20-9371eaa99152",
       "name": "Sticky Note1"
     },
@@ -61,7 +70,10 @@
       },
       "type": "@n8n/n8n-nodes-langchain.openAi",
       "typeVersion": 1.7,
-      "position": [-1320, 2340],
+      "position": [
+        -1320,
+        2340
+      ],
       "id": "c4483115-0b1c-47bb-a28f-f031f306177e",
       "name": "Lack of two-step process for contract ownership changes",
       "credentials": {
@@ -97,7 +109,10 @@
       },
       "type": "@n8n/n8n-nodes-langchain.openAi",
       "typeVersion": 1.7,
-      "position": [-1320, 2680],
+      "position": [
+        -1320,
+        2680
+      ],
       "id": "0f732c5b-91f6-4546-8fd9-72a9fd1f454c",
       "name": "Lack of access control",
       "credentials": {
@@ -114,7 +129,10 @@
       },
       "type": "n8n-nodes-base.stickyNote",
       "typeVersion": 1,
-      "position": [-920, 2660],
+      "position": [
+        -920,
+        2660
+      ],
       "id": "752c570a-9245-4f20-af33-58d4a807a4fb",
       "name": "Sticky Note2"
     }
