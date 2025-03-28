@@ -33,18 +33,6 @@
     },
     {
       "parameters": {
-        "options": {
-          "prompt": "Instructions:\n--------------\n{instructions}\n--------------\nCompletion:\n--------------\n{completion}\n--------------\n\nAbove, the Completion did not satisfy the constraints given in the Instructions.\nError:\n--------------\n{error}\n--------------\n\nPlease try again. Please only respond with an answer that satisfies the constraints laid out in the Instructions:"
-        }
-      },
-      "type": "@n8n/n8n-nodes-langchain.outputParserAutofixing",
-      "typeVersion": 1,
-      "position": [480, 260],
-      "id": "6c2340e5-8868-4e57-a5c5-baab481bb375",
-      "name": "Auto-fixing Output Parser"
-    },
-    {
-      "parameters": {
         "httpMethod": "POST",
         "path": "=slippage_minAmount",
         "responseMode": "lastNode",
@@ -77,22 +65,6 @@
     },
     {
       "parameters": {
-        "options": {}
-      },
-      "type": "@n8n/n8n-nodes-langchain.lmChatOpenAi",
-      "typeVersion": 1,
-      "position": [440, 440],
-      "id": "96658803-9891-4fc3-95a4-62c133cff179",
-      "name": "LLM for auto correct output format",
-      "credentials": {
-        "openAiApi": {
-          "id": "",
-          "name": "OpenAI account"
-        }
-      }
-    },
-    {
-      "parameters": {
         "inputSource": "passthrough"
       },
       "type": "n8n-nodes-base.executeWorkflowTrigger",
@@ -105,17 +77,6 @@
   "pinData": {},
   "connections": {
     "Structured Output Parser": {
-      "ai_outputParser": [
-        [
-          {
-            "node": "Auto-fixing Output Parser",
-            "type": "ai_outputParser",
-            "index": 0
-          }
-        ]
-      ]
-    },
-    "Auto-fixing Output Parser": {
       "ai_outputParser": [
         [
           {
@@ -148,17 +109,6 @@
         ]
       ]
     },
-    "LLM for auto correct output format": {
-      "ai_languageModel": [
-        [
-          {
-            "node": "Auto-fixing Output Parser",
-            "type": "ai_languageModel",
-            "index": 0
-          }
-        ]
-      ]
-    },
     "Workflow Input Trigger": {
       "main": [
         [
@@ -175,16 +125,16 @@
   "settings": {
     "executionOrder": "v1"
   },
-  "versionId": "162e12e8-2f5d-4682-951e-42c829eb9925",
+  "versionId": "5fd5adf0-1628-4c0d-b294-7342db6dab09",
   "meta": {
-    "instanceId": "05462fd1d5b4ba8cfb2088b0bbba2bf68a52dacabf05e9e2fddc98f00c1a98c1"
+    "instanceId": "022db2fbd0a73e6d486f16c5eb885d1053a420197cf4f3857ab5d1742b50c5ad"
   },
-  "id": "gTcjNUFCEzM9cOtn",
+  "id": "WHNMqunGVjjbBHF3",
   "tags": [
     {
-      "createdAt": "2025-03-28T03:10:25.912Z",
-      "updatedAt": "2025-03-28T03:10:25.912Z",
-      "id": "ftVrnm2eUdzg9KX7",
+      "createdAt": "2025-03-28T07:23:01.556Z",
+      "updatedAt": "2025-03-28T07:23:01.556Z",
+      "id": "QxkcDxuO46F4kZQ4",
       "name": "processor"
     }
   ]
