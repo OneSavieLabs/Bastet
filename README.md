@@ -70,6 +70,10 @@ Bastet/
 
 **Installation Steps**
 
+**_Video tutorial_**
+
+[![IMAGE ALT TEXT HERE](https://img.youtube.com/vi/ouQ0zSDU3pM/0.jpg)](https://www.youtube.com/watch?v=ouQ0zSDU3pM)
+
 1. Setup Python environment:
 
 ```bash
