@@ -254,6 +254,14 @@ you shell get the confusion metrics. like this
 
 Note: the number shell be difference since the answer of LLM model is not stable, the answer here is created by gpt-4o-mini
 
+
+## Conference
+
+|  Date  |Conference Name |    Topic  |  Slide |  
+| ---- | ---- | ---- | ---- |
+| 2025-04-02|ETH TAIPEI 2025 | Exploring AI’s Role in Smart Contract Security | [Eth Taipei 2025](https://github.com/OneSavieLabs/Bastet/Slide/Eth_Taipei_2025.pptx.pdf)  | 
+
+
 ## Disclaimer
 
 Bastet is for research and educational purposes only. Anyone who discovers a vulnerability should adhere to the principles of Responsible Disclosure and ensure compliance with applicable laws and regulations. We do not encourage or support any unauthorized testing, attacks, or abusive behavior, and users assume all associated risks.
