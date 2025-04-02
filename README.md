@@ -1,6 +1,6 @@
 # Bastet
 
-<img src="cattt.jpg"  width="70%">
+<img src="image/cattt.jpg"  width="70%">
 
 Bastet is a comprehensive dataset of common smart contract vulnerabilities in DeFi along with an AI-driven automated detection process to enhance vulnerability detection accuracy and optimize security lifecycle management.
 
@@ -70,6 +70,10 @@ Bastet/
 
 **Installation Steps**
 
+**_Video tutorial_**
+
+[![IMAGE ALT TEXT HERE](https://img.youtube.com/vi/ouQ0zSDU3pM/0.jpg)](https://www.youtube.com/watch?v=ouQ0zSDU3pM)
+
 1. Setup Python environment:
 
 ```bash
@@ -120,6 +124,8 @@ You will see the Main workflow and the Sub workflow(We call it processor) you se
 
 ### Scan Multiple Contracts with Multiple Processor Workflows
 
+<img src="image/scan.png"  width="70%">
+
 The main script `scan` will recursively scan all `.sol` files in the specified directory:
 
 ```bash
@@ -136,6 +142,8 @@ The script will scan all contracts in the `dataset/scan_queue` directory using t
 2. Click the **Chat** button on the bottom and input the contract content.
 
 ### Evaluation
+
+<img src="image/eval.png"  width="70%">
 
 1. import the workflow you want to evaluate
 
