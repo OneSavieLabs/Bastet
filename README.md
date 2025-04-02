@@ -162,10 +162,6 @@ The script will scan all contracts in the `dataset/scan_queue` directory using t
       "Vulnerability Details": {
         "type": "object",
         "properties": {
-          "File Name": {
-            "type": "string",
-            "description": "File name where the vulnerability exists"
-          },
           "Function Name": {
             "type": "string",
             "description": "Function name where the vulnerability is found"
@@ -175,7 +171,7 @@ The script will scan all contracts in the `dataset/scan_queue` directory using t
             "description": "Detailed description of the vulnerability"
           }
         },
-        "required": ["File Name", "Function Name", "Description"]
+        "required": ["Function Name", "Description"]
       },
       "Code Snippet": {
         "type": "array",
@@ -190,13 +186,7 @@ The script will scan all contracts in the `dataset/scan_queue` directory using t
         "description": "Recommendation to fix the vulnerability"
       }
     },
-    "required": [
-      "Summary",
-      "Severity",
-      "Vulnerability Details",
-      "Code Snippet",
-      "Recommendation"
-    ]
+    "required": ["Summary", "Severity", "Vulnerability Details", "Code Snippet", "Recommendation"]
   },
   "additionalProperties": false
 }

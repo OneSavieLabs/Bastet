@@ -30,6 +30,7 @@ def scan_v1(folder_path: str, n8n_url: str, output_path: str):
             workflows.append(workflow)
 
     tqdm.write(f"Found {len(workflows)} active workflows.")
+    tqdm.write(f"-" * 50)
     audit_reports: list[AuditReport] = []
     for contract_file in tqdm(
         contract_files,
@@ -38,10 +39,10 @@ def scan_v1(folder_path: str, n8n_url: str, output_path: str):
         ncols=100,
         colour="blue",
         bar_format="{desc}: {percentage:3.0f}%|{bar}| {n_fmt}/{total_fmt} files [Time: {elapsed}]",
-        mininterval=0.1,
+        mininterval=0.01,
         # file=sys.stdout,
     ):
-        tqdm.write(f"start scanning contract: {workflow['name']}")
+        tqdm.write(f"start scanning contract: {contract_file}")
 
         with open(contract_file, "r") as file:
             contract_content = file.read()
@@ -54,9 +55,10 @@ def scan_v1(folder_path: str, n8n_url: str, output_path: str):
             ncols=100,
             colour="red",
             bar_format="{desc}: {percentage:3.0f}%|{bar}| {n_fmt}/{total_fmt} workflows [Time: {elapsed}]",
-            mininterval=0.0001,
+            mininterval=0.01,
         ):
-            tqdm.write(f"\033[92mstart scanning contract: {contract_file}\033[0m")
+            workflow_name = workflow["name"]
+            tqdm.write(f"\033[92mstart workflow: {workflow_name}\033[0m")
 
             webhook_nodes = [
                 WebhookNode(**node)
@@ -108,12 +110,21 @@ def scan_v1(folder_path: str, n8n_url: str, output_path: str):
             workflow_reports = execution_data["data"]["resultData"]["runData"][
                 final_node_name
             ][0]["data"]["main"][0][0]["json"]["output"]
-            for report in workflow_reports:
-                try:
-                    audit_report = AuditReport(**report)
-                    audit_reports.append(audit_report)
-                except ValidationError as e:
-                    tqdm.write(f"\033[91m❌ Error validating report: {report}\033[0m")
+            if workflow_reports:
+                tqdm.write(f"033[91m❌ Found {len(workflow_reports)} vulnerability.[0m")
+                for report in workflow_reports:
+                    try:
+                        audit_report = AuditReport(**report)
+                        audit_reports.append(audit_report)
+                    except ValidationError as e:
+                        tqdm.write(
+                            f"\033[91m❌ Error validating report: {report}\033[0m"
+                        )
+            else:
+                tqdm.write(
+                    f"\033[92m✅ No vulnerability found in contract: {contract_file}\033[0m"
+                )
+        tqdm.write(f"-" * 50)
     df = pd.DataFrame(
         [
             {
