@@ -1,8 +1,6 @@
 import dotenv
-import evaluate
-import init
-import scan
 import typer
+from commands import evaluate, init, scan
 
 dotenv.load_dotenv()
 
