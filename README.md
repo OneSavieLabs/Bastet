@@ -259,7 +259,7 @@ Note: the number shell be difference since the answer of LLM model is not stable
 
 |  Date  |Conference Name |    Topic  |  Slide |  
 | ---- | ---- | ---- | ---- |
-| 2025-04-02|ETH TAIPEI 2025 | Exploring AI’s Role in Smart Contract Security | [Eth Taipei 2025](https://github.com/OneSavieLabs/Bastet/Slide/Eth_Taipei_2025.pptx.pdf)  | 
+| 2025-04-02|ETH TAIPEI 2025 | Exploring AI’s Role in Smart Contract Security | [ETH-TAIPEI-2025](./slide/ETH-TAIPEI-2025.pdf)  | 
 
 
 ## Disclaimer
