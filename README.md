@@ -23,6 +23,11 @@ Bastet/
 │   │   │── <module>/
 │   │   │   │── __init__.py     # CLI routing only, logic will define below
 │   │   │   │── <function>.py
+│   │── models/                 # Interfaces for python type check
+│   │   │── <SAAS>/
+│   │   │   │── __init__.py     # For output all models in SAAS
+│   │   │   │── <function>.py
+│   │   │── audit_report.py     # Main Interface of output in Bastet
 │── dataset/                    # dataset location
 │   │── catogory/               # Legacy: wait for refactor
 │   │   ├── (Type)/
@@ -112,9 +117,9 @@ docker-compose -f ./docker-compose.yml up -d
 poetry run python cli/main.py init
 ```
 
-You will see the Main workflow and the Sub workflow(We call it processor) you selected with "processor" tag in the homepage.
+You will see the all workflows we provided currently.
 
-11. Turn on the switch button of Main workflow and the Sub workflow in the homepage.
+11. Turn on the switch button of the workflow you want to trigger in the homepage.
 
 ## Usage
 
@@ -126,13 +131,13 @@ The main script `scan` will recursively scan all `.sol` files in the specified d
 poetry run python cli/main.py scan
 ```
 
-The script will scan all contracts in the `dataset/scan_queue` directory using the processor workflows that you have activated by turning on their respective switch buttons.
+The script will scan all contracts in the `dataset/scan_queue` directory using all workflows that you have activated by turning on their respective switch buttons.
 
 > you can use flag `--help` for detail information of flag you can use
 
 ### Scan Single Contract with Single Processor Workflow
 
-1. Go into Processor workflow you want to scan.
+1. Go into the workflow you want to scan.
 2. Click the **Chat** button on the bottom and input the contract content.
 
 ### Evaluation
