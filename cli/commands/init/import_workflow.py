@@ -11,17 +11,10 @@ def import_workflow(workflow_path: str, n8n_api_url: str):
     ALLOWED_FIELDS = {"name", "nodes", "connections", "settings", "staticData"}
 
     openai_credential_id = os.getenv("N8N_OPENAI_CREDENTIAL_ID")
-    n8n_api_credential_id = os.getenv("N8N_API_CREDENTIAL_ID")
 
     if openai_credential_id is None:
         tqdm.write(
             "\033[91m❌ OpenAI credential id is not set, please set it in the .env file\033[0m"
-        )
-        exit(1)
-
-    if n8n_api_credential_id is None:
-        tqdm.write(
-            "\033[91m❌ n8n api credential id is not set, please set it in the .env file\033[0m"
         )
         exit(1)
 
@@ -61,7 +54,7 @@ def import_workflow(workflow_path: str, n8n_api_url: str):
             print("Error: Please enter a valid number or 'all'!")
 
     print(
-        f"Importing {len(selected_files)} processor workflow files: {', '.join(selected_files)}"
+        f"Importing {len(selected_files)} workflow files: {', '.join(selected_files)}"
     )
 
     # Import processor workflow files
@@ -73,9 +66,7 @@ def import_workflow(workflow_path: str, n8n_api_url: str):
                 workflow_name = workflow_data["name"]
 
                 if workflow_name in existing_workflow_names:
-                    tqdm.write(
-                        f"\033[94mℹ️  Processor workflow {filename} already exists.\033[0m"
-                    )
+                    tqdm.write(f"\033[94mℹ️ Workflow {filename} already exists.\033[0m")
                     continue
 
                 filtered_workflow_data = {

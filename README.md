@@ -107,11 +107,11 @@ docker-compose -f ./docker-compose.yml up -d
 
 8. Click **Create Credential** in the arrow button next to the Create Workflow button → Fill in "n8n" in the input → You will see "n8n API" and select it, click Continue → API Key fill in the API key you just created, Base URL fill in http://host.docker.internal:5678/api/v1 -> click the Save button and you will see Connection tested successfully message -> click the **Details** in sidebar and copy the value of the **ID** field and paste it to `N8N_API_CREDENTIAL_ID` in `.env` file.
 
-9. Based on previous step, Create OpenAi credentials, create a new credential with your OpenAi Key. and copy the value of the **ID** field and paste it to `N8N_OPENAI_CREDENTIAL_ID` in `.env` file.
+9. Click **Create Credential** in the arrow button next to the Create Workflow button → Fill in "OpenAi" in the input → You will see "OpenAi" and select it, click Continue → API Key fill your OpenAi API key, Create OpenAi credentials, and copy the value of the **ID** field and paste it to `N8N_OPENAI_CREDENTIAL_ID` in `.env` file.
 
 10. Import the workflow by executing the following code
 
-**Before the setup, make sure you fill the N8N_API_KEY, N8N_API_CREDENTIAL_ID, N8N_OPENAI_CREDENTIAL_ID in `.env` file.**
+**Before the setup, make sure you fill the N8N_API_KEY, N8N_OPENAI_CREDENTIAL_ID in `.env` file.**
 
 ```bash
 poetry run python cli/main.py init
