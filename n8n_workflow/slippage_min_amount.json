@@ -8,10 +8,7 @@
       },
       "type": "@n8n/n8n-nodes-langchain.outputParserStructured",
       "typeVersion": 1.2,
-      "position": [
-        708,
-        320
-      ],
+      "position": [708, 320],
       "id": "3886c5d8-d954-4608-b857-1d913b1b4e84",
       "name": "Structured Output Parser"
     },
@@ -24,10 +21,7 @@
       },
       "type": "n8n-nodes-base.webhook",
       "typeVersion": 2,
-      "position": [
-        -100,
-        0
-      ],
+      "position": [-100, 0],
       "id": "5250a143-6bd1-4a9b-908f-bb48db40b654",
       "name": "Webhook",
       "webhookId": "0f3a3dc2-9cb2-4454-86b1-bb95ef26a901"
@@ -40,10 +34,7 @@
       },
       "type": "@n8n/n8n-nodes-langchain.lmChatOpenAi",
       "typeVersion": 1,
-      "position": [
-        588,
-        320
-      ],
+      "position": [588, 320],
       "id": "340ebf63-f35e-4030-94be-9e230ec8ac74",
       "name": "LLM for answer",
       "credentials": {
@@ -69,10 +60,7 @@
       },
       "type": "n8n-nodes-base.set",
       "typeVersion": 3.4,
-      "position": [
-        340,
-        0
-      ],
+      "position": [340, 0],
       "id": "1116de4f-81c3-4732-9d39-3815dbdc753f",
       "name": "Edit Fields"
     },
@@ -84,10 +72,7 @@
       },
       "type": "n8n-nodes-base.respondToWebhook",
       "typeVersion": 1.1,
-      "position": [
-        120,
-        0
-      ],
+      "position": [120, 0],
       "id": "5e43c271-62b5-4d1d-bc8c-25bf5dc6e8df",
       "name": "Respond to Webhook"
     },
@@ -97,10 +82,7 @@
       },
       "type": "@n8n/n8n-nodes-langchain.chatTrigger",
       "typeVersion": 1.1,
-      "position": [
-        340,
-        200
-      ],
+      "position": [340, 200],
       "id": "3a515a53-17d4-47e9-8d31-d9c2cb4b943d",
       "name": "When chat message received",
       "webhookId": "ce077bb6-7ca6-4f3a-bb6e-cbc80aadc004"
@@ -120,10 +102,7 @@
       },
       "type": "@n8n/n8n-nodes-langchain.chainLlm",
       "typeVersion": 1.5,
-      "position": [
-        560,
-        100
-      ],
+      "position": [560, 100],
       "id": "0fff0801-c2ee-4f61-a4af-ddd37f175f7b",
       "name": "COT - slippage min amount",
       "alwaysOutputData": true,
@@ -133,10 +112,7 @@
       "parameters": {},
       "type": "n8n-nodes-base.merge",
       "typeVersion": 3,
-      "position": [
-        936,
-        100
-      ],
+      "position": [936, 100],
       "id": "d026bce1-d56f-4cd1-9c3e-6ff167b0d37c",
       "name": "Merge"
     }
@@ -223,9 +199,7 @@
   },
   "active": false,
   "settings": {
-    "executionOrder": "v1",
-    "saveExecutionProgress": true,
-    "callerPolicy": "workflowsFromSameOwner"
+    "executionOrder": "v1"
   },
   "versionId": "a6fd8501-ba54-4810-9abf-850e6dc2eb17",
   "meta": {

@@ -9,10 +9,7 @@
       "name": "When chat message received",
       "type": "@n8n/n8n-nodes-langchain.chatTrigger",
       "typeVersion": 1.1,
-      "position": [
-        -1740,
-        3150
-      ],
+      "position": [-1740, 3150],
       "webhookId": "03164255-7211-490a-a3b7-06cf8844f407"
     },
     {
@@ -23,10 +20,7 @@
       },
       "type": "n8n-nodes-base.stickyNote",
       "typeVersion": 1,
-      "position": [
-        -2440,
-        2940
-      ],
+      "position": [-2440, 2940],
       "id": "a8975cb0-ab3d-4240-bdce-ff6d9b39c364",
       "name": "Sticky Note"
     },
@@ -37,10 +31,7 @@
       },
       "type": "n8n-nodes-base.stickyNote",
       "typeVersion": 1,
-      "position": [
-        -1580,
-        2500
-      ],
+      "position": [-1580, 2500],
       "id": "e0671a3b-7694-45ea-9f20-9371eaa99152",
       "name": "Sticky Note1"
     },
@@ -52,10 +43,7 @@
       },
       "type": "n8n-nodes-base.stickyNote",
       "typeVersion": 1,
-      "position": [
-        -1580,
-        3340
-      ],
+      "position": [-1580, 3340],
       "id": "752c570a-9245-4f20-af33-58d4a807a4fb",
       "name": "Sticky Note2"
     },
@@ -68,10 +56,7 @@
       },
       "type": "n8n-nodes-base.webhook",
       "typeVersion": 2,
-      "position": [
-        -2180,
-        2750
-      ],
+      "position": [-2180, 2750],
       "id": "d53a48dc-80a3-444b-904e-a2ff4343a27d",
       "name": "Webhook",
       "webhookId": "d193c301-1afd-403c-bcf8-03177dc3e672"
@@ -84,10 +69,7 @@
       },
       "type": "n8n-nodes-base.respondToWebhook",
       "typeVersion": 1.1,
-      "position": [
-        -1960,
-        2750
-      ],
+      "position": [-1960, 2750],
       "id": "fb243807-9945-4e60-9dff-e3c5f103c223",
       "name": "Respond to Webhook"
     },
@@ -107,10 +89,7 @@
       },
       "type": "n8n-nodes-base.set",
       "typeVersion": 3.4,
-      "position": [
-        -1740,
-        2750
-      ],
+      "position": [-1740, 2750],
       "id": "51e03f07-b4f6-4c73-a4fd-32c7e41abd41",
       "name": "Edit Fields"
     },
@@ -125,10 +104,7 @@
       },
       "type": "@n8n/n8n-nodes-langchain.lmChatOpenAi",
       "typeVersion": 1.2,
-      "position": [
-        -1492,
-        2920
-      ],
+      "position": [-1492, 2920],
       "id": "92f094d5-68c7-41cd-b584-0ff1ef9d979f",
       "name": "OpenAI Chat Model",
       "credentials": {
@@ -145,10 +121,7 @@
       },
       "type": "@n8n/n8n-nodes-langchain.outputParserStructured",
       "typeVersion": 1.2,
-      "position": [
-        -1372,
-        2920
-      ],
+      "position": [-1372, 2920],
       "id": "efcda83a-d834-4b2d-acb7-734b17f2cfe7",
       "name": "Structured Output Parser"
     },
@@ -165,10 +138,7 @@
       },
       "type": "@n8n/n8n-nodes-langchain.chainLlm",
       "typeVersion": 1.5,
-      "position": [
-        -1520,
-        2700
-      ],
+      "position": [-1520, 2700],
       "id": "e6f1645e-a7a1-4a52-80fb-6747971c5d9b",
       "name": "Lack of two-step process for contract ownership changes",
       "onError": "continueRegularOutput"
@@ -186,10 +156,7 @@
       },
       "type": "@n8n/n8n-nodes-langchain.chainLlm",
       "typeVersion": 1.5,
-      "position": [
-        -1520,
-        3100
-      ],
+      "position": [-1520, 3100],
       "id": "fea17545-c886-4fa4-8fe1-264323446ff7",
       "name": "Lack of access control",
       "onError": "continueRegularOutput"
@@ -198,10 +165,7 @@
       "parameters": {},
       "type": "n8n-nodes-base.merge",
       "typeVersion": 3,
-      "position": [
-        -1144,
-        2950
-      ],
+      "position": [-1144, 2950],
       "id": "4eb462d3-c2ee-467b-bf97-563a2d8109fb",
       "name": "Merge"
     }
@@ -319,9 +283,7 @@
   },
   "active": false,
   "settings": {
-    "executionOrder": "v1",
-    "saveExecutionProgress": true,
-    "callerPolicy": "workflowsFromSameOwner"
+    "executionOrder": "v1"
   },
   "versionId": "b8fb89e0-dd44-4b2f-a3f9-9db170d49331",
   "meta": {
