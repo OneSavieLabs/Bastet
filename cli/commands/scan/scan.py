@@ -1,143 +1,162 @@
-def scan(folder_path: str, n8n_workflow_webhook_url: str):
-    import os
+def scan_v1(folder_path: str, n8n_url: str, output_path: str):
     import glob
+    import os
+
+    import pandas as pd
     import requests
-    import psycopg
-    from psycopg.rows import dict_row
-    import json
+    from models.audit_report import AuditReport
+    from models.n8n.node import WebhookNode
+    from pydantic import ValidationError
     from tqdm import tqdm
 
-    def get_conn(dbname='postgres'):
-        """Get database connection with standard configuration"""
-        return psycopg.connect(
-            host=os.getenv('POSTGRES_HOST', 'localhost'),
-            user=os.getenv('POSTGRES_USER', 'bastet'),
-            password=os.getenv('POSTGRES_PASSWORD', 'bastet'),
-            port=os.getenv('POSTGRES_PORT', '5432'),
-            dbname=dbname,
-            autocommit=True,
-            row_factory=dict_row,
-        )
-    def create_database():
-        """create database if not exist"""
-        print('Creating database...')
-        try:
-            with get_conn() as conn:
-                with conn.cursor() as cur:
-                    cur.execute("SELECT 1 FROM pg_database WHERE datname = 'bastet'")
-                    if not cur.fetchone():
-                        cur.execute('CREATE DATABASE bastet')
-        except Exception as e:
-            print(f"Unexpected error in create_database: {str(e)}")
-            raise e
-    def create_table():
-        """create table if not exist"""
-        try:
-            with get_conn('bastet') as conn:
-                with conn.cursor() as cur:
-                    create_table_query = '''
-                    CREATE TABLE IF NOT EXISTS analysis (
-                        id SERIAL PRIMARY KEY,
-                        contract_name VARCHAR(1024),
-                        contract_path TEXT,
-                        audit_result JSONB,
-                        audit_result_review BOOLEAN DEFAULT FALSE,
-                        created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
-                        updated_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP
-                    )
-                    '''
-                    cur.execute(create_table_query)
-        except Exception as e:
-            print(f"Unexpected error in create_table: {str(e)}")
-            raise e
+    tqdm.write("Scanning contracts...")
 
-    def scan_contract(file_path):
-        """scan the contract file and return the analysis result"""
-        try:
-            with open(file_path, 'r') as file:
-                contract_content = file.read()
-            
-            # call n8n webhook
-            response = requests.post(
-                n8n_workflow_webhook_url,
-                json={'chatInput': contract_content},
-                headers={'Content-Type': 'application/json', 'X-API-Key': '1234567890'},
-            )
-
-            if response.status_code != 200:
-                error_details = response.json()
-                raise Exception(f"Failed to scan contract: {error_details.get('message')}")
-
-            return response.json()
-        except Exception as e:
-            print(f"Unexpected error in scan_contract: {str(e)}")
-            raise e
-
-    def insert_analysis_result(cur, file_path, result):
-        """insert the analysis result into the database"""
-        try:
-            file_name = os.path.basename(file_path)
-            audit_result = json.dumps(result)
-
-            insert_query = '''
-            INSERT INTO analysis 
-            (contract_name, contract_path, audit_result)
-            VALUES (%s, %s, %s)
-            '''
-
-            cur.execute(insert_query, (
-                file_name, 
-                file_path, 
-                audit_result,
-            ))
-
-        except Exception as e:
-            print(f"Unexpected error in insert_analysis_result: {str(e)}")
-            raise e
-
-    print('Scanning contracts...')
-    # TODO: move create_database, create_table to migration script
-    try:
-        create_database()
-        create_table()
-    except Exception as e:
-        print(f"Unexpected error in main: {str(e)}")
-        raise e
-
-    print('Database and table created.')
-    
-    contract_files = glob.glob(os.path.join(folder_path, '**/*.sol'), recursive=True)
+    contract_files = glob.glob(os.path.join(folder_path, "**/*.sol"), recursive=True)
     total_files = len(contract_files)
-    print(f'Found {total_files} contract files.')
+    tqdm.write(f"Found {total_files} contract files.")
 
-    success_count = 0
-    error_count = 0
+    response = requests.get(
+        f"{n8n_url}/api/v1/workflows",
+        headers={"X-N8N-API-KEY": os.getenv("N8N_API_KEY")},
+    )
+    if response.status_code != 200:
+        tqdm.write(
+            f"\033[91m❌ Error fetching workflows: {response.status_code} - {response.text}\033[0m"
+        )
+        return
+    workflows = []
+    for workflow in response.json()["data"]:
+        if workflow["active"]:
+            workflows.append(workflow)
 
-    with get_conn('bastet') as conn:
-        with conn.cursor() as cur:
-            for file_path in tqdm(contract_files, 
-                                desc="Processing contracts", 
-                                unit="file",
-                                ncols=100,
-                                colour='blue',
-                                bar_format='{desc}: {percentage:3.0f}%|{bar}| {n_fmt}/{total_fmt} files [Time: {elapsed}]'):
-                try:
-                    relative_path = os.path.relpath(file_path, folder_path)
-                    result = scan_contract(file_path)
+    if workflows:
+        tqdm.write(f"Found {len(workflows)} active processor workflows.")
+        tqdm.write(f"-" * 50)
+        audit_reports: list[AuditReport] = []
+        for contract_file in tqdm(
+            contract_files,
+            desc="Processing contracts",
+            unit="file",
+            ncols=100,
+            colour="blue",
+            bar_format="{desc}: {percentage:3.0f}%|{bar}| {n_fmt}/{total_fmt} files [Time: {elapsed}]",
+            mininterval=0.01,
+            # file=sys.stdout,
+        ):
+            tqdm.write(f"start scanning contract: {contract_file}")
+            tqdm.write(f"-" * 50)
+            with open(contract_file, "r") as file:
+                contract_content = file.read()
+                file.close()
 
-                    insert_analysis_result(cur, relative_path, result)
-                    success_count += 1
-                    
-                    tqdm.write("\033[92m✅ Successfully processed: {}\033[0m".format(relative_path))
-                    
-                except Exception as e:
-                    error_count += 1
-                    tqdm.write("\033[91m❌ Error processing {}: {}\033[0m".format(file_path, str(e)))
+            for workflow in tqdm(
+                workflows,
+                desc="Fetching workflows",
+                unit="workflow",
+                ncols=100,
+                colour="red",
+                bar_format="{desc}: {percentage:3.0f}%|{bar}| {n_fmt}/{total_fmt} workflows [Time: {elapsed}]",
+                mininterval=0.01,
+            ):
+                workflow_name = workflow["name"]
+                tqdm.write(f"\033[92mstart workflow: {workflow_name}\033[0m")
 
-    print('\n' + '=' * 50)
-    print("📊 Processing Summary".center(50))
-    print('=' * 50)
-    print(f"📁 Total files processed: {total_files}")
-    print(f"✅ Successfully processed: {success_count}")
-    print(f"❌ Errors encountered: {error_count}")
-    print('=' * 50 + '\n')
+                webhook_node = next(
+                    (
+                        WebhookNode(**node)
+                        for node in workflow["nodes"]
+                        if node["type"] == "n8n-nodes-base.webhook"
+                    ),
+                    None,
+                )
+                if not webhook_node:
+                    tqdm.write(
+                        f"\033[91m❌ No valid webhook node found in workflow: {workflow['name']}\033[0m"
+                    )
+                    continue
+                webhook_url = webhook_node.get_webhook_url(n8n_url)
+                response = requests.post(
+                    webhook_url,
+                    json={
+                        "prompt": contract_content,
+                    },
+                    headers={"Content-Type": "application/json"},
+                )
+                execution_id = response.text
+
+                execution_url = (
+                    f"{n8n_url}/api/v1/executions/{execution_id}?includeData=true"
+                )
+                headers = {"X-N8N-API-KEY": os.getenv("N8N_API_KEY")}
+                current_stage = ""
+                while True:
+                    response = requests.get(execution_url, headers=headers)
+                    execution_data = response.json()
+
+                    if execution_data["finished"]:
+                        break
+
+                    node_execution_stack = execution_data["data"]["executionData"].get(
+                        "nodeExecutionStack", []
+                    )
+
+                    if (
+                        node_execution_stack
+                        and current_stage != node_execution_stack[0]["node"]["name"]
+                    ):
+                        current_stage = node_execution_stack[0]["node"]["name"]
+
+                        tqdm.write(f"Current Node: {current_stage}")
+                # final data parsing:
+                final_node_name = execution_data["data"]["resultData"][
+                    "lastNodeExecuted"
+                ]
+                workflow_reports = execution_data["data"]["resultData"]["runData"][
+                    final_node_name
+                ][0]["data"]["main"][0]
+                if workflow_reports:
+                    cnt = 0
+                    for report in workflow_reports:
+                        for report_json in report["json"].get("output", ["exception"]):
+                            if report_json == "exception":
+                                tqdm.write(
+                                    f"\033[91m❌ Model output doesn't fit required format, escape one\033[0m"
+                                )
+                                continue
+                            try:
+                                audit_report = AuditReport(**report_json)
+                                audit_reports.append(audit_report)
+                                cnt += 1
+                            except ValidationError as e:
+                                tqdm.write(
+                                    f"\033[91m❌ Error parsing report: {e}\033[0m"
+                                )
+                                continue
+                    if cnt == 0:
+                        tqdm.write(
+                            f"\033[92m✅ No vulnerability found in contract: {contract_file}\033[0m"
+                        )
+                    else:
+                        tqdm.write(
+                            f"\033[93m⚠️ Found {cnt} vulnerabilities in contract: {contract_file}\033[0m"
+                        )
+                tqdm.write(f"-" * 50)
+        df = pd.DataFrame(
+            [
+                {
+                    "File Name": contract_file,
+                    "Summary": report.summary,
+                    "Severity": report.severity,
+                    "Vulnerability": report.vulnerability_details,
+                    "Recommendation": report.recommendation,
+                }
+                for report in audit_reports
+            ]
+        )
+        df.to_csv(output_path + "audit_reports.csv", index=False)
+
+    else:
+        tqdm.write(
+            f"\033[91m❌ No active processor workflows found. Please turn on the workflow in n8n or follow README to setup correctly. \033[0m"
+        )
+        return

@@ -9,7 +9,10 @@
       "name": "When chat message received",
       "type": "@n8n/n8n-nodes-langchain.chatTrigger",
       "typeVersion": 1.1,
-      "position": [-1860, 2420],
+      "position": [
+        -1740,
+        3150
+      ],
       "webhookId": "03164255-7211-490a-a3b7-06cf8844f407"
     },
     {
@@ -20,7 +23,10 @@
       },
       "type": "n8n-nodes-base.stickyNote",
       "typeVersion": 1,
-      "position": [-2200, 2200],
+      "position": [
+        -2440,
+        2940
+      ],
       "id": "a8975cb0-ab3d-4240-bdce-ff6d9b39c364",
       "name": "Sticky Note"
     },
@@ -31,109 +37,172 @@
       },
       "type": "n8n-nodes-base.stickyNote",
       "typeVersion": 1,
-      "position": [-1340, 2140],
+      "position": [
+        -1580,
+        2500
+      ],
       "id": "e0671a3b-7694-45ea-9f20-9371eaa99152",
       "name": "Sticky Note1"
     },
     {
       "parameters": {
-        "modelId": {
-          "__rl": true,
-          "value": "gpt-4o-mini",
-          "mode": "list",
-          "cachedResultName": "GPT-4O-MINI"
-        },
-        "messages": {
-          "values": [
-            {
-              "content": "=You are a smart contract auditor. After reading the following vulnerability knowledge and understanding correct and incorrect examples, detect the problem in the contract code.\n\n### Vulnerability Knowledge\n\n**Lack of two-step process for contract ownership changes**\nAccess control means \"who can do this\", which is very important in the smart contracts.\nAccess controls on a contract may affect which roles can mint tokens, vote on proposals, freeze transfers, and many other critical functions.\nIt is crucial to correctly implement permission control to prevent unauthorized actors from performing operations.\n\nIn OpenZeppelin, there are two main ways to implement access control: Ownable and Role-Based Access Control.\nOwnable gives control to the contract owner and is suitable for simpler applications, but when multiple roles or permission levels are involved, RBAC provides more granular control, allowing different roles to perform specific functions.\n\n*Ownable\nOpenZeppelin's Ownable.sol provides a basic access control mode. A contract has an owner who has full control over the contract. This pattern typically restricts certain functions to be executed only by the owner of the contract. The Ownable.sol contract provides some basic functionality, such as transferring ownership permissions (transferOwnership()) and checking the current owner (owner()).\n\n*Role-based access Control (RBAC)\nOpenZeppelin's AccessControl.sol provides role-based access control. It allows contracts to assign different roles to different addresses, thereby controlling access to certain functions based on those roles. This model is more flexible, allowing different roles to be set for different functions and more detailed design control of the execution permissions of various functions in the contract.\n\n### Examples\n\n#### Example\n\nThere is a function in the contract that can change the current address.\n\n```solidity\n// SPDX-License-Identifier: MIT\npragma solidity ^0.8.0;\n\ncontract example {\n    address public currentAddress;\n\n    event AddressChanged(address indexed newAddress);\n\n    modifier onlyCurrentAddress() {\n        require(msg.sender == currentAddress, \"Not authorized\");\n        _;\n    }\n\n    constructor(address initialAddress) {\n        currentAddress = initialAddress;\n    }\n\n\n    function changeAddress(address _newAddress) public onlyCurrentAddress {\n        require(_newAddress != address(0), \"Invalid address\");\n        currentAddress = _newAddress;\n        emit AddressChanged(_newAddress);\n    }\n}\n```\n\n**Suggestion**\n\nThe risk of a one-time ownership change is high because any mistakes cannot be recovered from. If an incorrect address is used when changing ownership, such as an address with a lost private key, an incorrect/non-whitelisted address, etc., all operations requiring owner permissions will be unable to be performed.\nCritical functions protected by onlyOwner() will not be usable because correct ownership cannot be verified.\n\n### Task to Perform\nFollow the examples above to examine each contract and check if it contains this issue. If you find any potential issues, record them using the format below.\n\n### Output Format\n\nIf NO concrete vulnerability found, output exactly: **\"There’s no such issue.\"**\n\nOtherwise, follow the format below:\n\n```\n### Summary\nLack of two-step process for contract ownership changes\n\n### Vulnerability Details\n1. **File Name:** [Insert File Name\u001d, if input is not a file and cannot justify file name, leave blank]\n2. **Function Name(s):** [The functions where the issue occur]\n3. **Description:**\n[Describe vulnerability details]\n\n### Code Snippet\n[The lines where the vulnerability occurs]\n\n### Recommendation\n[Provide brief recommendations, do not need to mention Audit and Testing, do not need Code Snippet.]\n```",
-              "role": "system"
-            },
-            {
-              "content": "={{ $json.chatInput }}"
-            }
-          ]
-        },
-        "jsonOutput": true,
-        "options": {
-          "maxTokens": 16000
-        }
-      },
-      "type": "@n8n/n8n-nodes-langchain.openAi",
-      "typeVersion": 1.7,
-      "position": [-1320, 2340],
-      "id": "c4483115-0b1c-47bb-a28f-f031f306177e",
-      "name": "Lack of two-step process for contract ownership changes",
-      "credentials": {
-        "openAiApi": {
-          "id": "3n5IdJTc1ZEDFCSE",
-          "name": "OpenAi account"
-        }
-      }
-    },
-    {
-      "parameters": {
-        "modelId": {
-          "__rl": true,
-          "value": "gpt-4o-mini",
-          "mode": "list",
-          "cachedResultName": "GPT-4O-MINI"
-        },
-        "messages": {
-          "values": [
-            {
-              "content": "=You are a smart contract auditor. After reading the following vulnerability knowledge and understanding correct and incorrect examples, detect the problem in the contract code.\n\n### Vulnerability Knowledge\n\n**Lack of access control**\nAccess control means \"who can do this\", which is very important in the smart contracts.\nAccess controls on a contract may affect which roles can mint tokens, vote on proposals, freeze transfers, and many other critical functions.\nIt is crucial to correctly implement permission control to prevent unauthorized actors from performing operations.\n\nIn OpenZeppelin, there are two main ways to implement access control: Ownable and Role-Based Access Control.\nOwnable gives control to the contract owner and is suitable for simpler applications, but when multiple roles or permission levels are involved, RBAC provides more granular control, allowing different roles to perform specific functions.\n\n*Ownable\nOpenZeppelin's Ownable.sol provides a basic access control mode. A contract has an owner who has full control over the contract. This pattern typically restricts certain functions to be executed only by the owner of the contract. The Ownable.sol contract provides some basic functionality, such as transferring ownership permissions (transferOwnership()) and checking the current owner (owner()).\n\n*Role-based access Control (RBAC)\nOpenZeppelin's AccessControl.sol provides role-based access control. It allows contracts to assign different roles to different addresses, thereby controlling access to certain functions based on those roles. This model is more flexible, allowing different roles to be set for different functions and more detailed design control of the execution permissions of various functions in the contract.\n\nKey functions or parameters in the contract are not properly subject to permission control, allowing unauthorized users to arbitrarily operate and modify them, resulting in security risks.\n\n### Examples\n\n#### Example\n\nThe contract contains a function that can modify the owner and withdraw funds.\n\n```solidity\npragma solidity ^0.8.0;\n\ncontract example {\n    address public owner;\n    constructor() {\n        owner = msg.sender;\n    }\n\n    function setOwner(address _newOwner) public {\n        owner = _newOwner;\n    }\n    receive() external payable {}\n   function withdraw() public {\n        require(msg.sender == owner, \"Not authorized\");\n        (bool success, ) = owner.call{value: address(this).balance}(\"\");\n        require(success, \"Transfer failed\");\n    }\n}\n```\n\n**Suggestion**\n\nsetOwner() lacks proper access control, and anyone can call this function to change the owner of the contract. An attacker can set his own address as the owner of the contract through setOwner(), thereby bypassing `require(msg.sender == owner)` or `onlyOwner` modifier the check in withdraw(), and then call withdraw() to withdraw all funds in the contract.\n\n### Task to Perform\nFollow the examples above to examine each contract and check if it contains this issue. If you find any potential issues, record them using the format below.\n\n### Output Format\n\nIf NO concrete vulnerability found, output exactly: **\"There’s no such issue.\"**\n\nOtherwise, follow the format below:\n\n```\n### Summary\nLack of access control\n\n### Vulnerability Details\n1. **File Name:** [Insert File Name\u001d, if input is not a file and cannot justify file name, leave blank]\n2. **Function Name(s):** [The functions where the issue occur]\n3. **Description:**\n[Describe vulnerability details]\n\n### Code Snippet\n[The lines where the vulnerability occurs]\n\n### Recommendation\n[Provide brief recommendations, do not need to mention Audit and Testing, do not need Code Snippet.]\n```",
-              "role": "system"
-            },
-            {
-              "content": "={{ $json.chatInput }}"
-            }
-          ]
-        },
-        "jsonOutput": true,
-        "options": {
-          "maxTokens": 16000
-        }
-      },
-      "type": "@n8n/n8n-nodes-langchain.openAi",
-      "typeVersion": 1.7,
-      "position": [-1320, 2680],
-      "id": "0f732c5b-91f6-4546-8fd9-72a9fd1f454c",
-      "name": "Lack of access control",
-      "credentials": {
-        "openAiApi": {
-          "id": "3n5IdJTc1ZEDFCSE",
-          "name": "OpenAi account"
-        }
-      }
-    },
-    {
-      "parameters": {
         "content": "### Lack of access control\nhttps://bscscan.com/address/0xe48b75dc1b131fd3a8364b0580f76efd04cf6e9c#code#L185",
+        "height": 140,
         "width": 380
       },
       "type": "n8n-nodes-base.stickyNote",
       "typeVersion": 1,
-      "position": [-1320, 2900],
+      "position": [
+        -1580,
+        3340
+      ],
       "id": "752c570a-9245-4f20-af33-58d4a807a4fb",
       "name": "Sticky Note2"
     },
     {
       "parameters": {
-        "inputSource": "passthrough"
+        "httpMethod": "POST",
+        "path": "d193c301-1afd-403c-bcf8-03177dc3e672",
+        "responseMode": "responseNode",
+        "options": {}
       },
-      "type": "n8n-nodes-base.executeWorkflowTrigger",
+      "type": "n8n-nodes-base.webhook",
+      "typeVersion": 2,
+      "position": [
+        -2180,
+        2750
+      ],
+      "id": "d53a48dc-80a3-444b-904e-a2ff4343a27d",
+      "name": "Webhook",
+      "webhookId": "d193c301-1afd-403c-bcf8-03177dc3e672"
+    },
+    {
+      "parameters": {
+        "respondWith": "text",
+        "responseBody": "={{ $execution.id }}",
+        "options": {}
+      },
+      "type": "n8n-nodes-base.respondToWebhook",
       "typeVersion": 1.1,
-      "position": [-1860, 2640],
-      "id": "fc2fec0e-bc38-4f37-8c35-90f65d9c28dd",
-      "name": "Workflow Input Trigger"
+      "position": [
+        -1960,
+        2750
+      ],
+      "id": "fb243807-9945-4e60-9dff-e3c5f103c223",
+      "name": "Respond to Webhook"
+    },
+    {
+      "parameters": {
+        "assignments": {
+          "assignments": [
+            {
+              "id": "0188918e-1cb2-4d6e-94b6-f6371fa5f0d5",
+              "name": "chatInput",
+              "value": "{{ $json.body.prompt }}",
+              "type": "string"
+            }
+          ]
+        },
+        "options": {}
+      },
+      "type": "n8n-nodes-base.set",
+      "typeVersion": 3.4,
+      "position": [
+        -1740,
+        2750
+      ],
+      "id": "51e03f07-b4f6-4c73-a4fd-32c7e41abd41",
+      "name": "Edit Fields"
+    },
+    {
+      "parameters": {
+        "model": {
+          "__rl": true,
+          "mode": "list",
+          "value": "gpt-4o-mini"
+        },
+        "options": {}
+      },
+      "type": "@n8n/n8n-nodes-langchain.lmChatOpenAi",
+      "typeVersion": 1.2,
+      "position": [
+        -1492,
+        2920
+      ],
+      "id": "92f094d5-68c7-41cd-b584-0ff1ef9d979f",
+      "name": "OpenAI Chat Model",
+      "credentials": {
+        "openAiApi": {
+          "id": "6qICvMVQ9Mixvcjz",
+          "name": "OpenAi account"
+        }
+      }
+    },
+    {
+      "parameters": {
+        "schemaType": "manual",
+        "inputSchema": "{\n  \"type\": \"array\",\n  \"items\": {\n    \"type\": \"object\",\n    \"properties\": {\n      \"summary\": {\n        \"type\": \"string\",\n        \"description\": \"Brief summary of the vulnerability\"\n      },\n      \"severity\": {\n        \"type\": \"string\",\n        \"items\": {\n          \"type\": \"string\",\n          \"enum\": [\"high\", \"medium\", \"low\"]\n        },\n        \"description\": \"Severity level of the vulnerability\"\n      },\n      \"vulnerability_details\": {\n        \"type\": \"object\",\n        \"properties\": {\n          \"function_name\": {\n            \"type\": \"string\",\n            \"description\": \"Function name where the vulnerability is found\"\n          },\n          \"description\": {\n            \"type\": \"string\",\n            \"description\": \"Detailed description of the vulnerability\"\n          }\n        },\n        \"required\": [\"function_name\", \"description\"]\n      },\n      \"code_snippet\": {\n        \"type\": \"array\",\n        \"items\": {\n          \"type\": \"string\"\n        },\n        \"description\": \"Code snippet showing the vulnerability\",\n        \"default\": []\n      },\n      \"recommendation\": {\n        \"type\": \"string\",\n        \"description\": \"Recommendation to fix the vulnerability\"\n      }\n    },\n    \"required\": [\"summary\", \"severity\", \"vulnerability_details\", \"code_snippet\", \"recommendation\"]\n  },\n  \"additionalProperties\": false\n}"
+      },
+      "type": "@n8n/n8n-nodes-langchain.outputParserStructured",
+      "typeVersion": 1.2,
+      "position": [
+        -1372,
+        2920
+      ],
+      "id": "efcda83a-d834-4b2d-acb7-734b17f2cfe7",
+      "name": "Structured Output Parser"
+    },
+    {
+      "parameters": {
+        "hasOutputParser": true,
+        "messages": {
+          "messageValues": [
+            {
+              "message": "=You are a smart contract auditor. After reading the following vulnerability knowledge and understanding correct and incorrect examples, detect the problem in the contract code.\n\n### Vulnerability Knowledge\n\n**Lack of two-step process for contract ownership changes**\nAccess control means \"who can do this\", which is very important in the smart contracts.\nAccess controls on a contract may affect which roles can mint tokens, vote on proposals, freeze transfers, and many other critical functions.\nIt is crucial to correctly implement permission control to prevent unauthorized actors from performing operations.\n\nIn OpenZeppelin, there are two main ways to implement access control: Ownable and Role-Based Access Control.\nOwnable gives control to the contract owner and is suitable for simpler applications, but when multiple roles or permission levels are involved, RBAC provides more granular control, allowing different roles to perform specific functions.\n\n*Ownable\nOpenZeppelin's Ownable.sol provides a basic access control mode. A contract has an owner who has full control over the contract. This pattern typically restricts certain functions to be executed only by the owner of the contract. The Ownable.sol contract provides some basic functionality, such as transferring ownership permissions (transferOwnership()) and checking the current owner (owner()).\n\n*Role-based access Control (RBAC)\nOpenZeppelin's AccessControl.sol provides role-based access control. It allows contracts to assign different roles to different addresses, thereby controlling access to certain functions based on those roles. This model is more flexible, allowing different roles to be set for different functions and more detailed design control of the execution permissions of various functions in the contract.\n\n### Examples\n\n#### Example\n\nThere is a function in the contract that can change the current address.\n\n```solidity\n// SPDX-License-Identifier: MIT\npragma solidity ^0.8.0;\n\ncontract example {\n    address public currentAddress;\n\n    event AddressChanged(address indexed newAddress);\n\n    modifier onlyCurrentAddress() {\n        require(msg.sender == currentAddress, \"Not authorized\");\n        _;\n    }\n\n    constructor(address initialAddress) {\n        currentAddress = initialAddress;\n    }\n\n\n    function changeAddress(address _newAddress) public onlyCurrentAddress {\n        require(_newAddress != address(0), \"Invalid address\");\n        currentAddress = _newAddress;\n        emit AddressChanged(_newAddress);\n    }\n}\n```\n\n**Suggestion**\n\nThe risk of a one-time ownership change is high because any mistakes cannot be recovered from. If an incorrect address is used when changing ownership, such as an address with a lost private key, an incorrect/non-whitelisted address, etc., all operations requiring owner permissions will be unable to be performed.\nCritical functions protected by onlyOwner() will not be usable because correct ownership cannot be verified.\n\n### Task to Perform\nFollow the examples above to examine each contract and check if it contains this issue. If you find any potential issues, record them using the format below.\n\n### Output Format\n\nIf NO concrete vulnerability found, output a empty array\n\nOtherwise, follow the format below:\n\n```\n[\n    {\n        \"summary\":  \"summary of the vulnerabilities\",\n        \"vulnerability_details\": {\n            \"function_name\": \"Name of the function\",\n            \"description\": \"a brief description of the vulnerability\"\n        },\n    \n        \"code_snippet\": [\n            \"code snippet in the file\"\n        ],\n    \n        \"recommendation\": \"recommendation of how to fix the vulnerability\"\n    \n    }\n]\n```"
+            }
+          ]
+        }
+      },
+      "type": "@n8n/n8n-nodes-langchain.chainLlm",
+      "typeVersion": 1.5,
+      "position": [
+        -1520,
+        2700
+      ],
+      "id": "e6f1645e-a7a1-4a52-80fb-6747971c5d9b",
+      "name": "Lack of two-step process for contract ownership changes",
+      "onError": "continueRegularOutput"
+    },
+    {
+      "parameters": {
+        "hasOutputParser": true,
+        "messages": {
+          "messageValues": [
+            {
+              "message": "=You are a smart contract auditor. After reading the following vulnerability knowledge and understanding correct and incorrect examples, detect the problem in the contract code.\n\n### Vulnerability Knowledge\n\n**Lack of access control**\nAccess control means \"who can do this\", which is very important in the smart contracts.\nAccess controls on a contract may affect which roles can mint tokens, vote on proposals, freeze transfers, and many other critical functions.\nIt is crucial to correctly implement permission control to prevent unauthorized actors from performing operations.\n\nIn OpenZeppelin, there are two main ways to implement access control: Ownable and Role-Based Access Control.\nOwnable gives control to the contract owner and is suitable for simpler applications, but when multiple roles or permission levels are involved, RBAC provides more granular control, allowing different roles to perform specific functions.\n\n*Ownable\nOpenZeppelin's Ownable.sol provides a basic access control mode. A contract has an owner who has full control over the contract. This pattern typically restricts certain functions to be executed only by the owner of the contract. The Ownable.sol contract provides some basic functionality, such as transferring ownership permissions (transferOwnership()) and checking the current owner (owner()).\n\n*Role-based access Control (RBAC)\nOpenZeppelin's AccessControl.sol provides role-based access control. It allows contracts to assign different roles to different addresses, thereby controlling access to certain functions based on those roles. This model is more flexible, allowing different roles to be set for different functions and more detailed design control of the execution permissions of various functions in the contract.\n\nKey functions or parameters in the contract are not properly subject to permission control, allowing unauthorized users to arbitrarily operate and modify them, resulting in security risks.\n\n### Examples\n\n#### Example\n\nThe contract contains a function that can modify the owner and withdraw funds.\n\n```solidity\npragma solidity ^0.8.0;\n\ncontract example {\n    address public owner;\n    constructor() {\n        owner = msg.sender;\n    }\n\n    function setOwner(address _newOwner) public {\n        owner = _newOwner;\n    }\n    receive() external payable {}\n   function withdraw() public {\n        require(msg.sender == owner, \"Not authorized\");\n        (bool success, ) = owner.call{value: address(this).balance}(\"\");\n        require(success, \"Transfer failed\");\n    }\n}\n```\n\n**Suggestion**\n\nsetOwner() lacks proper access control, and anyone can call this function to change the owner of the contract. An attacker can set his own address as the owner of the contract through setOwner(), thereby bypassing `require(msg.sender == owner)` or `onlyOwner` modifier the check in withdraw(), and then call withdraw() to withdraw all funds in the contract.\n\n### Task to Perform\nFollow the examples above to examine each contract and check if it contains this issue. If you find any potential issues, record them using the format below.\n\n### Output Format\n\nIf NO concrete vulnerability found, output a empty array\n\nOtherwise, follow the format below:\n\n```\n[\n    {\n        \"summary\":  \"summary of the vulnerabilities\",\n        \"vulnerability_details\": {\n            \"function_name\": \"Name of the function\",\n            \"description\": \"a brief description of the vulnerability\"\n        },\n    \n        \"code_snippet\": [\n            \"code snippet in the file\"\n        ],\n    \n        \"recommendation\": \"recommendation of how to fix the vulnerability\"\n    \n    }\n]\n```"
+            }
+          ]
+        }
+      },
+      "type": "@n8n/n8n-nodes-langchain.chainLlm",
+      "typeVersion": 1.5,
+      "position": [
+        -1520,
+        3100
+      ],
+      "id": "fea17545-c886-4fa4-8fe1-264323446ff7",
+      "name": "Lack of access control",
+      "onError": "continueRegularOutput"
     },
     {
       "parameters": {},
       "type": "n8n-nodes-base.merge",
       "typeVersion": 3,
-      "position": [-800, 2520],
-      "id": "0977460b-5591-4adc-b48d-1cabc73bf16d",
+      "position": [
+        -1144,
+        2950
+      ],
+      "id": "4eb462d3-c2ee-467b-bf97-563a2d8109fb",
       "name": "Merge"
     }
   ],
@@ -155,7 +224,29 @@
         ]
       ]
     },
-    "Workflow Input Trigger": {
+    "Webhook": {
+      "main": [
+        [
+          {
+            "node": "Respond to Webhook",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Respond to Webhook": {
+      "main": [
+        [
+          {
+            "node": "Edit Fields",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Edit Fields": {
       "main": [
         [
           {
@@ -166,6 +257,38 @@
           {
             "node": "Lack of access control",
             "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "OpenAI Chat Model": {
+      "ai_languageModel": [
+        [
+          {
+            "node": "Lack of access control",
+            "type": "ai_languageModel",
+            "index": 0
+          },
+          {
+            "node": "Lack of two-step process for contract ownership changes",
+            "type": "ai_languageModel",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Structured Output Parser": {
+      "ai_outputParser": [
+        [
+          {
+            "node": "Lack of access control",
+            "type": "ai_outputParser",
+            "index": 0
+          },
+          {
+            "node": "Lack of two-step process for contract ownership changes",
+            "type": "ai_outputParser",
             "index": 0
           }
         ]
@@ -196,19 +319,15 @@
   },
   "active": false,
   "settings": {
-    "executionOrder": "v1"
+    "executionOrder": "v1",
+    "saveExecutionProgress": true,
+    "callerPolicy": "workflowsFromSameOwner"
   },
-  "versionId": "539b5c9d-d5bc-4822-8621-1a4dbd4509ab",
+  "versionId": "b8fb89e0-dd44-4b2f-a3f9-9db170d49331",
   "meta": {
-    "instanceId": "05462fd1d5b4ba8cfb2088b0bbba2bf68a52dacabf05e9e2fddc98f00c1a98c1"
+    "templateCredsSetupCompleted": true,
+    "instanceId": "022db2fbd0a73e6d486f16c5eb885d1053a420197cf4f3857ab5d1742b50c5ad"
   },
-  "id": "ZLXuyAgoQkzvUHrV",
-  "tags": [
-    {
-      "createdAt": "2025-03-28T03:10:25.912Z",
-      "updatedAt": "2025-03-28T03:10:25.912Z",
-      "id": "ftVrnm2eUdzg9KX7",
-      "name": "processor"
-    }
-  ]
+  "id": "b6N3vPhQKf6Dy6jD",
+  "tags": []
 }

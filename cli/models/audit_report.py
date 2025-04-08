@@ -17,4 +17,6 @@ class AuditReport(BaseModel):
 
     def __init__(self, **data):
         data["severity"] = data.get("severity", "").lower()
+        if data["severity"] not in ["high", "medium", "low"]:
+            data["severity"] = "high"
         super().__init__(**data)

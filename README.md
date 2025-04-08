@@ -147,33 +147,33 @@ The script will scan all contracts in the `dataset/scan_queue` directory using t
   "items": {
     "type": "object",
     "properties": {
-      "Summary": {
+      "summary": {
         "type": "string",
         "description": "Brief summary of the vulnerability"
       },
-      "Severity": {
+      "severity": {
         "type": "string",
         "items": {
           "type": "string",
-          "enum": ["High", "Medium", "Low"]
+          "enum": ["high", "medium", "low"]
         },
         "description": "Severity level of the vulnerability"
       },
-      "Vulnerability Details": {
+      "vulnerability_details": {
         "type": "object",
         "properties": {
-          "Function Name": {
+          "function_name": {
             "type": "string",
             "description": "Function name where the vulnerability is found"
           },
-          "Description": {
+          "description": {
             "type": "string",
             "description": "Detailed description of the vulnerability"
           }
         },
-        "required": ["Function Name", "Description"]
+        "required": ["function_name", "description"]
       },
-      "Code Snippet": {
+      "code_snippet": {
         "type": "array",
         "items": {
           "type": "string"
@@ -181,12 +181,12 @@ The script will scan all contracts in the `dataset/scan_queue` directory using t
         "description": "Code snippet showing the vulnerability",
         "default": []
       },
-      "Recommendation": {
+      "recommendation": {
         "type": "string",
         "description": "Recommendation to fix the vulnerability"
       }
     },
-    "required": ["Summary", "Severity", "Vulnerability Details", "Code Snippet", "Recommendation"]
+    "required": ["summary", "severity", "vulnerability_details", "code_snippet", "recommendation"]
   },
   "additionalProperties": false
 }
