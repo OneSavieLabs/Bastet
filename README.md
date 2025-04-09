@@ -119,7 +119,7 @@ docker-compose -f ./docker-compose.yml up -d
 poetry run python cli/main.py init
 ```
 
-You will see the all workflows we provided currently. (default activated, if you want to skip some workflow, please deactivate it in n8n (http://localhost:5678/home/workflows))
+You will see the all workflows we provided currently. (default activated, if you want to skip some workflow, please deactivate it in n8n (http://localhost:5678/home/workflows)
 
 ## Usage
 
