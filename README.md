@@ -23,6 +23,11 @@ Bastet/
 │   │   │── <module>/
 │   │   │   │── __init__.py     # CLI routing only, logic will define below
 │   │   │   │── <function>.py
+│   │── models/                 # Interfaces for python type check
+│   │   │── <SAAS>/
+│   │   │   │── __init__.py     # For output all models in SAAS
+│   │   │   │── <function>.py
+│   │   │── audit_report.py     # Main Interface of output in Bastet
 │── dataset/                    # dataset location
 │   │── catogory/               # Legacy: wait for refactor
 │   │   ├── (Type)/
@@ -104,21 +109,19 @@ docker-compose -f ./docker-compose.yml up -d
 
 7. Back to the homepage (http://localhost:5678/home/workflows)
 
-8. Click **Create Credential** in the arrow button next to the Create Workflow button → Fill in "n8n" in the input → You will see "n8n API" and select it, click Continue → API Key fill in the API key you just created, Base URL fill in http://host.docker.internal:5678/api/v1 -> click the Save button and you will see Connection tested successfully message -> click the **Details** in sidebar and copy the value of the **ID** field and paste it to `N8N_API_CREDENTIAL_ID` in `.env` file.
+8. Click **Create Credential** in the arrow button next to the Create Workflow button → Fill in "OpenAi" in the input → You will see "OpenAi" and select it, click Continue → API Key fill your OpenAi API key, Create OpenAi credentials, and copy the value of the **ID** field and paste it to `N8N_OPENAI_CREDENTIAL_ID` in `.env` file.
 
-9. Based on previous step, Create OpenAi credentials, create a new credential with your OpenAi Key. and copy the value of the **ID** field and paste it to `N8N_OPENAI_CREDENTIAL_ID` in `.env` file.
+9. Import the workflow by executing the following code
 
-10. Import the workflow by executing the following code
-
-**Before the setup, make sure you fill the N8N_API_KEY, N8N_API_CREDENTIAL_ID, N8N_OPENAI_CREDENTIAL_ID in `.env` file.**
+**Before the setup, make sure you fill the N8N_API_KEY, N8N_OPENAI_CREDENTIAL_ID in `.env` file.**
 
 ```bash
 poetry run python cli/main.py init
 ```
 
-You will see the Main workflow and the Sub workflow(We call it processor) you selected with "processor" tag in the homepage.
+You will see the all workflows we provided currently.
 
-11. Turn on the switch button of Main workflow and the Sub workflow in the homepage.
+11. Turn on the switch button of the workflow you want to trigger in the homepage.
 
 ## Usage
 
@@ -132,13 +135,13 @@ The main script `scan` will recursively scan all `.sol` files in the specified d
 poetry run python cli/main.py scan
 ```
 
-The script will scan all contracts in the `dataset/scan_queue` directory using the processor workflows that you have activated by turning on their respective switch buttons.
+The script will scan all contracts in the `dataset/scan_queue` directory using all workflows that you have activated by turning on their respective switch buttons.
 
 > you can use flag `--help` for detail information of flag you can use
 
 ### Scan Single Contract with Single Processor Workflow
 
-1. Go into Processor workflow you want to scan.
+1. Go into the workflow you want to scan.
 2. Click the **Chat** button on the bottom and input the contract content.
 
 ### Evaluation
@@ -155,37 +158,33 @@ The script will scan all contracts in the `dataset/scan_queue` directory using t
   "items": {
     "type": "object",
     "properties": {
-      "Summary": {
+      "summary": {
         "type": "string",
         "description": "Brief summary of the vulnerability"
       },
-      "Severity": {
+      "severity": {
         "type": "string",
         "items": {
           "type": "string",
-          "enum": ["High", "Medium", "Low"]
+          "enum": ["high", "medium", "low"]
         },
         "description": "Severity level of the vulnerability"
       },
-      "Vulnerability Details": {
+      "vulnerability_details": {
         "type": "object",
         "properties": {
-          "File Name": {
-            "type": "string",
-            "description": "File name where the vulnerability exists"
-          },
-          "Function Name": {
+          "function_name": {
             "type": "string",
             "description": "Function name where the vulnerability is found"
           },
-          "Description": {
+          "description": {
             "type": "string",
             "description": "Detailed description of the vulnerability"
           }
         },
-        "required": ["File Name", "Function Name", "Description"]
+        "required": ["function_name", "description"]
       },
-      "Code Snippet": {
+      "code_snippet": {
         "type": "array",
         "items": {
           "type": "string"
@@ -193,18 +192,12 @@ The script will scan all contracts in the `dataset/scan_queue` directory using t
         "description": "Code snippet showing the vulnerability",
         "default": []
       },
-      "Recommendation": {
+      "recommendation": {
         "type": "string",
         "description": "Recommendation to fix the vulnerability"
       }
     },
-    "required": [
-      "Summary",
-      "Severity",
-      "Vulnerability Details",
-      "Code Snippet",
-      "Recommendation"
-    ]
+    "required": ["summary", "severity", "vulnerability_details", "code_snippet", "recommendation"]
   },
   "additionalProperties": false
 }

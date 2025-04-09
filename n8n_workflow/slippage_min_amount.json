@@ -3,31 +3,12 @@
   "nodes": [
     {
       "parameters": {
-        "promptType": "define",
-        "text": "={{ $json.chatInput }}",
-        "hasOutputParser": true,
-        "messages": {
-          "messageValues": [
-            {
-              "message": "## Overview\n\nWhen auditing smart contracts for **No Slippage Parameter** vulnerability, follow the step by step thinking process for each function. Your output should contain each step’s thinking.\n\n## Thinking Process\n\n1. First, identify if a function involves token transfers or exchanges:\n    - Does it contain token swapping?\n    - Does it add/remove liquidity?\n    - Does it interact with DEX protocols?\n2. If yes to any above, examine the parameters:\n    - Are there parameters for slippage protection?\n    - For example, minimum output amounts, maximum output amount, and price limits.\n3. For each slippage-related parameter found, check:\n    - Is it being used in validation?\n    - Is it being passed to subsequent calls?\n    - Is it hardcoded or configurable?\n4. Review the function and code snippet you found, check:\n    - Does the code snippet really contain slippage vulnerability?\n    - If the code snippet is the validation of amount using parameter like `minAmountOut`, it should not be the vulnerability.\n    - If vulnerability confirmed, follow the report format below to report that function’s vulnerability.\n\n## Examples with Reasoning\n\n### Example 1: Slippage Parameter Set to 0\n\n```\nIUniswapRouterV2(SUSHI_ROUTER).swapExactTokensForTokens(\ntoSwap,\n0,\npath,\naddress(this),\nnow\n);\n```\n\nThought process:\n\n1. This is a token swap function (swapExactTokensForTokens).\n2. Looking at parameters:\n    - Found minimum output parameter (2nd parameter).\n    - It's set to 0.\n3. Analysis:\n    - Zero minimum output means no slippage protection.\n    - User funds at risk from sandwich attacks.\n4. Final review:\n    - Confirmed vulnerability in code snippet.\n    - No validation logic present for minimum output.\n    - Zero value explicitly set, indicating deliberate omission of slippage protection.\n    - Code Snippet: \n\t```\n\tIUniswapRouterV2(SUSHI_ROUTER).swapExactTokensForTokens(\n\ttoSwap,\n\t0,\n\tpath,\n\taddress(this),\n\tnow\n\t);\n\t```\n\nConclusion: Contains vulnerability\n\n### Example 2: Slippage Parameter Unused\n\n```\nfunction addLiquidity(\nIERC20 tokenA, IERC20 tokenB,\nuint256 amountADesired, uint256 amountBDesired,\nuint256 amountAMin, uint256 amountBMin,\naddress to, uint256 deadline\n) external override returns (uint256 liquidity) {\nreturn addLiquidity(\ntokenA, tokenB,\namountADesired, amountBDesired,\nto, deadline\n);\n}\n```\n\nThought process:\n\n1. This is a liquidity provision function.\n2. Looking at parameters:\n    - Found minimum amount parameters (`amountAMin`,\n`amountBMin`).\n    - Parameters exist but aren't passed to internal call.\n3. Analysis:\n    - Slippage parameters are ignored.\n4. Final review:\n    - Confirmed vulnerability in implementation.\n    - Parameters exist but are completely unused in the function.\n    - No validation logic present despite parameter declaration.\n    - Code Snippet: \n\t```\n\treturn addLiquidity(\n\ttokenA, tokenB,\n\tamountADesired, amountBDesired,\n\tto, deadline\n\t);\n\t```\n\nConclusion: Contains vulnerability\n\n### Example 3: Slippage Parameter Hardcoded\n\n```\nuint256 amountToSwap = IERC20(isTokenA ? vault.token1() : vault.token0()).balanceOf(address(this));\n\nif (amountToSwap > 0) {\nswapPool = IUniswapV3Pool(vault.pool());\nswapPool.swap(\naddress(this),\n// if withdraw token is Token0, then swap token1 -> token0 (false)\n!isTokenA,\nint256(amountToSwap),\nisTokenA\n? UniV3WrappedLibMockup.MAX_SQRT_RATIO - 1 // Token0 -> Token1\n: UniV3WrappedLibMockup.MIN_SQRT_RATIO + 1, // Token1 -> Token0\nabi.encode(address(this))\n);\n}\n```\n\nThought process:\n\n1. This is a swap function (swap).\n2. Looking at parameters:\n    - Found minimum amount parameters (`sqrtPriceLimitX96`).\n    - It's hardcoded to extreme values.\n3. Analysis:\n    - Slippage parameters is hardcoded.\n4. Final review:\n    - Confirmed vulnerability in implementation.\n    - Hardcoded values represent worst possible rates.\n    - No user configuration possible for slippage protection.\n    - Code Snippet: \n\t```\n\tswapPool.swap(\n\taddress(this),\n\t// if withdraw token is Token0, then swap token1 -> token0 (false)\n\t!isTokenA,\n\tint256(amountToSwap),\n\tisTokenA\n\t? UniV3WrappedLibMockup.MAX_SQRT_RATIO - 1 // Token0 -> Token1\n\t: UniV3WrappedLibMockup.MIN_SQRT_RATIO + 1, // Token1 -> Token0\n\tabi.encode(address(this))\n\t);\n\t```\n\nConclusion: Contains vulnerability\n\n### Example 4: Safe Implementation\n\n```\namounts = UniswapV2Library.getAmountsOut(factory, amountIn, path);\nrequire(amounts[amounts.length - 1] >= amountOutMin, 'INSUFFICIENT_OUTPUT_AMOUNT');\nTransferHelper.safeTransferFrom(path[0], msg.sender, UniswapV2Library.pairFor(factory, path[0], path[1]), amounts[0]);\n_swap(amounts, path, to);\n}\n```\n\nThought process:\n\n1. This is a swap function (_swap).\n2. Looking at parameters:\n    - Found minimum output parameter (`amountOutMin`).\n    - Parameter is passed and used.\n3. Analysis:\n    - Slippage check implemented with `require()` statement.\n    - User can set their desired minimum output.\n4. Final review:\n    - Confirmed proper implementation of slippage protection.\n    - Valid minimum amount check in place.\n    - User-configurable parameters with appropriate validation.\n\nConclusion: No vulnerability\n\n### Example 5: Safe Implementation (Detected Vulnerability In the Beginning but Revised in Final Review)\n\n```\nuint256 fillAmount = RubiconMarket(_market).sellAllAmount(\nERC20(input),\n_pay,\nERC20(output),\n0 //naively assume no fill_amt here for loop purposes?\n);\ncurrentAmount = fillAmount;\n}\nrequire(currentAmount >= buy_amt_min, \"didnt clear buy_amt_min\");\n\nERC20(route[route.length - 1]).transfer(to, currentAmount);\n```\n\nThought process:\n\n1. This is a swap function (sellAllAmount).\n2. Looking at parameters:\n    - Found minimum output parameter (`buy_amt_min`).\n    - Parameter is passed and used.\n3. Analysis:\n    - The parameter `buy_amt_min` is intended to serve as a slippage protection for the minimum output amount to be received after a swap.\n    - However, its usage is limited to checks but lacks specific enforcement in the context of slippage management against potential price changes during execution.\n4. Final review:\n    - Previous analysis requires revision.\n    - The analysis in step. 3 is wrong since the slippage protection is implemented with line `require(currentAmount >= buy_amt_min, \"didnt clear buy_amt_min”);`.\n    - Since the prior analysis is wrong, we re-think the process again.\n\nConclusion: No vulnerability\n\n### Report Format\n\nIf the input is not a cryptocurrency smart contracts, report with a empty array:\n\n```\n[]\n```\n\nIf the conclusion of a function is “No vulnerability”, report with a empty array:\n\n```\n[]\n```\n\nIf vulnerabilities found in a function, report with a json:\n\n```\n[\n    {\n        \"Summary\":  \"summary of the vulnerabilities\",\n        \"Vulnerability Details\": {\n            \"File Name\": \"Name of the file\",\n            \"Function Name\": \"Name of the function\",\n            \"Description\": \"a brief description of the vulnerability\"\n        },\n    \n        \"Code Snippet\": [\n            \"code snippet in the file\"\n        ],\n    \n        \"Recommendation\": \"recommendation of how to fix the vulnerability\"\n    \n    }\n]\n```"
-            }
-          ]
-        }
-      },
-      "type": "@n8n/n8n-nodes-langchain.chainLlm",
-      "typeVersion": 1.5,
-      "position": [560, 0],
-      "id": "0fff0801-c2ee-4f61-a4af-ddd37f175f7b",
-      "name": "Basic LLM Chain"
-    },
-    {
-      "parameters": {
         "schemaType": "manual",
-        "inputSchema": "{\n  \"type\": \"array\",\n  \"items\": {\n    \"type\": \"object\",\n    \"properties\": {\n      \"Summary\": {\n        \"type\": \"string\",\n        \"description\": \"Brief summary of the vulnerability\"\n      },\n      \"Severity\": {\n        \"type\": \"string\",\n        \"items\": {\n          \"type\": \"string\",\n          \"enum\": [\"High\", \"Medium\", \"Low\"]\n        },\n        \"description\": \"Severity level of the vulnerability\"\n      },\n      \"Vulnerability Details\": {\n        \"type\": \"object\",\n        \"properties\": {\n          \"File Name\": {\n            \"type\": \"string\",\n            \"description\": \"File name where the vulnerability exists\"\n          },\n          \"Function Name\": {\n            \"type\": \"string\",\n            \"description\": \"Function name where the vulnerability is found\"\n          },\n          \"Description\": {\n            \"type\": \"string\",\n            \"description\": \"Detailed description of the vulnerability\"\n          }\n        },\n        \"required\": [\"File Name\", \"Function Name\", \"Description\"]\n      },\n      \"Code Snippet\": {\n        \"type\": \"array\",\n        \"items\": {\n          \"type\": \"string\"\n        },\n        \"description\": \"Code snippet showing the vulnerability\",\n        \"default\": []\n      },\n      \"Recommendation\": {\n        \"type\": \"string\",\n        \"description\": \"Recommendation to fix the vulnerability\"\n      }\n    },\n    \"required\": [\"Summary\", \"Severity\", \"Vulnerability Details\", \"Code Snippet\", \"Recommendation\"]\n  },\n  \"additionalProperties\": false\n}"
+        "inputSchema": "{\n  \"type\": \"array\",\n  \"items\": {\n    \"type\": \"object\",\n    \"properties\": {\n      \"summary\": {\n        \"type\": \"string\",\n        \"description\": \"Brief summary of the vulnerability\"\n      },\n      \"severity\": {\n        \"type\": \"string\",\n        \"items\": {\n          \"type\": \"string\",\n          \"enum\": [\"high\", \"medium\", \"low\"]\n        },\n        \"description\": \"Severity level of the vulnerability\"\n      },\n      \"vulnerability_details\": {\n        \"type\": \"object\",\n        \"properties\": {\n          \"function_name\": {\n            \"type\": \"string\",\n            \"description\": \"Function name where the vulnerability is found\"\n          },\n          \"description\": {\n            \"type\": \"string\",\n            \"description\": \"Detailed description of the vulnerability\"\n          }\n        },\n        \"required\": [\"function_name\", \"description\"]\n      },\n      \"code_snippet\": {\n        \"type\": \"array\",\n        \"items\": {\n          \"type\": \"string\"\n        },\n        \"description\": \"Code snippet showing the vulnerability\",\n        \"default\": []\n      },\n      \"recommendation\": {\n        \"type\": \"string\",\n        \"description\": \"Recommendation to fix the vulnerability\"\n      }\n    },\n    \"required\": [\"summary\", \"severity\", \"vulnerability_details\", \"code_snippet\", \"recommendation\"]\n  },\n  \"additionalProperties\": false\n}"
       },
       "type": "@n8n/n8n-nodes-langchain.outputParserStructured",
       "typeVersion": 1.2,
-      "position": [820, 180],
+      "position": [708, 320],
       "id": "3886c5d8-d954-4608-b857-1d913b1b4e84",
       "name": "Structured Output Parser"
     },
@@ -35,7 +16,7 @@
       "parameters": {
         "httpMethod": "POST",
         "path": "=slippage_minAmount",
-        "responseMode": "lastNode",
+        "responseMode": "responseNode",
         "options": {}
       },
       "type": "n8n-nodes-base.webhook",
@@ -53,25 +34,15 @@
       },
       "type": "@n8n/n8n-nodes-langchain.lmChatOpenAi",
       "typeVersion": 1,
-      "position": [500, 180],
+      "position": [588, 320],
       "id": "340ebf63-f35e-4030-94be-9e230ec8ac74",
       "name": "LLM for answer",
       "credentials": {
         "openAiApi": {
-          "id": "",
+          "id": "6qICvMVQ9Mixvcjz",
           "name": "OpenAi account"
         }
       }
-    },
-    {
-      "parameters": {
-        "inputSource": "passthrough"
-      },
-      "type": "n8n-nodes-base.executeWorkflowTrigger",
-      "typeVersion": 1.1,
-      "position": [-100, 180],
-      "id": "a2b002e8-570b-425a-96fb-548dee799f9b",
-      "name": "Workflow Input Trigger"
     },
     {
       "parameters": {
@@ -89,9 +60,61 @@
       },
       "type": "n8n-nodes-base.set",
       "typeVersion": 3.4,
-      "position": [200, 0],
+      "position": [340, 0],
       "id": "1116de4f-81c3-4732-9d39-3815dbdc753f",
       "name": "Edit Fields"
+    },
+    {
+      "parameters": {
+        "respondWith": "text",
+        "responseBody": "={{ $execution.id }}",
+        "options": {}
+      },
+      "type": "n8n-nodes-base.respondToWebhook",
+      "typeVersion": 1.1,
+      "position": [120, 0],
+      "id": "5e43c271-62b5-4d1d-bc8c-25bf5dc6e8df",
+      "name": "Respond to Webhook"
+    },
+    {
+      "parameters": {
+        "options": {}
+      },
+      "type": "@n8n/n8n-nodes-langchain.chatTrigger",
+      "typeVersion": 1.1,
+      "position": [340, 200],
+      "id": "3a515a53-17d4-47e9-8d31-d9c2cb4b943d",
+      "name": "When chat message received",
+      "webhookId": "ce077bb6-7ca6-4f3a-bb6e-cbc80aadc004"
+    },
+    {
+      "parameters": {
+        "promptType": "define",
+        "text": "={{ $json.chatInput }}",
+        "hasOutputParser": true,
+        "messages": {
+          "messageValues": [
+            {
+              "message": "=## Overview\n\nWhen auditing smart contracts for **No Slippage Parameter** vulnerability, follow the step by step thinking process for each function. Your output should contain each step’s thinking.\n\n## Thinking Process\n\n1. First, identify if a function involves token transfers or exchanges:\n    - Does it contain token swapping?\n    - Does it add/remove liquidity?\n    - Does it interact with DEX protocols?\n2. If yes to any above, examine the parameters:\n    - Are there parameters for slippage protection?\n    - For example, minimum output amounts, maximum output amount, and price limits.\n3. For each slippage-related parameter found, check:\n    - Is it being used in validation?\n    - Is it being passed to subsequent calls?\n    - Is it hardcoded or configurable?\n4. Review the function and code snippet you found, check:\n    - Does the code snippet really contain slippage vulnerability?\n    - If the code snippet is the validation of amount using parameter like `minAmountOut`, it should not be the vulnerability.\n    - If vulnerability confirmed, follow the report format below to report that function’s vulnerability.\n\n## Examples with Reasoning\n\n### Example 1: Slippage Parameter Set to 0\n\n```\nIUniswapRouterV2(SUSHI_ROUTER).swapExactTokensForTokens(\ntoSwap,\n0,\npath,\naddress(this),\nnow\n);\n```\n\nThought process:\n\n1. This is a token swap function (swapExactTokensForTokens).\n2. Looking at parameters:\n    - Found minimum output parameter (2nd parameter).\n    - It's set to 0.\n3. Analysis:\n    - Zero minimum output means no slippage protection.\n    - User funds at risk from sandwich attacks.\n4. Final review:\n    - Confirmed vulnerability in code snippet.\n    - No validation logic present for minimum output.\n    - Zero value explicitly set, indicating deliberate omission of slippage protection.\n    - Code Snippet: \n\t```\n\tIUniswapRouterV2(SUSHI_ROUTER).swapExactTokensForTokens(\n\ttoSwap,\n\t0,\n\tpath,\n\taddress(this),\n\tnow\n\t);\n\t```\n\nConclusion: Contains vulnerability\n\n### Example 2: Slippage Parameter Unused\n\n```\nfunction addLiquidity(\nIERC20 tokenA, IERC20 tokenB,\nuint256 amountADesired, uint256 amountBDesired,\nuint256 amountAMin, uint256 amountBMin,\naddress to, uint256 deadline\n) external override returns (uint256 liquidity) {\nreturn addLiquidity(\ntokenA, tokenB,\namountADesired, amountBDesired,\nto, deadline\n);\n}\n```\n\nThought process:\n\n1. This is a liquidity provision function.\n2. Looking at parameters:\n    - Found minimum amount parameters (`amountAMin`,\n`amountBMin`).\n    - Parameters exist but aren't passed to internal call.\n3. Analysis:\n    - Slippage parameters are ignored.\n4. Final review:\n    - Confirmed vulnerability in implementation.\n    - Parameters exist but are completely unused in the function.\n    - No validation logic present despite parameter declaration.\n    - Code Snippet: \n\t```\n\treturn addLiquidity(\n\ttokenA, tokenB,\n\tamountADesired, amountBDesired,\n\tto, deadline\n\t);\n\t```\n\nConclusion: Contains vulnerability\n\n### Example 3: Slippage Parameter Hardcoded\n\n```\nuint256 amountToSwap = IERC20(isTokenA ? vault.token1() : vault.token0()).balanceOf(address(this));\n\nif (amountToSwap > 0) {\nswapPool = IUniswapV3Pool(vault.pool());\nswapPool.swap(\naddress(this),\n// if withdraw token is Token0, then swap token1 -> token0 (false)\n!isTokenA,\nint256(amountToSwap),\nisTokenA\n? UniV3WrappedLibMockup.MAX_SQRT_RATIO - 1 // Token0 -> Token1\n: UniV3WrappedLibMockup.MIN_SQRT_RATIO + 1, // Token1 -> Token0\nabi.encode(address(this))\n);\n}\n```\n\nThought process:\n\n1. This is a swap function (swap).\n2. Looking at parameters:\n    - Found minimum amount parameters (`sqrtPriceLimitX96`).\n    - It's hardcoded to extreme values.\n3. Analysis:\n    - Slippage parameters is hardcoded.\n4. Final review:\n    - Confirmed vulnerability in implementation.\n    - Hardcoded values represent worst possible rates.\n    - No user configuration possible for slippage protection.\n    - Code Snippet: \n\t```\n\tswapPool.swap(\n\taddress(this),\n\t// if withdraw token is Token0, then swap token1 -> token0 (false)\n\t!isTokenA,\n\tint256(amountToSwap),\n\tisTokenA\n\t? UniV3WrappedLibMockup.MAX_SQRT_RATIO - 1 // Token0 -> Token1\n\t: UniV3WrappedLibMockup.MIN_SQRT_RATIO + 1, // Token1 -> Token0\n\tabi.encode(address(this))\n\t);\n\t```\n\nConclusion: Contains vulnerability\n\n### Example 4: Safe Implementation\n\n```\namounts = UniswapV2Library.getAmountsOut(factory, amountIn, path);\nrequire(amounts[amounts.length - 1] >= amountOutMin, 'INSUFFICIENT_OUTPUT_AMOUNT');\nTransferHelper.safeTransferFrom(path[0], msg.sender, UniswapV2Library.pairFor(factory, path[0], path[1]), amounts[0]);\n_swap(amounts, path, to);\n}\n```\n\nThought process:\n\n1. This is a swap function (_swap).\n2. Looking at parameters:\n    - Found minimum output parameter (`amountOutMin`).\n    - Parameter is passed and used.\n3. Analysis:\n    - Slippage check implemented with `require()` statement.\n    - User can set their desired minimum output.\n4. Final review:\n    - Confirmed proper implementation of slippage protection.\n    - Valid minimum amount check in place.\n    - User-configurable parameters with appropriate validation.\n\nConclusion: No vulnerability\n\n### Example 5: Safe Implementation (Detected Vulnerability In the Beginning but Revised in Final Review)\n\n```\nuint256 fillAmount = RubiconMarket(_market).sellAllAmount(\nERC20(input),\n_pay,\nERC20(output),\n0 //naively assume no fill_amt here for loop purposes?\n);\ncurrentAmount = fillAmount;\n}\nrequire(currentAmount >= buy_amt_min, \"didnt clear buy_amt_min\");\n\nERC20(route[route.length - 1]).transfer(to, currentAmount);\n```\n\nThought process:\n\n1. This is a swap function (sellAllAmount).\n2. Looking at parameters:\n    - Found minimum output parameter (`buy_amt_min`).\n    - Parameter is passed and used.\n3. Analysis:\n    - The parameter `buy_amt_min` is intended to serve as a slippage protection for the minimum output amount to be received after a swap.\n    - However, its usage is limited to checks but lacks specific enforcement in the context of slippage management against potential price changes during execution.\n4. Final review:\n    - Previous analysis requires revision.\n    - The analysis in step. 3 is wrong since the slippage protection is implemented with line `require(currentAmount >= buy_amt_min, \"didnt clear buy_amt_min”);`.\n    - Since the prior analysis is wrong, we re-think the process again.\n\nConclusion: No vulnerability\n\n### Report Format\n\nIf the input is not a cryptocurrency smart contracts, report with a empty array:\n\n```\n[]\n```\n\nIf the conclusion of a function is “No vulnerability”, report with a empty array:\n\n```\n[]\n```\n\nIf vulnerabilities found in a function, report with a json:\n\n```\n[\n    {\n        \"Summary\":  \"summary of the vulnerabilities\",\n        \"Vulnerability Details\": {\n            \"File Name\": \"Name of the file\",\n            \"Function Name\": \"Name of the function\",\n            \"Description\": \"a brief description of the vulnerability\"\n        },\n    \n        \"Code Snippet\": [\n            \"code snippet in the file\"\n        ],\n    \n        \"Recommendation\": \"recommendation of how to fix the vulnerability\"\n    \n    }\n]\n```"
+            }
+          ]
+        }
+      },
+      "type": "@n8n/n8n-nodes-langchain.chainLlm",
+      "typeVersion": 1.5,
+      "position": [560, 100],
+      "id": "0fff0801-c2ee-4f61-a4af-ddd37f175f7b",
+      "name": "COT - slippage min amount",
+      "alwaysOutputData": true,
+      "onError": "continueRegularOutput"
+    },
+    {
+      "parameters": {},
+      "type": "n8n-nodes-base.merge",
+      "typeVersion": 3,
+      "position": [936, 100],
+      "id": "d026bce1-d56f-4cd1-9c3e-6ff167b0d37c",
+      "name": "Merge"
     }
   ],
   "pinData": {},
@@ -100,7 +123,7 @@
       "ai_outputParser": [
         [
           {
-            "node": "Basic LLM Chain",
+            "node": "COT - slippage min amount",
             "type": "ai_outputParser",
             "index": 0
           }
@@ -111,7 +134,7 @@
       "main": [
         [
           {
-            "node": "Edit Fields",
+            "node": "Respond to Webhook",
             "type": "main",
             "index": 0
           }
@@ -122,19 +145,8 @@
       "ai_languageModel": [
         [
           {
-            "node": "Basic LLM Chain",
+            "node": "COT - slippage min amount",
             "type": "ai_languageModel",
-            "index": 0
-          }
-        ]
-      ]
-    },
-    "Workflow Input Trigger": {
-      "main": [
-        [
-          {
-            "node": "Basic LLM Chain",
-            "type": "main",
             "index": 0
           }
         ]
@@ -144,7 +156,40 @@
       "main": [
         [
           {
-            "node": "Basic LLM Chain",
+            "node": "COT - slippage min amount",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Respond to Webhook": {
+      "main": [
+        [
+          {
+            "node": "Edit Fields",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "When chat message received": {
+      "main": [
+        [
+          {
+            "node": "COT - slippage min amount",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "COT - slippage min amount": {
+      "main": [
+        [
+          {
+            "node": "Merge",
             "type": "main",
             "index": 0
           }
@@ -156,17 +201,10 @@
   "settings": {
     "executionOrder": "v1"
   },
-  "versionId": "c9e5a65a-19e4-42fd-8ba3-908f364c8cc0",
+  "versionId": "a6fd8501-ba54-4810-9abf-850e6dc2eb17",
   "meta": {
     "instanceId": "022db2fbd0a73e6d486f16c5eb885d1053a420197cf4f3857ab5d1742b50c5ad"
   },
-  "id": "WHNMqunGVjjbBHF3",
-  "tags": [
-    {
-      "createdAt": "2025-03-28T07:23:01.556Z",
-      "updatedAt": "2025-03-28T07:23:01.556Z",
-      "id": "QxkcDxuO46F4kZQ4",
-      "name": "processor"
-    }
-  ]
+  "id": "55oOcPPrZj705aKf",
+  "tags": []
 }
