@@ -18,7 +18,6 @@ def import_workflow(workflow_path: str, n8n_api_url: str):
         )
         exit(1)
 
-    imported_workflows = []
     existing_workflows = requests.get(
         f"{n8n_api_url}/workflows", headers=HEADERS
     ).json()["data"]
@@ -57,8 +56,17 @@ def import_workflow(workflow_path: str, n8n_api_url: str):
         f"Importing {len(selected_files)} workflow files: {', '.join(selected_files)}"
     )
 
-    # Import processor workflow files
-    for filename in selected_files:
+    is_success = True
+    # Import workflow files
+    for filename in tqdm(
+        selected_files,
+        desc="Importing workflows",
+        unit="workflow",
+        ncols=100,
+        colour="green",
+        bar_format="{desc}: {percentage:3.0f}%|{bar}| {n_fmt}/{total_fmt} workflows [Time: {elapsed}]",
+        mininterval=0.01,
+    ):
         if filename.endswith(".json"):
             file_path = os.path.join(workflow_path, filename)
             with open(file_path, "r") as file:
@@ -66,7 +74,7 @@ def import_workflow(workflow_path: str, n8n_api_url: str):
                 workflow_name = workflow_data["name"]
 
                 if workflow_name in existing_workflow_names:
-                    tqdm.write(f"\033[94mℹ️ Workflow {filename} already exists.\033[0m")
+                    tqdm.write(f"\033[94mℹ️  Workflow {filename} already exists.\033[0m")
                     continue
 
                 filtered_workflow_data = {
@@ -87,20 +95,30 @@ def import_workflow(workflow_path: str, n8n_api_url: str):
                         headers=HEADERS,
                         json=filtered_workflow_data,
                     )
-                    imported_workflows.append(
-                        {"id": response.json()["id"], "name": workflow_name}
+                    workflow_id = response.json()["id"]
+
+                    response = requests.post(
+                        f"{n8n_api_url}/workflows/{workflow_id}/activate",
+                        headers=HEADERS,
+                        json=filtered_workflow_data,
                     )
+
+                    response.raise_for_status()
+
                     tqdm.write(
-                        "\033[92m✅ Successfully imported: {}\033[0m".format(filename)
+                        "\033[92m✅ Successfully initialize: {}\033[0m".format(filename)
                     )
                 except Exception as e:
+                    is_success = False
                     tqdm.write(
-                        "\033[91m❌ Failed to import: {}\033[0m".format(filename)
+                        "\033[91m❌ Failed to initialize: {}\033[0m".format(filename)
                     )
                     print(f"Import {filename} failed: {e}")
 
-    if len(imported_workflows) == 0:
-        tqdm.write("\033[9m❌ No workflows imported.\033[0m")
+    if not is_success:
+        tqdm.write(
+            "\033[93m⚠️ Some import tasks failed, please check the error messages above.\033[0m"
+        )
         exit(1)
-
-    tqdm.write("\033[92m✅ All import tasks completed.\033[0m")
+    else:
+        tqdm.write("\033[92m✅ All import tasks completed sucessfully.\033[0m")
