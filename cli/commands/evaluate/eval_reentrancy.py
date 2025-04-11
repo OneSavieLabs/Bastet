@@ -29,7 +29,7 @@ def evaluate_reentrancy(
             print("Invalid row, stop...")
             break
 
-        with open(source_code_path + row["file_name"]) as f:
+        with open(row["file_name"]) as f:
             file = f.read()
             data = {"prompt": file}
             try:
