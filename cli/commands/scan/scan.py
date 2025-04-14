@@ -77,9 +77,7 @@ def scan_v1(folder_path: str, n8n_url: str, output_path: str):
                 webhook_url = webhook_node.get_webhook_url(n8n_url)
                 response = requests.post(
                     webhook_url,
-                    json={
-                        "prompt": contract_content,
-                    },
+                    json={"prompt": contract_content, "mode": "trace"},
                     headers={"Content-Type": "application/json"},
                 )
                 execution_id = response.text
