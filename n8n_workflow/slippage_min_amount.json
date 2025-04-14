@@ -153,7 +153,7 @@
             {
               "id": "a4044695-dd7d-462e-97f5-5c9638d0d182",
               "leftValue": "={{ $json.body.method }}",
-              "rightValue": "",
+              "rightValue": "trace",
               "operator": {
                 "type": "string",
                 "operation": "equals",
@@ -298,11 +298,11 @@
       ]
     }
   },
-  "active": false,
+  "active": true,
   "settings": {
     "executionOrder": "v1"
   },
-  "versionId": "58ac0516-a730-4103-8360-55726519bf8f",
+  "versionId": "ae3575c7-2ed8-49fb-8f3c-7b376cfe2cbd",
   "meta": {
     "instanceId": "022db2fbd0a73e6d486f16c5eb885d1053a420197cf4f3857ab5d1742b50c5ad"
   },
