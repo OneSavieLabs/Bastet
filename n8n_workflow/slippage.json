@@ -10,8 +10,8 @@
       "type": "n8n-nodes-base.stickyNote",
       "typeVersion": 1,
       "position": [
-        -4360,
-        1260
+        -4140,
+        1160
       ],
       "id": "caa06ce4-31fa-4938-98d3-836fa20ac7bf",
       "name": "Sticky Note"
@@ -24,8 +24,8 @@
       "type": "n8n-nodes-base.stickyNote",
       "typeVersion": 1,
       "position": [
-        -3080,
-        680
+        -4700,
+        820
       ],
       "id": "05593281-f31a-4388-9813-96f387af1986",
       "name": "Sticky Note1"
@@ -38,8 +38,8 @@
       "type": "n8n-nodes-base.stickyNote",
       "typeVersion": 1,
       "position": [
-        -3080,
-        1060
+        -4700,
+        1040
       ],
       "id": "d9e41675-0eb7-421e-b4e1-75cb6f865c75",
       "name": "Sticky Note2"
@@ -52,8 +52,8 @@
       "type": "n8n-nodes-base.stickyNote",
       "typeVersion": 1,
       "position": [
-        -3080,
-        1280
+        -4700,
+        1240
       ],
       "id": "b679a7ee-c1b0-4052-8e03-74bc5ddb9d53",
       "name": "Sticky Note3"
@@ -66,8 +66,8 @@
       "type": "n8n-nodes-base.stickyNote",
       "typeVersion": 1,
       "position": [
-        -3080,
-        1480
+        -4700,
+        1440
       ],
       "id": "d2224e12-a9ff-446f-b107-84db3119d1ff",
       "name": "Sticky Note4"
@@ -80,8 +80,8 @@
       "type": "n8n-nodes-base.stickyNote",
       "typeVersion": 1,
       "position": [
-        -3080,
-        1680
+        -4700,
+        1660
       ],
       "id": "89aa80e9-7cbb-48a6-8bdf-b23b988136ca",
       "name": "Sticky Note5"
@@ -94,7 +94,7 @@
       "type": "n8n-nodes-base.stickyNote",
       "typeVersion": 1,
       "position": [
-        -3080,
+        -4700,
         1880
       ],
       "id": "e7d41c79-e277-4050-861b-48f97881a1d9",
@@ -108,8 +108,8 @@
       "type": "n8n-nodes-base.stickyNote",
       "typeVersion": 1,
       "position": [
-        -3080,
-        2080
+        -4700,
+        2100
       ],
       "id": "3b5087ec-b7f2-410a-808a-9b0118446ad3",
       "name": "Sticky Note7"
@@ -122,8 +122,8 @@
       "type": "n8n-nodes-base.stickyNote",
       "typeVersion": 1,
       "position": [
-        -3080,
-        2280
+        -4700,
+        2320
       ],
       "id": "2093f253-cc67-4e12-8800-1bc6fb5ce815",
       "name": "Sticky Note8"
@@ -135,7 +135,7 @@
       "type": "n8n-nodes-base.merge",
       "typeVersion": 3,
       "position": [
-        -3204,
+        -2984,
         1574
       ],
       "id": "6c8d30fa-651b-40e6-90e4-bc5e1f7489a8",
@@ -153,7 +153,7 @@
       "type": "@n8n/n8n-nodes-langchain.lmChatOpenAi",
       "typeVersion": 1.2,
       "position": [
-        -3552,
+        -3332,
         920
       ],
       "id": "09ac801a-b2f1-428e-93e1-833100f31afe",
@@ -173,7 +173,7 @@
       "type": "@n8n/n8n-nodes-langchain.outputParserStructured",
       "typeVersion": 1.2,
       "position": [
-        -3432,
+        -3212,
         920
       ],
       "id": "8703a9c9-4475-4bad-a185-bd361bbc0b6e",
@@ -205,8 +205,8 @@
       "type": "n8n-nodes-base.respondToWebhook",
       "typeVersion": 1.1,
       "position": [
-        -4020,
-        950
+        -3800,
+        800
       ],
       "id": "eb1b2605-17b1-4bc7-930b-50183678b21c",
       "name": "Respond to Webhook"
@@ -228,7 +228,7 @@
       "type": "n8n-nodes-base.set",
       "typeVersion": 3.4,
       "position": [
-        -3800,
+        -3580,
         950
       ],
       "id": "0d21fb28-bafa-4c36-8d5a-6834893cbf41",
@@ -243,7 +243,7 @@
       "type": "@n8n/n8n-nodes-langchain.chatTrigger",
       "typeVersion": 1.1,
       "position": [
-        -3800,
+        -3580,
         2350
       ],
       "webhookId": "26f9b05d-755e-4e1f-a0a9-b2eec6e1e0b2"
@@ -262,7 +262,7 @@
       "type": "@n8n/n8n-nodes-langchain.chainLlm",
       "typeVersion": 1.5,
       "position": [
-        -3580,
+        -3360,
         700
       ],
       "id": "0afc3443-53d1-45fd-aeb8-1a75da320e02",
@@ -283,7 +283,7 @@
       "type": "@n8n/n8n-nodes-langchain.chainLlm",
       "typeVersion": 1.5,
       "position": [
-        -3580,
+        -3360,
         1100
       ],
       "id": "66ad244f-0c84-4178-b5a1-59786547fbae",
@@ -304,7 +304,7 @@
       "type": "@n8n/n8n-nodes-langchain.chainLlm",
       "typeVersion": 1.5,
       "position": [
-        -3580,
+        -3360,
         1300
       ],
       "id": "c03ddeb5-2508-4f9d-8aae-6b07ceb97575",
@@ -325,7 +325,7 @@
       "type": "@n8n/n8n-nodes-langchain.chainLlm",
       "typeVersion": 1.5,
       "position": [
-        -3580,
+        -3360,
         1500
       ],
       "id": "e3737969-7601-462a-b0df-cae5a8bfb2b1",
@@ -346,7 +346,7 @@
       "type": "@n8n/n8n-nodes-langchain.chainLlm",
       "typeVersion": 1.5,
       "position": [
-        -3580,
+        -3360,
         1700
       ],
       "id": "873235ab-1057-48bb-b32f-0fd8559f24e6",
@@ -367,7 +367,7 @@
       "type": "@n8n/n8n-nodes-langchain.chainLlm",
       "typeVersion": 1.5,
       "position": [
-        -3580,
+        -3360,
         1900
       ],
       "id": "5a2fb826-d1d8-4668-8fd1-352080b8ffef",
@@ -388,7 +388,7 @@
       "type": "@n8n/n8n-nodes-langchain.chainLlm",
       "typeVersion": 1.5,
       "position": [
-        -3580,
+        -3360,
         2100
       ],
       "id": "6ed4b38d-02a5-459e-b929-80309f1b9d7b",
@@ -409,7 +409,7 @@
       "type": "@n8n/n8n-nodes-langchain.chainLlm",
       "typeVersion": 1.5,
       "position": [
-        -3580,
+        -3360,
         2300
       ],
       "id": "9c15a056-0866-4434-a3e6-7461bc08f16c",
@@ -430,12 +430,60 @@
       "type": "@n8n/n8n-nodes-langchain.chainLlm",
       "typeVersion": 1.5,
       "position": [
-        -3580,
+        -3360,
         2500
       ],
       "id": "3029a575-5028-4d3d-bf70-81a1dd55501c",
       "name": "Slippage-Zero Slippage Required",
       "onError": "continueRegularOutput"
+    },
+    {
+      "parameters": {
+        "conditions": {
+          "options": {
+            "caseSensitive": true,
+            "leftValue": "",
+            "typeValidation": "strict",
+            "version": 2
+          },
+          "conditions": [
+            {
+              "id": "162cf072-03ec-49a2-b87d-820eb155c89e",
+              "leftValue": "={{ $json.body.mode }}",
+              "rightValue": "trace",
+              "operator": {
+                "type": "string",
+                "operation": "equals",
+                "name": "filter.operator.equals"
+              }
+            }
+          ],
+          "combinator": "and"
+        },
+        "options": {}
+      },
+      "type": "n8n-nodes-base.if",
+      "typeVersion": 2.2,
+      "position": [
+        -4020,
+        950
+      ],
+      "id": "5113bf63-9bac-446a-b75e-7b6e3d814b29",
+      "name": "If"
+    },
+    {
+      "parameters": {
+        "respondWith": "allIncomingItems",
+        "options": {}
+      },
+      "type": "n8n-nodes-base.respondToWebhook",
+      "typeVersion": 1.1,
+      "position": [
+        -2764,
+        1700
+      ],
+      "id": "868a6435-fa34-44fb-806a-04e5069fcd35",
+      "name": "Respond to Webhook1"
     }
   ],
   "pinData": {},
@@ -546,7 +594,7 @@
       "main": [
         [
           {
-            "node": "Respond to Webhook",
+            "node": "If",
             "type": "main",
             "index": 0
           }
@@ -764,17 +812,45 @@
           }
         ]
       ]
+    },
+    "If": {
+      "main": [
+        [
+          {
+            "node": "Respond to Webhook",
+            "type": "main",
+            "index": 0
+          }
+        ],
+        [
+          {
+            "node": "Edit Fields",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Merge": {
+      "main": [
+        [
+          {
+            "node": "Respond to Webhook1",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
     }
   },
   "active": false,
   "settings": {
     "executionOrder": "v1"
   },
-  "versionId": "03491bc2-a5a9-4123-943a-5a7e91f92911",
+  "versionId": "d59a1d88-8b49-418c-bb6c-7f0094ac38b1",
   "meta": {
-    "templateCredsSetupCompleted": true,
     "instanceId": "022db2fbd0a73e6d486f16c5eb885d1053a420197cf4f3857ab5d1742b50c5ad"
   },
-  "id": "vHCU0fhzk3DJnejk",
+  "id": "i1gjWbQ9X1e433xj",
   "tags": []
 }

@@ -10,8 +10,8 @@
       "type": "@n8n/n8n-nodes-langchain.chatTrigger",
       "typeVersion": 1.1,
       "position": [
-        -3340,
-        2480
+        -3120,
+        2505
       ],
       "webhookId": "22520757-268d-4c27-9313-9d4de69d1e1b"
     },
@@ -52,8 +52,8 @@
       "type": "n8n-nodes-base.merge",
       "typeVersion": 3,
       "position": [
-        -2744,
-        2280
+        -2524,
+        2305
       ],
       "id": "de3e5b94-0a40-4d9b-bfeb-5de92d266f21",
       "name": "Merge"
@@ -70,8 +70,8 @@
       "type": "@n8n/n8n-nodes-langchain.lmChatOpenAi",
       "typeVersion": 1.2,
       "position": [
-        -3092,
-        2100
+        -2872,
+        2125
       ],
       "id": "7063d154-0b65-4b47-b670-67e77fc98dfb",
       "name": "OpenAI Chat Model",
@@ -90,8 +90,8 @@
       "type": "@n8n/n8n-nodes-langchain.outputParserStructured",
       "typeVersion": 1.2,
       "position": [
-        -2972,
-        2100
+        -2752,
+        2125
       ],
       "id": "37ea4acd-106d-4440-b9e1-582b4d41df7b",
       "name": "Structured Output Parser"
@@ -110,8 +110,8 @@
       "type": "@n8n/n8n-nodes-langchain.chainLlm",
       "typeVersion": 1.5,
       "position": [
-        -3120,
-        1880
+        -2900,
+        1905
       ],
       "id": "73665b67-3b96-497a-b530-d0f65375417a",
       "name": "Unbounded loop",
@@ -131,8 +131,8 @@
       "type": "@n8n/n8n-nodes-langchain.chainLlm",
       "typeVersion": 1.5,
       "position": [
-        -3120,
-        2280
+        -2900,
+        2305
       ],
       "id": "ba4aeaca-09ba-4948-aa49-66c4fbe622b7",
       "name": "Integration/Logical error",
@@ -152,8 +152,8 @@
       "type": "@n8n/n8n-nodes-langchain.chainLlm",
       "typeVersion": 1.5,
       "position": [
-        -3120,
-        2460
+        -2900,
+        2505
       ],
       "id": "497a6e0a-d61d-4b69-b0be-74b35f59c142",
       "name": "Refund failed",
@@ -170,7 +170,7 @@
       "typeVersion": 2,
       "position": [
         -3780,
-        1980
+        2005
       ],
       "id": "bfd464d1-8899-4fcf-ab1c-63c57503ce1c",
       "name": "Webhook",
@@ -185,8 +185,8 @@
       "type": "n8n-nodes-base.respondToWebhook",
       "typeVersion": 1.1,
       "position": [
-        -3560,
-        1980
+        -3340,
+        1880
       ],
       "id": "7cb5824b-be79-406c-9d1d-44407f112ce6",
       "name": "Respond to Webhook"
@@ -208,11 +208,59 @@
       "type": "n8n-nodes-base.set",
       "typeVersion": 3.4,
       "position": [
-        -3340,
-        1980
+        -3120,
+        2005
       ],
       "id": "1148d8ae-56ef-47ea-a984-74c3206c3cd9",
       "name": "Edit Fields"
+    },
+    {
+      "parameters": {
+        "conditions": {
+          "options": {
+            "caseSensitive": true,
+            "leftValue": "",
+            "typeValidation": "strict",
+            "version": 2
+          },
+          "conditions": [
+            {
+              "id": "162cf072-03ec-49a2-b87d-820eb155c89e",
+              "leftValue": "={{ $json.body.mode }}",
+              "rightValue": "trace",
+              "operator": {
+                "type": "string",
+                "operation": "equals",
+                "name": "filter.operator.equals"
+              }
+            }
+          ],
+          "combinator": "and"
+        },
+        "options": {}
+      },
+      "type": "n8n-nodes-base.if",
+      "typeVersion": 2.2,
+      "position": [
+        -3560,
+        2005
+      ],
+      "id": "c90dc2f5-cfad-4a67-949a-486a725bab1c",
+      "name": "If"
+    },
+    {
+      "parameters": {
+        "respondWith": "allIncomingItems",
+        "options": {}
+      },
+      "type": "n8n-nodes-base.respondToWebhook",
+      "typeVersion": 1.1,
+      "position": [
+        -2300,
+        2320
+      ],
+      "id": "23c64f48-aa24-49b2-a976-f4a9773be783",
+      "name": "Respond to Webhook1"
     }
   ],
   "pinData": {},
@@ -240,7 +288,13 @@
     },
     "Merge": {
       "main": [
-        []
+        [
+          {
+            "node": "Respond to Webhook1",
+            "type": "main",
+            "index": 0
+          }
+        ]
       ]
     },
     "OpenAI Chat Model": {
@@ -322,7 +376,7 @@
       "main": [
         [
           {
-            "node": "Respond to Webhook",
+            "node": "If",
             "type": "main",
             "index": 0
           }
@@ -360,17 +414,34 @@
           }
         ]
       ]
+    },
+    "If": {
+      "main": [
+        [
+          {
+            "node": "Respond to Webhook",
+            "type": "main",
+            "index": 0
+          }
+        ],
+        [
+          {
+            "node": "Edit Fields",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
     }
   },
   "active": false,
   "settings": {
     "executionOrder": "v1"
   },
-  "versionId": "203fb7cb-b366-4ba8-a8c9-e4df39ac25c7",
+  "versionId": "2582cb0b-eb79-41f0-a136-8c889614f568",
   "meta": {
-    "templateCredsSetupCompleted": true,
     "instanceId": "022db2fbd0a73e6d486f16c5eb885d1053a420197cf4f3857ab5d1742b50c5ad"
   },
-  "id": "GmyEE5ZN6S63UTFM",
+  "id": "89u5CKKIwGZ94dUi",
   "tags": []
 }
