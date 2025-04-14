@@ -10,8 +10,8 @@
       "type": "@n8n/n8n-nodes-langchain.chatTrigger",
       "typeVersion": 1.1,
       "position": [
-        -1600,
-        1120
+        -1380,
+        1145
       ],
       "webhookId": "471f4f97-1fd4-4312-b3ee-6fcc3310611d"
     },
@@ -38,8 +38,8 @@
       "type": "n8n-nodes-base.stickyNote",
       "typeVersion": 1,
       "position": [
-        -800,
-        500
+        -1220,
+        360
       ],
       "id": "dfe3cc0a-44e4-4618-8fe1-03552a4b704f",
       "name": "Sticky Note1"
@@ -47,13 +47,14 @@
     {
       "parameters": {
         "content": "### Global and user-specific limits\nhttps://github.com/code-423n4/2023-05-maia/blob/main/src/maia/tokens/ERC4626PartnerManager.sol#L174",
+        "height": 200,
         "width": 380
       },
       "type": "n8n-nodes-base.stickyNote",
       "typeVersion": 1,
       "position": [
-        -800,
-        860
+        -780,
+        720
       ],
       "id": "20e477c7-438b-4d02-a301-6a0b75f6405e",
       "name": "Sticky Note2"
@@ -66,8 +67,8 @@
       "type": "n8n-nodes-base.stickyNote",
       "typeVersion": 1,
       "position": [
-        -800,
-        1080
+        -1200,
+        1300
       ],
       "id": "b6cdd763-f50f-41c1-a297-b7d431a38013",
       "name": "Sticky Note3"
@@ -79,8 +80,8 @@
       "type": "n8n-nodes-base.merge",
       "typeVersion": 3,
       "position": [
-        -1004,
-        920
+        -784,
+        945
       ],
       "id": "539b7f9b-f1b0-4cee-95ce-2a5f968a5891",
       "name": "Merge"
@@ -99,8 +100,8 @@
       "type": "@n8n/n8n-nodes-langchain.chainLlm",
       "typeVersion": 1.5,
       "position": [
-        -1380,
-        520
+        -1160,
+        545
       ],
       "id": "251c9b64-8582-4810-8a83-b41055d81583",
       "name": "ERC4626-Rounding",
@@ -118,8 +119,8 @@
       "type": "@n8n/n8n-nodes-langchain.lmChatOpenAi",
       "typeVersion": 1.2,
       "position": [
-        -1352,
-        740
+        -1132,
+        765
       ],
       "id": "b18db783-8798-44dc-ac54-8f2be87aa1cc",
       "name": "OpenAI Chat Model",
@@ -138,8 +139,8 @@
       "type": "@n8n/n8n-nodes-langchain.outputParserStructured",
       "typeVersion": 1.2,
       "position": [
-        -1232,
-        740
+        -1012,
+        765
       ],
       "id": "065adc61-b367-4146-a3c2-d0774c60f954",
       "name": "Structured Output Parser"
@@ -158,8 +159,8 @@
       "type": "@n8n/n8n-nodes-langchain.chainLlm",
       "typeVersion": 1.5,
       "position": [
-        -1380,
-        920
+        -1160,
+        945
       ],
       "id": "a369b2e7-1411-40ec-ad04-03b620cc12aa",
       "name": "ERC4626-Global and user-specific limits",
@@ -179,8 +180,8 @@
       "type": "@n8n/n8n-nodes-langchain.chainLlm",
       "typeVersion": 1.5,
       "position": [
-        -1380,
-        1120
+        -1160,
+        1145
       ],
       "id": "702b442e-80a7-4d73-af79-ea081059bc9d",
       "name": "ERC4626-Fee",
@@ -197,7 +198,7 @@
       "typeVersion": 2,
       "position": [
         -2040,
-        620
+        645
       ],
       "id": "ed34b4b0-1d07-4d01-a396-6bc60fc9f23f",
       "name": "Webhook",
@@ -212,8 +213,8 @@
       "type": "n8n-nodes-base.respondToWebhook",
       "typeVersion": 1.1,
       "position": [
-        -1820,
-        620
+        -1600,
+        520
       ],
       "id": "025149d6-d3db-49d1-80ca-233fa5d17997",
       "name": "Respond to Webhook"
@@ -235,11 +236,59 @@
       "type": "n8n-nodes-base.set",
       "typeVersion": 3.4,
       "position": [
-        -1600,
-        620
+        -1380,
+        645
       ],
       "id": "994a2cfe-7084-46c2-a189-16b07b46cd2b",
       "name": "Edit Fields"
+    },
+    {
+      "parameters": {
+        "conditions": {
+          "options": {
+            "caseSensitive": true,
+            "leftValue": "",
+            "typeValidation": "strict",
+            "version": 2
+          },
+          "conditions": [
+            {
+              "id": "162cf072-03ec-49a2-b87d-820eb155c89e",
+              "leftValue": "={{ $json.body.mode }}",
+              "rightValue": "trace",
+              "operator": {
+                "type": "string",
+                "operation": "equals",
+                "name": "filter.operator.equals"
+              }
+            }
+          ],
+          "combinator": "and"
+        },
+        "options": {}
+      },
+      "type": "n8n-nodes-base.if",
+      "typeVersion": 2.2,
+      "position": [
+        -1820,
+        645
+      ],
+      "id": "84a6e482-ceb9-4d72-8675-70838ca59aba",
+      "name": "If"
+    },
+    {
+      "parameters": {
+        "respondWith": "allIncomingItems",
+        "options": {}
+      },
+      "type": "n8n-nodes-base.respondToWebhook",
+      "typeVersion": 1.1,
+      "position": [
+        -564,
+        945
+      ],
+      "id": "73b3e454-14d8-48cc-893c-c21a1d2129c8",
+      "name": "Respond to Webhook1"
     }
   ],
   "pinData": {},
@@ -344,7 +393,7 @@
       "main": [
         [
           {
-            "node": "Respond to Webhook",
+            "node": "If",
             "type": "main",
             "index": 0
           }
@@ -382,17 +431,45 @@
           }
         ]
       ]
+    },
+    "If": {
+      "main": [
+        [
+          {
+            "node": "Respond to Webhook",
+            "type": "main",
+            "index": 0
+          }
+        ],
+        [
+          {
+            "node": "Edit Fields",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Merge": {
+      "main": [
+        [
+          {
+            "node": "Respond to Webhook1",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
     }
   },
   "active": false,
   "settings": {
     "executionOrder": "v1"
   },
-  "versionId": "4b54c5d0-4b27-4c5c-ba22-c140424dde4a",
+  "versionId": "a1ccea40-0329-46c0-b0ca-f52c26094e49",
   "meta": {
-    "templateCredsSetupCompleted": true,
     "instanceId": "022db2fbd0a73e6d486f16c5eb885d1053a420197cf4f3857ab5d1742b50c5ad"
   },
-  "id": "lpHPmPzvKJ2xY2Rr",
+  "id": "AcrMvVCfcmt2Af9Y",
   "tags": []
 }

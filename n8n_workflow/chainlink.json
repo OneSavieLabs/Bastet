@@ -168,7 +168,7 @@
       "type": "@n8n/n8n-nodes-langchain.lmChatOpenAi",
       "typeVersion": 1.2,
       "position": [
-        -2672,
+        -2812,
         -1120
       ],
       "id": "4130d47f-28a2-4656-a950-ce64dd4d8db5",
@@ -188,7 +188,7 @@
       "type": "@n8n/n8n-nodes-langchain.outputParserStructured",
       "typeVersion": 1.2,
       "position": [
-        -2552,
+        -2692,
         -1120
       ],
       "id": "a2857a08-23dc-464f-a89f-cb6f6342506f",
@@ -204,7 +204,7 @@
       "type": "n8n-nodes-base.webhook",
       "typeVersion": 2,
       "position": [
-        -3360,
+        -3720,
         -990
       ],
       "id": "67f5a987-4aca-4715-89ea-6b0b4e7f34c7",
@@ -220,8 +220,8 @@
       "type": "n8n-nodes-base.respondToWebhook",
       "typeVersion": 1.1,
       "position": [
-        -3140,
-        -990
+        -3280,
+        -1140
       ],
       "id": "d8933d34-2a70-4268-b99d-f0ddbd0a812b",
       "name": "Respond to Webhook"
@@ -243,7 +243,7 @@
       "type": "n8n-nodes-base.set",
       "typeVersion": 3.4,
       "position": [
-        -2920,
+        -3060,
         -990
       ],
       "id": "140d148a-a22d-4f07-b262-8f38cb5ed9c7",
@@ -263,7 +263,7 @@
       "type": "@n8n/n8n-nodes-langchain.chainLlm",
       "typeVersion": 1.5,
       "position": [
-        -2700,
+        -2840,
         -940
       ],
       "id": "311fb901-bc3f-48b0-964a-9e566853f4cb",
@@ -284,7 +284,7 @@
       "type": "@n8n/n8n-nodes-langchain.chainLlm",
       "typeVersion": 1.5,
       "position": [
-        -2700,
+        -2840,
         -1340
       ],
       "id": "08d156c5-7156-4581-b7d8-c8c466ce517d",
@@ -305,7 +305,7 @@
       "type": "@n8n/n8n-nodes-langchain.chainLlm",
       "typeVersion": 1.5,
       "position": [
-        -2700,
+        -2840,
         -740
       ],
       "id": "283ad600-d7c4-4976-a83b-a91cc19fd790",
@@ -325,7 +325,7 @@
       "type": "@n8n/n8n-nodes-langchain.chainLlm",
       "typeVersion": 1.5,
       "position": [
-        -2700,
+        -2840,
         -540
       ],
       "id": "47fdef1f-1101-4a70-a1bb-ffe989e29536",
@@ -346,7 +346,7 @@
       "type": "@n8n/n8n-nodes-langchain.chainLlm",
       "typeVersion": 1.5,
       "position": [
-        -2700,
+        -2840,
         -340
       ],
       "id": "3a21ca3f-403a-49d3-93e3-5c3b8935a5e2",
@@ -367,7 +367,7 @@
       "type": "@n8n/n8n-nodes-langchain.chainLlm",
       "typeVersion": 1.5,
       "position": [
-        -2700,
+        -2840,
         -140
       ],
       "id": "65a80715-e671-4ff8-a734-90265e3f9647",
@@ -388,7 +388,7 @@
       "type": "@n8n/n8n-nodes-langchain.chainLlm",
       "typeVersion": 1.5,
       "position": [
-        -2700,
+        -2840,
         60
       ],
       "id": "6e84f60f-773a-43f4-bf5a-253ca7a758a2",
@@ -409,7 +409,7 @@
       "type": "@n8n/n8n-nodes-langchain.chainLlm",
       "typeVersion": 1.5,
       "position": [
-        -2700,
+        -2840,
         260
       ],
       "id": "cd803b03-fca7-4211-8820-96578adc02c1",
@@ -430,7 +430,7 @@
       "type": "@n8n/n8n-nodes-langchain.chainLlm",
       "typeVersion": 1.5,
       "position": [
-        -2700,
+        -2840,
         460
       ],
       "id": "5e8c5e4e-c741-4b82-9427-e509155fdb5b",
@@ -451,7 +451,7 @@
       "type": "@n8n/n8n-nodes-langchain.chainLlm",
       "typeVersion": 1.5,
       "position": [
-        -2700,
+        -2840,
         660
       ],
       "id": "fd3980ab-51ea-4f57-aee0-5a2afd64243f",
@@ -472,7 +472,7 @@
       "type": "@n8n/n8n-nodes-langchain.chainLlm",
       "typeVersion": 1.5,
       "position": [
-        -2700,
+        -2840,
         860
       ],
       "id": "ee1e85f0-a049-4200-8beb-a5608ce463d1",
@@ -493,7 +493,7 @@
       "type": "@n8n/n8n-nodes-langchain.chainLlm",
       "typeVersion": 1.5,
       "position": [
-        -2700,
+        -2840,
         1060
       ],
       "id": "c29e1cd9-9b0e-45d4-ad5a-d4ae57467d2f",
@@ -514,7 +514,7 @@
       "type": "@n8n/n8n-nodes-langchain.chainLlm",
       "typeVersion": 1.5,
       "position": [
-        -2700,
+        -2840,
         1260
       ],
       "id": "2c23c2a6-1afa-4af5-9060-c4eda2793ef6",
@@ -528,7 +528,7 @@
       "type": "n8n-nodes-base.merge",
       "typeVersion": 3,
       "position": [
-        -2324,
+        -2464,
         1060
       ],
       "id": "6734b202-aadd-4edb-a2c7-4eb7df00a029",
@@ -541,7 +541,7 @@
       "type": "n8n-nodes-base.merge",
       "typeVersion": 3,
       "position": [
-        -2324,
+        -2464,
         -387
       ],
       "id": "435dfc98-a4d7-43a8-b658-9d4cd2e67d1c",
@@ -552,7 +552,7 @@
       "type": "n8n-nodes-base.merge",
       "typeVersion": 3,
       "position": [
-        -2104,
+        -2244,
         360
       ],
       "id": "96191e1f-8a6d-4554-a056-003fbf429b65",
@@ -565,12 +565,60 @@
       "type": "@n8n/n8n-nodes-langchain.chatTrigger",
       "typeVersion": 1.1,
       "position": [
-        -2920,
+        -3060,
         1010
       ],
       "id": "3d775d06-22be-4cdf-b1fd-c4f71e76b234",
       "name": "When chat message received",
       "webhookId": "e2d689b8-1b1d-4b65-9a99-45efc7282832"
+    },
+    {
+      "parameters": {
+        "respondWith": "allIncomingItems",
+        "options": {}
+      },
+      "type": "n8n-nodes-base.respondToWebhook",
+      "typeVersion": 1.1,
+      "position": [
+        -2024,
+        360
+      ],
+      "id": "7e8327b2-6146-4547-ba9a-c33d774f9dbd",
+      "name": "Respond to Webhook1"
+    },
+    {
+      "parameters": {
+        "conditions": {
+          "options": {
+            "caseSensitive": true,
+            "leftValue": "",
+            "typeValidation": "strict",
+            "version": 2
+          },
+          "conditions": [
+            {
+              "id": "162cf072-03ec-49a2-b87d-820eb155c89e",
+              "leftValue": "={{ $json.body.mode }}",
+              "rightValue": "trace",
+              "operator": {
+                "type": "string",
+                "operation": "equals",
+                "name": "filter.operator.equals"
+              }
+            }
+          ],
+          "combinator": "and"
+        },
+        "options": {}
+      },
+      "type": "n8n-nodes-base.if",
+      "typeVersion": 2.2,
+      "position": [
+        -3500,
+        -990
+      ],
+      "id": "718ccf3f-6a36-4840-bcea-83e4e6002f0b",
+      "name": "If"
     }
   ],
   "pinData": {},
@@ -721,7 +769,7 @@
       "main": [
         [
           {
-            "node": "Respond to Webhook",
+            "node": "If",
             "type": "main",
             "index": 0
           }
@@ -1045,17 +1093,45 @@
           }
         ]
       ]
+    },
+    "Merge5": {
+      "main": [
+        [
+          {
+            "node": "Respond to Webhook1",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "If": {
+      "main": [
+        [
+          {
+            "node": "Respond to Webhook",
+            "type": "main",
+            "index": 0
+          }
+        ],
+        [
+          {
+            "node": "Edit Fields",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
     }
   },
   "active": false,
   "settings": {
     "executionOrder": "v1"
   },
-  "versionId": "72f3d6f5-791f-4504-b83b-46ec87bd0be1",
+  "versionId": "d076c8ce-473f-43bc-b4c4-0d8cfb75aee7",
   "meta": {
-    "templateCredsSetupCompleted": true,
     "instanceId": "022db2fbd0a73e6d486f16c5eb885d1053a420197cf4f3857ab5d1742b50c5ad"
   },
-  "id": "117sZ4baAvK5Amcf",
+  "id": "FbP2WYEVbg2cRrs1",
   "tags": []
 }
