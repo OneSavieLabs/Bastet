@@ -28,8 +28,7 @@ def evaluate_reentrancy(
         if pd.isna(row["file_name"]) or pd.isna(row["answer"]):
             print("Invalid row, stop...")
             break
-
-        with open(row["file_name"]) as f:
+        with open(row["file_name"], encoding="unicode_escape") as f:
             file = f.read()
             data = {"prompt": file}
             try:
