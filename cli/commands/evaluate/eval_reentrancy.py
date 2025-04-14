@@ -55,7 +55,10 @@ def evaluate_reentrancy(
             try:
                 json_data = response.json()
 
-                y_pred.append(1 if "output" in json_data and json_data["output"] else 0)
+                if any("output" in obj and obj["output"] != [] for obj in json_data):
+                    y_pred.append(1)
+                else:
+                    y_pred.append(0)
                 y_true.append(int(row["answer"]))
                 tqdm.write(
                     "\033[92m✅ Successfully processed: {}\033[0m".format(
