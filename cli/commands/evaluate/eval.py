@@ -13,6 +13,8 @@ def evaluate(csv_path: str, source_code_path: str, n8n_workflow_webhook_url: str
     print("-" * 50)
     y_pred = []
     y_true = []
+    workflow_answer = []
+
     for index, row in tqdm(
         dataset.iterrows(),
         desc="Processed contracts",
@@ -44,6 +46,7 @@ def evaluate(csv_path: str, source_code_path: str, n8n_workflow_webhook_url: str
 
                 try:
                     json_data = response.json()
+                    workflow_answer.append(json_data)
                     if any(
                         "output" in obj and obj["output"] != [] for obj in json_data
                     ):
@@ -83,3 +86,16 @@ def evaluate(csv_path: str, source_code_path: str, n8n_workflow_webhook_url: str
     table = tabulate(data, headers=["Metric", "Value"], tablefmt="grid")
     print(table)
     print("accuracy:", (tp + tn) / (tp + tn + fp + fn))
+    print("precision:", tp / (tp + fp))
+    print("recall:", tp / (tp + fn))
+    print("f1:", 2 * tp / (2 * tp + fp + fn))
+
+    df = pd.DataFrame(
+        {
+            "file_name": dataset["file_name"],
+            "answer": workflow_answer,
+            "pred": y_pred,
+            "true": y_true,
+        }
+    )
+    df.to_csv("evaluation_results.csv", index=False)
