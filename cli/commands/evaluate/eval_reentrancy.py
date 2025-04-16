@@ -8,7 +8,6 @@ def evaluate_reentrancy(
     from charset_normalizer import from_path
     from pandas import read_csv
     from tabulate import tabulate
-    from tenacity import RetryError, Retrying, stop_after_attempt
     from tqdm import tqdm
 
     dataset = read_csv(csv_path)
@@ -36,27 +35,15 @@ def evaluate_reentrancy(
             ) as f:
                 file = f.read()
                 data = {"prompt": file}
-                try:
-                    for attempt in Retrying(stop=stop_after_attempt(3)):
-                        with attempt:
-                            response = requests.post(
-                                n8n_workflow_webhook_url, json=data
-                            )
-                            if response.status_code == 200:
-                                break
-                            else:
-                                tqdm.write(
-                                    "\033[91m❌ n8n Workflow response abnormal, retry...: {}\033[0m".format(
-                                        response.text
-                                    )
-                                )
-                                raise Exception("n8n Workflow response abnormal")
-                except RetryError:
-                    print("Failed to retry the request")
+
+                response = requests.post(n8n_workflow_webhook_url, json=data)
+                if response.status_code != 200:
                     tqdm.write(
-                        "\033[91m❌ Error processing {}\033[0m".format(row["file_name"])
+                        "\033[91m❌ n8n Workflow response abnormal, retry...: {}\033[0m".format(
+                            response.text
+                        )
                     )
-                    continue
+                    raise Exception("n8n Workflow response abnormal")
 
                 try:
                     json_data = response.json()
