@@ -11,9 +11,9 @@ def evaluate(csv_path: str, source_code_path: str, n8n_workflow_webhook_url: str
     dataset = read_csv(csv_path)
     print(f"Found {len(dataset)} rows in dataset. Start evaluating...")
     print("-" * 50)
-    y_pred = []
-    y_true = []
-    workflow_answer = []
+    y_pred = []  # predicted labels
+    y_true = []  # true labels
+    workflow_answers = []
 
     for index, row in tqdm(
         dataset.iterrows(),
@@ -46,7 +46,7 @@ def evaluate(csv_path: str, source_code_path: str, n8n_workflow_webhook_url: str
 
                 try:
                     json_data = response.json()
-                    workflow_answer.append(json_data)
+                    workflow_answers.append(json_data)
                     if any(
                         "output" in obj and obj["output"] != [] for obj in json_data
                     ):
@@ -93,7 +93,7 @@ def evaluate(csv_path: str, source_code_path: str, n8n_workflow_webhook_url: str
     df = pd.DataFrame(
         {
             "file_name": dataset["file_name"],
-            "answer": workflow_answer,
+            "answer": workflow_answers,
             "pred": y_pred,
             "true": y_true,
         }
