@@ -93,9 +93,9 @@ def evaluate(csv_path: str, source_code_path: str, n8n_workflow_webhook_url: str
     df = pd.DataFrame(
         {
             "file_name": dataset["file_name"],
-            "answer": workflow_answers,
-            "pred": y_pred,
-            "true": y_true,
+            "workflow_answer": workflow_answers,
+            "predicted_label": y_pred,
+            "true_label": y_true,
         }
     )
     df.to_csv("evaluation_results.csv", index=False)
