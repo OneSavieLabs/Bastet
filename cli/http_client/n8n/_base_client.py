@@ -5,7 +5,8 @@ import logging
 import platform
 from urllib.parse import urlparse, urlunparse
 
-# Type definitions
+# Type definitions 
+#TODO understand the design -> openAI / src / _base_client.py
 T = TypeVar('T')
 ResponseT = TypeVar('ResponseT')
 
@@ -64,32 +65,29 @@ class BaseHttpClient:
     
     def __init__(
         self, 
-        X_N8N_API: str,
+        X_N8N_API_KEY: str,
         N8N_API_BASE_URL: str,
         timeout: int = 30,
-        verify_ssl: bool = True,
         max_retries: int = 3
     ):
-        self.api_key = X_N8N_API
-        self.base_url = self._normalize_base_url(N8N_API_BASE_URL)
+        self.api_key = X_N8N_API_KEY
+        self.base_url = self._remove_trailing_slash(N8N_API_BASE_URL)
         self.timeout = timeout
-        self.verify_ssl = verify_ssl
         self.max_retries = max_retries
         self.logger = logging.getLogger(__name__)
         
-        # Initialize the HTTP client with default settings
-        self._client = httpx.Client(
-            verify=verify_ssl,
+        # Init client with default settings
+        self._client = httpx.AsyncClient(
             timeout=timeout,
             headers=self._build_default_headers()
         )
     
-    def _normalize_base_url(self, url: str) -> str:
+    def _remove_trailing_slash(self, url: str) -> str:
         """Normalize the base URL by ensuring it doesn't end with a slash."""
         return url.rstrip('/')
     
     def _build_default_headers(self) -> Dict[str, str]:
-        """Build default headers for all requests."""
+        """Build default header for all requests."""
         headers = {
             "X-N8N-API-KEY": self.api_key,
             "Content-Type": "application/json",
@@ -97,9 +95,8 @@ class BaseHttpClient:
         }
         return headers
     
-    def _prepare_url(self, endpoint: str) -> str:
-        """Prepare the full URL for the request."""
-        # Ensure endpoint starts with a slash for proper URL joining
+    def _check_start_with_slash(self, endpoint: str) -> str:
+        """Ensure the endpoint starts with a slash."""
         if not endpoint.startswith('/'):
             endpoint = '/' + endpoint
         return f"{self.base_url}{endpoint}"
@@ -126,7 +123,7 @@ class BaseHttpClient:
         except Exception:
             error_data = {"error": response.text}
         
-        error_message = f"HTTP {response.status_code}"
+        error_message = f"HTTP Statu:s {response.status_code}"
         if error_data and isinstance(error_data, dict):
             error_message = error_data.get("message", error_data.get("error", error_message))
         
@@ -160,16 +157,10 @@ class BaseHttpClient:
             data: Form data
             json_data: JSON data
             headers: Additional headers
-            timeout: Request timeout in seconds
+            timeout: Request timeout (seconds)
             retries: Number of retries for the request
-            
-        Returns:
-            Response data as dictionary or string
-            
-        Raises:
-            APIError: If the request fails
         """
-        url = self._prepare_url(endpoint)
+        url = self._check_start_with_slash(endpoint)
         request_headers = self._client.headers.copy()
         
         if headers:
@@ -180,7 +171,6 @@ class BaseHttpClient:
         
         self.logger.debug(f"Making {method} request to {url}")
         
-        # Initialize retry count
         retry_count = 0
         
         while True:
@@ -236,10 +226,10 @@ class BaseHttpClient:
     def close(self) -> None:
         """Close the HTTP client session."""
         if self._client:
-            self._client.close()
+            self._client.aclose()
     
-    def __enter__(self) -> 'BaseHttpClient':
+    def __aenter__(self) -> 'BaseHttpClient':
         return self
     
-    def __exit__(self, exc_type, exc_val, exc_tb) -> None:
+    def __aexit__(self, exc_type, exc_val, exc_tb) -> None:
         self.close()
