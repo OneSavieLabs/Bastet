@@ -2,14 +2,14 @@
 N8n API client modules for different API groups.
 """
 
-from .workflow_client import WorkflowClient
-from .execution_client import ExecutionClient
-from .user_client import UserClient
-from .credential_client import CredentialClient
-from .variable_client import VariableClient
-from .audit_client import AuditClient
-from .tag_client import TagClient
-from .source_control_client import SourceControlClient
+from .workflow import WorkflowClient
+from .execution import ExecutionClient
+from .user import UserClient
+from .credential import CredentialClient
+from .variable import VariableClient
+from .audit import AuditClient
+from .tag import TagClient
+from .source_control import SourceControlClient
 
 __all__ = [
     "WorkflowClient",

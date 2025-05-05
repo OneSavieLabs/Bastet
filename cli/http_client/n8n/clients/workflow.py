@@ -1,31 +1,32 @@
 from typing import Dict, List, Optional, Any, Union, cast
 from ..exceptions import N8nWorkflowError
 from .._base_client import BaseHttpClient
+from ..model.workflow import Workflow, WorkflowNode, WorkflowSettings
 
 class WorkflowClient(BaseHttpClient):
     """
     Client for the N8n Workflow API.
-    
-    This client provides methods to manage workflows in N8n.
     """
     
     async def get_workflows(self, 
                           active: Optional[bool] = None,
                           tags: Optional[List[str]] = None,
-                          search: Optional[str] = None,
+                          name: Optional[str] = None,
+                          project_id: Optional[str] = None,
+                          exclude_pinned_data: Optional[bool] = None,
                           limit: Optional[int] = None,
-                          cursor: Optional[str] = None,
-                          include: Optional[List[str]] = None) -> List[Dict[str, Any]]:
+                          cursor: Optional[str] = None) -> List[Dict[str, Any]]:
         """
-        Retrieve all workflows.
+        Retrieve all workflows in your instance.
         
         Args:
             active: Filter by active status (true/false)
             tags: Filter by tag IDs
-            search: Search term to filter workflows by name
-            limit: Maximum number of results to return
+            name: Search term to filter workflows by name
+            project_id: Filter by project ID
+            exclude_pinned_data: Set to true to avoid retrieving pinned data
+            limit: Maximum number of items to return (default: 100, max: 250)
             cursor: Cursor for pagination
-            include: Additional properties to include (e.g., ['full'])
             
         Returns:
             List of workflow objects
@@ -38,49 +39,89 @@ class WorkflowClient(BaseHttpClient):
         if tags:
             params["tags"] = ",".join(tags)
             
-        if search:
-            params["search"] = search
+        if name:
+            params["name"] = name
             
-        if limit is not None:
+        if project_id:
+            params["projectId"] = project_id
+            
+        if exclude_pinned_data is not None:
+            params["excludePinnedData"] = exclude_pinned_data
+            
+        if limit:
             params["limit"] = limit
             
         if cursor:
             params["cursor"] = cursor
             
-        if include:
-            params["include"] = ",".join(include)
-            
-        return await self.get("workflows", params=params)
-    
-    async def get_workflow(self, workflow_id: str) -> Dict[str, Any]:
-        """
-        Get a specific workflow by ID.
-        
-        Args:
-            workflow_id: The ID of the workflow
-            
-        Returns:
-            Workflow object
-        """
         try:
-            return await self.get(f"workflows/{workflow_id}")
+            response = await self.get("workflows", params=params)
+            return response.get("data", [])
         except Exception as e:
             raise N8nWorkflowError(
-                message=f"Failed to get workflow {workflow_id}: {str(e)}",
+                message=f"Failed to retrieve workflows: {str(e)}",
                 response=getattr(e, "response", None),
                 body=getattr(e, "body", None)
             )
     
-    async def create_workflow(self, workflow_data: Dict[str, Any]) -> Dict[str, Any]:
+    async def get_workflow(self, workflow_id: str, exclude_pinned_data: Optional[bool] = None) -> Dict[str, Any]:
         """
-        Create a new workflow.
+        Retrieve a specific workflow by ID.
         
         Args:
-            workflow_data: Workflow definition
+            workflow_id: The ID of the workflow to retrieve
+            exclude_pinned_data: Set to true to avoid retrieving pinned data
             
         Returns:
-            Created workflow object
+            Workflow object
         """
+            params = {}
+        
+            if exclude_pinned_data is not None:
+                params["excludePinnedData"] = exclude_pinned_data
+                
+        try:
+            return await self.get(f"workflows/{workflow_id}", params=params)
+        except Exception as e:
+            raise N8nWorkflowError(
+                message=f"Failed to retrieve workflow {workflow_id}: {str(e)}",
+                response=getattr(e, "response", None),
+                body=getattr(e, "body", None)
+            )
+    
+    async def create_workflow(self, workflow_data: Union[Dict[str, Any], Workflow]) -> Dict[str, Any]:
+        """
+        Create a new workflow in your instance.
+        
+        Args:
+            workflow_data: Workflow definition with the following required fields:
+                - name (str): The name of the workflow
+                - nodes (List): Array of workflow nodes
+                - connections (Dict): Object containing the node connections
+                - settings (Dict): Workflow settings
+                
+        Optional fields:
+            - staticData (str or Dict): Static data for the workflow
+        
+        Returns:
+            Created workflow object
+        
+        Raises:
+            N8nWorkflowError: If workflow creation fails
+        """
+        if isinstance(workflow_data, Workflow):
+            workflow_data = workflow_data.to_dict()
+        
+        required_fields = ["name", "nodes", "connections", "settings"]
+        missing_fields = [field for field in required_fields if field not in workflow_data]
+        
+        if missing_fields:
+            raise N8nWorkflowError(
+                message=f"Missing required fields for workflow creation: {', '.join(missing_fields)}",
+                response=None,
+                body=None
+            )
+            
         try:
             return await self.post("workflows", json_data=workflow_data)
         except Exception as e:
@@ -90,17 +131,39 @@ class WorkflowClient(BaseHttpClient):
                 body=getattr(e, "body", None)
             )
     
-    async def update_workflow(self, workflow_id: str, workflow_data: Dict[str, Any]) -> Dict[str, Any]:
+    async def update_workflow(self, workflow_id: str, workflow_data: Union[Dict[str, Any], Workflow]) -> Dict[str, Any]:
         """
-        Update an existing workflow.
+        Update a workflow.
         
         Args:
             workflow_id: The ID of the workflow to update
-            workflow_data: Updated workflow definition
+            workflow_data: Updated workflow definition with the following required fields:
+                - name (str): The name of the workflow
+                - nodes (List): Array of workflow nodes
+                - connections (Dict): Object containing the node connections
+                - settings (Dict): Workflow settings
+                
+        Optional fields:
+            - staticData (str or Dict): Static data for the workflow
             
         Returns:
             Updated workflow object
         """
+        # Convert Workflow object to dict if needed
+        if isinstance(workflow_data, Workflow):
+            workflow_data = workflow_data.to_dict()
+        
+        # Validate required fields
+        required_fields = ["name", "nodes", "connections", "settings"]
+        missing_fields = [field for field in required_fields if field not in workflow_data]
+        
+        if missing_fields:
+            raise N8nWorkflowError(
+                message=f"Missing required fields for workflow update: {', '.join(missing_fields)}",
+                response=None,
+                body=None
+            )
+            
         try:
             return await self.put(f"workflows/{workflow_id}", json_data=workflow_data)
         except Exception as e:
@@ -205,26 +268,6 @@ class WorkflowClient(BaseHttpClient):
         except Exception as e:
             raise N8nWorkflowError(
                 message=f"Failed to update tags for workflow {workflow_id}: {str(e)}",
-                response=getattr(e, "response", None),
-                body=getattr(e, "body", None)
-            )
-            
-    async def share_workflow(self, workflow_id: str, share_with_ids: List[str]) -> Dict[str, Any]:
-        """
-        Share a workflow with users.
-        
-        Args:
-            workflow_id: The ID of the workflow
-            share_with_ids: List of user IDs to share the workflow with
-            
-        Returns:
-            Response data
-        """
-        try:
-            return await self.put(f"workflows/{workflow_id}/share", json_data={"shareWithIds": share_with_ids})
-        except Exception as e:
-            raise N8nWorkflowError(
-                message=f"Failed to share workflow {workflow_id}: {str(e)}",
                 response=getattr(e, "response", None),
                 body=getattr(e, "body", None)
             )
