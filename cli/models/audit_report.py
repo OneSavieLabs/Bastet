@@ -9,6 +9,7 @@ class VulnerabilityDetails(BaseModel):
 
 
 class AuditReport(BaseModel):
+    file_name: str = ""
     summary: str
     severity: Literal["high", "medium", "low"]
     vulnerability_details: VulnerabilityDetails
