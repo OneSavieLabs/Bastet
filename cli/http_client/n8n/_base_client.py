@@ -223,13 +223,13 @@ class BaseHttpClient:
         """Make a DELETE request to the API."""
         return await self._request("DELETE", endpoint, **kwargs)
     
-    def close(self) -> None:
+    async def close(self) -> None:
         """Close the HTTP client session."""
         if self._client:
-            self._client.aclose()
+            await self._client.aclose()
     
     def __aenter__(self) -> 'BaseHttpClient':
         return self
     
-    def __aexit__(self, exc_type, exc_val, exc_tb) -> None:
-        self.close()
+    async def __aexit__(self, exc_type, exc_val, exc_tb) -> None:
+        await self.close()

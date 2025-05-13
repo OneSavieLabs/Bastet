@@ -134,7 +134,7 @@ class N8n:
             )
         return self._source_control_client
     
-    def close(self) -> None:
+    async def close(self) -> None:
         """Close all client connections."""
         clients = [
             self._workflow_client,
@@ -149,10 +149,10 @@ class N8n:
         
         for client in clients:
             if client:
-                client.close()
+                await client.close()
     
     def __enter__(self) -> 'N8n':
         return self
     
-    def __exit__(self, exc_type, exc_val, exc_tb) -> None:
-        self.close()
+    async def __exit__(self, exc_type, exc_val, exc_tb) -> None:
+        await self.close()
