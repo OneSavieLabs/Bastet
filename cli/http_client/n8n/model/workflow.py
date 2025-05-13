@@ -26,6 +26,8 @@ class Workflow:
     connections: Dict[str, Any]
     settings: Union[WorkflowSettings, Dict[str, Any]]
     staticData: Optional[Union[str, Dict[str, Any]]] = None
+    id: Optional[str] = None
+    active: bool = False
 
     def to_dict(self) -> Dict[str, Any]:
         """Convert to the format expected by the N8n API."""
@@ -34,6 +36,12 @@ class Workflow:
             "nodes": [node.to_dict() if hasattr(node, "to_dict") else node for node in self.nodes],
             "connections": self.connections,
             "settings": self.settings.to_dict() if hasattr(self.settings, "to_dict") else self.settings,
-            "staticData": self.staticData,
+            "active": self.active,
         }
+        
+        if self.id:
+            workflow_dict["id"] = self.id
+            
+        if self.staticData:
+            workflow_dict["staticData"] = self.staticData
         return workflow_dict
