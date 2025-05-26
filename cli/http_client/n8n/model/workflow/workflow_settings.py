@@ -1,8 +1,7 @@
-from dataclasses import dataclass, asdict
+from pydantic import BaseModel
 from typing import Dict, Optional, Any, Literal
 
-@dataclass
-class WorkflowSettings:
+class WorkflowSettings(BaseModel):
     """
     Settings for a N8n workflow.
 
@@ -28,5 +27,9 @@ class WorkflowSettings:
     
     def to_dict(self) -> Dict[str, Any]:
         """Convert to the format expected by the N8n API."""
-        settings_dict = asdict(self)
-        return {k: v for k, v in settings_dict.items() if v is not None}
+        return self.model_dump(exclude_none=True)
+        
+    @classmethod
+    def from_dict(cls, data: Dict[str, Any]) -> "WorkflowSettings":
+        """Create a WorkflowSettings from a dictionary."""
+        return cls.model_validate(data)

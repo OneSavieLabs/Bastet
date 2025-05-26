@@ -2,7 +2,6 @@
 Exceptions for the N8n HTTP client.
 """
 
-# Import from base client to avoid duplication
 from ._base_client import (
     APIError,
     APIStatusError,

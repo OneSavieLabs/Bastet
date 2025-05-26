@@ -1,10 +1,10 @@
 import httpx
-from typing import Any, Dict, Optional, Union, Type, TypeVar, cast
-import json
+from typing import Any, Dict, Optional, TypeVar
 import logging
-import platform
-from urllib.parse import urlparse, urlunparse
+import os
+import dotenv
 
+dotenv.load_dotenv()
 # Type definitions 
 #TODO understand the design -> openAI / src / _base_client.py
 T = TypeVar('T')
@@ -70,8 +70,8 @@ class BaseHttpClient:
         timeout: int = 30,
         max_retries: int = 3
     ):
-        self.api_key = X_N8N_API_KEY
-        self.base_url = self._remove_trailing_slash(N8N_API_BASE_URL)
+        self.api_key = os.getenv("N8N_API_KEY", X_N8N_API_KEY)
+        self.base_url = self._remove_trailing_slash(os.getenv("N8N_API_BASE_URL", N8N_API_BASE_URL))
         self.timeout = timeout
         self.max_retries = max_retries
         self.logger = logging.getLogger(__name__)

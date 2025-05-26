@@ -1,7 +1,6 @@
-from dataclasses import dataclass, field
+from dataclasses import dataclass
 from typing import Optional
 from datetime import datetime
-
 
 @dataclass
 class Tag:

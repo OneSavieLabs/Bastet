@@ -1,7 +1,7 @@
 from typing import Dict, List, Optional, Any, Union
 from ..exceptions import N8nWorkflowError
 from .._base_client import BaseHttpClient
-from ..model.workflow import Workflow
+from ..model.workflow.workflow import Workflow
 from ..model.tag import Tag
 
 class WorkflowClient(BaseHttpClient):
@@ -11,7 +11,6 @@ class WorkflowClient(BaseHttpClient):
     
     async def get_workflows(self, 
                           active: Optional[bool] = None,
-                          tags: Optional[List[str]] = None,
                           name: Optional[str] = None,
                           project_id: Optional[str] = None,
                           exclude_pinned_data: Optional[bool] = None,
@@ -51,19 +50,7 @@ class WorkflowClient(BaseHttpClient):
             response = await self.get("workflows", params=params)
             workflows_data = response.get("data", [])
             
-            # Convert each workflow JSON to a Workflow object
-            workflows = []
-            for workflow_data in workflows_data:
-                workflow = Workflow(
-                    id=workflow_data.get("id"),
-                    name=workflow_data.get("name"),
-                    nodes=workflow_data.get("nodes", []),
-                    connections=workflow_data.get("connections", {}),
-                    settings=workflow_data.get("settings", {}),
-                    staticData=workflow_data.get("staticData")
-                )
-                workflows.append(workflow)
-                
+            workflows = [Workflow.from_dict(workflow_data) for workflow_data in workflows_data]
             return workflows
         except Exception as e:
             raise N8nWorkflowError(
@@ -88,14 +75,7 @@ class WorkflowClient(BaseHttpClient):
                 
         try:
             workflow_data = await self.get(f"workflows/{workflow_id}", params=params)
-            return Workflow(
-                id=workflow_data.get("id"),
-                name=workflow_data.get("name"),
-                nodes=workflow_data.get("nodes", []),
-                connections=workflow_data.get("connections", {}),
-                settings=workflow_data.get("settings", {}),
-                staticData=workflow_data.get("staticData")
-            )
+            return Workflow.from_dict(workflow_data)
         except Exception as e:
             raise N8nWorkflowError(
                 message=f"Failed to retrieve workflow {workflow_id}: {str(e)}"
@@ -135,15 +115,8 @@ class WorkflowClient(BaseHttpClient):
             )
             
         try:
-            workflow_data_response = await self.post("workflows", json_data=workflow_data)
-            return Workflow(
-                id=workflow_data_response.get("id"),
-                name=workflow_data_response.get("name"),
-                nodes=workflow_data_response.get("nodes", []),
-                connections=workflow_data_response.get("connections", {}),
-                settings=workflow_data_response.get("settings", {}),
-                staticData=workflow_data_response.get("staticData")
-            )
+            created_workflow = await self.post("workflows", json=workflow_data)
+            return Workflow.from_dict(created_workflow)
         except Exception as e:
             raise N8nWorkflowError(
                 message=f"Failed to create workflow: {str(e)}"
@@ -182,15 +155,8 @@ class WorkflowClient(BaseHttpClient):
             )
             
         try:
-            workflow_data_response = await self.put(f"workflows/{workflow_id}", json_data=workflow_data)
-            return Workflow(
-                id=workflow_data_response.get("id"),
-                name=workflow_data_response.get("name"),
-                nodes=workflow_data_response.get("nodes", []),
-                connections=workflow_data_response.get("connections", {}),
-                settings=workflow_data_response.get("settings", {}),
-                staticData=workflow_data_response.get("staticData")
-            )
+            updated_workflow = await self.put(f"workflows/{workflow_id}", json=workflow_data)
+            return Workflow.from_dict(updated_workflow)
         except Exception as e:
             raise N8nWorkflowError(
                 message=f"Failed to update workflow {workflow_id}: {str(e)}"
@@ -224,15 +190,8 @@ class WorkflowClient(BaseHttpClient):
             Updated workflow object
         """
         try:
-            workflow_data = await self.post(f"workflows/{workflow_id}/activate")
-            return Workflow(
-                id=workflow_data.get("id"),
-                name=workflow_data.get("name"),
-                nodes=workflow_data.get("nodes", []),
-                connections=workflow_data.get("connections", {}),
-                settings=workflow_data.get("settings", {}),
-                staticData=workflow_data.get("staticData")
-            )
+            activated_workflow = await self.post(f"workflows/{workflow_id}/activate")
+            return Workflow.from_dict(activated_workflow)
         except Exception as e:
             raise N8nWorkflowError(
                 message=f"Failed to activate workflow {workflow_id}: {str(e)}"
@@ -249,22 +208,15 @@ class WorkflowClient(BaseHttpClient):
             Updated workflow object
         """
         try:
-            workflow_data = await self.post(f"workflows/{workflow_id}/deactivate")
-            return Workflow(
-                id=workflow_data.get("id"),
-                name=workflow_data.get("name"),
-                nodes=workflow_data.get("nodes", []),
-                connections=workflow_data.get("connections", {}),
-                settings=workflow_data.get("settings", {}),
-                staticData=workflow_data.get("staticData")
-            )
+            deactivated_workflow = await self.post(f"workflows/{workflow_id}/deactivate")
+            return Workflow.from_dict(deactivated_workflow)
         except Exception as e:
             raise N8nWorkflowError(
                 message=f"Failed to deactivate workflow {workflow_id}: {str(e)}"
             )
             
 
-    async def transfer_workflow_to_new_project(self, workflow_id: str, dest_project_id: str) -> Dict[str, Any]:
+    async def transfer_workflow_to_new_project(self, workflow_id: str, dest_project_id: str) -> Workflow:
         """
         Transfer a workflow to another project.
         
@@ -276,7 +228,8 @@ class WorkflowClient(BaseHttpClient):
             Updated workflow object
         """
         try:
-            return await self.post(f"workflows/{workflow_id}/transfer", json_data={"projectId": dest_project_id})
+            transferred_workflow = await self.post(f"workflows/{workflow_id}/transfer", json={"projectId": dest_project_id})
+            return Workflow.from_dict(transferred_workflow)
         except Exception as e:
             raise N8nWorkflowError(
                 message=f"Failed to transfer workflow {workflow_id}: {str(e)}"
