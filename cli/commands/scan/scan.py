@@ -123,6 +123,7 @@ def scan_v1(folder_path: str, n8n_url: str, output_path: str):
                                 continue
                             try:
                                 audit_report = AuditReport(**report_json)
+                                audit_report.file_name = contract_file
                                 audit_reports.append(audit_report)
                                 cnt += 1
                             except ValidationError as e:
@@ -142,7 +143,7 @@ def scan_v1(folder_path: str, n8n_url: str, output_path: str):
         df = pd.DataFrame(
             [
                 {
-                    "File Name": contract_file,
+                    "File Name": report.file_name,
                     "Summary": report.summary,
                     "Severity": report.severity,
                     "Vulnerability": report.vulnerability_details,
