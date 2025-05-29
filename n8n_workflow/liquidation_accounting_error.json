@@ -1,0 +1,289 @@
+{
+  "name": "liquidation_accounting_error",
+  "nodes": [
+    {
+      "parameters": {
+        "options": {
+          "maxTokens": 16000
+        }
+      },
+      "type": "@n8n/n8n-nodes-langchain.lmChatOpenAi",
+      "typeVersion": 1,
+      "position": [
+        560,
+        300
+      ],
+      "id": "1c761fab-2ed2-41f0-b906-e1b8ba992a9a",
+      "name": "LLM for answer",
+      "credentials": {
+        "openAiApi": {
+          "id": "eEVET4ssLNU42Y36",
+          "name": "OpenAi account"
+        }
+      }
+    },
+    {
+      "parameters": {
+        "assignments": {
+          "assignments": [
+            {
+              "id": "4cad7351-acee-42aa-a217-bf2b8b624e2f",
+              "name": "chatInput",
+              "value": "={{ $json.body.prompt }}",
+              "type": "string"
+            }
+          ]
+        },
+        "options": {}
+      },
+      "type": "n8n-nodes-base.set",
+      "typeVersion": 3.4,
+      "position": [
+        260,
+        120
+      ],
+      "id": "459a840b-f31b-4117-8cdb-7d759e3574da",
+      "name": "Edit Fields"
+    },
+    {
+      "parameters": {
+        "respondWith": "text",
+        "responseBody": "={{ $execution.id }}",
+        "options": {}
+      },
+      "type": "n8n-nodes-base.respondToWebhook",
+      "typeVersion": 1.1,
+      "position": [
+        0,
+        0
+      ],
+      "id": "2c5ab7be-02c4-4897-945c-7f255416f156",
+      "name": "Respond to Webhook"
+    },
+    {
+      "parameters": {
+        "options": {}
+      },
+      "type": "@n8n/n8n-nodes-langchain.chatTrigger",
+      "typeVersion": 1.1,
+      "position": [
+        -100,
+        300
+      ],
+      "id": "5d2d7ef8-67b4-4e10-b57e-d0e549037af2",
+      "name": "When chat message received",
+      "webhookId": "d8938bcd-9490-4cfb-93f9-0f8ed612cf95"
+    },
+    {
+      "parameters": {
+        "schemaType": "manual",
+        "inputSchema": "{\n  \"type\": \"array\",\n  \"items\": {\n    \"type\": \"object\",\n    \"properties\": {\n      \"Summary\": {\n        \"type\": \"string\",\n        \"description\": \"Brief summary of the vulnerability\"\n      },\n      \"Severity\": {\n        \"type\": \"string\",\n        \"items\": {\n          \"type\": \"string\",\n          \"enum\": [\"High\", \"Medium\", \"Low\"]\n        },\n        \"description\": \"Severity level of the vulnerability\"\n      },\n      \"Vulnerability Details\": {\n        \"type\": \"object\",\n        \"properties\": {\n          \"Function Name\": {\n            \"type\": \"string\",\n            \"description\": \"Function name where the vulnerability is found\"\n          },\n          \"Description\": {\n            \"type\": \"string\",\n            \"description\": \"Detailed description of the vulnerability\"\n          }\n        },\n        \"required\": [\"Function Name\", \"Description\"]\n      },\n      \"Code Snippet\": {\n        \"type\": \"array\",\n        \"items\": {\n          \"type\": \"string\"\n        },\n        \"description\": \"Code snippet showing the vulnerability\",\n        \"default\": []\n      },\n      \"Recommendation\": {\n        \"type\": \"string\",\n        \"description\": \"Recommendation to fix the vulnerability\"\n      }\n    },\n    \"required\": [\"Summary\", \"Severity\", \"Vulnerability Details\", \"Code Snippet\", \"Recommendation\"]\n  },\n  \"additionalProperties\": false\n}"
+      },
+      "type": "@n8n/n8n-nodes-langchain.outputParserStructured",
+      "typeVersion": 1.2,
+      "position": [
+        880,
+        300
+      ],
+      "id": "b2fb94b1-c706-4ed9-946d-02f8b875aa91",
+      "name": "Structured Output Parser1"
+    },
+    {
+      "parameters": {
+        "httpMethod": "POST",
+        "path": "liquidation_acounting_error",
+        "responseMode": "responseNode",
+        "options": {}
+      },
+      "type": "n8n-nodes-base.webhook",
+      "typeVersion": 2,
+      "position": [
+        -480,
+        120
+      ],
+      "id": "9907285f-9b4f-4cbf-8619-fa1c39bb5d59",
+      "name": "Webhook1",
+      "webhookId": "3e426638-b950-48db-807e-ba3bcfb8be1b"
+    },
+    {
+      "parameters": {
+        "respondWith": "allIncomingItems",
+        "options": {}
+      },
+      "type": "n8n-nodes-base.respondToWebhook",
+      "typeVersion": 1.1,
+      "position": [
+        980,
+        120
+      ],
+      "id": "fd93ac7a-30d9-4e1a-a021-b129cd6c9a06",
+      "name": "Respond to Webhook1"
+    },
+    {
+      "parameters": {
+        "conditions": {
+          "options": {
+            "caseSensitive": true,
+            "leftValue": "",
+            "typeValidation": "strict",
+            "version": 2
+          },
+          "conditions": [
+            {
+              "id": "9f85cf7e-9613-4938-aa0e-c000e09640b5",
+              "leftValue": "={{ $json.body.mode }}",
+              "rightValue": "trace",
+              "operator": {
+                "type": "string",
+                "operation": "equals",
+                "name": "filter.operator.equals"
+              }
+            }
+          ],
+          "combinator": "and"
+        },
+        "options": {}
+      },
+      "type": "n8n-nodes-base.if",
+      "typeVersion": 2.2,
+      "position": [
+        -260,
+        120
+      ],
+      "id": "9a1eb4b3-9619-4372-a22b-ca4ab277bb25",
+      "name": "If"
+    },
+    {
+      "parameters": {
+        "promptType": "define",
+        "text": "={{ $json.chatInput }}",
+        "hasOutputParser": true,
+        "messages": {
+          "messageValues": [
+            {
+              "message": "=\"\"\n--> prompt <--\n\"\""
+            }
+          ]
+        }
+      },
+      "type": "@n8n/n8n-nodes-langchain.chainLlm",
+      "typeVersion": 1.5,
+      "position": [
+        620,
+        120
+      ],
+      "id": "bef059fc-748a-4289-b427-137fc7fa7dd3",
+      "name": "liquidation_accounting_error Prompt",
+      "alwaysOutputData": true,
+      "onError": "continueRegularOutput"
+    }
+  ],
+  "pinData": {},
+  "connections": {
+    "LLM for answer": {
+      "ai_languageModel": [
+        [
+          {
+            "node": "liquidation_accounting_error Prompt",
+            "type": "ai_languageModel",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Edit Fields": {
+      "main": [
+        [
+          {
+            "node": "liquidation_accounting_error Prompt",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Respond to Webhook": {
+      "main": [
+        [
+          {
+            "node": "Edit Fields",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "When chat message received": {
+      "main": [
+        [
+          {
+            "node": "liquidation_accounting_error Prompt",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Structured Output Parser1": {
+      "ai_outputParser": [
+        [
+          {
+            "node": "liquidation_accounting_error Prompt",
+            "type": "ai_outputParser",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Webhook1": {
+      "main": [
+        [
+          {
+            "node": "If",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "If": {
+      "main": [
+        [
+          {
+            "node": "Respond to Webhook",
+            "type": "main",
+            "index": 0
+          }
+        ],
+        [
+          {
+            "node": "Edit Fields",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "liquidation_accounting_error Prompt": {
+      "main": [
+        [
+          {
+            "node": "Respond to Webhook1",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    }
+  },
+  "active": false,
+  "settings": {
+    "executionOrder": "v1"
+  },
+  "versionId": "0c52ad7c-8e6a-4411-b8a1-f8208c507c0f",
+  "meta": {
+    "instanceId": "2f5c6bc9e579f603676e00ca3c6ccac5fafbfb3d72c1a6433615cd609e492ec1"
+  },
+  "id": "kTCCniNtDg4W8L7S",
+  "tags": []
+}

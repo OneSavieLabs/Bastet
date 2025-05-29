@@ -1,0 +1,13 @@
+file_name,answer
+./dataset/liquidation_small_position/V3Vault.sol,1
+./dataset/liquidation_small_position/DSCEngine.sol,1
+./dataset/liquidation_small_position/ExitShortFacet.sol,1
+./dataset/liquidation_small_position/VaultValuation.sol,1
+./dataset/liquidation_small_position/VaultManagerV2.sol,1
+./dataset/liquidation_small_position/WiseSecurity.sol,1
+./dataset/liquidation_small_position/SmartVaultV3.sol,1
+./dataset/liquidation_small_position/LibQuote.sol,1
+./dataset/liquidation_small_position/FraxlendPairCore.sol,1
+./dataset/liquidation_small_position/CollateralAndLiquidity.sol,1
+./dataset/liquidation_small_position/LiquidationFacetImpl.sol,1
+./dataset/liquidation_small_position/LibLiquidation.sol,1
