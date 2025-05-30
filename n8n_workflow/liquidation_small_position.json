@@ -1,0 +1,289 @@
+{
+  "name": "liquidation_small_position",
+  "nodes": [
+    {
+      "parameters": {
+        "options": {
+          "maxTokens": 16000
+        }
+      },
+      "type": "@n8n/n8n-nodes-langchain.lmChatOpenAi",
+      "typeVersion": 1,
+      "position": [
+        560,
+        300
+      ],
+      "id": "6106d64a-1376-4867-b856-2599041b8e8a",
+      "name": "LLM for answer",
+      "credentials": {
+        "openAiApi": {
+          "id": "eEVET4ssLNU42Y36",
+          "name": "OpenAi account"
+        }
+      }
+    },
+    {
+      "parameters": {
+        "assignments": {
+          "assignments": [
+            {
+              "id": "4cad7351-acee-42aa-a217-bf2b8b624e2f",
+              "name": "chatInput",
+              "value": "={{ $json.body.prompt }}",
+              "type": "string"
+            }
+          ]
+        },
+        "options": {}
+      },
+      "type": "n8n-nodes-base.set",
+      "typeVersion": 3.4,
+      "position": [
+        260,
+        120
+      ],
+      "id": "47c4ad69-6b5b-429d-8afb-bc1f7316254b",
+      "name": "Edit Fields"
+    },
+    {
+      "parameters": {
+        "respondWith": "text",
+        "responseBody": "={{ $execution.id }}",
+        "options": {}
+      },
+      "type": "n8n-nodes-base.respondToWebhook",
+      "typeVersion": 1.1,
+      "position": [
+        0,
+        0
+      ],
+      "id": "82aed811-0ba4-4b64-9a24-7c60c7c571b6",
+      "name": "Respond to Webhook"
+    },
+    {
+      "parameters": {
+        "options": {}
+      },
+      "type": "@n8n/n8n-nodes-langchain.chatTrigger",
+      "typeVersion": 1.1,
+      "position": [
+        -100,
+        300
+      ],
+      "id": "c2c61edd-15d2-4b2b-b7a3-45ce07198ae1",
+      "name": "When chat message received",
+      "webhookId": "723153b3-9b01-42f3-b165-74c2e05141de"
+    },
+    {
+      "parameters": {
+        "schemaType": "manual",
+        "inputSchema": "{\n  \"type\": \"array\",\n  \"items\": {\n    \"type\": \"object\",\n    \"properties\": {\n      \"Summary\": {\n        \"type\": \"string\",\n        \"description\": \"Brief summary of the vulnerability\"\n      },\n      \"Severity\": {\n        \"type\": \"string\",\n        \"items\": {\n          \"type\": \"string\",\n          \"enum\": [\"High\", \"Medium\", \"Low\"]\n        },\n        \"description\": \"Severity level of the vulnerability\"\n      },\n      \"Vulnerability Details\": {\n        \"type\": \"object\",\n        \"properties\": {\n          \"Function Name\": {\n            \"type\": \"string\",\n            \"description\": \"Function name where the vulnerability is found\"\n          },\n          \"Description\": {\n            \"type\": \"string\",\n            \"description\": \"Detailed description of the vulnerability\"\n          }\n        },\n        \"required\": [\"Function Name\", \"Description\"]\n      },\n      \"Code Snippet\": {\n        \"type\": \"array\",\n        \"items\": {\n          \"type\": \"string\"\n        },\n        \"description\": \"Code snippet showing the vulnerability\",\n        \"default\": []\n      },\n      \"Recommendation\": {\n        \"type\": \"string\",\n        \"description\": \"Recommendation to fix the vulnerability\"\n      }\n    },\n    \"required\": [\"Summary\", \"Severity\", \"Vulnerability Details\", \"Code Snippet\", \"Recommendation\"]\n  },\n  \"additionalProperties\": false\n}"
+      },
+      "type": "@n8n/n8n-nodes-langchain.outputParserStructured",
+      "typeVersion": 1.2,
+      "position": [
+        880,
+        300
+      ],
+      "id": "2ae37d6a-16b9-4fe8-9e5f-beef45fd6a89",
+      "name": "Structured Output Parser1"
+    },
+    {
+      "parameters": {
+        "httpMethod": "POST",
+        "path": "liquidation_small_position",
+        "responseMode": "responseNode",
+        "options": {}
+      },
+      "type": "n8n-nodes-base.webhook",
+      "typeVersion": 2,
+      "position": [
+        -480,
+        120
+      ],
+      "id": "213458ba-4284-4164-a494-69850a369e39",
+      "name": "Webhook1",
+      "webhookId": "36f0428a-6369-433e-995e-af244da41e92"
+    },
+    {
+      "parameters": {
+        "respondWith": "allIncomingItems",
+        "options": {}
+      },
+      "type": "n8n-nodes-base.respondToWebhook",
+      "typeVersion": 1.1,
+      "position": [
+        980,
+        120
+      ],
+      "id": "2c517b2d-b83b-4e0a-af9f-e38c2c3ee60a",
+      "name": "Respond to Webhook1"
+    },
+    {
+      "parameters": {
+        "conditions": {
+          "options": {
+            "caseSensitive": true,
+            "leftValue": "",
+            "typeValidation": "strict",
+            "version": 2
+          },
+          "conditions": [
+            {
+              "id": "9f85cf7e-9613-4938-aa0e-c000e09640b5",
+              "leftValue": "={{ $json.body.mode }}",
+              "rightValue": "trace",
+              "operator": {
+                "type": "string",
+                "operation": "equals",
+                "name": "filter.operator.equals"
+              }
+            }
+          ],
+          "combinator": "and"
+        },
+        "options": {}
+      },
+      "type": "n8n-nodes-base.if",
+      "typeVersion": 2.2,
+      "position": [
+        -260,
+        120
+      ],
+      "id": "cb59c8a1-ebf3-4c44-b186-72c4973fe890",
+      "name": "If"
+    },
+    {
+      "parameters": {
+        "promptType": "define",
+        "text": "={{ $json.chatInput }}",
+        "hasOutputParser": true,
+        "messages": {
+          "messageValues": [
+            {
+              "message": "=## Overview\n\nWhen auditing smart contracts for **Reentrancy** vulnerability, follow the step by step thinking process for each function. Your output should contain each step’s thinking for each function detected.\n\n## Thinking Process\n\n1. First, identify if a function involves external call\n    - Are external calls made using `call`, `delegatecall`, `send`, or `transfer`?\n    - Does it involve transfer ETH or tokens transfer, for example, deposits,  withdrawals, or transfers?\n    - Are these external calls made to untrusted or user-controlled addresses?\n2. If yes to any above, examine whether the function contains sensitive state variables updates:\n    - Does it update user balances, ownership, amount, or other critical state variables?\n3. For each external call and sensitive state variable update found, examine the sequence of operations:\n    - Is the external call done **after** the state change (safe), or **before** (potentially vulnerable)?\n    - Is there any form of reentrancy guard (e.g., a `nonReentrant` modifier or locking mechanism)?\n    - Is the contract susceptible to recursive re-entry before the state is finalized?\n4. Review the function and code snippet you found, check:\n    - Does it follow the Checks-Effects-Interactions pattern (safe)?\n    - Does the code update internal state only **after** sending funds (vulnerable)?\n\n## Examples with Reasoning\n\n### Example 1: Sensitive State Variable Updated After External Call\n\n```\n    function claim() external {\n        address sender = msg.sender;\n\n        UserDetails storage s = userdetails[sender];\n        require(s.userDeposit != 0, \"No Deposit\");\n        require(s.index != vestingPoints.length, \"already claimed\");\n        uint256 pctAmount;\n        uint256 i = s.index;\n        for (i; i <= vestingPoints.length - 1; i++) {\n            if (block.timestamp >= vestingPoints[i][0]) {\n                pctAmount += (s.userDeposit * vestingPoints[i][1]) / 10000;\n            } else {\n                break;\n            }\n        }\n        if (pctAmount != 0) {\n            if (address(token) == address(1)) {\n                (bool sent, ) = payable(sender).call{value: pctAmount}(\"\");\n                require(sent, \"Failed to send BNB to receiver\");\n            } else {\n                token.safeTransfer(sender, pctAmount);\n            }\n            s.index = uint128(i);\n            s.amountClaimed += pctAmount;\n        }\n    }\n```\n\nThought process:\n\n1. This code snippet involves an external call (token transfer).\n2. There exists critical state variable update (`s.amountClaimed`).\n3. Analysis:\n    - `s.amountClaimed` is updated after the token transfer, which is vulnerable to re-entrancy attack.\n    - There’s no `nonReentrant` modifier or locking mechanism in this function.\n    - The external call is made before the state variable is finalized.\n4. Final review:\n    - Confirmed vulnerability in code snippet.\n    - This code snippet didn’t follow Checks-Effects-Interactions pattern\n    - The state variable is updated after external call.\n\nConclusion: Contains vulnerability\n\n### Example 2: Sensitive State Variable Updated After External Call\n\n```\n  function withdrawGovernanceAsset(address targetContract, address asset) public virtual {\n    require(\n      pendingFlashDecision[targetContract][msg.sender].asset == asset &&\n        pendingFlashDecision[targetContract][msg.sender].amount > 0 &&\n        pendingFlashDecision[targetContract][msg.sender].unlockTime < block.timestamp,\n      \"Limbo: Flashgovernance decision pending.\"\n    );\n    IERC20(pendingFlashDecision[targetContract][msg.sender].asset).transfer(\n      msg.sender,\n      pendingFlashDecision[targetContract][msg.sender].amount\n    );\n    delete pendingFlashDecision[targetContract][msg.sender];\n  }\n```\n\nThought process:\n\n1. This code snippet involves an external call (token transfer).\n2. There exists critical state variable update (`pendingFlashDecision[targetContract][msg.sender]`).\n3. Analysis:\n    - `pendingFlashDecision[targetContract][msg.sender]` is updated after the token transfer, which is vulnerable to re-entrancy attack.\n    - There’s no `nonReentrant` modifier or locking mechanism in this function.\n    - The external call is made before the state variable is finalized.\n4. Final review:\n    - Confirmed vulnerability in code snippet.\n    - This code snippet didn’t follow Checks-Effects-Interactions pattern\n    - The state variable is updated after external call.\n\nConclusion: Contains vulnerability\n\n### Example 3: Safe Implementation\n\n```\n\tfunction attemptToSolve(string answer) public {\n\t\tbytes32 hash = keccak256(abi.encodePacked(answer));\n\t\tif (hash == 0x6fd689cdf2f367aa9bd63f9306de49f00479b474f606daed7c015f3d85ff4e40) {\n\t\t\tif (!_hasBeenSolved) {\n\t\t\t\temit Transfer(src, address(0x0), amt);\n\t\t\t\temit Log(\"Well done! You've deserved this!\");\n\t\t\t\temit Log(answer);\n\t\t\t\t_hasBeenSolved = true;\n\t\t\t\t_solvedTime = now;\n\t\t\t}\n\t\t\tmsg.sender.transfer(address(this).balance);\n\t\t} else {\n\t\t\temit Log(\"Sorry, but that's not the correct answer!\");\n\t\t}\n\t}\n```\n\nThought process:\n\n1. This code snippet involves an external call (token transfer).\n2. There exists critical state variable update (`_hasBeenSolved`).\n3. Analysis:\n    - `pendingFlashDecision[targetContract][msg.sender]` is updated before the token transfer, which prevent re-entrancy attack.\n    - The external call is made after the state variable is finalized.\n4. Final review:\n    - No re-entrancy vulnerability in code snippet.\n    - This code snippet follows Checks-Effects-Interactions pattern\n    - The state variable is updated before external call.\n\nConclusion: No vulnerability\n\n### Report Format\n\nReport “Vulnerability Detected” if any re-entrancy attack detected in the given smart contract code.\nOtherwise, report “Vulnerability Not Detected” if no re-entrancy attack detected in the given smart contract code.\n"
+            }
+          ]
+        }
+      },
+      "type": "@n8n/n8n-nodes-langchain.chainLlm",
+      "typeVersion": 1.5,
+      "position": [
+        620,
+        120
+      ],
+      "id": "69bf1393-5a3f-47dd-ab95-041a1640553c",
+      "name": "liquidation_small_position Prompt",
+      "alwaysOutputData": true,
+      "onError": "continueRegularOutput"
+    }
+  ],
+  "pinData": {},
+  "connections": {
+    "LLM for answer": {
+      "ai_languageModel": [
+        [
+          {
+            "node": "liquidation_small_position Prompt",
+            "type": "ai_languageModel",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Edit Fields": {
+      "main": [
+        [
+          {
+            "node": "liquidation_small_position Prompt",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Respond to Webhook": {
+      "main": [
+        [
+          {
+            "node": "Edit Fields",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "When chat message received": {
+      "main": [
+        [
+          {
+            "node": "liquidation_small_position Prompt",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Structured Output Parser1": {
+      "ai_outputParser": [
+        [
+          {
+            "node": "liquidation_small_position Prompt",
+            "type": "ai_outputParser",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Webhook1": {
+      "main": [
+        [
+          {
+            "node": "If",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "If": {
+      "main": [
+        [
+          {
+            "node": "Respond to Webhook",
+            "type": "main",
+            "index": 0
+          }
+        ],
+        [
+          {
+            "node": "Edit Fields",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "liquidation_small_position Prompt": {
+      "main": [
+        [
+          {
+            "node": "Respond to Webhook1",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    }
+  },
+  "active": true,
+  "settings": {
+    "executionOrder": "v1"
+  },
+  "versionId": "78c79762-7295-42e7-b7ff-ad211e0829d4",
+  "meta": {
+    "instanceId": "2f5c6bc9e579f603676e00ca3c6ccac5fafbfb3d72c1a6433615cd609e492ec1"
+  },
+  "id": "FbOMPA9oMQfbrJBx",
+  "tags": []
+}
