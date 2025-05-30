@@ -11,15 +11,3 @@ file_name,answer
 ./dataset/liquidation_small_position/CollateralAndLiquidity.sol,1
 ./dataset/liquidation_small_position/LiquidationFacetImpl.sol,1
 ./dataset/liquidation_small_position/LibLiquidation.sol,1
-./dataset/source_code/ERC1155.sol,0
-./dataset/source_code/2021-11-badgerzaps-Zap.sol,0
-./dataset/source_code/AccessManaged.sol,0
-./dataset/source_code/ERC2771Context.sol,0
-./dataset/source_code/2023-02-blueberry-IchiVaultSpell.sol,0
-./dataset/source_code/VestingWallet.sol,0
-./dataset/source_code/2022-05-rubicon-RubiconRouter.sol,0
-./dataset/source_code/ProxyAdmin.sol,0
-./dataset/source_code/IAccessControlEnumerable.sol,0
-./dataset/source_code/polygonscan-0x3974fbdc22741a1632e024192111107b202f214f-Swap.sol,0
-./dataset/source_code/IERC2981.sol,0
-./dataset/source_code/etherscan-0xed41c3402c4b62777939b7334b4d3d2407517ff9-PirexClaims.sol,0
