@@ -26,3 +26,6 @@ file_name,answer
 ./dataset/liquidation_accounting_error/BBLiquidation.sol,1
 ./dataset/liquidation_accounting_error/Borrower.sol,1
 ./dataset/liquidation_accounting_error/LiquidationLibrary.sol,1
+./dataset/liquidation_accounting_error/LiquidationFacetImpl.sol,1
+./dataset/liquidation_accounting_error/LibSolvency.sol,1
+./dataset/liquidation_accounting_error/Vault.sol,1
