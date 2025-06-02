@@ -17,7 +17,7 @@
       "name": "LLM for answer",
       "credentials": {
         "openAiApi": {
-          "id": "eEVET4ssLNU42Y36",
+          "id": "hFjq1AFHTa8IrlEj",
           "name": "OpenAi account"
         }
       }
@@ -91,7 +91,7 @@
     {
       "parameters": {
         "httpMethod": "POST",
-        "path": "liquidation_acounting_error",
+        "path": "liquidation_accounting_error",
         "responseMode": "responseNode",
         "options": {}
       },
@@ -276,14 +276,14 @@
       ]
     }
   },
-  "active": false,
+  "active": true,
   "settings": {
     "executionOrder": "v1"
   },
-  "versionId": "0c52ad7c-8e6a-4411-b8a1-f8208c507c0f",
+  "versionId": "a1b8246c-1aa0-4ee0-bf2e-1bacff24b99d",
   "meta": {
-    "instanceId": "2f5c6bc9e579f603676e00ca3c6ccac5fafbfb3d72c1a6433615cd609e492ec1"
+    "instanceId": "1604d9dfe460c63178e8ae404debf46f6bf43bfa9c6e2b07d61964f27990b3c4"
   },
-  "id": "kTCCniNtDg4W8L7S",
+  "id": "bQUtpL0E6r7cNOb1",
   "tags": []
 }
