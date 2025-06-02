@@ -11,3 +11,17 @@ file_name,answer
 ./dataset/liquidation_small_position/CollateralAndLiquidity.sol,1
 ./dataset/liquidation_small_position/LiquidationFacetImpl.sol,1
 ./dataset/liquidation_small_position/LibLiquidation.sol,1
+./dataset/liquidation_small_position/PanopticPool.sol,1
+./dataset/safe_v2/OFT.sol,0
+./dataset/safe_v2/OFTAdapter.sol,0
+./dataset/safe_v2/OFTCore.sol,0
+./dataset/safe_v2/ParaSwapLiquiditySwapAdapter.sol,0
+./dataset/safe_v2/ParaSwapRepayAdapter.sol,0
+./dataset/safe_v2/Pausable.sol,0
+./dataset/safe_v2/PausableZone.sol,0
+./dataset/safe_v2/PausableZoneController.sol,0
+./dataset/safe_v2/Payments.sol,0
+./dataset/safe_v2/Permit2Payments.sol,0
+./dataset/safe_v2/PoolStorage.sol,0
+./dataset/safe_v2/PositionManager.sol,0
+./dataset/safe_v2/ProxyAdmin.sol,0
