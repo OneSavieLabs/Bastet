@@ -11,7 +11,7 @@ Bastet covers common vulnerabilities in DeFi, including medium- to high-risk vul
 In addition, Bastet integrates an AI-driven automated vulnerability detection process. By designing tailored detection workflows, Bastet enhances AI's accuracy in identifying vulnerabilities, with the goal of optimizing security lifecycle management—from development and auditing to ongoing monitoring.
 
 We strive to improve overall security coverage and warmly welcome contributions of additional vulnerability types, datasets, or improved AI detection methodologies.
-Please refer to our [Contributing Guidelines](CONTRIBUTING.md).
+Please refer [here](https://www.notion.so/Bastet-Dataset-217573b5d69a8013b27ac453ef5265b2?source=copy_link) to join and contribute to the Bastet dataset. 
 Together, we can drive the industry's security development forward.
 
 ```
