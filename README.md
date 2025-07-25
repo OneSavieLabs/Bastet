@@ -131,9 +131,29 @@ The main script `scan` will recursively scan all `.sol` files in the specified d
 
 ```bash
 poetry run python cli/main.py scan
+# or
+poetry run python cli/main.py scan --output-format default
 ```
 
 The script will scan all contracts in the `dataset/scan_queue` directory using all workflows that you have activated by turning on their respective switch buttons.
+
+When using the default output format — either explicitly with `--output-format default` or by omitting the flag entirely — the scan process will generate three types of files: 
+
+- `.csv` : A flat, spreadsheet-friendly summary of all detected vulnerabilities.
+
+- `.json` : A structured output format designed for use in scripts, tools, or data processing workflows.
+
+- `.md` : A readable Markdown report summarizing key findings for documentation.
+
+These files can be found in the `scan_report` directory after the scan is complete.
+
+```bash
+poetry run python cli/main.py scan --output-format office
+```
+
+This command runs the scan and generates Microsoft Word (.docx) and PDF (.pdf) audit reports, in addition to the default output files (.csv, .json, .md).
+
+**Make sure Microsoft Word must be installed on your machine to use this feature. Without it, the PDF conversion via docx2pdf will not work.**
 
 > you can use flag `--help` for detail information of flag you can use
 
