@@ -3,6 +3,9 @@
 ## Types of Contributions (Please select one)
 
 - [ ] Optimize Workflow
+- [ ] Refactor
+- [ ] Bug fix
+- [ ] Feature
 
 ## Optimize Workflow
 
