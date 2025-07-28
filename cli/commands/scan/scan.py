@@ -146,41 +146,40 @@ def scan_v1(folder_path: str, n8n_url: str, output_path: str, output_format: str
             contract_name = os.path.splitext(os.path.basename(contract_file))[0]
             file_suffix = f"_{contract_name}"
                         
-            if audit_reports:
-                # Create a DataFrame for all vulnerabilities in the current contract
-                df = pd.DataFrame(
-                    [
-                        {
-                            "File Name": contract_file,
-                            "Summary": report.summary,
-                            "Severity": report.severity,
-                            "Vulnerability": report.vulnerability_details,
-                            "Recommendation": report.recommendation,
-                        }
-                        for report in audit_reports
-                    ]
-                )
-                
-                # Generate CSV file
-                csv_file_path = f"{output_path}audit_report{file_suffix}.csv"
-                df.to_csv(csv_file_path, index=False)
-                
-                # Generate JSON file
-                json_file_path = f"{output_path}audit_report{file_suffix}.json"
-                csv_to_json(csv_file_path, json_file_path)
-                
-                # Generate Markdown file
-                md_template_path = output_path + "scan_template/Bastet_Template.md"
-                md_file_path = f"{output_path}audit_report{file_suffix}.md"
-                json_to_md(json_file_path, md_template_path, md_file_path)
-                
-                # Generate Office documents if specified
-                if output_format == "office":
-                    docx_template_path = output_path + "scan_template/Bastet_Template.docx"
-                    docx_file_path = f"{output_path}audit_report{file_suffix}.docx"
-                    pdf_file_path = f"{output_path}audit_report{file_suffix}.pdf"
-                    json_to_office(json_file_path, docx_template_path, docx_file_path, pdf_file_path)
-                
+            # Create a DataFrame for all vulnerabilities in the current contract
+            df = pd.DataFrame(
+                [
+                    {
+                        "File Name": contract_file,
+                        "Summary": report.summary,
+                        "Severity": report.severity,
+                        "Vulnerability": report.vulnerability_details,
+                        "Recommendation": report.recommendation,
+                    }
+                    for report in audit_reports
+                ]
+            )
+            
+            # Generate CSV file
+            csv_file_path = f"{output_path}audit_report{file_suffix}.csv"
+            df.to_csv(csv_file_path, index=False)
+            
+            # Generate JSON file
+            json_file_path = f"{output_path}audit_report{file_suffix}.json"
+            csv_to_json(csv_file_path, json_file_path)
+            
+            # Generate Markdown file
+            md_template_path = output_path + "scan_template/Bastet_Template.md"
+            md_file_path = f"{output_path}audit_report{file_suffix}.md"
+            json_to_md(json_file_path, md_template_path, md_file_path)
+            
+            # Generate Office documents if specified
+            if output_format == "office":
+                docx_template_path = output_path + "scan_template/Bastet_Template.docx"
+                docx_file_path = f"{output_path}audit_report{file_suffix}.docx"
+                pdf_file_path = f"{output_path}audit_report{file_suffix}.pdf"
+                json_to_office(json_file_path, docx_template_path, docx_file_path, pdf_file_path)
+            
     else:
         tqdm.write(
             f"\033[91m❌ No active processor workflows found. Please turn on the workflow in n8n or follow README to setup correctly. \033[0m"
