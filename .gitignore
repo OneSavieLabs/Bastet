@@ -173,3 +173,11 @@ cython_debug/
 
 # PyPI configuration file
 .pypirc
+
+# datasets / evaluation files
+
+dataset/reports
+dataset/repos
+dataset/dataset*.csv
+
+evaluation_results.csv

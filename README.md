@@ -11,8 +11,10 @@ Bastet covers common vulnerabilities in DeFi, including medium- to high-risk vul
 In addition, Bastet integrates an AI-driven automated vulnerability detection process. By designing tailored detection workflows, Bastet enhances AI's accuracy in identifying vulnerabilities, with the goal of optimizing security lifecycle management—from development and auditing to ongoing monitoring.
 
 We strive to improve overall security coverage and warmly welcome contributions of additional vulnerability types, datasets, or improved AI detection methodologies.
-Please refer [here](https://www.notion.so/Bastet-Dataset-217573b5d69a8013b27ac453ef5265b2?source=copy_link) to join and contribute to the Bastet dataset. 
+Please refer [here](https://www.notion.so/Bastet-Dataset-217573b5d69a8013b27ac453ef5265b2?source=copy_link) to join and contribute to the Bastet dataset.
 Together, we can drive the industry's security development forward.
+
+To download the dataset [here](https://drive.google.com/drive/folders/1b3jp6SaNehX4ccZbrmbqeBUoXijXTOmz)
 
 ```
 Bastet/
@@ -29,18 +31,12 @@ Bastet/
 │   │   │   │── <function>.py
 │   │   │── audit_report.py     # Main Interface of output in Bastet
 │── dataset/                    # dataset location
-│   │── catogory/               # Legacy: wait for refactor
-│   │   ├── (Type)/
-│   │   │   ├── (Scenario)/
-│   │   │   │   ├── on-chain-vulnerabilities/
-│   │   │   │   ├── audit-competitions-findings/
-│   │   │   │   ├── secure-implementations/
-│   │   │   │   ├── README.md
-│   │── scan_queue/             # default directory of contracts which need to be scanned by CLI
-│   │   │── <file>.sol
-│   │── source_code/            # default directory of file recorded in dataset.csv, for evaluation
-│   │   │── <file>.sol
-│   │── dataset.csv             # dataset sheet, provide ground truth.
+│   │── reports/                # will be unzipped from the dataset.zip provide in google drive -> audit reports of the projects
+│   │   │── <reports>/
+│   │── repos/                  # will be unzipped from the dataset.zip provide in google drive -> codebase of the projects
+│   │   │── <repos>/
+│   │── dataset.csv             # dataset sheet, provide ground truth. (should be clone from google drive)
+│   │── README.MD               # Basic information of the dataset
 │── n8n_workflows/              # n8n workflow files
 │   │── <file>.json             # workflow for analyzing the smart contracts
 │── docker-compose.yaml
@@ -215,7 +211,13 @@ This command runs the scan and generates Microsoft Word (.docx) and PDF (.pdf) a
         "description": "Recommendation to fix the vulnerability"
       }
     },
-    "required": ["summary", "severity", "vulnerability_details", "code_snippet", "recommendation"]
+    "required": [
+      "summary",
+      "severity",
+      "vulnerability_details",
+      "code_snippet",
+      "recommendation"
+    ]
   },
   "additionalProperties": false
 }
@@ -225,7 +227,21 @@ This command runs the scan and generates Microsoft Word (.docx) and PDF (.pdf) a
 
 > You may refer `n8n_workflow/slippage_min_amount.json`
 
-2. run the command
+2. download the latest dataset.zip and the dataset.csv from [here](https://drive.google.com/drive/folders/1b3jp6SaNehX4ccZbrmbqeBUoXijXTOmz)
+
+3. unzip the dataset.zip in the ./dataset and the folder structure should look like this
+
+```
+dataset/ # dataset location
+│── reports/ # will be unzipped from the dataset.zip provide in google drive -> audit reports of the projects
+│  │── <reports>/
+│── repos/ # will be unzipped from the dataset.zip provide in google drive -> codebase of the projects
+│  │── <repos>/
+│── dataset.csv # dataset sheet, provide ground truth. (should be clone from google drive and renamed to `dataset.csv`)
+│── README.MD # Basic information of the dataset
+```
+
+3. run the command
 
 ```bash
 poetry run python cli/main.py eval
@@ -241,7 +257,21 @@ poetry run python cli/main.py eval
 
 3. make the workflow active
 
-4. run
+4. download the latest dataset.zip and the dataset.csv from [here](https://drive.google.com/drive/folders/1b3jp6SaNehX4ccZbrmbqeBUoXijXTOmz)
+
+5. unzip the dataset.zip in the ./dataset and the folder structure should look like this
+
+```
+dataset/ # dataset location
+│── reports/ # will be unzipped from the dataset.zip provide in google drive -> audit reports of the projects
+│  │── <reports>/
+│── repos/ # will be unzipped from the dataset.zip provide in google drive -> codebase of the projects
+│  │── <repos>/
+│── dataset.csv # dataset sheet, provide ground truth. (should be clone from google drive and renamed to `dataset.csv`)
+│── README.MD # Basic information of the dataset
+```
+
+6. run
 
 ```bash
 poetry run python cli/main.py eval
@@ -265,14 +295,12 @@ you shell get the confusion metrics. like this
 
 Note: the number shell be difference since the answer of LLM model is not stable, the answer here is created by gpt-4o-mini
 
-
 ## Conference
 
-|  Date  |Conference Name |    Topic  |  Slide |  
-| ---- | ---- | ---- | ---- |
-| 2025-04-02|ETH TAIPEI 2025 | Exploring AI’s Role in Smart Contract Security | [ETH-TAIPEI-2025](./slide/ETH-TAIPEI-2025.pdf)  | 
-| 2025-04-17|CyberSec 2025 | AI-Driven Smart Contract Vulnerability Detection | [CyberSec-2025](./slide/CyberSec-2025.pdf)  | 
-
+| Date       | Conference Name | Topic                                            | Slide                                          |
+| ---------- | --------------- | ------------------------------------------------ | ---------------------------------------------- |
+| 2025-04-02 | ETH TAIPEI 2025 | Exploring AI’s Role in Smart Contract Security   | [ETH-TAIPEI-2025](./slide/ETH-TAIPEI-2025.pdf) |
+| 2025-04-17 | CyberSec 2025   | AI-Driven Smart Contract Vulnerability Detection | [CyberSec-2025](./slide/CyberSec-2025.pdf)     |
 
 ## Disclaimer
 
