@@ -67,7 +67,7 @@ Bastet/
 - [Python](https://www.python.org/) 3.10 or higher
 - [Docker](https://www.docker.com/) installed on your machine
 - [Docker Compose](https://docs.docker.com/compose/) installed on your machine
-- [Poetry](https://python-poetry.org/) for package management, if you want to follow our instruction the version should< 2.0.0
+- [Poetry](https://python-poetry.org/) for package management, if you want to follow our instruction the version should> 2.0.1
 
 **Installation Steps**
 
@@ -80,7 +80,7 @@ Bastet/
 ```bash
 # Initialize virtual environment and install dependencies
 poetry install
-poetry env activate
+eval $(poetry env activate)
 ```
 
 2. Configure environment variables in `.env`:
@@ -128,28 +128,23 @@ The main script `scan` will recursively scan all `.sol` files in the specified d
 ```bash
 poetry run python cli/main.py scan
 # or
-poetry run python cli/main.py scan --output-format default
+poetry run python cli/main.py scan --output-format csv
 ```
 
-The script will scan all contracts in the `dataset/scan_queue` directory using all workflows that you have activated by turning on their respective switch buttons.
+By default, the scan will process all contracts in the `dataset/scan_queue` directory using all workflows that you have activated by turning on their respective switch buttons, and generate a `.csv` file containing a spreadsheet-friendly summary of all detected vulnerabilities. The report will be saved in the `scan_report/ `directory.
 
-When using the default output format — either explicitly with `--output-format default` or by omitting the flag entirely — the scan process will generate three types of files: 
-
-- `.csv` : A flat, spreadsheet-friendly summary of all detected vulnerabilities.
-
-- `.json` : A structured output format designed for use in scripts, tools, or data processing workflows.
-
-- `.md` : A readable Markdown report summarizing key findings for documentation.
-
-These files can be found in the `scan_report` directory after the scan is complete.
-
+You can customize the output using the `--output-format` option, supporting multiple formats separated by commas.
 ```bash
-poetry run python cli/main.py scan --output-format office
+# Example: generate json and md
+poetry run python cli/main.py scan --output-format json,md
+# Example: generate all formats
+poetry run python cli/main.py scan --output-format all
 ```
-
-This command runs the scan and generates Microsoft Word (.docx) and PDF (.pdf) audit reports, in addition to the default output files (.csv, .json, .md).
-
-**Make sure Microsoft Word must be installed on your machine to use this feature. Without it, the PDF conversion via docx2pdf will not work.**
+- csv : Generates a CSV file for quick analysis in spreadsheet tools.
+- json : Outputs structured data suitable for automation or further processing.
+- md : Creates a human-readable Markdown summary report.
+- pdf : Exports a printable PDF report.
+- all : Generates all of the above formats: csv, json, md, and pdf.
 
 > you can use flag `--help` for detail information of flag you can use
 
