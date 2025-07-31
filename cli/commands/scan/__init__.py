@@ -29,24 +29,24 @@ def default(
     ),
 ):
     # Normalize and split formats
-    output_format_list = [f.lower() for f in output_format.replace(",", " ").split()]
+    output_formats = set(f.lower() for f in output_format.split(','))
     
     valid_choices = {"csv", "json", "md", "pdf", "all"}
 
     # Validate
-    if not set(output_format_list).issubset(valid_choices):
-        invalid = set(output_format_list) - valid_choices
-        typer.echo(f"❌ Invalid format(s): {', '.join(invalid)}. Choose from: {', '.join(valid_choices)}")
-        raise typer.Exit(1)
+    if not output_formats.issubset(valid_choices):
+        invalid = output_formats - valid_choices
+        typer.echo(f"❌ Invalid format(s): {', '.join(invalid)}. Choose from : csv, json, md, pdf or all.")
+        exit(1)
 
     # Expand 'all' into all formats
-    if "all" in output_format_list:
-        output_format_list = ["csv", "json", "md", "pdf"]
+    if "all" in output_formats:
+        output_formats = {"csv", "json", "md", "pdf"}
 
     if ctx.invoked_subcommand is None:
         scan.scan_v1(
             folder_path=folder_path,
             n8n_url=n8n_url,
             output_path=output_path,
-            output_format=output_format_list,
+            output_format=output_formats,
         )

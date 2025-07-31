@@ -1,10 +1,10 @@
-def scan_v1(folder_path: str, n8n_url: str, output_path: str, output_format: list[str]):
+def scan_v1(folder_path: str, n8n_url: str, output_path: str, output_format: set[str]):
     import glob
     import os
 
     import pandas as pd
     import requests
-    from utils.report_generator import to_md, to_json, to_pdf
+    from utils.report_generator import generate_md, generate_json, generate_pdf
     from models.audit_report import AuditReport
     from models.n8n.node import WebhookNode
     from pydantic import ValidationError
@@ -140,10 +140,7 @@ def scan_v1(folder_path: str, n8n_url: str, output_path: str, output_format: lis
                             f"\033[93m⚠️ Found {cnt} vulnerabilities in contract: {contract_file}\033[0m"
                         )
                 tqdm.write(f"-" * 50)
-                
-            contract_name = os.path.splitext(os.path.basename(contract_file))[0]
-            file_suffix = f"_{contract_name}"
-                        
+            
             # Create a DataFrame for all vulnerabilities in the current contract
             df = pd.DataFrame(
                 [
@@ -158,7 +155,9 @@ def scan_v1(folder_path: str, n8n_url: str, output_path: str, output_format: lis
                 ]
             )
             
-            formats = set(output_format)
+            contract_name = os.path.splitext(os.path.basename(contract_file))[0]
+            file_suffix = f"_{contract_name}"
+            
             csv_file_path = f"{output_path}audit_report{file_suffix}.csv"
             json_file_path = f"{output_path}audit_report{file_suffix}.json"
             md_file_path = f"{output_path}audit_report{file_suffix}.md"
@@ -171,26 +170,25 @@ def scan_v1(folder_path: str, n8n_url: str, output_path: str, output_format: lis
                 
             if "json" in output_format:
                 # Generate JSON file
-                to_json(df, json_file_path)
+                generate_json(df, json_file_path)
                 print(f"✅ Json successfully generated: {json_file_path}")
                 
-            if "pdf" in formats:
-                to_md(df, md_file_path)
+            if "pdf" in output_format:
+                md_content = generate_md(df)
                 # Generate PDF if requested
-                to_pdf(md_file_path, pdf_file_path)
+                generate_pdf(md_content, pdf_file_path)
                 print(f"✅ PDF successfully generated: {pdf_file_path}")
                 
-                # If only PDF is requested (not Markdown), delete the temporary MD file
-                if "md" in formats:
+                if "md" in output_format:
+                    # Write to Markdown file
+                    with open(md_file_path, "w", encoding="utf-8") as f:
+                        f.write(md_content)
                     print(f"✅ Markdown successfully generated: {md_file_path}")
-                else :
-                    try:
-                        os.remove(md_file_path)
-                    except OSError as e:
-                        print(f"⚠️ Failed to remove Markdown file: {e}")
-            elif "md" in formats:
+                    
+            elif "md" in output_format:
                 # Generate Markdown file
-                to_md(df, md_file_path)
+                with open(md_file_path, "w", encoding="utf-8") as f:
+                        f.write(generate_md(df))
                 print(f"✅ Markdown successfully generated: {md_file_path}")
                 
     else:

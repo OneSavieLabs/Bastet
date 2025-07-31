@@ -80,7 +80,7 @@ Bastet/
 ```bash
 # Initialize virtual environment and install dependencies
 poetry install
-eval $(poetry env activate)
+eval $(poetry env activate) # or `source .venv/bin/activate`
 ```
 
 2. Configure environment variables in `.env`:
