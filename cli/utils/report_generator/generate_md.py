@@ -1,4 +1,4 @@
-def generate_md(df, output_path: str = None) -> str :
+def generate_md(df, output_path: str) -> str :
     # Bastet Markdown Template
     BASTET_TEMPLATE = """<div style="display: flex; justify-content: center; align-items: center; gap: 10px;">
 <img src="image/Bastet.png" width="60">
