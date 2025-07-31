@@ -1,10 +1,8 @@
-import pandas as pd
-import json
-
-def generate_json(df: pd.DataFrame, json_path: str):
+def generate_json(df, json_path: str):
+    import json
     
-    severity_counter = {}
-    findings = []
+    severity_counter = dict()
+    findings = list()
     file_name = ""
     
     # Check if DataFrame is empty
@@ -42,8 +40,6 @@ def generate_json(df: pd.DataFrame, json_path: str):
         }
         findings.append(finding)
         
-        
-    
     # Build severity statistics
     severity_counts = {
         'high': severity_counter.get('high', 0),

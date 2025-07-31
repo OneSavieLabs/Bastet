@@ -1,4 +1,4 @@
-def scan_v1(folder_path: str, n8n_url: str, output_path: str, output_format: set[str]):
+def scan_v1(folder_path: str, n8n_url: str, output_path: str, output_formats: set[str]):
     import glob
     import os
 
@@ -157,39 +157,34 @@ def scan_v1(folder_path: str, n8n_url: str, output_path: str, output_format: set
             
             contract_name = os.path.splitext(os.path.basename(contract_file))[0]
             file_suffix = f"_{contract_name}"
+            md_content = ""
             
             csv_file_path = f"{output_path}audit_report{file_suffix}.csv"
             json_file_path = f"{output_path}audit_report{file_suffix}.json"
             md_file_path = f"{output_path}audit_report{file_suffix}.md"
             pdf_file_path = f"{output_path}audit_report{file_suffix}.pdf"
             
-            if "csv" in output_format:
+            if "csv" in output_formats:
                 # Generate CSV file
                 df.to_csv(csv_file_path, index=False)
                 print(f"✅ CSV successfully generated : {csv_file_path}")
                 
-            if "json" in output_format:
+            if "json" in output_formats:
                 # Generate JSON file
                 generate_json(df, json_file_path)
                 print(f"✅ Json successfully generated: {json_file_path}")
                 
-            if "pdf" in output_format:
+            if "md" in output_formats:
                 md_content = generate_md(df)
-                # Generate PDF if requested
+                with open(md_file_path, "w", encoding="utf-8") as f:
+                        f.write(md_content)
+                print(f"✅ Markdown successfully generated: {md_file_path}")
+                
+            if "pdf" in output_formats:
+                if not md_content:
+                    md_content = generate_md(df)
                 generate_pdf(md_content, pdf_file_path)
                 print(f"✅ PDF successfully generated: {pdf_file_path}")
-                
-                if "md" in output_format:
-                    # Write to Markdown file
-                    with open(md_file_path, "w", encoding="utf-8") as f:
-                        f.write(md_content)
-                    print(f"✅ Markdown successfully generated: {md_file_path}")
-                    
-            elif "md" in output_format:
-                # Generate Markdown file
-                with open(md_file_path, "w", encoding="utf-8") as f:
-                        f.write(generate_md(df))
-                print(f"✅ Markdown successfully generated: {md_file_path}")
                 
     else:
         tqdm.write(

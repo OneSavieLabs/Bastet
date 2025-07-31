@@ -31,11 +31,11 @@ def default(
     # Normalize and split formats
     output_formats = set(f.lower() for f in output_format.split(','))
     
-    valid_choices = {"csv", "json", "md", "pdf", "all"}
+    valid_formats = {"csv", "json", "md", "pdf", "all"}
 
     # Validate
-    if not output_formats.issubset(valid_choices):
-        invalid = output_formats - valid_choices
+    if not output_formats.issubset(valid_formats):
+        invalid = output_formats - valid_formats
         typer.echo(f"❌ Invalid format(s): {', '.join(invalid)}. Choose from : csv, json, md, pdf or all.")
         exit(1)
 
@@ -48,5 +48,5 @@ def default(
             folder_path=folder_path,
             n8n_url=n8n_url,
             output_path=output_path,
-            output_format=output_formats,
+            output_formats=output_formats,
         )

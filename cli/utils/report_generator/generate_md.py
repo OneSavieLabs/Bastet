@@ -1,9 +1,8 @@
-import pandas as pd
-
-# Bastet Markdown Template
-BASTET_TEMPLATE = """<div style="display: flex; justify-content: center; align-items: center; gap: 10px;">
-  <img src="image/Bastet.png" width="60">
-  <span style="font-size: 30px; font-weight: bold;">Bastet AI Scanning Report</span>
+def generate_md(df) -> str:
+    # Bastet Markdown Template
+    BASTET_TEMPLATE = """<div style="display: flex; justify-content: center; align-items: center; gap: 10px;">
+<img src="image/Bastet.png" width="60">
+<span style="font-size: 30px; font-weight: bold;">Bastet AI Scanning Report</span>
 </div>
 
 <br><br>
@@ -44,10 +43,8 @@ This security assessment is supported by [Bastet](https://github.com/OneSavieLab
 
 # Findings
 {{FINDINGS}}"""
-
-
-def generate_md(df: pd.DataFrame) -> str:
-    severity_counter = {}
+    
+    severity_counter = dict()
     findings = ""
     
     # Check if DataFrame is empty
@@ -97,11 +94,10 @@ def generate_md(df: pd.DataFrame) -> str:
     
     for level in severity_levels:
         count = severity_counter.get(level, 0)
-        severity_rows += f"| {level.capitalize():^13} | {count:^5} |\n"
+        severity_rows += f"| {level.capitalize():<13} | {count:^5} |\n"
     
     total_vulnerabilities = sum(severity_counter.values())
-    severity_rows += f"| **Total**:    | {total_vulnerabilities:^5} |"
-    
+    severity_rows += f"| **Total**     | {total_vulnerabilities:^5} |"
     
     # Replace placeholders in the template
     result = (
