@@ -1,4 +1,4 @@
-def generate_md(df) -> str:
+def generate_md(df, output_path: str = None) -> str :
     # Bastet Markdown Template
     BASTET_TEMPLATE = """<div style="display: flex; justify-content: center; align-items: center; gap: 10px;">
 <img src="image/Bastet.png" width="60">
@@ -106,4 +106,9 @@ This security assessment is supported by [Bastet](https://github.com/OneSavieLab
                         .replace("{{FINDINGS}}", findings)
     )
     
+    # Write to file if an output path is specified
+    if output_path:
+        with open(output_path, "w", encoding="utf-8") as f:
+            f.write(result)
+
     return result

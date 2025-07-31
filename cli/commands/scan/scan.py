@@ -175,14 +175,14 @@ def scan_v1(folder_path: str, n8n_url: str, output_path: str, output_formats: se
                 print(f"✅ Json successfully generated: {json_file_path}")
                 
             if "md" in output_formats:
-                md_content = generate_md(df)
-                with open(md_file_path, "w", encoding="utf-8") as f:
-                        f.write(md_content)
+                # Generate Markdown file
+                md_content = generate_md(df, md_file_path)
                 print(f"✅ Markdown successfully generated: {md_file_path}")
                 
             if "pdf" in output_formats:
+                # Generate PDF file
                 if not md_content:
-                    md_content = generate_md(df)
+                    md_content = generate_md(df, None)
                 generate_pdf(md_content, pdf_file_path)
                 print(f"✅ PDF successfully generated: {pdf_file_path}")
                 
