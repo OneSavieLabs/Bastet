@@ -27,7 +27,7 @@ def generate_json(df, json_path: str):
         recommendation = str(row['Recommendation']).strip()
         
         # Format vulnerability description
-        formatted_vuln = vulnerability.replace("description", "\ndescription")
+        formatted_vulnerability = vulnerability.replace("description", "\ndescription")
         
         # Update severity count
         severity_counter[severity] = severity_counter.get(severity, 0) + 1
@@ -35,7 +35,7 @@ def generate_json(df, json_path: str):
         finding = {
             'summary': summary,
             'severity': severity.capitalize(),
-            'vulnerability': formatted_vuln,
+            'vulnerability': formatted_vulnerability,
             'recommendation': recommendation,
         }
         findings.append(finding)

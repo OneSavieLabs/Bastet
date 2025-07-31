@@ -71,7 +71,7 @@ This security assessment is supported by [Bastet](https://github.com/OneSavieLab
         vulnerability = str(row['Vulnerability']).strip()
         
         # Format vulnerability description
-        formatted_vuln = vulnerability.replace("description", "<br>description")
+        formatted_vulnerability = vulnerability.replace("description", "<br>description")
 
         # Update severity count
         severity_counter[severity] = severity_counter.get(severity, 0) + 1
@@ -80,7 +80,7 @@ This security assessment is supported by [Bastet](https://github.com/OneSavieLab
         findings += f"""### {summary}
 * **Severity**: {severity.capitalize()}
 * **Vulnerability**: 
-{formatted_vuln}
+{formatted_vulnerability}
 * **Recommendation**: 
 {recommendation}
 

@@ -141,11 +141,13 @@ def scan_v1(folder_path: str, n8n_url: str, output_path: str, output_formats: se
                         )
                 tqdm.write(f"-" * 50)
             
+            contract_name = os.path.basename(contract_file)
+            
             # Create a DataFrame for all vulnerabilities in the current contract
             df = pd.DataFrame(
                 [
                     {
-                        "File Name": contract_file,
+                        "File Name": contract_name,
                         "Summary": report.summary,
                         "Severity": report.severity,
                         "Vulnerability": report.vulnerability_details,
@@ -155,7 +157,6 @@ def scan_v1(folder_path: str, n8n_url: str, output_path: str, output_formats: se
                 ]
             )
             
-            contract_name = os.path.splitext(os.path.basename(contract_file))[0]
             file_suffix = f"_{contract_name}"
             md_content = ""
             
