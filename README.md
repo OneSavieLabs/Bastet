@@ -123,6 +123,11 @@ You will see the all workflows we provided currently. (default activated, if you
 
 <img src="image/scan.png"  width="70%">
 
+Please make sure to manually create the `scan_report/` directory before running the scan:
+```bash
+mkdir scan_report
+```
+
 The main script `scan` will recursively scan all `.sol` files in the specified directory:
 
 ```bash
