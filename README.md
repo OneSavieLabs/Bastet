@@ -301,6 +301,7 @@ Note: the number shell be difference since the answer of LLM model is not stable
 | ---------- | --------------- | ------------------------------------------------ | ---------------------------------------------- |
 | 2025-04-02 | ETH TAIPEI 2025 | Exploring AI’s Role in Smart Contract Security   | [ETH-TAIPEI-2025](./slide/ETH-TAIPEI-2025.pdf) |
 | 2025-04-17 | CyberSec 2025   | AI-Driven Smart Contract Vulnerability Detection | [CyberSec-2025](./slide/CyberSec-2025.pdf)     |
+| 2025-08-09 | COSCUP 2025     | AI x Smart Contract: What Static Analysis Tools Can't Do, Leave It to Prompt Engineering! | [COSCUP-2025](./slide/COSCUP-2025.pdf)  |
 
 ## Disclaimer
 
