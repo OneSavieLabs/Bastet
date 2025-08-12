@@ -10,6 +10,10 @@ def scan_v1(folder_path: str, n8n_url: str, output_path: str, output_formats: se
     from pydantic import ValidationError
     from tqdm import tqdm
 
+    if not os.path.exists(output_path):
+        os.makedirs(output_path)
+        tqdm.write(f"📁 Output directory ready: {output_path}")
+
     tqdm.write("Scanning contracts...")
 
     contract_files = glob.glob(os.path.join(folder_path, "**/*.sol"), recursive=True)
