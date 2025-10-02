@@ -1,4 +1,5 @@
 import typer
+
 from . import scan
 
 app = typer.Typer()
@@ -17,6 +18,11 @@ def default(
         "--n8n-url",
         help="The url of the n8n.",
     ),
+    report_name: str = typer.Option(
+        "audit_report",
+        "--report-name",
+        help="The base name of the report files",
+    ),
     output_path: str = typer.Option(
         "./scan_report/",
         "--output-path",
@@ -29,14 +35,16 @@ def default(
     ),
 ):
     # Normalize and split formats
-    output_formats = set(f.lower() for f in output_format.split(','))
-    
+    output_formats = set(f.lower() for f in output_format.split(","))
+
     valid_formats = {"csv", "json", "md", "pdf", "all"}
 
     # Validate
     if not output_formats.issubset(valid_formats):
         invalid = output_formats - valid_formats
-        typer.echo(f"❌ Invalid format(s): {', '.join(invalid)}. Choose from : csv, json, md, pdf or all.")
+        typer.echo(
+            f"❌ Invalid format(s): {', '.join(invalid)}. Choose from : csv, json, md, pdf or all."
+        )
         exit(1)
 
     # Expand 'all' into all formats
@@ -47,6 +55,7 @@ def default(
         scan.scan_v1(
             folder_path=folder_path,
             n8n_url=n8n_url,
+            report_name=report_name,
             output_path=output_path,
             output_formats=output_formats,
         )

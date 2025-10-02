@@ -6,6 +6,7 @@ from . import import_workflow as import_workflow_tool
 
 app = typer.Typer()
 
+
 @app.callback(invoke_without_command=True)
 def default(
     workflow_path: str = typer.Option(
@@ -18,5 +19,10 @@ def default(
         "--n8n-api-url",
         help="The URL of the n8n api",
     ),
+    openai_model_name: str = typer.Option(
+        "gpt-4o-mini",
+        "--openai-model-name",
+        help="The OpenAI model name to use",
+    ),
 ):
-    import_workflow_tool.import_workflow(workflow_path, n8n_api_url)
+    import_workflow_tool.import_workflow(workflow_path, n8n_api_url, openai_model_name)
