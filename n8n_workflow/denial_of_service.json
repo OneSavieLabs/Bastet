@@ -9,10 +9,7 @@
       "name": "When chat message received",
       "type": "@n8n/n8n-nodes-langchain.chatTrigger",
       "typeVersion": 1.1,
-      "position": [
-        -3120,
-        2505
-      ],
+      "position": [-3120, 2505],
       "webhookId": "22520757-268d-4c27-9313-9d4de69d1e1b"
     },
     {
@@ -23,10 +20,7 @@
       },
       "type": "n8n-nodes-base.stickyNote",
       "typeVersion": 1,
-      "position": [
-        -3780,
-        2180
-      ],
+      "position": [-3780, 2180],
       "id": "2433cbb2-75f4-4450-9a1f-d87acba80759",
       "name": "Sticky Note"
     },
@@ -38,10 +32,7 @@
       },
       "type": "n8n-nodes-base.stickyNote",
       "typeVersion": 1,
-      "position": [
-        -3240,
-        2720
-      ],
+      "position": [-3240, 2720],
       "id": "5b5e6a0f-2761-4545-b195-225d33c753e7",
       "name": "Sticky Note1"
     },
@@ -51,10 +42,7 @@
       },
       "type": "n8n-nodes-base.merge",
       "typeVersion": 3,
-      "position": [
-        -2524,
-        2305
-      ],
+      "position": [-2524, 2305],
       "id": "de3e5b94-0a40-4d9b-bfeb-5de92d266f21",
       "name": "Merge"
     },
@@ -69,10 +57,7 @@
       },
       "type": "@n8n/n8n-nodes-langchain.lmChatOpenAi",
       "typeVersion": 1.2,
-      "position": [
-        -2872,
-        2125
-      ],
+      "position": [-2872, 2125],
       "id": "7063d154-0b65-4b47-b670-67e77fc98dfb",
       "name": "OpenAI Chat Model",
       "credentials": {
@@ -89,10 +74,7 @@
       },
       "type": "@n8n/n8n-nodes-langchain.outputParserStructured",
       "typeVersion": 1.2,
-      "position": [
-        -2752,
-        2125
-      ],
+      "position": [-2752, 2125],
       "id": "37ea4acd-106d-4440-b9e1-582b4d41df7b",
       "name": "Structured Output Parser"
     },
@@ -109,10 +91,7 @@
       },
       "type": "@n8n/n8n-nodes-langchain.chainLlm",
       "typeVersion": 1.5,
-      "position": [
-        -2900,
-        1905
-      ],
+      "position": [-2900, 1905],
       "id": "73665b67-3b96-497a-b530-d0f65375417a",
       "name": "Unbounded loop",
       "onError": "continueRegularOutput"
@@ -130,10 +109,7 @@
       },
       "type": "@n8n/n8n-nodes-langchain.chainLlm",
       "typeVersion": 1.5,
-      "position": [
-        -2900,
-        2305
-      ],
+      "position": [-2900, 2305],
       "id": "ba4aeaca-09ba-4948-aa49-66c4fbe622b7",
       "name": "Integration/Logical error",
       "onError": "continueRegularOutput"
@@ -151,10 +127,7 @@
       },
       "type": "@n8n/n8n-nodes-langchain.chainLlm",
       "typeVersion": 1.5,
-      "position": [
-        -2900,
-        2505
-      ],
+      "position": [-2900, 2505],
       "id": "497a6e0a-d61d-4b69-b0be-74b35f59c142",
       "name": "Refund failed",
       "onError": "continueRegularOutput"
@@ -168,10 +141,7 @@
       },
       "type": "n8n-nodes-base.webhook",
       "typeVersion": 2,
-      "position": [
-        -3780,
-        2005
-      ],
+      "position": [-3780, 2005],
       "id": "bfd464d1-8899-4fcf-ab1c-63c57503ce1c",
       "name": "Webhook",
       "webhookId": "f057ca6f-9cf3-4ab1-ae1a-78b494b06d57"
@@ -184,10 +154,7 @@
       },
       "type": "n8n-nodes-base.respondToWebhook",
       "typeVersion": 1.1,
-      "position": [
-        -3340,
-        1880
-      ],
+      "position": [-3340, 1880],
       "id": "7cb5824b-be79-406c-9d1d-44407f112ce6",
       "name": "Respond to Webhook"
     },
@@ -207,10 +174,7 @@
       },
       "type": "n8n-nodes-base.set",
       "typeVersion": 3.4,
-      "position": [
-        -3120,
-        2005
-      ],
+      "position": [-3120, 2005],
       "id": "1148d8ae-56ef-47ea-a984-74c3206c3cd9",
       "name": "Edit Fields"
     },
@@ -241,10 +205,7 @@
       },
       "type": "n8n-nodes-base.if",
       "typeVersion": 2.2,
-      "position": [
-        -3560,
-        2005
-      ],
+      "position": [-3560, 2005],
       "id": "c90dc2f5-cfad-4a67-949a-486a725bab1c",
       "name": "If"
     },
@@ -255,10 +216,7 @@
       },
       "type": "n8n-nodes-base.respondToWebhook",
       "typeVersion": 1.1,
-      "position": [
-        -2300,
-        2320
-      ],
+      "position": [-2300, 2320],
       "id": "23c64f48-aa24-49b2-a976-f4a9773be783",
       "name": "Respond to Webhook1"
     }
