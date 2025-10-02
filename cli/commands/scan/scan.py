@@ -8,7 +8,6 @@ def scan_v1(
     import glob
     import os
 
-    import pandas as pd
     import requests
     from models.audit_report import AuditReport
     from models.n8n.node import WebhookNode
@@ -189,6 +188,11 @@ def scan_v1(
                 )
         else:
             if "csv" in output_formats:
+<<<<<<< HEAD
+=======
+                extract_imports_and_add_to_df(contract_content, df)
+                # Generate CSV file
+>>>>>>> 8aa6e27 (add scope to .csv report)
                 df.to_csv(csv_file_path, index=False)
                 tqdm.write(f"✅ CSV successfully generated : {csv_file_path}")
 
