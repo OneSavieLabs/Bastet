@@ -1,8 +1,16 @@
+import re
+import pandas as pd
+
+def extract_imports_and_add_to_df(contract_content: str, df: pd.DataFrame) -> list[str]:
+    pattern = r'import\s+["\']([^"\']+)["\']'
+    scope = re.findall(pattern, contract_content)
+    scope = "\n".join(scope) if scope else "no imported files"
+    df.loc[0, "Scope"] = scope
+
 def scan_v1(folder_path: str, n8n_url: str, output_path: str, output_formats: set[str]):
     import glob
     import os
 
-    import pandas as pd
     import requests
     from utils.report_generator import generate_md, generate_json, generate_pdf
     from models.audit_report import AuditReport
@@ -166,6 +174,7 @@ def scan_v1(folder_path: str, n8n_url: str, output_path: str, output_formats: se
             pdf_file_path = f"{output_path}audit_report{file_suffix}.pdf"
             
             if "csv" in output_formats:
+                extract_imports_and_add_to_df(contract_content, df)
                 # Generate CSV file
                 df.to_csv(csv_file_path, index=False)
                 print(f"✅ CSV successfully generated : {csv_file_path}")
