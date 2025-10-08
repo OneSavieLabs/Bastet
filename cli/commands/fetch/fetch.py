@@ -38,6 +38,8 @@ def fetch_on_chain_contracts(
 
     base_dir = os.path.join("dataset", "scan_queue")
     os.makedirs(base_dir, exist_ok=True)
+
+    contracts_fetched = 0
     
     # save all contracts under dataset/scan_queue
     for path, code in source_code.items():
@@ -46,4 +48,8 @@ def fetch_on_chain_contracts(
 
         with open(file_path, "w") as f:
             f.write(code["content"])
+
+        contracts_fetched += 1
         tqdm.write(f"\033[92m✅ Saved contract to: {file_path}\033[0m")
+
+    tqdm.write(f"\033[94mTotal contracts fetched and saved: {contracts_fetched}\033[0m")
