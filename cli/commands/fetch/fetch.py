@@ -5,6 +5,7 @@ def fetch_on_chain_contracts(
     import os
     import requests
     import json
+    import shutil
     from tqdm import tqdm
 
     ETHERSCAN_API_KEY = os.getenv("ETHERSCAN_API_KEY")
@@ -37,6 +38,9 @@ def fetch_on_chain_contracts(
     source_code = parsed["sources"]
 
     base_dir = os.path.join("dataset", "scan_queue")
+    if os.path.exists(base_dir):
+        shutil.rmtree(base_dir)
+
     os.makedirs(base_dir, exist_ok=True)
 
     contracts_fetched = 0
