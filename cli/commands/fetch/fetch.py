@@ -24,10 +24,11 @@ def fetch_on_chain_contracts(
     }
 
     response = requests.get(url, params=params, timeout=15).json()
-    # if res.status != 1:
-    #     raise RuntimeError(f"Etherscan API request failed with status code {res.status}")
+    if response.get("status") != "1":
+        result = response.get("result")
+        raise RuntimeError(f"Etherscan API request failed: {result}")
     
-    raw_source_code = response["result"][0]["SourceCode"]
+    raw_source_code = response.get("result")[0]["SourceCode"]
 
     if raw_source_code == "":
         msg = f"❌ Contract {address} is not verified on Etherscan or is not existed"
@@ -35,7 +36,7 @@ def fetch_on_chain_contracts(
 
     cleaned = raw_source_code.strip("{}")
     parsed = json.loads("{" + cleaned + "}")
-    source_code = parsed["sources"]
+    source_code = parsed.get("sources")
 
     base_dir = os.path.join("dataset", "scan_queue")
     if os.path.exists(base_dir):
@@ -51,7 +52,7 @@ def fetch_on_chain_contracts(
         os.makedirs(os.path.dirname(file_path), exist_ok=True)
 
         with open(file_path, "w") as f:
-            f.write(code["content"])
+            f.write(code.get("content"))
 
         contracts_fetched += 1
         tqdm.write(f"\033[92m✅ Saved contract to: {file_path}\033[0m")
