@@ -1,4 +1,4 @@
-def import_workflow(workflow_path: str, n8n_api_url: str, openai_model_name: str):
+def import_workflow(workflow_path: str, n8n_url: str, openai_model_name: str):
     import json
     import os
 
@@ -17,7 +17,7 @@ def import_workflow(workflow_path: str, n8n_api_url: str, openai_model_name: str
         openai_base_url = os.getenv("OPENAI_API_BASE", "https://api.openai.com/v1")
         if openai_api_key is not None:
             response = requests.post(
-                f"{n8n_api_url}/credentials",
+                f"{n8n_url}/api/v1/credentials",
                 headers={"X-N8N-API-KEY": API_KEY},
                 json={
                     "name": "OpenAI Credentials",
@@ -52,7 +52,7 @@ def import_workflow(workflow_path: str, n8n_api_url: str, openai_model_name: str
             exit(1)
 
     existing_workflows = requests.get(
-        f"{n8n_api_url}/workflows", headers=HEADERS
+        f"{n8n_url}/api/v1/workflows", headers=HEADERS
     ).json()["data"]
     existing_workflow_names = [workflow["name"] for workflow in existing_workflows]
 
@@ -125,14 +125,14 @@ def import_workflow(workflow_path: str, n8n_api_url: str, openai_model_name: str
                         node["parameters"]["model"]["value"] = openai_model_name
                 try:
                     response = requests.post(
-                        f"{n8n_api_url}/workflows",
+                        f"{n8n_url}/api/v1/workflows",
                         headers=HEADERS,
                         json=filtered_workflow_data,
                     )
                     workflow_id = response.json()["id"]
 
                     response = requests.post(
-                        f"{n8n_api_url}/workflows/{workflow_id}/activate",
+                        f"{n8n_url}/api/v1/workflows/{workflow_id}/activate",
                         headers=HEADERS,
                         json=filtered_workflow_data,
                     )

@@ -6,6 +6,7 @@ bastet:
   image: $DOCKER_COMPOSE_IMAGE
   variables:
     BASTET_REPO: "https://github.com/OneSavieLabs/Bastet.git"
+    N8N_API_KEY: eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJzdWIiOiI3MDQ3ZTYxYi1hMTE5LTRmYTgtOGJjMS1jOTA1YzU0ZWI1NDUiLCJpc3MiOiJuOG4iLCJhdWQiOiJwdWJsaWMtYXBpIiwiaWF0IjoxNzU4Nzk0NDg1fQ.-LhC0WplBkRUuiOqVPsFZXNIeaEiqDOgKQDqm2PDtPM
 
   before_script:
     # Install required tools
@@ -15,6 +16,7 @@ bastet:
     - cd ..
     - git clone ${BASTET_REPO} bastet-cicd
     - cd bastet-cicd
+    - git checkout feat/cicd
     - docker-compose -f docker-compose.cicd.yml down --remove-orphans || true
    
     
@@ -50,3 +52,4 @@ bastet:
     - merge_requests
     - main
     - develop
+    - /^feat.*$/

@@ -14,10 +14,10 @@ def default(
         "--workflow-path",
         help="The path to the workflow directory",
     ),
-    n8n_api_url: str = typer.Option(
-        "http://localhost:5678/api/v1",
-        "--n8n-api-url",
-        help="The URL of the n8n api",
+    n8n_url: str = typer.Option(
+        "http://localhost:5678",
+        "--n8n-url",
+        help="The URL of the n8n",
     ),
     openai_model_name: str = typer.Option(
         "gpt-4o-mini",
@@ -25,4 +25,4 @@ def default(
         help="The OpenAI model name to use",
     ),
 ):
-    import_workflow_tool.import_workflow(workflow_path, n8n_api_url, openai_model_name)
+    import_workflow_tool.import_workflow(workflow_path, n8n_url, openai_model_name)

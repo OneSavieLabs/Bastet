@@ -171,24 +171,38 @@ def scan_v1(
             json_file_path = f"{output_path}{report_name}.json"
             md_file_path = f"{output_path}{report_name}.md"
             pdf_file_path = f"{output_path}{report_name}.pdf"
-
+            if df.empty:
+                if "csv" in output_formats:
+                    with open(csv_file_path, "w") as f:
+                        f.write(
+                            "File Name,Summary,Severity,Vulnerability,Recommendation\n"
+                        )
+                elif "json" in output_formats:
+                    with open(json_file_path, "w") as f:
+                        f.write("[]")
+                elif "md" in output_formats:
+                    with open(md_file_path, "w") as f:
+                        f.write("# Audit Report\n\nNo vulnerabilities found.\n")
+                elif "pdf" in output_formats:
+                    generate_pdf(
+                        "# Audit Report\n\nNo vulnerabilities found.\n",
+                        pdf_file_path,
+                    )
             if "csv" in output_formats:
-                # Generate CSV file
-                df.to_csv(csv_file_path, index=False)
                 tqdm.write(f"✅ CSV successfully generated : {csv_file_path}")
 
             if "json" in output_formats:
-                # Generate JSON file
+                # Generate JSON file (even if empty)
                 generate_json(df, json_file_path)
                 tqdm.write(f"✅ Json successfully generated: {json_file_path}")
 
             if "md" in output_formats:
-                # Generate Markdown file
+                # Generate Markdown file (even if empty)
                 md_content = generate_md(df, md_file_path)
                 tqdm.write(f"✅ Markdown successfully generated: {md_file_path}")
 
             if "pdf" in output_formats:
-                # Generate PDF file
+                # Generate PDF file (even if empty)
                 if not md_content:
                     md_content = generate_md(df, None)
                 generate_pdf(md_content, pdf_file_path)
