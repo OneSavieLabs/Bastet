@@ -15,6 +15,7 @@ bastet:
     - cd ..
     - git clone ${BASTET_REPO} bastet-cicd
     - cd bastet-cicd
+    - git checkout feat/cicd
     - docker-compose -f docker-compose.cicd.yml down --remove-orphans || true
    
     
