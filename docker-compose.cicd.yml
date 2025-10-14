@@ -15,11 +15,7 @@ services:
       - ./init:/docker-entrypoint-initdb.d
     restart: unless-stopped
     healthcheck:
-      test:
-        [
-          "CMD-SHELL",
-          "pg_isready -h localhost -U test -d n8n",
-        ]
+      test: ["CMD-SHELL", "pg_isready -h localhost -U test -d n8n"]
       interval: 3s
       timeout: 3s
       retries: 10
@@ -43,7 +39,15 @@ services:
     volumes:
       - n8n_storage:/home/node/.n8n
     healthcheck:
-      test: ["CMD", "wget", "--no-verbose", "--tries=1", "--spider", "http://localhost:5678/healthz"]
+      test:
+        [
+          "CMD",
+          "wget",
+          "--no-verbose",
+          "--tries=1",
+          "--spider",
+          "http://localhost:5678/healthz",
+        ]
       interval: 3s
       timeout: 3s
       retries: 5
@@ -67,7 +71,12 @@ services:
     volumes:
       - n8n_storage:/home/node/.n8n
       - db_storage:/var/lib/postgresql/data
-    command: ["/bin/bash", "-c", "echo 'all' | poetry run python /app/cli/main.py init --n8n-url http://n8n:5678 --openai-model-name ${OPENAI_MODEL_NAME} && tail -f /dev/null" ]
+    command:
+      [
+        "/bin/bash",
+        "-c",
+        "echo 'all' | poetry run python /app/cli/main.py init --n8n-url http://n8n:5678 && tail -f /dev/null",
+      ]
     networks:
       - bastetnet
 
