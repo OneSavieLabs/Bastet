@@ -188,6 +188,7 @@ def scan_v1(
                     pdf_file_path,
                 )
         if "csv" in output_formats:
+            df.to_csv(csv_file_path, index=False)
             tqdm.write(f"✅ CSV successfully generated : {csv_file_path}")
 
         if "json" in output_formats:
