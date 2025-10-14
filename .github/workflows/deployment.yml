@@ -1,0 +1,15 @@
+name: Bastet CI/CD
+
+on: workflow_dispatch
+
+jobs:
+  bastet:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v2
+      - name: Bastet automated scan
+        uses: ./.github/actions
+        with:
+          openai-api-key: ${{ secrets.OPENAI_API_KEY }}
+          openai-api-base: ${{ secrets.OPENAI_API_BASE }}
+          openai-model-name: gpt-4o-mini
