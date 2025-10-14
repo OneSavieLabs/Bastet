@@ -1,4 +1,4 @@
-def import_workflow(workflow_path: str, n8n_url: str, openai_model_name: str):
+def import_workflow(workflow_path: str, n8n_url: str):
     import json
     import os
 
@@ -11,7 +11,7 @@ def import_workflow(workflow_path: str, n8n_url: str, openai_model_name: str):
     ALLOWED_FIELDS = {"name", "nodes", "connections", "settings", "staticData"}
 
     openai_credential_id = os.getenv("N8N_OPENAI_CREDENTIAL_ID")
-
+    openai_model_name = os.getenv("OPENAI_MODEL_NAME", "gpt-4o-mini")
     if openai_credential_id is None:
         openai_api_key = os.getenv("OPENAI_API_KEY")
         openai_base_url = os.getenv("OPENAI_API_BASE", "https://api.openai.com/v1")

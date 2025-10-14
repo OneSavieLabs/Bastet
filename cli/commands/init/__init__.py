@@ -19,10 +19,5 @@ def default(
         "--n8n-url",
         help="The URL of the n8n",
     ),
-    openai_model_name: str = typer.Option(
-        "gpt-4o-mini",
-        "--openai-model-name",
-        help="The OpenAI model name to use",
-    ),
 ):
-    import_workflow_tool.import_workflow(workflow_path, n8n_url, openai_model_name)
+    import_workflow_tool.import_workflow(workflow_path, n8n_url)
