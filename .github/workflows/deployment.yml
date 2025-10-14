@@ -1,6 +1,9 @@
 name: Bastet CI/CD
 
-on: workflow_dispatch
+on:
+  workflow_dispatch:
+    branches:
+      - feat/cicd
 
 jobs:
   bastet:
