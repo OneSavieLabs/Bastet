@@ -71,12 +71,7 @@ services:
     volumes:
       - n8n_storage:/home/node/.n8n
       - db_storage:/var/lib/postgresql/data
-    command:
-      [
-        "/bin/bash",
-        "-c",
-        "echo '5' | poetry run python /app/cli/main.py init --n8n-url http://n8n:5678 && tail -f /dev/null",
-      ]
+    command: ["/bin/bash", "-c", "tail -f /dev/null"]
     networks:
       - bastetnet
 

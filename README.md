@@ -134,12 +134,14 @@ poetry run python cli/main.py scan --output-format csv
 By default, the scan will process all contracts in the `dataset/scan_queue` directory using all workflows that you have activated by turning on their respective switch buttons, and generate a `.csv` file containing a spreadsheet-friendly summary of all detected vulnerabilities. The report will be saved in the `scan_report/ `directory.
 
 You can customize the output using the `--output-format` option, supporting multiple formats separated by commas.
+
 ```bash
 # Example: generate json and md
 poetry run python cli/main.py scan --output-format json,md
 # Example: generate all formats
 poetry run python cli/main.py scan --output-format all
 ```
+
 - csv : Generates a CSV file for quick analysis in spreadsheet tools.
 - json : Outputs structured data suitable for automation or further processing.
 - md : Creates a human-readable Markdown summary report.
@@ -290,13 +292,41 @@ you shell get the confusion metrics. like this
 
 Note: the number shell be difference since the answer of LLM model is not stable, the answer here is created by gpt-4o-mini
 
+### Continuous Integration / Continuous Deployment (CI/CD)
+
+Bastet supports automated CI/CD workflows for both GitHub and GitLab, enabling seamless integration into your development pipeline.
+
+#### GitHub Actions
+
+You can find example CI/CD configurations in `.github/action` and `.github/workflows` directories of this repository. Use these as references to build your own custom CI/CD pipeline for Bastet in GitLab. Adjust stages, environment variables, and workflow steps as needed for your project requirements.
+
+You may customize which vulnerability you want to detect in `.github/action/.example.action.yml`
+
+```bash
+docker-compose -f docker-compose.cicd.yml exec -T bastet \
+         echo 'all' | poetry run python /app/cli/main.py init --n8n-url http://n8n:5678
+```
+
+#### GitLab CI
+
+Add a stage to your `.gitlab-ci.yml` file, follow the `.example.gitlab-ci.yml`
+
+These templates will automatically run Bastet scans on your smart contracts whenever you push changes or open merge requests. Customize the workflow as needed for your project.
+
+You may customize which vulnerability you want to detect in `.example.gitlab-ci.yml`
+
+```bash
+docker-compose -f docker-compose.cicd.yml exec -T bastet \
+         echo 'all' | poetry run python /app/cli/main.py init --n8n-url http://n8n:5678
+```
+
 ## Conference
 
-| Date       | Conference Name | Topic                                            | Slide                                          |
-| ---------- | --------------- | ------------------------------------------------ | ---------------------------------------------- |
-| 2025-04-02 | ETH TAIPEI 2025 | Exploring AI’s Role in Smart Contract Security   | [ETH-TAIPEI-2025](./slide/ETH-TAIPEI-2025.pdf) |
-| 2025-04-17 | CyberSec 2025   | AI-Driven Smart Contract Vulnerability Detection | [CyberSec-2025](./slide/CyberSec-2025.pdf)     |
-| 2025-08-09 | COSCUP 2025     | AI x Smart Contract: What Static Analysis Tools Can't Do, Leave It to Prompt Engineering! | [COSCUP-2025](./slide/COSCUP-2025.pdf)  |
+| Date       | Conference Name | Topic                                                                                     | Slide                                          |
+| ---------- | --------------- | ----------------------------------------------------------------------------------------- | ---------------------------------------------- |
+| 2025-04-02 | ETH TAIPEI 2025 | Exploring AI’s Role in Smart Contract Security                                            | [ETH-TAIPEI-2025](./slide/ETH-TAIPEI-2025.pdf) |
+| 2025-04-17 | CyberSec 2025   | AI-Driven Smart Contract Vulnerability Detection                                          | [CyberSec-2025](./slide/CyberSec-2025.pdf)     |
+| 2025-08-09 | COSCUP 2025     | AI x Smart Contract: What Static Analysis Tools Can't Do, Leave It to Prompt Engineering! | [COSCUP-2025](./slide/COSCUP-2025.pdf)         |
 
 ## Disclaimer
 
