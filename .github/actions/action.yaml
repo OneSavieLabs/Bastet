@@ -1,104 +1,123 @@
+name: Bastet Vulnerability Scanner
+description: Run Bastet vulnerability scan using docker-compose
+
 inputs:
   openai-api-key:
     required: true
+    description: OpenAI API key for Bastet scanning
   openai-api-base:
     required: false
     default: https://api.openai.com/v1
+    description: OpenAI API base URL
   openai-model-name:
     required: false
     default: gpt-4o-mini
+    description: OpenAI model name to use
 
-steps:
-  - name: Checkout project
-    uses: actions/checkout@v4
-    with:
-      path: project
-  
-  - name: Install required tools
-    run: |
-      sudo apt-get update
-      sudo apt-get install -y docker-compose git bash curl
-  
-  - name: Clone Bastet repository
-    run: |
-      cd ..
-      git clone https://github.com/OneSavieLabs/Bastet.git bastet-cicd
-      cd bastet-cicd
-      git checkout feat/cicd
-  
-  - name: Stop any existing containers
-    working-directory: ../bastet-cicd
-    run: |
-      docker-compose -f docker-compose.cicd.yml down --remove-orphans || true
-  
-  - name: Start PostgreSQL
-    working-directory: ../bastet-cicd
-    run: |
-      docker-compose -f docker-compose.cicd.yml up -d postgres
-  
-  - name: Wait for PostgreSQL to be ready
-    run: |
-      for i in {1..30}; do
-        if docker-compose -f ../bastet-cicd/docker-compose.cicd.yml exec -T postgres pg_isready -U test; then
-          echo "PostgreSQL is ready"
-          exit 0
-        fi
-        echo "Waiting for PostgreSQL... ($i/30)"
-        sleep 1
-      done
-      echo "PostgreSQL failed to start"
-      exit 1
-    working-directory: ../bastet-cicd
-  
-  - name: Initialize PostgreSQL database
-    working-directory: ../bastet-cicd
-    run: |
-      docker cp ./init/01-n8n.sql postgres:/tmp/init.sql
-      docker-compose -f docker-compose.cicd.yml exec -T postgres psql -U test -h localhost -d n8n -f /tmp/init.sql
-  
-  - name: Start n8n and Bastet services
-    working-directory: ../bastet-cicd
-    env:
-      OPENAI_API_KEY: ${{ inputs.openai-api-key }}
-      OPENAI_API_BASE: ${{ inputs.openai-api-base }}
-      OPENAI_MODEL_NAME: ${{ inputs.openai-model-name }}
-      N8N_API_KEY: eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJzdWIiOiI3MDQ3ZTYxYi1hMTE5LTRmYTgtOGJjMS1jOTA1YzU0ZWI1NDUiLCJpc3MiOiJuOG4iLCJhdWQiOiJwdWJsaWMtYXBpIiwiaWF0IjoxNzU4Nzk0NDg1fQ.-LhC0WplBkRUuiOqVPsFZXNIeaEiqDOgKQDqm2PDtPM
-    run: |
-      docker-compose -f docker-compose.cicd.yml up -d n8n bastet
-  
-  
-  - name: Copy project to Bastet container
-    run: |
-      docker cp ${{ github.workspace }}/project/. bastet:/app/scan-queue/
-  
-  - name: Create scan reports directory
-    run: |
-      mkdir -p ${{ github.workspace }}/scan-reports
-  
-  - name: Run Bastet scan
-    working-directory: ../bastet-cicd
-    run: |
-      docker-compose -f docker-compose.cicd.yml exec -T bastet \
-        poetry run python ./cli/main.py scan \
-          --folder-path /app/scan-queue/ \
-          --n8n-url http://n8n:5678 \
-          --output-path /app/reports/ \
-          --report-name scan-report
-  
-  - name: Copy scan reports from container
-    run: |
-      docker cp bastet:/app/reports/. ${{ github.workspace }}/scan-reports/ || true
-  
-  - name: Upload scan reports
-    if: always()
-    uses: actions/upload-artifact@v4
-    with:
-      name: bastet-scan-reports
-      path: scan-reports/
-      retention-days: 30
-  
-  - name: Cleanup
-    if: always()
-    working-directory: ../bastet-cicd
-    run: |
-      docker-compose -f docker-compose.cicd.yml down -v --remove-orphans || true
+runs:
+  using: composite
+  steps:
+    - name: Checkout project
+      uses: actions/checkout@v4
+      with:
+        path: project
+    
+    - name: Install required tools
+      shell: bash
+      run: |
+        sudo apt-get update
+        sudo apt-get install -y docker-compose git bash curl
+    
+    - name: Clone Bastet repository
+      shell: bash
+      run: |
+        cd ..
+        git clone https://github.com/OneSavieLabs/Bastet.git bastet-cicd
+        cd bastet-cicd
+        git checkout feat/cicd
+    
+    - name: Stop any existing containers
+      shell: bash
+      working-directory: ../bastet-cicd
+      run: |
+        docker-compose -f docker-compose.cicd.yml down --remove-orphans || true
+    
+    - name: Start PostgreSQL
+      shell: bash
+      working-directory: ../bastet-cicd
+      run: |
+        docker-compose -f docker-compose.cicd.yml up -d postgres
+    
+    - name: Wait for PostgreSQL to be ready
+      shell: bash
+      working-directory: ../bastet-cicd
+      run: |
+        for i in {1..30}; do
+          if docker-compose -f docker-compose.cicd.yml exec -T postgres pg_isready -U test; then
+            echo "PostgreSQL is ready"
+            exit 0
+          fi
+          echo "Waiting for PostgreSQL... ($i/30)"
+          sleep 1
+        done
+        echo "PostgreSQL failed to start"
+        exit 1
+    
+    - name: Initialize PostgreSQL database
+      shell: bash
+      working-directory: ../bastet-cicd
+      run: |
+        docker cp ./init/01-n8n.sql postgres:/tmp/init.sql
+        docker-compose -f docker-compose.cicd.yml exec -T postgres psql -U test -h localhost -d n8n -f /tmp/init.sql
+    
+    - name: Start n8n and Bastet services
+      shell: bash
+      working-directory: ../bastet-cicd
+      env:
+        OPENAI_API_KEY: ${{ inputs['openai-api-key'] }}
+        OPENAI_API_BASE: ${{ inputs['openai-api-base'] }}
+        OPENAI_MODEL_NAME: ${{ inputs['openai-model-name'] }}
+        N8N_API_KEY: eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJzdWIiOiI3MDQ3ZTYxYi1hMTE5LTRmYTgtOGJjMS1jOTA1YzU0ZWI1NDUiLCJpc3MiOiJuOG4iLCJhdWQiOiJwdWJsaWMtYXBpIiwiaWF0IjoxNzU4Nzk0NDg1fQ.-LhC0WplBkRUuiOqVPsFZXNIeaEiqDOgKQDqm2PDtPM
+      run: |
+        docker-compose -f docker-compose.cicd.yml up -d n8n bastet
+    
+    - name: Copy project to Bastet container
+      shell: bash
+      run: |
+        docker cp ${{ github.workspace }}/project/. bastet:/app/scan-queue/
+    
+    - name: Create scan reports directory
+      shell: bash
+      run: |
+        mkdir -p ${{ github.workspace }}/scan-reports
+    
+    - name: Run Bastet scan
+      shell: bash
+      working-directory: ../bastet-cicd
+      run: |
+        docker-compose -f docker-compose.cicd.yml exec -T bastet \
+          poetry run python ./cli/main.py scan \
+            --folder-path /app/scan-queue/ \
+            --n8n-url http://n8n:5678 \
+            --output-path /app/reports/ \
+            --report-name scan-report
+    
+    - name: Copy scan reports from container
+      shell: bash
+      run: |
+        docker cp bastet:/app/reports/. ${{ github.workspace }}/scan-reports/ || true
+    
+    - name: Upload scan reports
+      if: always()
+      uses: actions/upload-artifact@v4
+      with:
+        name: bastet-scan-reports
+        path: scan-reports/
+        retention-days: 30
+    
+    - name: Cleanup
+      if: always()
+      shell: bash
+      working-directory: ../bastet-cicd
+      run: |
+        docker-compose -f docker-compose.cicd.yml down -v --remove-orphans || true
