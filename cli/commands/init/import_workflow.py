@@ -30,7 +30,6 @@ def import_workflow(workflow_path: str, n8n_url: str):
                     },
                 },
             )
-            print(response.json())
             if response.status_code == 200:
                 openai_credential_id = response.json()["id"]
                 tqdm.write(

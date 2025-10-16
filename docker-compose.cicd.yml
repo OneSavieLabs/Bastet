@@ -75,7 +75,7 @@ services:
       [
         "/bin/bash",
         "-c",
-        "echo 'all' | poetry run python /app/cli/main.py init --n8n-url http://n8n:5678 && tail -f /dev/null",
+        "echo '5' | poetry run python /app/cli/main.py init --n8n-url http://n8n:5678 && tail -f /dev/null",
       ]
     networks:
       - bastetnet
