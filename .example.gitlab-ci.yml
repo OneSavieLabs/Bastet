@@ -6,6 +6,9 @@ bastet:
   image: $DOCKER_COMPOSE_IMAGE
   variables:
     BASTET_REPO: "https://github.com/OneSavieLabs/Bastet.git"
+    OPENAI_API_KEY: $OPENAI_API_KEY
+    OPENAI_API_BASE: $OPENAI_API_BASE
+    OPENAI_MODEL_NAME: $OPENAI_MODEL_NAME
 
   before_script:
     # Install required tools
@@ -45,7 +48,7 @@ bastet:
       poetry run python ./cli/main.py scan 
         --folder-path /app/scan-queue/
         --n8n-url http://n8n:5678 
-        --output-path /app/reports/ 
+        --output-path /app/reports/
         --report-name scan-report
     - docker cp bastet:/app/reports/. ${CI_PROJECT_DIR}/scan-reports/
     
