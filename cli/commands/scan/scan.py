@@ -187,26 +187,27 @@ def scan_v1(
                     "# Audit Report\n\nNo vulnerabilities found.\n",
                     pdf_file_path,
                 )
-        if "csv" in output_formats:
-            df.to_csv(csv_file_path, index=False)
-            tqdm.write(f"✅ CSV successfully generated : {csv_file_path}")
+        else:
+            if "csv" in output_formats:
+                df.to_csv(csv_file_path, index=False)
+                tqdm.write(f"✅ CSV successfully generated : {csv_file_path}")
 
-        if "json" in output_formats:
-            # Generate JSON file (even if empty)
-            generate_json(df, json_file_path)
-            tqdm.write(f"✅ Json successfully generated: {json_file_path}")
+            if "json" in output_formats:
+                # Generate JSON file (even if empty)
+                generate_json(df, json_file_path)
+                tqdm.write(f"✅ Json successfully generated: {json_file_path}")
 
-        if "md" in output_formats:
-            # Generate Markdown file (even if empty)
-            md_content = generate_md(df, md_file_path)
-            tqdm.write(f"✅ Markdown successfully generated: {md_file_path}")
+            if "md" in output_formats:
+                # Generate Markdown file (even if empty)
+                md_content = generate_md(df, md_file_path)
+                tqdm.write(f"✅ Markdown successfully generated: {md_file_path}")
 
-        if "pdf" in output_formats:
-            # Generate PDF file (even if empty)
-            if not md_content:
-                md_content = generate_md(df, None)
-            generate_pdf(md_content, pdf_file_path)
-            tqdm.write(f"✅ PDF successfully generated: {pdf_file_path}")
+            if "pdf" in output_formats:
+                # Generate PDF file (even if empty)
+                if not md_content:
+                    md_content = generate_md(df, None)
+                generate_pdf(md_content, pdf_file_path)
+                tqdm.write(f"✅ PDF successfully generated: {pdf_file_path}")
 
     else:
         tqdm.write(
