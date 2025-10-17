@@ -119,6 +119,23 @@ You will see the all workflows we provided currently. (default activated, if you
 
 ## Usage
 
+### Fetch On-Chain Contracts by Address
+
+<img src="image/fetch.png"  width="70%">
+
+To fetch verified contracts from Etherscan by address, including all imported dependencies, first obtain
+an Etherscan API key from the [API Dashboard](https://etherscan.io/apidashboard) and add it to `ETHERSCAN_API_KEY` in `.env` file.
+
+Then, run the following command to download the verified contract source code (currently support the Ethereum mainnet only):
+
+```bash
+poetry run python cli/main.py fetch --address <CONTRACT_ADDRESS>
+```
+
+  The downloaded source code will be stored in `dataset/onchain-sources/<CONTRACT_ADDRESS>`. Users can select the files they need for further processing or analysis.
+
+> ⚠️ **Important:** The use of data obtained through the **Etherscan API** is subject to [Etherscan’s API Terms of Service](https://etherscan.io/apiterms). Users should ensure compliance when handling downloaded contract sources.
+
 ### Scan Multiple Contracts with Multiple Processor Workflows
 
 <img src="image/scan.png"  width="70%">
