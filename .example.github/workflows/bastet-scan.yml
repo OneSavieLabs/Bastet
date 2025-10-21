@@ -19,7 +19,7 @@ jobs:
         uses: actions/checkout@v4
 
       - name: Run Bastet automated scan
-        uses: ./.github/actions/bastet-scan.yml
+        uses: ./.github/actions
         with:
           openai-api-key: ${{ secrets.OPENAI_API_KEY }}
           openai-api-base: ${{ secrets.OPENAI_API_BASE }}
