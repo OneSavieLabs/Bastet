@@ -95,17 +95,18 @@ runs:
       working-directory: ../bastet-cicd
       run: |
         docker-compose -f docker-compose.cicd.yml exec -T bastet \
-         echo 'all' | poetry run python /app/cli/main.py init --n8n-url http://n8n:5678
+        bash -c "echo 'all' | poetry run python /app/cli/main.py init --n8n-url http://n8n:5678"
          
       # initialize n8n with all workflows, you may change 'all' to specific workflow number if needed 
-      # 1. slippage.json
-      # 2. denial_of_service.json
-      # 3. erc4626.json
-      # 4. access_control.json
-      # 5. slippage_min_amount.json
-      # 6. chainlink.json
-      # 7. 4naly3er.json
-      # 8. owasp2025.json
+      # Found 8 workflow files.
+      # 1. 4naly3er.json
+      # 2. access_control.json
+      # 3. chainlink.json
+      # 4. denial_of_service.json
+      # 5. erc4626.json
+      # 6. owasp2025.json
+      # 7. slippage.json
+      # 8. slippage_min_amount.json
       # please input the file number to import (comma separated, e.g. '1, 3, 5') or 'all' to import all
 
     - name: Run Bastet scan
