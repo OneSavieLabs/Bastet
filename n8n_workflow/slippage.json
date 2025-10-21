@@ -9,10 +9,7 @@
       },
       "type": "n8n-nodes-base.stickyNote",
       "typeVersion": 1,
-      "position": [
-        -4140,
-        1160
-      ],
+      "position": [-4140, 1160],
       "id": "caa06ce4-31fa-4938-98d3-836fa20ac7bf",
       "name": "Sticky Note"
     },
@@ -23,10 +20,7 @@
       },
       "type": "n8n-nodes-base.stickyNote",
       "typeVersion": 1,
-      "position": [
-        -4700,
-        820
-      ],
+      "position": [-4700, 820],
       "id": "05593281-f31a-4388-9813-96f387af1986",
       "name": "Sticky Note1"
     },
@@ -37,10 +31,7 @@
       },
       "type": "n8n-nodes-base.stickyNote",
       "typeVersion": 1,
-      "position": [
-        -4700,
-        1040
-      ],
+      "position": [-4700, 1040],
       "id": "d9e41675-0eb7-421e-b4e1-75cb6f865c75",
       "name": "Sticky Note2"
     },
@@ -51,10 +42,7 @@
       },
       "type": "n8n-nodes-base.stickyNote",
       "typeVersion": 1,
-      "position": [
-        -4700,
-        1240
-      ],
+      "position": [-4700, 1240],
       "id": "b679a7ee-c1b0-4052-8e03-74bc5ddb9d53",
       "name": "Sticky Note3"
     },
@@ -65,10 +53,7 @@
       },
       "type": "n8n-nodes-base.stickyNote",
       "typeVersion": 1,
-      "position": [
-        -4700,
-        1440
-      ],
+      "position": [-4700, 1440],
       "id": "d2224e12-a9ff-446f-b107-84db3119d1ff",
       "name": "Sticky Note4"
     },
@@ -79,10 +64,7 @@
       },
       "type": "n8n-nodes-base.stickyNote",
       "typeVersion": 1,
-      "position": [
-        -4700,
-        1660
-      ],
+      "position": [-4700, 1660],
       "id": "89aa80e9-7cbb-48a6-8bdf-b23b988136ca",
       "name": "Sticky Note5"
     },
@@ -93,10 +75,7 @@
       },
       "type": "n8n-nodes-base.stickyNote",
       "typeVersion": 1,
-      "position": [
-        -4700,
-        1880
-      ],
+      "position": [-4700, 1880],
       "id": "e7d41c79-e277-4050-861b-48f97881a1d9",
       "name": "Sticky Note6"
     },
@@ -107,10 +86,7 @@
       },
       "type": "n8n-nodes-base.stickyNote",
       "typeVersion": 1,
-      "position": [
-        -4700,
-        2100
-      ],
+      "position": [-4700, 2100],
       "id": "3b5087ec-b7f2-410a-808a-9b0118446ad3",
       "name": "Sticky Note7"
     },
@@ -121,10 +97,7 @@
       },
       "type": "n8n-nodes-base.stickyNote",
       "typeVersion": 1,
-      "position": [
-        -4700,
-        2320
-      ],
+      "position": [-4700, 2320],
       "id": "2093f253-cc67-4e12-8800-1bc6fb5ce815",
       "name": "Sticky Note8"
     },
@@ -134,10 +107,7 @@
       },
       "type": "n8n-nodes-base.merge",
       "typeVersion": 3,
-      "position": [
-        -2984,
-        1574
-      ],
+      "position": [-2984, 1574],
       "id": "6c8d30fa-651b-40e6-90e4-bc5e1f7489a8",
       "name": "Merge"
     },
@@ -152,10 +122,7 @@
       },
       "type": "@n8n/n8n-nodes-langchain.lmChatOpenAi",
       "typeVersion": 1.2,
-      "position": [
-        -3332,
-        920
-      ],
+      "position": [-3332, 920],
       "id": "09ac801a-b2f1-428e-93e1-833100f31afe",
       "name": "OpenAI Chat Model",
       "credentials": {
@@ -172,10 +139,7 @@
       },
       "type": "@n8n/n8n-nodes-langchain.outputParserStructured",
       "typeVersion": 1.2,
-      "position": [
-        -3212,
-        920
-      ],
+      "position": [-3212, 920],
       "id": "8703a9c9-4475-4bad-a185-bd361bbc0b6e",
       "name": "Structured Output Parser"
     },
@@ -188,10 +152,7 @@
       },
       "type": "n8n-nodes-base.webhook",
       "typeVersion": 2,
-      "position": [
-        -4240,
-        950
-      ],
+      "position": [-4240, 950],
       "id": "4dcaa0f9-4b99-4d3e-a4e0-5b431e8e4e0d",
       "name": "Webhook",
       "webhookId": "c3611315-76dd-4c9e-8472-d6c32fce4477"
@@ -204,10 +165,7 @@
       },
       "type": "n8n-nodes-base.respondToWebhook",
       "typeVersion": 1.1,
-      "position": [
-        -3800,
-        800
-      ],
+      "position": [-3800, 800],
       "id": "eb1b2605-17b1-4bc7-930b-50183678b21c",
       "name": "Respond to Webhook"
     },
@@ -227,10 +185,7 @@
       },
       "type": "n8n-nodes-base.set",
       "typeVersion": 3.4,
-      "position": [
-        -3580,
-        950
-      ],
+      "position": [-3580, 950],
       "id": "0d21fb28-bafa-4c36-8d5a-6834893cbf41",
       "name": "Edit Fields"
     },
@@ -242,10 +197,7 @@
       "name": "When chat message received",
       "type": "@n8n/n8n-nodes-langchain.chatTrigger",
       "typeVersion": 1.1,
-      "position": [
-        -3580,
-        2350
-      ],
+      "position": [-3580, 2350],
       "webhookId": "26f9b05d-755e-4e1f-a0a9-b2eec6e1e0b2"
     },
     {
@@ -261,10 +213,7 @@
       },
       "type": "@n8n/n8n-nodes-langchain.chainLlm",
       "typeVersion": 1.5,
-      "position": [
-        -3360,
-        700
-      ],
+      "position": [-3360, 700],
       "id": "0afc3443-53d1-45fd-aeb8-1a75da320e02",
       "name": "Slippage-No Slippage Parameter",
       "onError": "continueRegularOutput"
@@ -282,10 +231,7 @@
       },
       "type": "@n8n/n8n-nodes-langchain.chainLlm",
       "typeVersion": 1.5,
-      "position": [
-        -3360,
-        1100
-      ],
+      "position": [-3360, 1100],
       "id": "66ad244f-0c84-4178-b5a1-59786547fbae",
       "name": "Slippage-No Expiration Deadline",
       "onError": "continueRegularOutput"
@@ -303,10 +249,7 @@
       },
       "type": "@n8n/n8n-nodes-langchain.chainLlm",
       "typeVersion": 1.5,
-      "position": [
-        -3360,
-        1300
-      ],
+      "position": [-3360, 1300],
       "id": "c03ddeb5-2508-4f9d-8aae-6b07ceb97575",
       "name": "Slippage-Incorrect Slippage Calculation",
       "onError": "continueRegularOutput"
@@ -324,10 +267,7 @@
       },
       "type": "@n8n/n8n-nodes-langchain.chainLlm",
       "typeVersion": 1.5,
-      "position": [
-        -3360,
-        1500
-      ],
+      "position": [-3360, 1500],
       "id": "e3737969-7601-462a-b0df-cae5a8bfb2b1",
       "name": "Slippage-Mismatched Slippage Precision",
       "onError": "continueRegularOutput"
@@ -345,10 +285,7 @@
       },
       "type": "@n8n/n8n-nodes-langchain.chainLlm",
       "typeVersion": 1.5,
-      "position": [
-        -3360,
-        1700
-      ],
+      "position": [-3360, 1700],
       "id": "873235ab-1057-48bb-b32f-0fd8559f24e6",
       "name": "Slippage-Minting Exposes Users To Unlimited Slippage",
       "onError": "continueRegularOutput"
@@ -366,10 +303,7 @@
       },
       "type": "@n8n/n8n-nodes-langchain.chainLlm",
       "typeVersion": 1.5,
-      "position": [
-        -3360,
-        1900
-      ],
+      "position": [-3360, 1900],
       "id": "5a2fb826-d1d8-4668-8fd1-352080b8ffef",
       "name": "Slippage-MinTokensOut For Intermediate, Not Final Amount",
       "onError": "continueRegularOutput"
@@ -387,10 +321,7 @@
       },
       "type": "@n8n/n8n-nodes-langchain.chainLlm",
       "typeVersion": 1.5,
-      "position": [
-        -3360,
-        2100
-      ],
+      "position": [-3360, 2100],
       "id": "6ed4b38d-02a5-459e-b929-80309f1b9d7b",
       "name": "Slippage-On-Chain Slippage Calculation Can Be Manipulated",
       "onError": "continueRegularOutput"
@@ -408,10 +339,7 @@
       },
       "type": "@n8n/n8n-nodes-langchain.chainLlm",
       "typeVersion": 1.5,
-      "position": [
-        -3360,
-        2300
-      ],
+      "position": [-3360, 2300],
       "id": "9c15a056-0866-4434-a3e6-7461bc08f16c",
       "name": "Slippage-Hard-coded Slippage May Freeze User Funds",
       "onError": "continueRegularOutput"
@@ -429,10 +357,7 @@
       },
       "type": "@n8n/n8n-nodes-langchain.chainLlm",
       "typeVersion": 1.5,
-      "position": [
-        -3360,
-        2500
-      ],
+      "position": [-3360, 2500],
       "id": "3029a575-5028-4d3d-bf70-81a1dd55501c",
       "name": "Slippage-Zero Slippage Required",
       "onError": "continueRegularOutput"
@@ -464,10 +389,7 @@
       },
       "type": "n8n-nodes-base.if",
       "typeVersion": 2.2,
-      "position": [
-        -4020,
-        950
-      ],
+      "position": [-4020, 950],
       "id": "5113bf63-9bac-446a-b75e-7b6e3d814b29",
       "name": "If"
     },
@@ -478,10 +400,7 @@
       },
       "type": "n8n-nodes-base.respondToWebhook",
       "typeVersion": 1.1,
-      "position": [
-        -2764,
-        1700
-      ],
+      "position": [-2764, 1700],
       "id": "868a6435-fa34-44fb-806a-04e5069fcd35",
       "name": "Respond to Webhook1"
     }

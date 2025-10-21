@@ -1,0 +1,26 @@
+name: Bastet CI/CD
+
+on:
+  workflow_dispatch:
+  push:
+    branches:
+      - main
+      - develop
+  pull_request:
+    branches:
+      - main
+      - develop
+
+jobs:
+  bastet:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v4
+
+      - name: Run Bastet automated scan
+        uses: ./.github/actions
+        with:
+          openai-api-key: ${{ secrets.OPENAI_API_KEY }}
+          openai-api-base: ${{ secrets.OPENAI_API_BASE }}
+          openai-model-name: ${{ secrets.OPENAI_MODEL_NAME }}

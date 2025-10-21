@@ -8,10 +8,7 @@
       },
       "type": "@n8n/n8n-nodes-langchain.outputParserStructured",
       "typeVersion": 1.2,
-      "position": [
-        808,
-        395
-      ],
+      "position": [808, 395],
       "id": "3886c5d8-d954-4608-b857-1d913b1b4e84",
       "name": "Structured Output Parser"
     },
@@ -24,26 +21,23 @@
       },
       "type": "n8n-nodes-base.webhook",
       "typeVersion": 2,
-      "position": [
-        -220,
-        75
-      ],
+      "position": [-220, 75],
       "id": "5250a143-6bd1-4a9b-908f-bb48db40b654",
       "name": "Webhook",
       "webhookId": "0f3a3dc2-9cb2-4454-86b1-bb95ef26a901"
     },
     {
       "parameters": {
-        "options": {
-          "maxTokens": 16000
-        }
+        "model": {
+          "__rl": true,
+          "mode": "list",
+          "value": "gpt-4o-mini"
+        },
+        "options": {}
       },
       "type": "@n8n/n8n-nodes-langchain.lmChatOpenAi",
-      "typeVersion": 1,
-      "position": [
-        688,
-        395
-      ],
+      "typeVersion": 1.2,
+      "position": [688, 395],
       "id": "340ebf63-f35e-4030-94be-9e230ec8ac74",
       "name": "LLM for answer",
       "credentials": {
@@ -69,10 +63,7 @@
       },
       "type": "n8n-nodes-base.set",
       "typeVersion": 3.4,
-      "position": [
-        440,
-        75
-      ],
+      "position": [440, 75],
       "id": "1116de4f-81c3-4732-9d39-3815dbdc753f",
       "name": "Edit Fields"
     },
@@ -84,10 +75,7 @@
       },
       "type": "n8n-nodes-base.respondToWebhook",
       "typeVersion": 1.1,
-      "position": [
-        220,
-        0
-      ],
+      "position": [220, 0],
       "id": "5e43c271-62b5-4d1d-bc8c-25bf5dc6e8df",
       "name": "Respond to Webhook"
     },
@@ -97,10 +85,7 @@
       },
       "type": "@n8n/n8n-nodes-langchain.chatTrigger",
       "typeVersion": 1.1,
-      "position": [
-        440,
-        275
-      ],
+      "position": [440, 275],
       "id": "3a515a53-17d4-47e9-8d31-d9c2cb4b943d",
       "name": "When chat message received",
       "webhookId": "ce077bb6-7ca6-4f3a-bb6e-cbc80aadc004"
@@ -120,10 +105,7 @@
       },
       "type": "@n8n/n8n-nodes-langchain.chainLlm",
       "typeVersion": 1.5,
-      "position": [
-        660,
-        175
-      ],
+      "position": [660, 175],
       "id": "0fff0801-c2ee-4f61-a4af-ddd37f175f7b",
       "name": "COT - slippage min amount",
       "alwaysOutputData": true,
@@ -133,10 +115,7 @@
       "parameters": {},
       "type": "n8n-nodes-base.merge",
       "typeVersion": 3,
-      "position": [
-        1036,
-        175
-      ],
+      "position": [1036, 175],
       "id": "d026bce1-d56f-4cd1-9c3e-6ff167b0d37c",
       "name": "Merge"
     },
@@ -167,10 +146,7 @@
       },
       "type": "n8n-nodes-base.if",
       "typeVersion": 2.2,
-      "position": [
-        0,
-        75
-      ],
+      "position": [0, 75],
       "id": "d98e6337-c7e9-4d7b-9d9c-2847492fa140",
       "name": "If"
     },
@@ -181,10 +157,7 @@
       },
       "type": "n8n-nodes-base.respondToWebhook",
       "typeVersion": 1.1,
-      "position": [
-        1256,
-        175
-      ],
+      "position": [1256, 175],
       "id": "a1bd02a7-0d2a-401d-9af8-1fa7a26a9614",
       "name": "Respond to Webhook1"
     }

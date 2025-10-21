@@ -1,14 +1,20 @@
-def scan_v1(folder_path: str, n8n_url: str, output_path: str, output_formats: set[str]):
+def scan_v1(
+    folder_path: str,
+    n8n_url: str,
+    report_name: str,
+    output_path: str,
+    output_formats: set[str],
+):
     import glob
     import os
 
     import pandas as pd
     import requests
-    from utils.report_generator import generate_md, generate_json, generate_pdf
     from models.audit_report import AuditReport
     from models.n8n.node import WebhookNode
     from pydantic import ValidationError
     from tqdm import tqdm
+    from utils.report_generator import generate_json, generate_md, generate_pdf
 
     tqdm.write("Scanning contracts...")
 
@@ -33,7 +39,8 @@ def scan_v1(folder_path: str, n8n_url: str, output_path: str, output_formats: se
     if workflows:
         tqdm.write(f"Found {len(workflows)} active processor workflows.")
         tqdm.write(f"-" * 50)
-        audit_reports: list[AuditReport] = []
+        vulnerabilities: list[tuple[str, AuditReport]] = []
+        # audit_reports: list[AuditReport] = []
         for contract_file in tqdm(
             contract_files,
             desc="Processing contracts",
@@ -46,6 +53,7 @@ def scan_v1(folder_path: str, n8n_url: str, output_path: str, output_formats: se
         ):
             tqdm.write(f"start scanning contract: {contract_file}")
             tqdm.write(f"-" * 50)
+            contract_name = os.path.basename(contract_file)
             with open(contract_file, "r") as file:
                 contract_content = file.read()
                 file.close()
@@ -115,6 +123,7 @@ def scan_v1(folder_path: str, n8n_url: str, output_path: str, output_formats: se
                 ][0]["data"]["main"][0]
                 if workflow_reports:
                     cnt = 0
+
                     for report in workflow_reports:
                         for report_json in report["json"].get("output", ["exception"]):
                             if report_json == "exception":
@@ -123,8 +132,8 @@ def scan_v1(folder_path: str, n8n_url: str, output_path: str, output_formats: se
                                 )
                                 continue
                             try:
-                                audit_report = AuditReport(**report_json)
-                                audit_reports.append(audit_report)
+                                vulnerability = AuditReport(**report_json)
+                                vulnerabilities.append((contract_name, vulnerability))
                                 cnt += 1
                             except ValidationError as e:
                                 tqdm.write(
@@ -140,53 +149,66 @@ def scan_v1(folder_path: str, n8n_url: str, output_path: str, output_formats: se
                             f"\033[93m⚠️ Found {cnt} vulnerabilities in contract: {contract_file}\033[0m"
                         )
                 tqdm.write(f"-" * 50)
-            
-            contract_name = os.path.basename(contract_file)
-            
+
             # Create a DataFrame for all vulnerabilities in the current contract
-            df = pd.DataFrame(
-                [
-                    {
-                        "File Name": contract_name,
-                        "Summary": report.summary,
-                        "Severity": report.severity,
-                        "Vulnerability": report.vulnerability_details,
-                        "Recommendation": report.recommendation,
-                    }
-                    for report in audit_reports
-                ]
-            )
-            
-            file_suffix = f"_{contract_name}"
-            md_content = ""
-            
-            csv_file_path = f"{output_path}audit_report{file_suffix}.csv"
-            json_file_path = f"{output_path}audit_report{file_suffix}.json"
-            md_file_path = f"{output_path}audit_report{file_suffix}.md"
-            pdf_file_path = f"{output_path}audit_report{file_suffix}.pdf"
-            
+        df = pd.DataFrame(
+            [
+                {
+                    "File Name": contract_name,
+                    "Summary": report.summary,
+                    "Severity": report.severity,
+                    "Vulnerability": report.vulnerability_details,
+                    "Recommendation": report.recommendation,
+                }
+                for contract_name, report in vulnerabilities
+            ]
+        )
+
+        md_content = ""
+        if not os.path.exists(output_path):
+            os.makedirs(output_path, exist_ok=True)
+
+        csv_file_path = f"{output_path}{report_name}.csv"
+        json_file_path = f"{output_path}{report_name}.json"
+        md_file_path = f"{output_path}{report_name}.md"
+        pdf_file_path = f"{output_path}{report_name}.pdf"
+        if df.empty:
             if "csv" in output_formats:
-                # Generate CSV file
+                with open(csv_file_path, "w") as f:
+                    f.write("File Name,Summary,Severity,Vulnerability,Recommendation\n")
+            elif "json" in output_formats:
+                with open(json_file_path, "w") as f:
+                    f.write("[]")
+            elif "md" in output_formats:
+                with open(md_file_path, "w") as f:
+                    f.write("# Audit Report\n\nNo vulnerabilities found.\n")
+            elif "pdf" in output_formats:
+                generate_pdf(
+                    "# Audit Report\n\nNo vulnerabilities found.\n",
+                    pdf_file_path,
+                )
+        else:
+            if "csv" in output_formats:
                 df.to_csv(csv_file_path, index=False)
-                print(f"✅ CSV successfully generated : {csv_file_path}")
-                
+                tqdm.write(f"✅ CSV successfully generated : {csv_file_path}")
+
             if "json" in output_formats:
-                # Generate JSON file
+                # Generate JSON file (even if empty)
                 generate_json(df, json_file_path)
-                print(f"✅ Json successfully generated: {json_file_path}")
-                
+                tqdm.write(f"✅ Json successfully generated: {json_file_path}")
+
             if "md" in output_formats:
-                # Generate Markdown file
+                # Generate Markdown file (even if empty)
                 md_content = generate_md(df, md_file_path)
-                print(f"✅ Markdown successfully generated: {md_file_path}")
-                
+                tqdm.write(f"✅ Markdown successfully generated: {md_file_path}")
+
             if "pdf" in output_formats:
-                # Generate PDF file
+                # Generate PDF file (even if empty)
                 if not md_content:
                     md_content = generate_md(df, None)
                 generate_pdf(md_content, pdf_file_path)
-                print(f"✅ PDF successfully generated: {pdf_file_path}")
-                
+                tqdm.write(f"✅ PDF successfully generated: {pdf_file_path}")
+
     else:
         tqdm.write(
             f"\033[91m❌ No active processor workflows found. Please turn on the workflow in n8n or follow README to setup correctly. \033[0m"
