@@ -8,7 +8,6 @@ def scan_v1(
     import glob
     import os
 
-    import pandas as pd
     import requests
     from models.audit_report import AuditReport
     from models.n8n.node import WebhookNode
