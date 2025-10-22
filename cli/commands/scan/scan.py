@@ -127,6 +127,7 @@ def scan_v1(
                     for report in workflow_reports:
                         for report_json in report["json"].get("output", ["exception"]):
                             if report_json == "exception":
+                                print(report["json"])
                                 tqdm.write(
                                     f"\033[91m❌ Model output doesn't fit required format, escape one\033[0m"
                                 )
