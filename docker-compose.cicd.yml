@@ -1,7 +1,7 @@
 services:
   postgres:
     image: postgres:16
-    # container_name: postgres
+    container_name: postgres
     environment:
       - POSTGRES_DB=n8n
       - POSTGRES_USER=test
