@@ -15,10 +15,6 @@ def import_workflow(workflow_path: str, n8n_url: str):
     if openai_credential_id is None:
         openai_api_key = os.getenv("OPENAI_API_KEY")
         openai_base_url = os.getenv("OPENAI_API_BASE", "https://api.openai.com/v1")
-        print("Creating OpenAI credential...")
-        print(f"Using OpenAI model: {openai_model_name}")
-        print(f"Using OpenAI base URL: {openai_base_url}")
-        print(f"Using OPENAI CREDENTIAL ID: {openai_api_key}")
         if openai_api_key is not None:
             response = requests.post(
                 f"{n8n_url}/api/v1/credentials",
