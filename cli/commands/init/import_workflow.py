@@ -1,4 +1,4 @@
-def import_workflow(workflow_path: str, n8n_api_url: str):
+def import_workflow(workflow_path: str, n8n_url: str):
     import json
     import os
 
@@ -7,19 +7,51 @@ def import_workflow(workflow_path: str, n8n_api_url: str):
 
     # Settings
     API_KEY = os.getenv("N8N_API_KEY")
-    HEADERS = {"X-N8N-API-KEY": API_KEY, "Content-Type": "application/json"}
+    HEADERS = {"X-N8N-API-KEY": API_KEY}
     ALLOWED_FIELDS = {"name", "nodes", "connections", "settings", "staticData"}
 
     openai_credential_id = os.getenv("N8N_OPENAI_CREDENTIAL_ID")
-
+    openai_model_name = os.getenv("OPENAI_MODEL_NAME", "gpt-4o-mini")
     if openai_credential_id is None:
-        tqdm.write(
-            "\033[91m❌ OpenAI credential id is not set, please set it in the .env file\033[0m"
-        )
-        exit(1)
+        openai_api_key = os.getenv("OPENAI_API_KEY")
+        openai_base_url = os.getenv("OPENAI_API_BASE", "https://api.openai.com/v1")
+        if openai_api_key is not None:
+            response = requests.post(
+                f"{n8n_url}/api/v1/credentials",
+                headers={"X-N8N-API-KEY": API_KEY},
+                json={
+                    "name": "OpenAI Credentials",
+                    "type": "openAiApi",
+                    "data": {
+                        "headerName": "X-N8N-API-KEY",
+                        "headerValue": API_KEY,
+                        "apiKey": openai_api_key,
+                        "url": openai_base_url,
+                    },
+                },
+            )
+            if response.status_code == 200:
+                openai_credential_id = response.json()["id"]
+                tqdm.write(
+                    "\033[92m✅ Successfully create OpenAI credential with id: {}\033[0m".format(
+                        openai_credential_id
+                    )
+                )
+            else:
+                tqdm.write(
+                    "\033[91m❌ Failed to create OpenAI credential: {}\033[0m".format(
+                        response.text
+                    )
+                )
+                exit(1)
+        else:
+            tqdm.write(
+                "\033[91m❌ OpenAI credential id is not set, please set it in the .env file\033[0m"
+            )
+            exit(1)
 
     existing_workflows = requests.get(
-        f"{n8n_api_url}/workflows", headers=HEADERS
+        f"{n8n_url}/api/v1/workflows", headers=HEADERS
     ).json()["data"]
     existing_workflow_names = [workflow["name"] for workflow in existing_workflows]
 
@@ -84,21 +116,22 @@ def import_workflow(workflow_path: str, n8n_api_url: str):
                 }
                 # update openai credential id
                 for node in filtered_workflow_data["nodes"]:
-                    if node["type"] == "@n8n/n8n-nodes-langchain.openAi":
+                    if node["type"] == "@n8n/n8n-nodes-langchain.lmChatOpenAi":
                         node["credentials"]["openAiApi"] = {
                             "id": openai_credential_id,
-                            "name": "OpenAI account",
+                            "name": "OpenAI credential",
                         }
+                        node["parameters"]["model"]["value"] = openai_model_name
                 try:
                     response = requests.post(
-                        f"{n8n_api_url}/workflows",
+                        f"{n8n_url}/api/v1/workflows",
                         headers=HEADERS,
                         json=filtered_workflow_data,
                     )
                     workflow_id = response.json()["id"]
 
                     response = requests.post(
-                        f"{n8n_api_url}/workflows/{workflow_id}/activate",
+                        f"{n8n_url}/api/v1/workflows/{workflow_id}/activate",
                         headers=HEADERS,
                         json=filtered_workflow_data,
                     )

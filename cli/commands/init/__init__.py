@@ -6,6 +6,7 @@ from . import import_workflow as import_workflow_tool
 
 app = typer.Typer()
 
+
 @app.callback(invoke_without_command=True)
 def default(
     workflow_path: str = typer.Option(
@@ -13,10 +14,10 @@ def default(
         "--workflow-path",
         help="The path to the workflow directory",
     ),
-    n8n_api_url: str = typer.Option(
-        "http://localhost:5678/api/v1",
-        "--n8n-api-url",
-        help="The URL of the n8n api",
+    n8n_url: str = typer.Option(
+        "http://localhost:5678",
+        "--n8n-url",
+        help="The URL of the n8n",
     ),
 ):
-    import_workflow_tool.import_workflow(workflow_path, n8n_api_url)
+    import_workflow_tool.import_workflow(workflow_path, n8n_url)

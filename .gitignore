@@ -181,3 +181,5 @@ dataset/repos
 dataset/dataset*.csv
 
 evaluation_results.csv
+
+scan_report

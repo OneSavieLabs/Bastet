@@ -9,10 +9,7 @@
       "name": "When chat message received",
       "type": "@n8n/n8n-nodes-langchain.chatTrigger",
       "typeVersion": 1.1,
-      "position": [
-        -3220,
-        2810
-      ],
+      "position": [-3220, 2810],
       "webhookId": "b1994562-8677-41bd-a2dd-3ad9245498ea"
     },
     {
@@ -23,10 +20,7 @@
       },
       "type": "n8n-nodes-base.stickyNote",
       "typeVersion": 1,
-      "position": [
-        -3940,
-        1900
-      ],
+      "position": [-3940, 1900],
       "id": "9aae1a82-e68d-4ec5-9616-fc4ceefe89ae",
       "name": "Sticky Note"
     },
@@ -37,10 +31,7 @@
       },
       "type": "n8n-nodes-base.stickyNote",
       "typeVersion": 1,
-      "position": [
-        -2240,
-        940
-      ],
+      "position": [-2240, 940],
       "id": "e2c48b1d-16b6-47df-901c-b3898bb9efa2",
       "name": "Sticky Note1"
     },
@@ -51,10 +42,7 @@
       },
       "type": "n8n-nodes-base.stickyNote",
       "typeVersion": 1,
-      "position": [
-        -2240,
-        1320
-      ],
+      "position": [-2240, 1320],
       "id": "ecad2db4-426a-42d6-84ec-89e327a5c8c9",
       "name": "Sticky Note2"
     },
@@ -65,10 +53,7 @@
       },
       "type": "n8n-nodes-base.stickyNote",
       "typeVersion": 1,
-      "position": [
-        -2240,
-        1560
-      ],
+      "position": [-2240, 1560],
       "id": "2406bcd0-fac0-4e0f-84c6-4ec97b5b75e7",
       "name": "Sticky Note3"
     },
@@ -80,10 +65,7 @@
       },
       "type": "n8n-nodes-base.stickyNote",
       "typeVersion": 1,
-      "position": [
-        -2380,
-        1760
-      ],
+      "position": [-2380, 1760],
       "id": "90a0fc77-e65e-4cb7-9fa5-f29123a4e237",
       "name": "Sticky Note4"
     },
@@ -94,10 +76,7 @@
       },
       "type": "n8n-nodes-base.stickyNote",
       "typeVersion": 1,
-      "position": [
-        -2240,
-        1940
-      ],
+      "position": [-2240, 1940],
       "id": "066436f2-3f57-40e4-b0a7-fa5ed2db7c28",
       "name": "Sticky Note5"
     },
@@ -108,10 +87,7 @@
       },
       "type": "n8n-nodes-base.stickyNote",
       "typeVersion": 1,
-      "position": [
-        -2240,
-        2160
-      ],
+      "position": [-2240, 2160],
       "id": "6756bcc9-9da9-4181-8957-2335af056a10",
       "name": "Sticky Note6"
     },
@@ -122,10 +98,7 @@
       },
       "type": "n8n-nodes-base.stickyNote",
       "typeVersion": 1,
-      "position": [
-        -2240,
-        2360
-      ],
+      "position": [-2240, 2360],
       "id": "785542bc-43cb-4d14-b130-b44ad90dd3b9",
       "name": "Sticky Note7"
     },
@@ -136,10 +109,7 @@
       },
       "type": "n8n-nodes-base.stickyNote",
       "typeVersion": 1,
-      "position": [
-        -2240,
-        2560
-      ],
+      "position": [-2240, 2560],
       "id": "ce1a42a4-5da8-4298-b175-2fdacf066f06",
       "name": "Sticky Note8"
     },
@@ -150,10 +120,7 @@
       },
       "type": "n8n-nodes-base.stickyNote",
       "typeVersion": 1,
-      "position": [
-        -2240,
-        2760
-      ],
+      "position": [-2240, 2760],
       "id": "879041e0-56a7-4e50-81de-2aa31626a83a",
       "name": "Sticky Note9"
     },
@@ -164,10 +131,7 @@
       },
       "type": "n8n-nodes-base.stickyNote",
       "typeVersion": 1,
-      "position": [
-        -2240,
-        3000
-      ],
+      "position": [-2240, 3000],
       "id": "e2b490d1-8917-4781-8823-6b15de591941",
       "name": "Sticky Note10"
     },
@@ -177,10 +141,7 @@
       },
       "type": "n8n-nodes-base.merge",
       "typeVersion": 3,
-      "position": [
-        -2624,
-        1913
-      ],
+      "position": [-2624, 1913],
       "id": "dbed7722-f9dc-4289-b2f2-cbd8606de156",
       "name": "Merge"
     },
@@ -195,10 +156,7 @@
       },
       "type": "@n8n/n8n-nodes-langchain.lmChatOpenAi",
       "typeVersion": 1.2,
-      "position": [
-        -2972,
-        1180
-      ],
+      "position": [-2972, 1180],
       "id": "2eb1e572-64c1-4f9a-bd34-967e22f87f26",
       "name": "OpenAI Chat Model",
       "credentials": {
@@ -215,10 +173,7 @@
       },
       "type": "@n8n/n8n-nodes-langchain.outputParserStructured",
       "typeVersion": 1.2,
-      "position": [
-        -2852,
-        1180
-      ],
+      "position": [-2852, 1180],
       "id": "cf4abc61-0ab1-4cb1-9b13-483c78e5b80c",
       "name": "Structured Output Parser"
     },
@@ -231,10 +186,7 @@
       },
       "type": "n8n-nodes-base.webhook",
       "typeVersion": 2,
-      "position": [
-        -3880,
-        1260
-      ],
+      "position": [-3880, 1260],
       "id": "3305a94e-309c-4f8a-95bb-2b74ecb26048",
       "name": "Webhook",
       "webhookId": "bb270c58-7acd-4719-9d49-16b049a2de47"
@@ -247,10 +199,7 @@
       },
       "type": "n8n-nodes-base.respondToWebhook",
       "typeVersion": 1.1,
-      "position": [
-        -3440,
-        1110
-      ],
+      "position": [-3440, 1110],
       "id": "7ae30bbd-880a-4749-b752-e25b6b25b1e4",
       "name": "Respond to Webhook"
     },
@@ -270,10 +219,7 @@
       },
       "type": "n8n-nodes-base.set",
       "typeVersion": 3.4,
-      "position": [
-        -3220,
-        1260
-      ],
+      "position": [-3220, 1260],
       "id": "8da8a555-19a7-4c5e-a2e9-6bc074c30dac",
       "name": "Edit Fields"
     },
@@ -292,10 +238,7 @@
       },
       "type": "@n8n/n8n-nodes-langchain.chainLlm",
       "typeVersion": 1.5,
-      "position": [
-        -3000,
-        960
-      ],
+      "position": [-3000, 960],
       "id": "28b8de7f-9372-42e9-8717-05b6b15089b1",
       "name": "SC01:2025 - Improper Access Control",
       "onError": "continueRegularOutput"
@@ -315,10 +258,7 @@
       },
       "type": "@n8n/n8n-nodes-langchain.chainLlm",
       "typeVersion": 1.5,
-      "position": [
-        -3000,
-        1360
-      ],
+      "position": [-3000, 1360],
       "id": "2b575e11-e509-4a3e-82be-c46dc13866cb",
       "name": "SC02:2025 - Price Oracle Manipulation",
       "onError": "continueRegularOutput"
@@ -338,10 +278,7 @@
       },
       "type": "@n8n/n8n-nodes-langchain.chainLlm",
       "typeVersion": 1.5,
-      "position": [
-        -3000,
-        1560
-      ],
+      "position": [-3000, 1560],
       "id": "81a41625-8a09-4608-b820-250ec3bb38b0",
       "name": "SC03:2025 - Logic Errors",
       "onError": "continueRegularOutput"
@@ -361,10 +298,7 @@
       },
       "type": "@n8n/n8n-nodes-langchain.chainLlm",
       "typeVersion": 1.5,
-      "position": [
-        -3000,
-        1760
-      ],
+      "position": [-3000, 1760],
       "id": "5193fc43-9c99-43b7-9bfd-260f63c05d51",
       "name": "SC04:2025 - Lack of Input Validation",
       "onError": "continueRegularOutput"
@@ -384,10 +318,7 @@
       },
       "type": "@n8n/n8n-nodes-langchain.chainLlm",
       "typeVersion": 1.5,
-      "position": [
-        -3000,
-        1960
-      ],
+      "position": [-3000, 1960],
       "id": "57b1a8f7-070f-4c32-bfb7-9b451c5a4386",
       "name": "SC05:2025 - Reentrancy",
       "onError": "continueRegularOutput"
@@ -407,10 +338,7 @@
       },
       "type": "@n8n/n8n-nodes-langchain.chainLlm",
       "typeVersion": 1.5,
-      "position": [
-        -3000,
-        2360
-      ],
+      "position": [-3000, 2360],
       "id": "4654af26-eb5d-492d-aada-8655463a862e",
       "name": "SC07:2025 - Flash Loan Attacks",
       "onError": "continueRegularOutput"
@@ -430,10 +358,7 @@
       },
       "type": "@n8n/n8n-nodes-langchain.chainLlm",
       "typeVersion": 1.5,
-      "position": [
-        -3000,
-        2560
-      ],
+      "position": [-3000, 2560],
       "id": "36de5ffb-8400-4a5d-8e0a-dfda7509a074",
       "name": "SC08:2025 - Integer Overflow and Underflow",
       "onError": "continueRegularOutput"
@@ -453,10 +378,7 @@
       },
       "type": "@n8n/n8n-nodes-langchain.chainLlm",
       "typeVersion": 1.5,
-      "position": [
-        -3000,
-        2760
-      ],
+      "position": [-3000, 2760],
       "id": "47271cae-cf36-4d02-ae06-acfee5763e2d",
       "name": "SC09:2025 - Insecure Randomness",
       "onError": "continueRegularOutput"
@@ -476,10 +398,7 @@
       },
       "type": "@n8n/n8n-nodes-langchain.chainLlm",
       "typeVersion": 1.5,
-      "position": [
-        -3000,
-        2960
-      ],
+      "position": [-3000, 2960],
       "id": "3a0839e2-c6a9-4901-88dc-3bb023ddd3ea",
       "name": "SC10:2025 - Denial Of Service",
       "onError": "continueRegularOutput"
@@ -499,10 +418,7 @@
       },
       "type": "@n8n/n8n-nodes-langchain.chainLlm",
       "typeVersion": 1.5,
-      "position": [
-        -3000,
-        2160
-      ],
+      "position": [-3000, 2160],
       "id": "09f25abd-9e68-4e62-a7ce-189299c419cd",
       "name": "SC06:2025 - Unchecked External Calls",
       "onError": "continueRegularOutput"
@@ -534,10 +450,7 @@
       },
       "type": "n8n-nodes-base.if",
       "typeVersion": 2.2,
-      "position": [
-        -3660,
-        1260
-      ],
+      "position": [-3660, 1260],
       "id": "88541cd6-b81b-42cd-b52a-9ca78e37ddef",
       "name": "If"
     },
@@ -548,10 +461,7 @@
       },
       "type": "n8n-nodes-base.respondToWebhook",
       "typeVersion": 1.1,
-      "position": [
-        -2404,
-        2060
-      ],
+      "position": [-2404, 2060],
       "id": "5a106850-33c3-4ce4-94b3-93f5e5a6a84e",
       "name": "Respond to Webhook1"
     }

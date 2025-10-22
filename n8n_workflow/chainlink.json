@@ -9,10 +9,7 @@
       },
       "type": "n8n-nodes-base.stickyNote",
       "typeVersion": 1,
-      "position": [
-        -3640,
-        -700
-      ],
+      "position": [-3640, -700],
       "id": "0f56cc7d-909c-4b4c-b2a8-5a37d0580cca",
       "name": "Sticky Note"
     },
@@ -23,10 +20,7 @@
       },
       "type": "n8n-nodes-base.stickyNote",
       "typeVersion": 1,
-      "position": [
-        -1580,
-        -1200
-      ],
+      "position": [-1580, -1200],
       "id": "039fd270-1e00-4ad8-87c9-ff475a0ee3f5",
       "name": "Sticky Note1"
     },
@@ -37,10 +31,7 @@
       },
       "type": "n8n-nodes-base.stickyNote",
       "typeVersion": 1,
-      "position": [
-        -1580,
-        -1000
-      ],
+      "position": [-1580, -1000],
       "id": "1a75c367-a79f-466f-ad8f-243260ae9555",
       "name": "Sticky Note2"
     },
@@ -51,10 +42,7 @@
       },
       "type": "n8n-nodes-base.stickyNote",
       "typeVersion": 1,
-      "position": [
-        -1580,
-        -800
-      ],
+      "position": [-1580, -800],
       "id": "d6c28820-dc2a-4010-aa64-a2541b8faa34",
       "name": "Sticky Note3"
     },
@@ -65,10 +53,7 @@
       },
       "type": "n8n-nodes-base.stickyNote",
       "typeVersion": 1,
-      "position": [
-        -1580,
-        -600
-      ],
+      "position": [-1580, -600],
       "id": "79951526-fcfe-4e0e-b817-b86788744145",
       "name": "Sticky Note4"
     },
@@ -79,10 +64,7 @@
       },
       "type": "n8n-nodes-base.stickyNote",
       "typeVersion": 1,
-      "position": [
-        -1580,
-        -400
-      ],
+      "position": [-1580, -400],
       "id": "e8912beb-ec78-416e-8511-e07e4237e15a",
       "name": "Sticky Note5"
     },
@@ -93,10 +75,7 @@
       },
       "type": "n8n-nodes-base.stickyNote",
       "typeVersion": 1,
-      "position": [
-        -1580,
-        -180
-      ],
+      "position": [-1580, -180],
       "id": "87db5687-6011-4b9e-91cd-18ccea160357",
       "name": "Sticky Note6"
     },
@@ -107,10 +86,7 @@
       },
       "type": "n8n-nodes-base.stickyNote",
       "typeVersion": 1,
-      "position": [
-        -1580,
-        20
-      ],
+      "position": [-1580, 20],
       "id": "2e354c39-b999-460d-bc32-ad0179797dcf",
       "name": "Sticky Note7"
     },
@@ -121,10 +97,7 @@
       },
       "type": "n8n-nodes-base.stickyNote",
       "typeVersion": 1,
-      "position": [
-        -1580,
-        200
-      ],
+      "position": [-1580, 200],
       "id": "1d665852-ad75-495a-8848-95744529e0ee",
       "name": "Sticky Note8"
     },
@@ -135,10 +108,7 @@
       },
       "type": "n8n-nodes-base.stickyNote",
       "typeVersion": 1,
-      "position": [
-        -1580,
-        380
-      ],
+      "position": [-1580, 380],
       "id": "0ddc4cce-d751-4ed8-9104-7380e408095d",
       "name": "Sticky Note9"
     },
@@ -149,10 +119,7 @@
       },
       "type": "n8n-nodes-base.stickyNote",
       "typeVersion": 1,
-      "position": [
-        -1580,
-        580
-      ],
+      "position": [-1580, 580],
       "id": "4fcdad1b-7f14-4b57-8cc7-287ab769cb42",
       "name": "Sticky Note10"
     },
@@ -167,10 +134,7 @@
       },
       "type": "@n8n/n8n-nodes-langchain.lmChatOpenAi",
       "typeVersion": 1.2,
-      "position": [
-        -2812,
-        -1120
-      ],
+      "position": [-2812, -1120],
       "id": "4130d47f-28a2-4656-a950-ce64dd4d8db5",
       "name": "OpenAI Chat Model",
       "credentials": {
@@ -187,10 +151,7 @@
       },
       "type": "@n8n/n8n-nodes-langchain.outputParserStructured",
       "typeVersion": 1.2,
-      "position": [
-        -2692,
-        -1120
-      ],
+      "position": [-2692, -1120],
       "id": "a2857a08-23dc-464f-a89f-cb6f6342506f",
       "name": "Structured Output Parser"
     },
@@ -203,10 +164,7 @@
       },
       "type": "n8n-nodes-base.webhook",
       "typeVersion": 2,
-      "position": [
-        -3720,
-        -990
-      ],
+      "position": [-3720, -990],
       "id": "67f5a987-4aca-4715-89ea-6b0b4e7f34c7",
       "name": "Webhook",
       "webhookId": "61275b63-9ad4-4d35-9808-ec60e24829a1"
@@ -219,10 +177,7 @@
       },
       "type": "n8n-nodes-base.respondToWebhook",
       "typeVersion": 1.1,
-      "position": [
-        -3280,
-        -1140
-      ],
+      "position": [-3280, -1140],
       "id": "d8933d34-2a70-4268-b99d-f0ddbd0a812b",
       "name": "Respond to Webhook"
     },
@@ -242,10 +197,7 @@
       },
       "type": "n8n-nodes-base.set",
       "typeVersion": 3.4,
-      "position": [
-        -3060,
-        -990
-      ],
+      "position": [-3060, -990],
       "id": "140d148a-a22d-4f07-b262-8f38cb5ed9c7",
       "name": "Edit Fields"
     },
@@ -262,10 +214,7 @@
       },
       "type": "@n8n/n8n-nodes-langchain.chainLlm",
       "typeVersion": 1.5,
-      "position": [
-        -2840,
-        -940
-      ],
+      "position": [-2840, -940],
       "id": "311fb901-bc3f-48b0-964a-9e566853f4cb",
       "name": "Chainlink-Not Checking For Down L2 Sequencer",
       "onError": "continueRegularOutput"
@@ -283,10 +232,7 @@
       },
       "type": "@n8n/n8n-nodes-langchain.chainLlm",
       "typeVersion": 1.5,
-      "position": [
-        -2840,
-        -1340
-      ],
+      "position": [-2840, -1340],
       "id": "08d156c5-7156-4581-b7d8-c8c466ce517d",
       "name": "Chainlink-Not Checking For Stale Prices",
       "onError": "continueRegularOutput"
@@ -304,10 +250,7 @@
       },
       "type": "@n8n/n8n-nodes-langchain.chainLlm",
       "typeVersion": 1.5,
-      "position": [
-        -2840,
-        -740
-      ],
+      "position": [-2840, -740],
       "id": "283ad600-d7c4-4976-a83b-a91cc19fd790",
       "name": "Chainlink-Same Heartbeat Used For Multiple Price Feeds"
     },
@@ -324,10 +267,7 @@
       },
       "type": "@n8n/n8n-nodes-langchain.chainLlm",
       "typeVersion": 1.5,
-      "position": [
-        -2840,
-        -540
-      ],
+      "position": [-2840, -540],
       "id": "47fdef1f-1101-4a70-a1bb-ffe989e29536",
       "name": "Chainlink-Oracle Price Feeds Not Updated Frequently",
       "onError": "continueRegularOutput"
@@ -345,10 +285,7 @@
       },
       "type": "@n8n/n8n-nodes-langchain.chainLlm",
       "typeVersion": 1.5,
-      "position": [
-        -2840,
-        -340
-      ],
+      "position": [-2840, -340],
       "id": "3a21ca3f-403a-49d3-93e3-5c3b8935a5e2",
       "name": "Chainlink-Request Confirmation < Depth of Chain Re-Orgs",
       "onError": "continueRegularOutput"
@@ -366,10 +303,7 @@
       },
       "type": "@n8n/n8n-nodes-langchain.chainLlm",
       "typeVersion": 1.5,
-      "position": [
-        -2840,
-        -140
-      ],
+      "position": [-2840, -140],
       "id": "65a80715-e671-4ff8-a734-90265e3f9647",
       "name": "Chainlink-Assuming Oracle Price Precision",
       "onError": "continueRegularOutput"
@@ -387,10 +321,7 @@
       },
       "type": "@n8n/n8n-nodes-langchain.chainLlm",
       "typeVersion": 1.5,
-      "position": [
-        -2840,
-        60
-      ],
+      "position": [-2840, 60],
       "id": "6e84f60f-773a-43f4-bf5a-253ca7a758a2",
       "name": "Chainlink-Incorrect Oracle Price Feed Address",
       "onError": "continueRegularOutput"
@@ -408,10 +339,7 @@
       },
       "type": "@n8n/n8n-nodes-langchain.chainLlm",
       "typeVersion": 1.5,
-      "position": [
-        -2840,
-        260
-      ],
+      "position": [-2840, 260],
       "id": "cd803b03-fca7-4211-8820-96578adc02c1",
       "name": "Chainlink-Oracle Price Updates Can Be Front-Run",
       "onError": "continueRegularOutput"
@@ -429,10 +357,7 @@
       },
       "type": "@n8n/n8n-nodes-langchain.chainLlm",
       "typeVersion": 1.5,
-      "position": [
-        -2840,
-        460
-      ],
+      "position": [-2840, 460],
       "id": "5e8c5e4e-c741-4b82-9427-e509155fdb5b",
       "name": "Chainlink-Unhandled Oracle Revert Denial Of Service",
       "onError": "continueRegularOutput"
@@ -450,10 +375,7 @@
       },
       "type": "@n8n/n8n-nodes-langchain.chainLlm",
       "typeVersion": 1.5,
-      "position": [
-        -2840,
-        660
-      ],
+      "position": [-2840, 660],
       "id": "fd3980ab-51ea-4f57-aee0-5a2afd64243f",
       "name": "Chainlink-Unhandled Depeg Of Bridged Assets",
       "onError": "continueRegularOutput"
@@ -471,10 +393,7 @@
       },
       "type": "@n8n/n8n-nodes-langchain.chainLlm",
       "typeVersion": 1.5,
-      "position": [
-        -2840,
-        860
-      ],
+      "position": [-2840, 860],
       "id": "ee1e85f0-a049-4200-8beb-a5608ce463d1",
       "name": "Chainlink-Oracle Returns Incorrect Price During Flash Crashes",
       "onError": "continueRegularOutput"
@@ -492,10 +411,7 @@
       },
       "type": "@n8n/n8n-nodes-langchain.chainLlm",
       "typeVersion": 1.5,
-      "position": [
-        -2840,
-        1060
-      ],
+      "position": [-2840, 1060],
       "id": "c29e1cd9-9b0e-45d4-ad5a-d4ae57467d2f",
       "name": "Chainlink-Placing Bets After Randomness Request",
       "onError": "continueRegularOutput"
@@ -513,10 +429,7 @@
       },
       "type": "@n8n/n8n-nodes-langchain.chainLlm",
       "typeVersion": 1.5,
-      "position": [
-        -2840,
-        1260
-      ],
+      "position": [-2840, 1260],
       "id": "2c23c2a6-1afa-4af5-9060-c4eda2793ef6",
       "name": "Chainlink-Re-requesting Randomness",
       "onError": "continueRegularOutput"
@@ -527,10 +440,7 @@
       },
       "type": "n8n-nodes-base.merge",
       "typeVersion": 3,
-      "position": [
-        -2464,
-        1060
-      ],
+      "position": [-2464, 1060],
       "id": "6734b202-aadd-4edb-a2c7-4eb7df00a029",
       "name": "Merge3"
     },
@@ -540,10 +450,7 @@
       },
       "type": "n8n-nodes-base.merge",
       "typeVersion": 3,
-      "position": [
-        -2464,
-        -387
-      ],
+      "position": [-2464, -387],
       "id": "435dfc98-a4d7-43a8-b658-9d4cd2e67d1c",
       "name": "Merge4"
     },
@@ -551,10 +458,7 @@
       "parameters": {},
       "type": "n8n-nodes-base.merge",
       "typeVersion": 3,
-      "position": [
-        -2244,
-        360
-      ],
+      "position": [-2244, 360],
       "id": "96191e1f-8a6d-4554-a056-003fbf429b65",
       "name": "Merge5"
     },
@@ -564,10 +468,7 @@
       },
       "type": "@n8n/n8n-nodes-langchain.chatTrigger",
       "typeVersion": 1.1,
-      "position": [
-        -3060,
-        1010
-      ],
+      "position": [-3060, 1010],
       "id": "3d775d06-22be-4cdf-b1fd-c4f71e76b234",
       "name": "When chat message received",
       "webhookId": "e2d689b8-1b1d-4b65-9a99-45efc7282832"
@@ -579,10 +480,7 @@
       },
       "type": "n8n-nodes-base.respondToWebhook",
       "typeVersion": 1.1,
-      "position": [
-        -2024,
-        360
-      ],
+      "position": [-2024, 360],
       "id": "7e8327b2-6146-4547-ba9a-c33d774f9dbd",
       "name": "Respond to Webhook1"
     },
@@ -613,10 +511,7 @@
       },
       "type": "n8n-nodes-base.if",
       "typeVersion": 2.2,
-      "position": [
-        -3500,
-        -990
-      ],
+      "position": [-3500, -990],
       "id": "718ccf3f-6a36-4840-bcea-83e4e6002f0b",
       "name": "If"
     }

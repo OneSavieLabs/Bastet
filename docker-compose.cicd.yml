@@ -1,0 +1,84 @@
+services:
+  postgres:
+    image: postgres:16
+    container_name: postgres
+    environment:
+      - POSTGRES_DB=n8n
+      - POSTGRES_USER=test
+      - POSTGRES_PASSWORD=test
+      - POSTGRES_NON_ROOT_USER=test
+      - POSTGRES_NON_ROOT_PASSWORD=test
+    ports:
+      - "5432:5432"
+    volumes:
+      - db_storage:/var/lib/postgresql/data
+      - ./init:/docker-entrypoint-initdb.d
+    restart: unless-stopped
+    healthcheck:
+      test: ["CMD-SHELL", "pg_isready -h localhost -U test -d n8n"]
+      interval: 3s
+      timeout: 3s
+      retries: 10
+    networks:
+      - bastetnet
+  n8n:
+    image: docker.n8n.io/n8nio/n8n:1.112.5
+    restart: always
+    environment:
+      - DB_TYPE=postgresdb
+      - DB_POSTGRESDB_HOST=postgres
+      - DB_POSTGRESDB_PORT=5432
+      - DB_POSTGRESDB_DATABASE=n8n
+      - DB_POSTGRESDB_USER=test
+      - DB_POSTGRESDB_PASSWORD=test
+      - N8N_ENCRYPTION_KEY=Usa7yBcHbWMc
+      - N8N_ENFORCE_SETTINGS_FILE_PERMISSIONS=true
+      - EXECUTIONS_DATA_SAVE_ON_PROGRESS=true
+    ports:
+      - 5678:5678
+    volumes:
+      - n8n_storage:/home/node/.n8n
+    healthcheck:
+      test:
+        [
+          "CMD",
+          "wget",
+          "--no-verbose",
+          "--tries=1",
+          "--spider",
+          "http://localhost:5678/healthz",
+        ]
+      interval: 3s
+      timeout: 3s
+      retries: 5
+    depends_on:
+      postgres:
+        condition: service_healthy
+    networks:
+      - bastetnet
+  bastet:
+    build: .
+    container_name: bastet
+    environment:
+      - OPENAI_API_KEY=${OPENAI_API_KEY}
+      - OPENAI_API_BASE=${OPENAI_API_BASE}
+      - N8N_API_KEY=eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJzdWIiOiI3MDQ3ZTYxYi1hMTE5LTRmYTgtOGJjMS1jOTA1YzU0ZWI1NDUiLCJpc3MiOiJuOG4iLCJhdWQiOiJwdWJsaWMtYXBpIiwiaWF0IjoxNzU4Nzk0NDg1fQ.-LhC0WplBkRUuiOqVPsFZXNIeaEiqDOgKQDqm2PDtPM
+    depends_on:
+      postgres:
+        condition: service_healthy
+      n8n:
+        condition: service_healthy
+    volumes:
+      - n8n_storage:/home/node/.n8n
+      - db_storage:/var/lib/postgresql/data
+    command: ["/bin/bash", "-c", "tail -f /dev/null"]
+    networks:
+      - bastetnet
+
+volumes:
+  n8n_storage:
+  db_storage:
+
+networks:
+  bastetnet:
+    driver: bridge

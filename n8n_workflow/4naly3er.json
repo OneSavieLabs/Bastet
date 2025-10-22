@@ -9,10 +9,7 @@
       "name": "When chat message received",
       "type": "@n8n/n8n-nodes-langchain.chatTrigger",
       "typeVersion": 1.1,
-      "position": [
-        -2600,
-        2070
-      ],
+      "position": [-2600, 2070],
       "webhookId": "45e4d06b-bcc3-4b56-af90-9a1e235cf99d"
     },
     {
@@ -26,10 +23,7 @@
       },
       "type": "@n8n/n8n-nodes-langchain.lmChatOpenAi",
       "typeVersion": 1.2,
-      "position": [
-        -2352,
-        -260
-      ],
+      "position": [-2352, -260],
       "id": "a600682d-ceeb-4abb-b819-612fc2b20d76",
       "name": "OpenAI Chat Model",
       "credentials": {
@@ -46,10 +40,7 @@
       },
       "type": "@n8n/n8n-nodes-langchain.outputParserStructured",
       "typeVersion": 1.2,
-      "position": [
-        -2232,
-        -260
-      ],
+      "position": [-2232, -260],
       "id": "18104f19-9e90-4782-badb-fe30e9455db3",
       "name": "Structured Output Parser"
     },
@@ -66,10 +57,7 @@
       },
       "type": "@n8n/n8n-nodes-langchain.chainLlm",
       "typeVersion": 1.5,
-      "position": [
-        -2380,
-        2120
-      ],
+      "position": [-2380, 2120],
       "id": "e26cb663-fe18-4241-a034-d984e22689eb",
       "name": "4naly3er-M-blockNumberL",
       "onError": "continueRegularOutput"
@@ -83,10 +71,7 @@
       },
       "type": "n8n-nodes-base.webhook",
       "typeVersion": 2,
-      "position": [
-        -3260,
-        -80
-      ],
+      "position": [-3260, -80],
       "id": "ed1d7924-1d36-4803-bd1b-e724d770ee51",
       "name": "Webhook",
       "webhookId": "9d847310-c121-4ecc-a223-86bda388904a"
@@ -99,10 +84,7 @@
       },
       "type": "n8n-nodes-base.respondToWebhook",
       "typeVersion": 1.1,
-      "position": [
-        -2820,
-        -230
-      ],
+      "position": [-2820, -230],
       "id": "05e4eeed-9da4-4d9b-a7b9-cbd89528e3c6",
       "name": "Respond to Webhook"
     },
@@ -122,10 +104,7 @@
       },
       "type": "n8n-nodes-base.set",
       "typeVersion": 3.4,
-      "position": [
-        -2600,
-        -80
-      ],
+      "position": [-2600, -80],
       "id": "c2069642-b830-4680-9a3e-82ed0f58c166",
       "name": "Edit Fields"
     },
@@ -135,10 +114,7 @@
       },
       "type": "n8n-nodes-base.merge",
       "typeVersion": 3,
-      "position": [
-        -2004,
-        -80
-      ],
+      "position": [-2004, -80],
       "id": "29ce4b9a-2ef5-4894-8924-7de0ecab85b4",
       "name": "Gas"
     },
@@ -148,10 +124,7 @@
       },
       "type": "n8n-nodes-base.merge",
       "typeVersion": 3,
-      "position": [
-        -2004,
-        678
-      ],
+      "position": [-2004, 678],
       "id": "8d1a131b-b1ea-46b1-a93c-63c90abcf5e3",
       "name": "High"
     },
@@ -161,10 +134,7 @@
       },
       "type": "n8n-nodes-base.merge",
       "typeVersion": 3,
-      "position": [
-        -2004,
-        1757
-      ],
+      "position": [-2004, 1757],
       "id": "8bb63cda-e142-4f92-bca5-c1de0fb74eae",
       "name": "Medium"
     },
@@ -174,10 +144,7 @@
       },
       "type": "n8n-nodes-base.merge",
       "typeVersion": 3,
-      "position": [
-        -1784,
-        720
-      ],
+      "position": [-1784, 720],
       "id": "028a8e7d-2224-432a-923b-33c619a0d863",
       "name": "Final"
     },
@@ -194,10 +161,7 @@
       },
       "type": "@n8n/n8n-nodes-langchain.chainLlm",
       "typeVersion": 1.5,
-      "position": [
-        -2380,
-        -480
-      ],
+      "position": [-2380, -480],
       "id": "d9384565-5ec9-478b-81ea-e74899505ea8",
       "name": "4naly3er-GAS-ERC721usage",
       "onError": "continueRegularOutput"
@@ -215,10 +179,7 @@
       },
       "type": "@n8n/n8n-nodes-langchain.chainLlm",
       "typeVersion": 1.5,
-      "position": [
-        -2380,
-        -80
-      ],
+      "position": [-2380, -80],
       "id": "ad4ba2f0-fc2f-4b00-be30-0818c271e247",
       "name": "4naly3er-GAS-addPlusEqual",
       "onError": "continueRegularOutput"
@@ -236,10 +197,7 @@
       },
       "type": "@n8n/n8n-nodes-langchain.chainLlm",
       "typeVersion": 1.5,
-      "position": [
-        -2380,
-        120
-      ],
+      "position": [-2380, 120],
       "id": "48c88bdb-c493-4495-8cc5-ecda59099091",
       "name": "4naly3er-GAS-_msgSender",
       "onError": "continueRegularOutput"
@@ -257,10 +215,7 @@
       },
       "type": "@n8n/n8n-nodes-langchain.chainLlm",
       "typeVersion": 1.5,
-      "position": [
-        -2380,
-        320
-      ],
+      "position": [-2380, 320],
       "id": "d5b2898b-278a-4c36-b156-92c82f97eef0",
       "name": "4naly3er-H-comparisonOutsideCondition",
       "onError": "continueRegularOutput"
@@ -278,10 +233,7 @@
       },
       "type": "@n8n/n8n-nodes-langchain.chainLlm",
       "typeVersion": 1.5,
-      "position": [
-        -2380,
-        520
-      ],
+      "position": [-2380, 520],
       "id": "af460585-2f1b-4a86-b6fe-78dc7ad81ea8",
       "name": "4naly3er-H-wstETHPriceStEth",
       "onError": "continueRegularOutput"
@@ -299,10 +251,7 @@
       },
       "type": "@n8n/n8n-nodes-langchain.chainLlm",
       "typeVersion": 1.5,
-      "position": [
-        -2380,
-        720
-      ],
+      "position": [-2380, 720],
       "id": "658e10d6-af89-4e4c-82e1-d5d938d41b99",
       "name": "4naly3er-H-delegateCallInLoop",
       "onError": "continueRegularOutput"
@@ -320,10 +269,7 @@
       },
       "type": "@n8n/n8n-nodes-langchain.chainLlm",
       "typeVersion": 1.5,
-      "position": [
-        -2380,
-        920
-      ],
+      "position": [-2380, 920],
       "id": "fc939de2-2a74-435e-be0f-888196dcaa6b",
       "name": "4naly3er-H-get_dy_underlyingFlashLoan",
       "onError": "continueRegularOutput"
@@ -341,10 +287,7 @@
       },
       "type": "@n8n/n8n-nodes-langchain.chainLlm",
       "typeVersion": 1.5,
-      "position": [
-        -2380,
-        1120
-      ],
+      "position": [-2380, 1120],
       "id": "2cf50c46-882a-44a8-91b5-f3ec7b37cd51",
       "name": "4naly3er-H-msg.valueInLoop",
       "onError": "continueRegularOutput"
@@ -362,10 +305,7 @@
       },
       "type": "@n8n/n8n-nodes-langchain.chainLlm",
       "typeVersion": 1.5,
-      "position": [
-        -2380,
-        1320
-      ],
+      "position": [-2380, 1320],
       "id": "5a6a000b-0a4a-416c-8441-90bd91c9bc44",
       "name": "4naly3er-M-FoTTokens",
       "onError": "continueRegularOutput"
@@ -383,10 +323,7 @@
       },
       "type": "@n8n/n8n-nodes-langchain.chainLlm",
       "typeVersion": 1.5,
-      "position": [
-        -2380,
-        1520
-      ],
+      "position": [-2380, 1520],
       "id": "f5074142-df8a-4f61-a3df-525bc418dfca",
       "name": "4naly3er-M-NFTRedefinesMint",
       "onError": "continueRegularOutput"
@@ -404,10 +341,7 @@
       },
       "type": "@n8n/n8n-nodes-langchain.chainLlm",
       "typeVersion": 1.5,
-      "position": [
-        -2380,
-        1720
-      ],
+      "position": [-2380, 1720],
       "id": "00b3d5e6-53d7-46e7-93bd-7b39849fe132",
       "name": "4naly3er-M-approve0first",
       "onError": "continueRegularOutput"
@@ -425,10 +359,7 @@
       },
       "type": "@n8n/n8n-nodes-langchain.chainLlm",
       "typeVersion": 1.5,
-      "position": [
-        -2380,
-        1920
-      ],
+      "position": [-2380, 1920],
       "id": "32bb5b6b-7fcd-434d-ab6a-e9866dd77d95",
       "name": "4naly3er-M-avoidTx.origin"
     },
@@ -445,10 +376,7 @@
       },
       "type": "@n8n/n8n-nodes-langchain.chainLlm",
       "typeVersion": 1.5,
-      "position": [
-        -2380,
-        2320
-      ],
+      "position": [-2380, 2320],
       "id": "c6b3947d-eb71-485f-a4fe-4bd38048b737",
       "name": "4naly3er-M-centralizationRisk",
       "onError": "continueRegularOutput"
@@ -480,10 +408,7 @@
       },
       "type": "n8n-nodes-base.if",
       "typeVersion": 2.2,
-      "position": [
-        -3040,
-        -80
-      ],
+      "position": [-3040, -80],
       "id": "daed76cf-1512-42b1-b6dd-66c7de8f5bec",
       "name": "If"
     },
@@ -494,10 +419,7 @@
       },
       "type": "n8n-nodes-base.respondToWebhook",
       "typeVersion": 1.1,
-      "position": [
-        -1564,
-        720
-      ],
+      "position": [-1564, 720],
       "id": "3986ffde-5f93-4164-a8cb-a5ca4ceb03bb",
       "name": "Respond to Webhook1"
     }
