@@ -5,7 +5,6 @@ def fetch_on_chain_contracts(
     import os
     import requests
     import json
-    import shutil
     from tqdm import tqdm
 
     ETHERSCAN_API_KEY = os.getenv("ETHERSCAN_API_KEY")
@@ -17,6 +16,13 @@ def fetch_on_chain_contracts(
     if not address.startswith("0x") or len(address) != 42:
         tqdm.write(f"\033[91m❌ Invalid Ethereum address format: {address}\033[0m")
         return
+
+    output_dir = os.path.join("dataset", "onchain_sources", address)
+    if os.path.exists(output_dir):
+        tqdm.write(f"\033[93m⚠️  Directory already exists. Skip fetching {address}\033[0m")
+        return
+
+    tqdm.write(f"Fetching all related contracts from address: {address}")
 
     api_url = "https://api.etherscan.io/v2/api?chainid=1"
     api_params = {
@@ -31,8 +37,6 @@ def fetch_on_chain_contracts(
         error_message = response_json.get("result")
         tqdm.write(f"\033[91m❌ Etherscan API request failed: {error_message}\033[0m")
         return
-
-    print(f"Fetching all related contracts from address: {address}")
     
     source_entry = response_json.get("result")[0]
     raw_source_code = source_entry.get("SourceCode", "")
@@ -45,10 +49,6 @@ def fetch_on_chain_contracts(
     stripped_code = raw_source_code.strip("{}")
     parsed_code = json.loads("{" + stripped_code + "}")
     source_code = parsed_code.get("sources")
-
-    output_dir = os.path.join("dataset", "onchain_sources", address)
-    if os.path.exists(output_dir):
-        shutil.rmtree(output_dir)
 
     os.makedirs(output_dir, exist_ok=True)
 
