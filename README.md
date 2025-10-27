@@ -298,14 +298,18 @@ Bastet supports automated CI/CD workflows for both GitHub and GitLab, enabling s
 
 #### GitHub Actions
 
-You can find example CI/CD configurations in `.github/action` and `.github/workflows` directories of this repository. Use these as references to build your own custom CI/CD pipeline for Bastet in GitLab. Adjust stages, environment variables, and workflow steps as needed for your project requirements.
+You can find example CI/CD configurations in `.exmaple.github/action` and `.exmaple.github/workflows` directories of this repository. Use these as references to build your own custom CI/CD pipeline for Bastet in GitLab. Adjust stages, environment variables, and workflow steps as needed for your project requirements.
 
-You may customize which vulnerability you want to detect in `.github/action/.example.action.yml`
+You may customize which vulnerability you want to detect in `.exmaple.github/action/action.yml`
 
 ```bash
 docker-compose -f docker-compose.cicd.yml exec -T bastet \
-         echo 'all' | poetry run python /app/cli/main.py init --n8n-url http://n8n:5678
+bash -c "echo 'all' | poetry run python /app/cli/main.py init --n8n-url http://n8n:5678"
 ```
+
+##### Video Guide
+
+[![](https://img.youtube.com/vi/ouQ0zSDU3pM/0.jpg)](https://youtu.be/UXLVsn4A2pw)
 
 #### GitLab CI
 
@@ -316,9 +320,13 @@ These templates will automatically run Bastet scans on your smart contracts when
 You may customize which vulnerability you want to detect in `.example.gitlab-ci.yml`
 
 ```bash
-docker-compose -f docker-compose.cicd.yml exec -T bastet \
-         echo 'all' | poetry run python /app/cli/main.py init --n8n-url http://n8n:5678
+docker-compose -f docker-compose.cicd.yml exec -T bastet
+bash -c "echo 'all' | poetry run python /app/cli/main.py init --n8n-url http://n8n:5678"
 ```
+
+##### Video Guide
+
+[![](https://img.youtube.com/vi/ouQ0zSDU3pM/0.jpg)](https://youtu.be/blqctKe_WJs)
 
 ## Conference
 

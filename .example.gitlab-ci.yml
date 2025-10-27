@@ -42,7 +42,7 @@ bastet:
     # 8. owasp2025.json
     # please input the file number to import (comma separated, e.g. '1, 3, 5') or 'all' to import all
     - docker-compose -f docker-compose.cicd.yml exec -T bastet
-      echo 'all' | poetry run python /app/cli/main.py init --n8n-url http://n8n:5678
+      bash -c "echo 'all' | poetry run python /app/cli/main.py init --n8n-url http://n8n:5678"
     # Run the scan
     - docker-compose -f docker-compose.cicd.yml exec -T bastet
       poetry run python ./cli/main.py scan 
