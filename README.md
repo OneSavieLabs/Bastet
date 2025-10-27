@@ -307,6 +307,10 @@ docker-compose -f docker-compose.cicd.yml exec -T bastet \
 bash -c "echo 'all' | poetry run python /app/cli/main.py init --n8n-url http://n8n:5678"
 ```
 
+##### Video Guide
+
+[![](https://img.youtube.com/vi/ouQ0zSDU3pM/0.jpg)](https://youtu.be/UXLVsn4A2pw)
+
 #### GitLab CI
 
 Add a stage to your `.gitlab-ci.yml` file, follow the `.example.gitlab-ci.yml`
@@ -319,6 +323,10 @@ You may customize which vulnerability you want to detect in `.example.gitlab-ci.
 docker-compose -f docker-compose.cicd.yml exec -T bastet
 bash -c "echo 'all' | poetry run python /app/cli/main.py init --n8n-url http://n8n:5678"
 ```
+
+##### Video Guide
+
+[![](https://img.youtube.com/vi/ouQ0zSDU3pM/0.jpg)](https://youtu.be/blqctKe_WJs)
 
 ## Conference
 

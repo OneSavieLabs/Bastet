@@ -39,7 +39,7 @@ runs:
       shell: bash
       working-directory: ../bastet-cicd
       run: |
-        docker-compose -f docker-compose.cicd.yml down --remove-orphans || true
+        docker-compose -f docker-compose.cicd.yml down -v --remove-orphans || true
     
     - name: Start PostgreSQL
       shell: bash
