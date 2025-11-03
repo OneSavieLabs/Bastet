@@ -16,6 +16,10 @@ def scan_v1(
     from tqdm import tqdm
     from utils.report_generator import generate_json, generate_md, generate_pdf
 
+    if not os.path.exists(output_path):
+        os.makedirs(output_path)
+        tqdm.write(f"📁 Output directory ready: {output_path}")
+
     tqdm.write("Scanning contracts...")
 
     contract_files = glob.glob(os.path.join(folder_path, "**/*.sol"), recursive=True)
