@@ -117,6 +117,20 @@ poetry run python cli/main.py init
 
 You will see the all workflows we provided currently. (default activated, if you want to skip some workflow, please deactivate it in n8n (http://localhost:5678/home/workflows)
 
+### 🍻 Support Our Work 🍻
+If you appreciate our work and would like to support what we’re building, even a small contribution means a lot. 💕💕💕 
+Your support helps us keep moving forward!
+Let’s make Web3 better together.
+
+**Donation Address: 0xb2BecD73347EDE268bb1A9Ff785015f3cdC83F2d** 
+
+We accept donations on the following chains:
+- Ethreum,
+- Base
+- BNB Chain
+- Arbitrum
+
+
 ## Usage
 
 ### Fetch On-Chain Contracts by Address
