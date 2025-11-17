@@ -95,7 +95,7 @@
         "model": {
           "__rl": true,
           "mode": "list",
-          "value": "gpt-4o-mini"
+          "value": "os-azure-gpt4o-mini"
         },
         "options": {}
       },
@@ -109,8 +109,8 @@
       "name": "OpenAI Chat Model",
       "credentials": {
         "openAiApi": {
-          "id": "tEEn6jt3WDpqef7b",
-          "name": "OpenAi account"
+          "id": "CTriG2vXMeT3vzPH",
+          "name": "OpenAI Credentials"
         }
       }
     },
@@ -333,6 +333,16 @@
             "node": "COT - flashloan price manipulation attack",
             "type": "main",
             "index": 0
+          },
+          {
+            "node": "COT - flashloan vote manipulation attack",
+            "type": "main",
+            "index": 0
+          },
+          {
+            "node": "COT - flashloan reward manipulation attack",
+            "type": "main",
+            "index": 0
           }
         ]
       ]
@@ -407,10 +417,10 @@
   "settings": {
     "executionOrder": "v1"
   },
-  "versionId": "7c8cb380-d126-4fe1-87d4-95757cfe06a0",
+  "versionId": "9321fb7c-5be1-46ec-a28c-21e3cded6eff",
   "meta": {
-    "instanceId": "4a069146204bb94ad0f34441729eed3339b62949be5e1b6286f0403fac9092a4"
+    "instanceId": "f839b7ae33d4bab8c0e6053fad2787e1ad0bd33854a965624f05316a09f93d09"
   },
-  "id": "zlUBwG4xuIooLKgg",
+  "id": "a888M87JIbVKX9SU",
   "tags": []
 }
