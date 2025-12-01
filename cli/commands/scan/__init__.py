@@ -1,6 +1,7 @@
 import typer
 
 from . import scan
+from .scan_kaggle import scan_v2
 
 app = typer.Typer()
 
@@ -59,3 +60,35 @@ def default(
             output_path=output_path,
             output_formats=output_formats,
         )
+
+
+@app.command("scan_v2")
+def scan_kaggle(
+    folder_path: str = typer.Option(
+        "./dataset/scan_queue/",
+        "--folder-path",
+        help="The folder path to scan",
+    ),
+    n8n_url: str = typer.Option(
+        "http://localhost:5678",
+        "--n8n-url",
+        help="The url of the n8n.",
+    ),
+    report_name: str = typer.Option(
+        "audit_report",
+        "--report-name",
+        help="The base name of the report files",
+    ),
+    output_path: str = typer.Option(
+        "./scan_report/",
+        "--output-path",
+        help="The folder path to store the output",
+    ),
+):
+
+    scan_v2(
+        folder_path=folder_path,
+        n8n_url=n8n_url,
+        report_name=report_name,
+        output_path=output_path,
+    )
