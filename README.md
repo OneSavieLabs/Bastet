@@ -118,18 +118,19 @@ poetry run python cli/main.py init
 You will see the all workflows we provided currently. (default activated, if you want to skip some workflow, please deactivate it in n8n (http://localhost:5678/home/workflows)
 
 ## 🍻 Support Our Work 🍻
-If you appreciate our work and would like to support what we’re building, even a small contribution means a lot. 💕💕💕 
+
+If you appreciate our work and would like to support what we’re building, even a small contribution means a lot. 💕💕💕
 Your support helps us keep moving forward!
 Let’s make Web3 better together.
 
-**Donation Address: 0xb2BecD73347EDE268bb1A9Ff785015f3cdC83F2d** 
+**Donation Address: 0xb2BecD73347EDE268bb1A9Ff785015f3cdC83F2d**
 
 We accept donations on the following chains:
+
 - Ethreum,
 - Base
 - BNB Chain
 - Arbitrum
-
 
 ## Usage
 
@@ -146,7 +147,7 @@ Then, run the following command to download the verified contract source code (c
 poetry run python cli/main.py fetch --address <CONTRACT_ADDRESS>
 ```
 
-  The downloaded source code will be stored in `dataset/onchain-sources/<CONTRACT_ADDRESS>`. Users can select the files they need for further processing or analysis.
+The downloaded source code will be stored in `dataset/onchain-sources/<CONTRACT_ADDRESS>`. Users can select the files they need for further processing or analysis.
 
 > ⚠️ **Important:** The use of data obtained through the **Etherscan API** is subject to [Etherscan’s API Terms of Service](https://etherscan.io/apiterms). Users should ensure compliance when handling downloaded contract sources.
 
@@ -340,7 +341,7 @@ bash -c "echo 'all' | poetry run python /app/cli/main.py init --n8n-url http://n
 
 ##### Video Guide
 
-[![](https://img.youtube.com/vi/ouQ0zSDU3pM/0.jpg)](https://youtu.be/UXLVsn4A2pw)
+[![](https://img.youtube.com/vi/ouQ0zSDU3pM/0.jpg)](https://youtu.be/CrYDTCoWPdY)
 
 #### GitLab CI
 
@@ -357,7 +358,7 @@ bash -c "echo 'all' | poetry run python /app/cli/main.py init --n8n-url http://n
 
 ##### Video Guide
 
-[![](https://img.youtube.com/vi/ouQ0zSDU3pM/0.jpg)](https://youtu.be/blqctKe_WJs)
+[![](https://img.youtube.com/vi/ouQ0zSDU3pM/0.jpg)](https://youtu.be/iT_wngvebYo)
 
 ## Conference
 
