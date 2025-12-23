@@ -9,7 +9,7 @@ def scan_v2(
 
     import pandas as pd
     import requests
-    from models.audit_report import AuditReport, AuditReportV2
+    from models.audit_report import AuditReportV2
     from models.n8n.node import WebhookNode
     from pydantic import ValidationError
     from tqdm import tqdm
@@ -37,7 +37,9 @@ def scan_v2(
     if workflows:
         tqdm.write(f"Found {len(workflows)} active processor workflows.")
         tqdm.write(f"-" * 50)
-        vulnerabilities: list[tuple[str, AuditReportV2]] = []
+        vul_key_set = set()
+        vulnerabilities: list[AuditReportV2] = []
+
         # audit_reports: list[AuditReport] = []
         for contract_file in tqdm(
             contract_files,
@@ -51,7 +53,6 @@ def scan_v2(
         ):
             tqdm.write(f"start scanning contract: {contract_file}")
             tqdm.write(f"-" * 50)
-            contract_name = os.path.basename(contract_file)
             with open(contract_file, "r") as file:
                 contract_content = file.read()
                 file.close()
@@ -131,7 +132,16 @@ def scan_v2(
                                 continue
                             try:
                                 vulnerability = AuditReportV2(**report_json)
-                                vulnerabilities.append((contract_name, vulnerability))
+                                vul_key = ",".join(
+                                    vulnerability.tag + vulnerability.subtag
+                                )
+                                if vul_key in vul_key_set:
+                                    tqdm.write(
+                                        "\033[91m❌ Duplicate vulnerability found, skipping...\033[0m"
+                                    )
+                                    continue
+                                vulnerabilities.append(vulnerability)
+                                vul_key_set.add(vul_key)
                                 cnt += 1
                             except ValidationError as e:
                                 tqdm.write(
@@ -152,17 +162,15 @@ def scan_v2(
         df = pd.DataFrame(
             [
                 {
-                    "File Name": contract_name,
-                    "Tag": report.tag,
-                    "Subtag": report.subtag,
+                    "Tag": ",".join(report.tag),
+                    "Subtag": ",".join(report.subtag),
                     "Severity": report.severity,
                     "Description": report.description,
                 }
-                for contract_name, report in vulnerabilities
+                for report in vulnerabilities
             ]
         )
 
-        md_content = ""
         if not os.path.exists(output_path):
             os.makedirs(output_path, exist_ok=True)
 

@@ -67,7 +67,7 @@ def scan_kaggle(
     folder_path: str = typer.Option(
         "./dataset/scan_queue/",
         "--folder-path",
-        help="The folder path to scan",
+        help="The path to repo to scan",
     ),
     n8n_url: str = typer.Option(
         "http://localhost:5678",
