@@ -1,7 +1,7 @@
 import os
 import re
 from collections import defaultdict
-from typing import Dict, List, Optional, Set
+from typing import Dict, List, Optional
 
 import tree_sitter
 import tree_sitter_solidity
@@ -38,12 +38,12 @@ class SourceBundler:
 
         # Tracks which files import which other files
         self.imported_libraries = defaultdict(
-            List
+            list
         )  # Maps file_path -> list of imported files
 
         # Tracks the complete dependency stack for each file (all transitive dependencies)
         self.dependency_stacks = defaultdict(
-            Set
+            set
         )  # Maps file_path -> set of all dependencies
 
         # Caches the concatenated source code for each file
@@ -126,31 +126,23 @@ class SourceBundler:
             project_root: The root directory of the project
 
         Returns:
-            Normalized relative path if the file exists, None otherwise
+            Normalized path if the file exists, None otherwise
         """
-        original_cwd = os.getcwd()
+        # Determine the base directory for resolving the import
+        if "./" in import_path or import_path.startswith("../"):
+            # Relative import - resolve from source file's directory
+            base_dir = os.path.dirname(source_file)
+        else:
+            # Absolute import - resolve from project root
+            base_dir = project_root
 
-        try:
-            # Determine which directory to resolve from
-            if "./" in import_path:
-                # Relative import - resolve from source file's directory
-                os.chdir(os.path.dirname(source_file))
-            else:
-                # Absolute import - resolve from project root
-                os.chdir(os.path.dirname(project_root))
+        # Resolve the import path
+        resolved_path = os.path.normpath(os.path.join(base_dir, import_path))
+        # Check if the import target exists
+        if not os.path.exists(resolved_path):
+            return None
 
-            # Check if the import target exists
-            if not os.path.exists(import_path):
-                return None
-
-            # Convert to absolute path and then to relative path from project root
-            absolute_path = os.path.abspath(import_path)
-            relative_path = os.path.relpath(absolute_path, original_cwd)
-
-            return relative_path
-
-        finally:
-            os.chdir(original_cwd)
+        return resolved_path
 
     def _extract_imports(self, file_path: str, project_root: str) -> None:
         """
@@ -161,7 +153,6 @@ class SourceBundler:
             project_root: Root directory of the project
         """
         language_name = self._detect_language(file_path)
-
         if not language_name or language_name not in self.languages:
             print(f"Unsupported language for file: {file_path}")
             return
@@ -195,12 +186,12 @@ class SourceBundler:
                 )
 
                 # Normalize and verify the import path
-                normalized_path = self._normalize_import_path(
+                normalized_import_path = self._normalize_import_path(
                     file_path, import_path, project_root
                 )
 
-                if normalized_path:
-                    self.imported_libraries[file_path].append(normalized_path)
+                if normalized_import_path:
+                    self.imported_libraries[file_path].append(normalized_import_path)
 
     def bundle_project(self, project_root: str) -> Dict:
         """
@@ -213,9 +204,14 @@ class SourceBundler:
         for root, _, files in os.walk(project_root):
             for filename in files:
                 file_path = os.path.join(root, filename)
-
+                file_path = os.path.normpath(file_path)
                 if self._detect_language(file_path):
                     self._extract_imports(file_path, project_root)
+        for root, _, files in os.walk(project_root):
+            for file in files:
+                file_path = os.path.join(root, file)
+                file_path = os.path.normpath(file_path)
+                if self._detect_language(file_path):
                     self._build_concatenated_source(file_path)
         return self.concatenated_sources
 
@@ -262,8 +258,7 @@ class SourceBundler:
 
                 # Add separator comment and append the imported code
                 main_source += (
-                    f"\n// ---- Code imported from: {dependency} ----\n"
-                    + imported_source
+                    f"====== Code imported from: {dependency} ======" + imported_source
                 )
 
         # Remove comments from the final concatenated source

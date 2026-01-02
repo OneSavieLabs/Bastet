@@ -4,7 +4,7 @@ def scan_v2(
     report_name: str,
     output_path: str,
 ):
-    import glob
+
     import os
 
     import pandas as pd
@@ -13,10 +13,12 @@ def scan_v2(
     from models.n8n.node import WebhookNode
     from pydantic import ValidationError
     from tqdm import tqdm
+    from utils.source_bundler import SourceBundler
 
     tqdm.write("Scanning contracts...")
+    source_bundler = SourceBundler(["solidity"])
+    contract_files = source_bundler.bundle_project(folder_path)
 
-    contract_files = glob.glob(os.path.join(folder_path, "**/*.sol"), recursive=True)
     total_files = len(contract_files)
     tqdm.write(f"Found {total_files} contract files.")
 
@@ -39,10 +41,9 @@ def scan_v2(
         tqdm.write(f"-" * 50)
         vul_key_set = set()
         vulnerabilities: list[AuditReportV2] = []
-
         # audit_reports: list[AuditReport] = []
-        for contract_file in tqdm(
-            contract_files,
+        for contract_path, contract_content in tqdm(
+            contract_files.items(),
             desc="Processing contracts",
             unit="file",
             ncols=100,
@@ -51,12 +52,8 @@ def scan_v2(
             mininterval=0.01,
             # file=sys.stdout,
         ):
-            tqdm.write(f"start scanning contract: {contract_file}")
+            tqdm.write(f"start scanning contract: {contract_path}")
             tqdm.write(f"-" * 50)
-            with open(contract_file, "r") as file:
-                contract_content = file.read()
-                file.close()
-
             for workflow in tqdm(
                 workflows,
                 desc="Fetching workflows",
@@ -150,11 +147,11 @@ def scan_v2(
                                 continue
                     if cnt == 0:
                         tqdm.write(
-                            f"\033[92m✅ No vulnerability found in contract: {contract_file}\033[0m"
+                            f"\033[92m✅ No vulnerability found in contract: {contract_path}\033[0m"
                         )
                     else:
                         tqdm.write(
-                            f"\033[93m⚠️ Found {cnt} vulnerabilities in contract: {contract_file}\033[0m"
+                            f"\033[93m⚠️ Found {cnt} vulnerabilities in contract: {contract_path}\033[0m"
                         )
                 tqdm.write(f"-" * 50)
 
