@@ -243,11 +243,12 @@ class SourceBundler:
         if self.imported_libraries[file_path]:
             # Recursively process all imports
             for imported_file in self.imported_libraries[file_path]:
+                if imported_file in visited_files:
+                    continue  # Avoid circular dependencies
                 self.concatenated_sources[imported_file] = (
                     self._build_concatenated_source(imported_file)
                 )
-                if imported_file not in visited_files:
-                    visited_files.update(self.dependency_stacks[imported_file])
+                visited_files.update(self.dependency_stacks[imported_file])
 
             # Concatenate all imported source code
             for dependency in visited_files:
