@@ -246,7 +246,8 @@ class SourceBundler:
                 self.concatenated_sources[imported_file] = (
                     self._build_concatenated_source(imported_file)
                 )
-                visited_files.update(self.dependency_stacks[imported_file])
+                if imported_file not in visited_files:
+                    visited_files.update(self.dependency_stacks[imported_file])
 
             # Concatenate all imported source code
             for dependency in visited_files:
