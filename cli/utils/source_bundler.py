@@ -45,7 +45,7 @@ class SourceBundler:
         self.dependency_stacks = defaultdict(
             set
         )  # Maps file_path -> set of all dependencies
-
+        self.current_recursive_stack = set()
         # Caches the concatenated source code for each file
         self.concatenated_sources = {}  # Maps file_path -> concatenated source code
 
@@ -243,11 +243,16 @@ class SourceBundler:
         if self.imported_libraries[file_path]:
             # Recursively process all imports
             for imported_file in self.imported_libraries[file_path]:
-                if imported_file in visited_files:
-                    continue  # Avoid circular dependencies
+                if (
+                    imported_file in self.current_recursive_stack
+                    or imported_file in visited_files
+                ):
+                    continue
+                self.current_recursive_stack.add(imported_file)
                 self.concatenated_sources[imported_file] = (
                     self._build_concatenated_source(imported_file)
                 )
+                self.current_recursive_stack.remove(imported_file)
                 visited_files.update(self.dependency_stacks[imported_file])
 
             # Concatenate all imported source code
@@ -268,7 +273,7 @@ class SourceBundler:
 
         # Cache the dependency stack for this file
         self.dependency_stacks[file_path] = visited_files
-
+        self.concatenated_sources[file_path] = main_source
         return main_source
 
     def _remove_comments(self, source_code: str) -> str:
