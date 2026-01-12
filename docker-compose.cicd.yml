@@ -22,7 +22,7 @@ services:
     networks:
       - bastetnet
   n8n:
-    image: docker.n8n.io/n8nio/n8n:1.112.5
+    image: docker.n8n.io/n8nio/n8n:1.123.11
     restart: always
     environment:
       - DB_TYPE=postgresdb
