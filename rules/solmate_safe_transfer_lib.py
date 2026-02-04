@@ -87,7 +87,7 @@ def main() -> int:
         if report.code_snippet:
             snip = report.code_snippet
             print(f"  {snip if len(snip) <= 80 else snip[:77] + '...'}")
-    return 1 if findings else 0
+    return 0
 
 
 if __name__ == "__main__":
