@@ -15,14 +15,14 @@ services:
       - ./init:/docker-entrypoint-initdb.d
     restart: unless-stopped
     healthcheck:
-      test: ["CMD-SHELL", "pg_isready -h localhost -U test -d n8n"]
+      test: [ "CMD-SHELL", "pg_isready -h localhost -U test -d n8n" ]
       interval: 3s
       timeout: 3s
       retries: 10
     networks:
       - bastetnet
   n8n:
-    image: docker.n8n.io/n8nio/n8n:1.123.11
+    image: docker.n8n.io/n8nio/n8n:latest
     restart: always
     environment:
       - DB_TYPE=postgresdb
@@ -72,7 +72,7 @@ services:
     volumes:
       - n8n_storage:/home/node/.n8n
       - db_storage:/var/lib/postgresql/data
-    command: ["/bin/bash", "-c", "tail -f /dev/null"]
+    command: [ "/bin/bash", "-c", "tail -f /dev/null" ]
     networks:
       - bastetnet
 
