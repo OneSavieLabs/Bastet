@@ -368,6 +368,7 @@ bash -c "echo 'all' | poetry run python /app/cli/main.py init --n8n-url http://n
 | 2025-04-17 | CyberSec 2025   | AI-Driven Smart Contract Vulnerability Detection                                          | [CyberSec-2025](./slide/CyberSec-2025.pdf)     |
 | 2025-08-09 | COSCUP 2025     | AI x Smart Contract: What Static Analysis Tools Can't Do, Leave It to Prompt Engineering! | [COSCUP-2025](./slide/COSCUP-2025.pdf)         |
 | 2026-04-23 | Black Hat Asia 2026     | Bastet - AI Smart Contract Vulnerability Detector| [BLACKHAT ASIA 2026](./slide/Blackhat-Asia-2026.pdf)   |
+| 2026-08-05 | Black Hat USA 2026 | Bastet: An Infrastructure for Benchmarking LLM Smart Contract Auditing | [BLACKHAT USA 2026](./slide/Blackhat-USA-2026.pdf) |
 
 ## Disclaimer
 
